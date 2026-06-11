@@ -1,0 +1,9 @@
+{
+  "name": "felipe-vergel-funciones",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Funciones serverless (webhook de Wompi) para felipevergel.com",
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  }
+}

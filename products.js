@@ -1,6 +1,7 @@
 const PRODUCTS=[
   {
     "id": "bandeja-maxi-rect-ondas",
+    "sku": "BAN-001",
     "cat": "bandejas",
     "name": "Maxi Bandeja Trama",
     "price": 310000,
@@ -22,6 +23,7 @@ const PRODUCTS=[
   },
   {
     "id": "bandeja-hoja-maxi-irregular",
+    "sku": "BAN-002",
     "cat": "bandejas",
     "name": "Hoja Orgánica Midi",
     "price": 260000,
@@ -43,6 +45,7 @@ const PRODUCTS=[
   },
   {
     "id": "bandeja-hoja-midi-relieve",
+    "sku": "BAN-003",
     "cat": "bandejas",
     "name": "Hoja Orgánica",
     "price": 190000,
@@ -65,6 +68,7 @@ const PRODUCTS=[
   },
   {
     "id": "bandeja-hoja-jaspeada-xl",
+    "sku": "BAN-004",
     "cat": "bandejas",
     "name": "Hoja Orgánica Maxi",
     "price": 310000,
@@ -84,6 +88,7 @@ const PRODUCTS=[
   },
   {
     "id": "centro-mesa-redondo-mosaico",
+    "sku": "CEN-001",
     "cat": "centros-mesa",
     "name": "Centro de Mesa Mosaico",
     "price": 190000,
@@ -106,6 +111,7 @@ const PRODUCTS=[
   },
   {
     "id": "centro-mesa-ovalado-franjas",
+    "sku": "CEN-002",
     "cat": "centros-mesa",
     "name": "Centro de Mesa Oval Vetas",
     "price": 300000,
@@ -127,6 +133,7 @@ const PRODUCTS=[
   },
   {
     "id": "centro-mesa-ovalado-mosaico",
+    "sku": "CEN-003",
     "cat": "centros-mesa",
     "name": "Centro de Mesa Oval Mosaico",
     "price": 310000,
@@ -149,6 +156,7 @@ const PRODUCTS=[
   },
   {
     "id": "centro-mesa-conico-mosaico",
+    "sku": "CEN-004",
     "cat": "centros-mesa",
     "name": "Centro de Mesa Cónico Mosaico",
     "price": 300000,
@@ -172,6 +180,7 @@ const PRODUCTS=[
   },
   {
     "id": "centro-mesa-conico-degrade",
+    "sku": "CEN-005",
     "cat": "centros-mesa",
     "name": "Centro de Mesa Cónico Degradé",
     "price": 300000,
@@ -191,6 +200,7 @@ const PRODUCTS=[
   },
   {
     "id": "centro-mesa-ovalado-hojas",
+    "sku": "CEN-006",
     "cat": "centros-mesa",
     "name": "Centro de Mesa Oval Hojas",
     "price": 300000,
@@ -213,6 +223,7 @@ const PRODUCTS=[
   },
   {
     "id": "centro-mesa-conico-hojas",
+    "sku": "CEN-007",
     "cat": "centros-mesa",
     "name": "Centro de Mesa Cónico Hojas",
     "price": 300000,
@@ -235,6 +246,7 @@ const PRODUCTS=[
   },
   {
     "id": "centro-mesa-cuadrado-mosaico",
+    "sku": "CEN-008",
     "cat": "centros-mesa",
     "name": "Centro de Mesa Cuadrado Mosaico",
     "price": 300000,
@@ -255,6 +267,7 @@ const PRODUCTS=[
   },
   {
     "id": "centro-mesa-ovalado-liso",
+    "sku": "CEN-009",
     "cat": "centros-mesa",
     "name": "Centro de Mesa Oval",
     "price": 280000,
@@ -278,6 +291,7 @@ const PRODUCTS=[
   },
   {
     "id": "centro-mesa-conico-franjas",
+    "sku": "CEN-010",
     "cat": "centros-mesa",
     "name": "Centro de Mesa Cónico Vetas",
     "price": 300000,
@@ -300,6 +314,7 @@ const PRODUCTS=[
   },
   {
     "id": "florero-triptico",
+    "sku": "FLO-001",
     "cat": "floreros",
     "name": "Florero Tríptico",
     "price": 160000,
@@ -323,6 +338,7 @@ const PRODUCTS=[
   },
   {
     "id": "florero-alto-irregular",
+    "sku": "FLO-002",
     "cat": "floreros",
     "name": "Florero Alto Irregular",
     "price": 260000,
@@ -346,6 +362,7 @@ const PRODUCTS=[
   },
   {
     "id": "florero-irregular-boca-ancha",
+    "sku": "FLO-003",
     "cat": "floreros",
     "name": "Florero Ondas",
     "price": 270000,
@@ -368,6 +385,7 @@ const PRODUCTS=[
   },
   {
     "id": "florero-diptico",
+    "sku": "FLO-004",
     "cat": "floreros",
     "name": "Díptico",
     "price": 50000,
@@ -391,6 +409,7 @@ const PRODUCTS=[
   },
   {
     "id": "mini-florero",
+    "sku": "FLO-005",
     "cat": "floreros",
     "name": "Mini Florero",
     "price": 50000,
@@ -412,6 +431,7 @@ const PRODUCTS=[
   },
   {
     "id": "vaso-florero",
+    "sku": "FLO-006",
     "cat": "floreros",
     "name": "Vaso Florero",
     "price": 95000,
@@ -434,6 +454,7 @@ const PRODUCTS=[
   },
   {
     "id": "solitario-circular",
+    "sku": "SOL-001",
     "cat": "solitarios",
     "name": "Solitario Circular",
     "price": 80000,
@@ -457,6 +478,7 @@ const PRODUCTS=[
   },
   {
     "id": "solitario-guitarra",
+    "sku": "SOL-002",
     "cat": "solitarios",
     "name": "Solitario Guitarra",
     "price": 80000,
@@ -480,6 +502,7 @@ const PRODUCTS=[
   },
   {
     "id": "solitario-teja",
+    "sku": "SOL-003",
     "cat": "solitarios",
     "name": "Solitario Teja",
     "price": 80000,
@@ -507,6 +530,7 @@ const PRODUCTS=[
   },
   {
     "id": "porta-plantas-individual",
+    "sku": "PPN-001",
     "cat": "porta-plantas",
     "name": "Porta Plantas Individual",
     "price": 90000,
@@ -530,6 +554,7 @@ const PRODUCTS=[
   },
   {
     "id": "porta-plantas-doble",
+    "sku": "PPN-002",
     "cat": "porta-plantas",
     "name": "Porta Plantas Doble",
     "price": 180000,
@@ -553,6 +578,7 @@ const PRODUCTS=[
   },
   {
     "id": "porta-plantas-triple",
+    "sku": "PPN-003",
     "cat": "porta-plantas",
     "name": "Porta Plantas Triple",
     "price": 250000,
@@ -576,6 +602,7 @@ const PRODUCTS=[
   },
   {
     "id": "porta-matera",
+    "sku": "PPN-004",
     "cat": "porta-plantas",
     "name": "Porta Matera Versátil",
     "price": 250000,
@@ -598,6 +625,7 @@ const PRODUCTS=[
   },
   {
     "id": "porta-pasabocas-doble",
+    "sku": "PED-001",
     "cat": "pedestales",
     "name": "Porta Pasabocas Doble",
     "price": 160000,
@@ -620,6 +648,7 @@ const PRODUCTS=[
   },
   {
     "id": "plato-postre",
+    "sku": "VAJ-001",
     "cat": "vajilla",
     "name": "Plato Postre",
     "price": 31000,
@@ -641,6 +670,7 @@ const PRODUCTS=[
   },
   {
     "id": "plato-ensalada",
+    "sku": "VAJ-002",
     "cat": "vajilla",
     "name": "Plato Ensalada",
     "price": 41000,
@@ -662,6 +692,7 @@ const PRODUCTS=[
   },
   {
     "id": "plato-cena",
+    "sku": "VAJ-003",
     "cat": "vajilla",
     "name": "Plato Principal",
     "price": 51000,
@@ -683,6 +714,7 @@ const PRODUCTS=[
   },
   {
     "id": "pedestal-repostero",
+    "sku": "PED-002",
     "cat": "pedestales",
     "name": "Pedestal Repostero",
     "price": 230000,
@@ -705,6 +737,7 @@ const PRODUCTS=[
   },
   {
     "id": "portavasos-cuadrados",
+    "sku": "PVS-001",
     "cat": "portavasos",
     "name": "Porta Vasos Vetas",
     "price": 20000,
@@ -726,6 +759,7 @@ const PRODUCTS=[
   },
   {
     "id": "centro-mesa-conico",
+    "sku": "CEN-011",
     "cat": "centros-mesa",
     "name": "Centro de Mesa Cónico",
     "price": 280000,
@@ -747,6 +781,7 @@ const PRODUCTS=[
   },
   {
     "id": "bandeja-vetas",
+    "sku": "BAN-005",
     "cat": "bandejas",
     "name": "Bandeja Vetas",
     "price": 280000,

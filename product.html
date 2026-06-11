@@ -379,6 +379,7 @@ if(!product){
 
   // Specs
   $("#pSpecs").innerHTML=`
+    ${product.sku?`<dt>Referencia</dt><dd>${product.sku}</dd>`:''}
     <dt>Tamaño</dt><dd>${product.size}</dd>
     <dt>Materiales</dt><dd>${product.materials}</dd>
     <dt>Usos</dt><dd>${product.uses}</dd>
@@ -453,7 +454,7 @@ if(!product){
     const key=product.id+"::"+curColor;
     const existing=cart.find(i=>i.key===key);
     if(existing)existing.qty+=qty;
-    else cart.push({key,id:product.id,name:product.name,color:curColor,qty,price:product.price,img:product.images[0]});
+    else cart.push({key,id:product.id,sku:product.sku||"",name:product.name,color:curColor,qty,price:product.price,img:product.images[0]});
     saveCart(cart);
     showToast(`Agregado: ${qty}× ${product.name} (${curColor})`);
   }

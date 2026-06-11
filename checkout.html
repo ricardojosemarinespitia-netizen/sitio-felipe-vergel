@@ -416,7 +416,7 @@ if(emailjsListo){ try{ emailjs.init({publicKey:EMAILJS_PUBLIC_KEY}); }catch(e){}
 // Envía la factura a Felipe + la confirmación al comprador
 async function enviarCorreos(pedido){
   if(!emailjsListo)return; // si no está configurado, no hace nada
-  const lineas=pedido.cart.map(i=>`${i.qty}x ${i.name} (${i.color}) - ${fmt(i.price*i.qty)}`).join("\n");
+  const lineas=pedido.cart.map(i=>`${i.qty}x ${i.sku?`[${i.sku}] `:''}${i.name} (${i.color}) - ${fmt(i.price*i.qty)}`).join("\n");
   // Datos base comunes
   const base={
     referencia: pedido.ref,
@@ -450,13 +450,26 @@ async function enviarCorreos(pedido){
     nombre: pedido.fullName,
     to_email: EMAIL_FELIPE,
     asunto: `Nuevo pedido · ${pedido.ref} · ${fmt(pedido.total)}`,
-    mensaje: msgFelipe
+    mensaje: msgFelipe,
+    // Casillas individuales del template (antes salían vacías porque no se pasaban)
+    email_cliente: pedido.email,
+    telefono: pedido.phone,
+    fecha: fechaHoy,
+    referencia: pedido.ref,
+    productos: lineas,
+    codigo_descuento: pedido.discountCode||"",
+    direccion: entrega,
+    total: (pedido.total||0).toLocaleString("es-CO")
   };
   const paramsCliente={
     nombre: pedido.fullName,
     to_email: pedido.email,
     asunto: `Tu pedido está confirmado · ${pedido.ref}`,
-    mensaje: msgCliente
+    mensaje: msgCliente,
+    referencia: pedido.ref,
+    productos: lineas,
+    subtotal: fmt(pedido.subtotal),
+    total: (pedido.total||0).toLocaleString("es-CO")
   };
   const resultados=await Promise.allSettled([
     emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TPL_FELIPE,  paramsFelipe),  // → felipevergelarteenvidrio@gmail.com
@@ -590,11 +603,17 @@ $("#btnPay").onclick=async()=>{
   };
   // Guardar como PENDIENTE (no confirmado hasta que Wompi apruebe el pago)
   try{localStorage.setItem("fv_pending_order",JSON.stringify(pedido))}catch(e){}
+  // Persistir el pedido en el servidor (Netlify) para que el WEBHOOK de Wompi pueda
+  // registrarlo y enviar correos AUNQUE el cliente no dé "Volver al comercio".
+  // Fire-and-forget: si la función no está desplegada, no afecta el flujo normal.
+  if(paymentMethod==="pse"){
+    try{fetch("/.netlify/functions/save-pending",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(pedido)})}catch(e){}
+  }
 
   if(paymentMethod==="whatsapp"){
     guardarPedido(pedido);
     if(window.FVPerfil) window.FVPerfil.addOrder({ref:pedido.ref,fecha:new Date().toISOString(),items:pedido.cart.map(i=>({name:i.name,qty:i.qty,price:i.price})),total:pedido.total,metodo:"WhatsApp",estado:"WHATSAPP"});
-    const lines=cart.map(i=>`• ${i.qty}× ${i.name} (${i.color}) — ${fmt(i.price*i.qty)}`).join("\n");
+    const lines=cart.map(i=>`• ${i.qty}× ${i.sku?`[${i.sku}] `:''}${i.name} (${i.color}) — ${fmt(i.price*i.qty)}`).join("\n");
     const discLine=discountAmt>0?`\nDescuento (${pedido.discountCode}): -${fmt(discountAmt)}`:"";
     const envioLine=`\nSubtotal: ${fmt(subtotal)}${discLine}\nEnvío: ${shipping>0?fmt(shipping):"Gratis (zona metropolitana de Bucaramanga)"}`;
     const msg=`Hola Felipe! Soy ${fullName}.\n\nMe gustaría confirmar este pedido:\n\n${lines}${envioLine}\n\n*Total: ${fmt(total)}*\n\nMis datos:\nCorreo: ${info.email}\nDocumento: ${info.docId}\nTeléfono: ${info.phone}\nDirección: ${fullAddress}\nCiudad: ${info.city}\n\nReferencia: ${ref}\n\n¿Cómo continuamos?`;
@@ -647,7 +666,7 @@ $("#btnPay").onclick=async()=>{
 // Save order to Google Forms
 async function guardarPedido(order){
   const {ref,email,fullName,docId,address,city,zipCode,phone,cart:c,total}=order;
-  const productos=c.map(i=>`${i.qty}× ${i.name} (${i.color}) — ${fmt(i.price*i.qty)}`).join(" | ");
+  const productos=c.map(i=>`${i.qty}× ${i.sku?`[${i.sku}] `:''}${i.name} (${i.color}) — ${fmt(i.price*i.qty)}`).join(" | ");
   // Guardamos referencia + correo + productos en la descripción para que el correo
   // del comprador quede en el Excel. (Va embebido, no como celda-correo suelta, para
   // que el panel del Club NO lo cuente como suscriptor.)
@@ -714,25 +733,33 @@ async function guardarPedido(order){
 
   const pedido=(()=>{try{return JSON.parse(localStorage.getItem("fv_pending_order")||"null")}catch(e){return null}})();
 
-  if(status==="APPROVED"){
-    if(pedido){
-      await guardarPedido(pedido);
-      enviarCorreos(pedido);
-      if(window.FVPerfil) window.FVPerfil.addOrder({ref:pedido.ref,fecha:new Date().toISOString(),items:pedido.cart.map(i=>({name:i.name,qty:i.qty,price:i.price})),total:pedido.total,metodo:"Wompi PSE",estado:"APROBADO"});
+  // APPROVED = pago confirmado (tarjeta). PENDING = pago PSE/Bancolombia en proceso
+  // (el banco confirma minutos después, pero la venta ES real). En AMBOS casos
+  // registramos el pedido y enviamos los correos para no perder ninguna venta.
+  if(status==="APPROVED" || status==="PENDING"){
+    if(pedido && !sessionStorage.getItem("fv_done_"+pedido.ref)){
+      sessionStorage.setItem("fv_done_"+pedido.ref,"1"); // evita doble registro si recarga
+      try{ await guardarPedido(pedido); }catch(e){ console.error("guardarPedido:",e); }
+      try{ await enviarCorreos(pedido); }catch(e){ console.error("enviarCorreos:",e); }
+      // Avisar al servidor que este pedido YA se procesó aquí, para que el webhook
+      // de Wompi no lo registre/envíe por segunda vez.
+      try{fetch("/.netlify/functions/save-pending",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...pedido,_status:"done"})})}catch(e){}
+      if(window.FVPerfil) window.FVPerfil.addOrder({ref:pedido.ref,fecha:new Date().toISOString(),items:pedido.cart.map(i=>({name:i.name,qty:i.qty,price:i.price})),total:pedido.total,metodo:"Wompi PSE",estado:status==="APPROVED"?"APROBADO":"PENDIENTE"});
     }
     $("#waitingView").style.display="none";
-    $("#successView").style.display="block";
-    $("#successRef").textContent="Referencia: "+(pedido?pedido.ref:(p.get("ref")||"—"));
+    if(status==="APPROVED"){
+      $("#successView").style.display="block";
+      $("#successRef").textContent="Referencia: "+(pedido?pedido.ref:(p.get("ref")||"—"));
+    }else{
+      // PENDING: mostrar pantalla de "en proceso" pero la venta YA quedó registrada
+      $("#pendingView").style.display="block";
+      $("#pendingRef").textContent="Referencia: "+(pedido?pedido.ref:(p.get("ref")||"—"));
+    }
     // Limpiar carrito y datos (compra completada)
     localStorage.removeItem("fv_checkout_cart");
     sessionStorage.removeItem("cart");
     localStorage.removeItem("fv_customer_info");
     localStorage.removeItem("fv_pending_order");
-  } else if(status==="PENDING"){
-    // Pago pendiente (transferencia bancaria en proceso)
-    $("#waitingView").style.display="none";
-    $("#pendingView").style.display="block";
-    $("#pendingRef").textContent="Referencia: "+(pedido?pedido.ref:(p.get("ref")||"—"));
   } else {
     // DECLINED, VOIDED, ERROR o no se pudo consultar
     $("#waitingView").style.display="none";

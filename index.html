@@ -1099,7 +1099,7 @@ if(backTop)backTop.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
         const msgFelipeClub=`<p style="font-family:-apple-system,sans-serif;font-size:14px;line-height:1.7;color:#d4e8e6;margin:0;">Nuevo suscriptor vía Google Sign-In.<br><strong style="color:#FAF4ED;">Correo:</strong> ${email}<br><strong style="color:#FAF4ED;">Código:</strong> ${CODE}</p>`;
         const [r1,r2]=await Promise.allSettled([
           emailjs.send(CLUB_EMAILJS_SERVICE,CLUB_EMAILJS_TPL_CLIENTE,{nombre:nombre||"coleccionista",to_email:email,asunto:"Bienvenido al Círculo · Tu 15% de descuento",mensaje:msgClub}),
-          emailjs.send(CLUB_EMAILJS_SERVICE,CLUB_EMAILJS_TPL_FELIPE,{nombre:nombre||"coleccionista",to_email:"felipevergelarteenvidrio@gmail.com",asunto:`Nuevo suscriptor · ${nombre||'coleccionista'}`,mensaje:msgFelipeClub})
+          emailjs.send(CLUB_EMAILJS_SERVICE,CLUB_EMAILJS_TPL_FELIPE,{nombre:nombre||"coleccionista",to_email:"felipevergelarteenvidrio@gmail.com",asunto:`Nuevo suscriptor · ${nombre||'coleccionista'}`,mensaje:msgFelipeClub,email_cliente:email,fecha:new Date().toLocaleDateString("es-CO",{year:"numeric",month:"long",day:"numeric"})})
         ]);
         if(r1.status==="rejected")console.error("Club email cliente:",r1.reason);
         if(r2.status==="rejected")console.error("Club email Felipe:",r2.reason);
@@ -1230,7 +1230,7 @@ if(backTop)backTop.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
       const msgFelipeClub=`<p style="font-family:-apple-system,sans-serif;font-size:14px;line-height:1.7;color:#d4e8e6;margin:0;">Nuevo suscriptor vía formulario.<br><strong style="color:#FAF4ED;">Correo:</strong> ${emailRaw}<br><strong style="color:#FAF4ED;">Código:</strong> ${CODE}</p>`;
       const [rCliente,rFelipe]=await Promise.allSettled([
         emailjs.send(CLUB_EMAILJS_SERVICE,CLUB_EMAILJS_TPL_CLIENTE,{nombre,to_email:emailRaw,asunto:"Bienvenido al Círculo · Tu 15% de descuento",mensaje:msgClub}),
-        emailjs.send(CLUB_EMAILJS_SERVICE,CLUB_EMAILJS_TPL_FELIPE,{nombre,to_email:"felipevergelarteenvidrio@gmail.com",asunto:`Nuevo suscriptor · ${nombre}`,mensaje:msgFelipeClub})
+        emailjs.send(CLUB_EMAILJS_SERVICE,CLUB_EMAILJS_TPL_FELIPE,{nombre,to_email:"felipevergelarteenvidrio@gmail.com",asunto:`Nuevo suscriptor · ${nombre}`,mensaje:msgFelipeClub,email_cliente:emailRaw,fecha:new Date().toLocaleDateString("es-CO",{year:"numeric",month:"long",day:"numeric"})})
       ]);
       if(rFelipe.status==="rejected")console.error("Club email Felipe:",rFelipe.reason);
       if(rCliente.status==="rejected")throw rCliente.reason;
@@ -1384,6 +1384,7 @@ function renderGrid(){
       </div>
       <div class="product-info">
         <h3>${p.name}</h3>
+        ${p.sku?`<div style="font-size:9px;letter-spacing:.1em;color:var(--tinta-soft);opacity:.65;margin-bottom:4px;font-weight:400">Ref. ${p.sku}</div>`:''}
         ${isSold?`<div class="price">Agotado</div>`:`<div class="price-row"><span class="price">${fmt(p.price)}</span><span class="price-old">${fmt(antes)}</span></div>`}
         <div class="view">${isSold?'Ver pieza →':'Ver detalles →'}</div>
       </div>
@@ -1532,7 +1533,7 @@ window.addEventListener("focus",()=>{
     }
   }catch(e){}
 });
-function addToCart(p,color,qty){const k=p.id+"::"+color;const ex=cart.find(i=>i.key===k);if(ex)ex.qty+=qty;else cart.push({key:k,id:p.id,name:p.name,color,qty,price:p.price,img:p.images[0]});saveCart();renderCart()}
+function addToCart(p,color,qty){const k=p.id+"::"+color;const ex=cart.find(i=>i.key===k);if(ex)ex.qty+=qty;else cart.push({key:k,id:p.id,sku:p.sku||"",name:p.name,color,qty,price:p.price,img:p.images[0]});saveCart();renderCart()}
 function renderCart(){
   const items=$("#cartItems");
   if(!cart.length){items.innerHTML=`<div class="cart-empty">Tu carrito está vacío.<br><br><small>Explora las piezas de autor.</small></div>`}
