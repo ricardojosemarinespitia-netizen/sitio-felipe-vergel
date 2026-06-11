@@ -614,7 +614,10 @@ $("#btnPay").onclick=async()=>{
       reference:ref,
       "signature:integrity":signature,
       "customer-email":info.email,
-      "redirect-url":window.location.origin+window.location.pathname+"?ref="+ref
+      // Sin "?ref=" aquí: Wompi añade "?id=...&env=..." al volver. Si ya hubiera
+      // un "?" la URL quedaría malformada y no podríamos leer el id de la transacción.
+      // El pedido se recupera de localStorage (fv_pending_order).
+      "redirect-url":window.location.origin+window.location.pathname
     });
     if(wompiWin){wompiWin.location.href=wompiURL;}else{window.open(wompiURL,"_blank");}
     // PSE: mostrar pantalla "esperando pago" (NO "pedido registrado") hasta que Wompi confirme
