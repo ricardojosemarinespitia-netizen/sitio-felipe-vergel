@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Pieza · Felipe Vergel Arte en Vidrio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<meta name="theme-color" content="#FAF4ED">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="description" content="Pieza única en vidrio del artista plástico Felipe Vergel. Vitrofusión artesanal.">
+<link rel="icon" type="image/svg+xml" href="img/logo/favicon.svg">
+<link rel="alternate icon" type="image/png" href="img/logo/logo_fv_ladrillo.png">
+<link rel="apple-touch-icon" href="img/logo/logo_fv_ladrillo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<script src="perfil.js" defer></script>
+<style>
+@font-face{font-family:'Poppins';font-weight:200;font-style:normal;src:url('fonts/Poppins-ExtraLight.ttf') format('truetype');font-display:swap}
+@font-face{font-family:'Poppins';font-weight:700;font-style:normal;src:url('fonts/Poppins-Bold.ttf') format('truetype');font-display:swap}
+@font-face{font-family:'Poppins';font-weight:800;font-style:normal;src:url('fonts/Poppins-ExtraBold.ttf') format('truetype');font-display:swap}
+
+:root{
+  --verde:#C04C36;--verde-dark:#572932;--verde-soft:#C66E4E;
+  --cobre:#C66E4E;--cobre-dark:#8A391B;
+  --crema:#FAF4ED;--crema-2:#F5E8D8;--crema-rosa:#F3CFB3;
+  --tinta:#3F4443;--tinta-soft:#6B5F5A;--linea:#E8DDD0;
+  --shadow:0 10px 40px -10px rgba(63,68,67,.18);
+  --radius:18px;--radius-sm:12px;--radius-lg:24px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{font-family:'Poppins',-apple-system,sans-serif;font-weight:200;color:var(--tinta);background:var(--crema);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;-webkit-tap-highlight-color:transparent}
+a{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
+button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-tap-highlight-color:transparent}
+img{display:block;max-width:100%;height:auto}
+.h-serif{font-family:'Lora',serif;font-weight:400;font-style:italic}
+
+/* HEADER */
+.p-header{background:rgba(250,244,237,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--linea);padding:18px 0;position:sticky;top:0;z-index:50}
+.p-header-inner{max-width:1280px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.p-logo{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.p-logo img{height:44px;width:auto}
+.p-actions{display:flex;align-items:center;gap:10px}
+.p-back{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-soft);font-weight:200;padding:9px 16px;border-radius:999px;transition:all .25s;border:1px solid transparent;min-height:40px}
+.p-back:hover{background:var(--crema-2);color:var(--verde);border-color:var(--linea)}
+.p-back svg{width:14px;height:14px}
+.p-cart-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;background:var(--verde);color:#fff;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;transition:all .25s;min-height:40px}
+.p-cart-btn:hover{background:var(--verde-dark)}
+.p-cart-btn svg{width:14px;height:14px}
+.p-cart-count{display:inline-flex;align-items:center;justify-content:center;background:var(--crema-rosa);color:var(--verde-dark);min-width:18px;height:18px;border-radius:9px;font-size:10px;font-weight:700;padding:0 6px}
+@media(max-width:640px){
+  .p-header{padding:12px 0}
+  .p-header-inner{padding:0 16px;gap:8px}
+  .p-logo img{height:36px}
+  .p-back span,.p-back{padding:8px 12px;font-size:10px}
+  .p-back span{display:none}
+  .p-cart-btn{padding:8px 14px;font-size:10px}
+  .p-cart-btn span:not(.p-cart-count){display:none}
+}
+
+/* BREADCRUMB */
+.p-crumb{max-width:1280px;margin:0 auto;padding:18px 32px 0;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--tinta-soft);font-weight:200}
+.p-crumb a{color:var(--tinta-soft);transition:color .2s}
+.p-crumb a:hover{color:var(--verde)}
+.p-crumb .sep{margin:0 10px;opacity:.4}
+.p-crumb .current{color:var(--cobre-dark);font-weight:400}
+
+/* MAIN GRID */
+.p-wrap{max-width:1280px;margin:0 auto;padding:30px 32px 80px;display:grid;grid-template-columns:1.15fr 1fr;gap:60px;align-items:start}
+@media(max-width:920px){.p-wrap{grid-template-columns:1fr;gap:32px;padding:24px 24px 60px}}
+@media(max-width:640px){.p-wrap{padding:18px 16px 60px;gap:24px}.p-crumb{padding:14px 16px 0;font-size:10px}}
+
+/* GALLERY */
+.p-gallery{position:sticky;top:110px}
+@media(max-width:920px){.p-gallery{position:static}}
+.p-gallery-main{position:relative;aspect-ratio:1/1;background:var(--crema-2);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:14px;box-shadow:0 8px 30px -10px rgba(63,68,67,.15)}
+.p-gallery-main img{width:100%;height:100%;object-fit:cover;transition:opacity .35s}
+.p-gallery-nav{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;background:rgba(250,244,237,.95);color:var(--verde);display:flex;align-items:center;justify-content:center;font-size:20px;backdrop-filter:blur(8px);transition:all .25s;box-shadow:0 4px 12px -4px rgba(63,68,67,.2)}
+.p-gallery-nav:hover{background:#fff;transform:translateY(-50%) scale(1.08)}
+.p-gallery-nav.prev{left:18px}
+.p-gallery-nav.next{right:18px}
+.p-gallery-counter{position:absolute;bottom:18px;right:18px;background:rgba(63,68,67,.65);color:#fff;padding:6px 12px;border-radius:999px;font-size:11px;letter-spacing:.08em;font-weight:400;backdrop-filter:blur(4px)}
+.p-thumbs{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px}
+.p-thumbs::-webkit-scrollbar{height:6px}
+.p-thumbs::-webkit-scrollbar-thumb{background:var(--linea);border-radius:6px}
+.p-thumb{width:84px;height:84px;flex:0 0 84px;border-radius:var(--radius-sm);overflow:hidden;cursor:pointer;border:2px solid transparent;opacity:.6;transition:all .25s;background:var(--crema-2)}
+.p-thumb img{width:100%;height:100%;object-fit:cover}
+.p-thumb:hover{opacity:1}
+.p-thumb.active{opacity:1;border-color:var(--cobre);transform:translateY(-2px)}
+@media(max-width:640px){
+  .p-thumb{width:64px;height:64px;flex:0 0 64px}
+  .p-gallery-nav{width:42px;height:42px;font-size:18px}
+  .p-gallery-nav.prev{left:12px}.p-gallery-nav.next{right:12px}
+  .p-gallery-counter{bottom:12px;right:12px;font-size:10px;padding:5px 10px}
+}
+
+/* DETAILS */
+.p-details{padding:8px 0}
+.p-eyebrow{display:inline-block;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--cobre);font-weight:700;margin-bottom:14px;padding:6px 12px;background:rgba(243,207,179,.3);border-radius:999px}
+.p-name{font-size:clamp(28px,4vw,42px);margin:0 0 10px;color:var(--verde-dark);font-weight:700;letter-spacing:-.02em;line-height:1.15}
+.p-subtitle{font-family:'Lora',serif;font-style:italic;font-size:15px;color:var(--tinta-soft);margin-bottom:20px;font-weight:400}
+.p-price-wrap{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:18px 0 10px}
+.p-price{font-size:30px;color:var(--cobre-dark);font-weight:700;letter-spacing:-.01em}
+.p-price-old{font-size:18px;color:var(--tinta-soft);font-weight:200;text-decoration:line-through;opacity:.7}
+.p-price-off{font-size:11px;font-weight:700;letter-spacing:.06em;color:#fff;background:var(--verde);padding:5px 12px;border-radius:999px;text-transform:uppercase}
+.p-price-save{font-size:12px;color:var(--verde);font-weight:400;margin:0 0 26px;font-family:'Lora',serif;font-style:italic}
+@media(max-width:640px){.p-price{font-size:26px}.p-price-old{font-size:16px}}
+@media(max-width:640px){
+  .p-name{font-size:26px;line-height:1.18}
+  .p-subtitle{font-size:13px;margin-bottom:16px}
+  .p-price{font-size:24px;margin:14px 0 22px}
+  .p-eyebrow{font-size:9px;letter-spacing:.22em;padding:5px 10px;margin-bottom:12px}
+  .p-divider{margin:18px 0}
+  .p-group{margin-bottom:20px}
+  .p-group label{margin-bottom:10px;font-size:10px}
+  .color-pick{padding:8px 14px;font-size:11.5px;min-height:38px}
+  .qty button{padding:11px 16px;font-size:17px;min-width:44px;min-height:44px}
+  .qty span{padding:0 14px;min-width:28px;font-size:13px}
+  .btn{padding:16px 24px;font-size:11px;min-height:48px}
+  .p-specs{padding:20px 22px;margin-top:26px}
+  .p-specs h4{font-size:11px;margin-bottom:14px}
+  .p-specs dt{font-size:9.5px}
+  .p-specs dd{font-size:12.5px}
+}
+.p-divider{height:1px;background:var(--linea);margin:24px 0}
+
+.p-group{margin-bottom:24px}
+.p-group label{display:block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--tinta-soft);margin-bottom:12px;font-weight:400}
+.color-picks{display:flex;flex-wrap:wrap;gap:8px}
+.color-pick{padding:9px 16px;border:1.5px solid var(--linea);border-radius:999px;font-size:12px;color:var(--verde-dark);background:#fff;transition:all .2s;font-weight:200;cursor:pointer}
+.color-pick:hover{border-color:var(--cobre-dark);color:var(--cobre-dark)}
+.color-pick.active{background:var(--verde);color:#fff;border-color:var(--verde);font-weight:400}
+
+.qty-row{display:flex;align-items:center;gap:16px}
+.qty{display:inline-flex;align-items:center;border:1.5px solid var(--linea);border-radius:999px;overflow:hidden;background:#fff}
+.qty button{padding:12px 18px;color:var(--verde);font-size:18px;background:#fff;transition:background .2s;font-weight:400}
+.qty button:hover{background:var(--crema-2)}
+.qty span{padding:0 18px;min-width:32px;text-align:center;font-weight:700;font-size:14px;color:var(--verde-dark)}
+
+.p-actions-buy{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+.btn{width:100%;padding:18px 28px;border-radius:999px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;cursor:pointer;transition:all .25s;border:none;display:inline-flex;align-items:center;justify-content:center;gap:10px}
+.btn-add{background:var(--verde);color:#fff;box-shadow:0 4px 16px -4px rgba(192,76,54,.4)}
+.btn-add:hover{background:var(--verde-dark);transform:translateY(-2px);box-shadow:0 8px 24px -6px rgba(192,76,54,.5)}
+.btn-add:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.btn-buy-now{background:var(--cobre);color:#fff}
+.btn-buy-now:hover{background:var(--cobre-dark)}
+.btn svg{width:16px;height:16px}
+
+/* SPECS */
+.p-specs{background:#fff;border:1px solid var(--linea);border-radius:var(--radius-lg);padding:24px 28px;margin-top:32px}
+.p-specs h4{margin:0 0 18px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--verde-dark);font-weight:700}
+.p-specs dl{margin:0;display:grid;grid-template-columns:120px 1fr;gap:14px 20px;font-size:13px}
+.p-specs dt{color:var(--tinta-soft);font-weight:400;text-transform:uppercase;font-size:10px;letter-spacing:.12em;padding-top:2px}
+.p-specs dd{margin:0;color:var(--tinta);font-weight:200}
+@media(max-width:560px){.p-specs dl{grid-template-columns:1fr;gap:6px 0}.p-specs dt{margin-top:10px}}
+
+/* INFO BLOCKS */
+.p-info-blocks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+@media(max-width:560px){.p-info-blocks{grid-template-columns:1fr}}
+.p-info-block{display:flex;align-items:flex-start;gap:12px;padding:16px;background:var(--crema-2);border-radius:var(--radius-sm);font-size:12px;color:var(--tinta);font-weight:200;line-height:1.5}
+.p-info-block svg{width:20px;height:20px;flex-shrink:0;color:var(--cobre-dark);margin-top:2px}
+.p-info-block strong{display:block;font-weight:700;color:var(--verde-dark);margin-bottom:2px;font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+
+/* TOAST */
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--verde-dark);color:#fff;padding:16px 28px;border-radius:999px;font-size:13px;font-weight:400;display:flex;align-items:center;gap:10px;box-shadow:0 12px 40px -8px rgba(87,41,50,.4);z-index:200;transition:transform .35s cubic-bezier(.4,0,.2,1);max-width:90vw}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast svg{width:18px;height:18px;color:var(--crema-rosa);flex-shrink:0}
+.toast a{color:var(--crema-rosa);text-decoration:underline;font-weight:700;margin-left:6px}
+
+/* ERROR STATE */
+.p-error{max-width:600px;margin:80px auto;text-align:center;padding:40px 24px}
+.p-error h2{color:var(--verde-dark);font-size:24px;margin-bottom:10px}
+.p-error p{color:var(--tinta-soft);margin-bottom:24px}
+.p-error a{display:inline-block;padding:14px 28px;background:var(--verde);color:#fff;border-radius:999px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+.p-error a:hover{background:var(--verde-dark)}
+
+/* FOOTER */
+.p-footer{text-align:center;padding:30px 20px;font-size:11px;color:var(--tinta-soft);font-weight:200;letter-spacing:.05em;border-top:1px solid var(--linea);background:var(--crema-2)}
+
+/* FLOATING WhatsApp BUTTON */
+.wa-float{position:fixed;bottom:26px;right:26px;z-index:90;width:56px;height:56px;border-radius:50%;background:#25d366;color:#fff;box-shadow:0 4px 18px -4px rgba(37,211,102,.45),0 2px 6px rgba(0,0,0,.12);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);text-decoration:none}
+.wa-float::before{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:0 0 0 0 rgba(37,211,102,.45);animation:wapulse 2.6s ease-in-out infinite;pointer-events:none}
+.wa-float:hover{transform:scale(1.08) translateY(-2px);background:#1fb655}
+.wa-float svg{width:28px;height:28px;stroke-width:1.7;position:relative;z-index:1}
+@keyframes wapulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.5)}70%{box-shadow:0 0 0 18px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
+@media(max-width:640px){.wa-float{width:52px;height:52px;bottom:18px;right:18px}.wa-float svg{width:26px;height:26px}}
+
+/* BOTÓN VOLVER (página anterior) */
+.back-float{position:fixed;bottom:26px;left:26px;z-index:90;width:48px;height:48px;border-radius:50%;background:rgba(87,41,50,.9);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .35s cubic-bezier(.4,0,.2,1);box-shadow:0 4px 16px -4px rgba(87,41,50,.45);backdrop-filter:blur(8px);border:none}
+.back-float:hover{background:var(--verde-dark);transform:translateY(-3px)}
+.back-float svg{width:20px;height:20px}
+@media(max-width:640px){.back-float{width:44px;height:44px;bottom:18px;left:18px}}
+</style>
+</head>
+<body>
+
+<header class="p-header">
+  <div class="p-header-inner">
+    <a href="index.html" class="p-logo">
+      <img src="img/logo/logo_fv_ladrillo.png" alt="Felipe Vergel Arte en Vidrio">
+    </a>
+    <div class="p-actions">
+      <a href="index.html#catalogo" class="p-back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Catálogo
+      </a>
+      <button id="navProfile" aria-label="Mi perfil"></button>
+      <a href="customer-info.html" class="p-cart-btn" id="cartBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span>Carrito</span>
+        <span class="p-cart-count" id="cartCount">0</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<nav class="p-crumb" aria-label="Breadcrumb">
+  <a href="index.html">Inicio</a>
+  <span class="sep">›</span>
+  <a href="index.html#catalogo">Piezas de Autor</a>
+  <span class="sep">›</span>
+  <span class="current" id="crumbName">Pieza</span>
+</nav>
+
+<main class="p-wrap" id="productView">
+  <section class="p-gallery">
+    <div class="p-gallery-main">
+      <img id="mainImg" src="" alt="">
+      <button class="p-gallery-nav prev" id="navPrev" aria-label="Imagen anterior">‹</button>
+      <button class="p-gallery-nav next" id="navNext" aria-label="Imagen siguiente">›</button>
+      <div class="p-gallery-counter" id="counter">1 / 1</div>
+    </div>
+    <div class="p-thumbs" id="thumbs"></div>
+  </section>
+
+  <section class="p-details">
+    <span class="p-eyebrow">Vitrofusión artesanal</span>
+    <h1 class="p-name" id="pName">Cargando…</h1>
+    <p class="p-subtitle">Pieza única de autor en vidrio · creada a mano por Felipe Vergel</p>
+    <div class="p-price-wrap">
+      <span class="p-price" id="pPrice"></span>
+      <span class="p-price-old" id="pPriceOld"></span>
+      <span class="p-price-off" id="pPriceOff"></span>
+    </div>
+    <p class="p-price-save" id="pPriceSave"></p>
+
+    <div class="p-divider"></div>
+
+    <div class="p-group">
+      <label>Color / Textura</label>
+      <div class="color-picks" id="pColors"></div>
+    </div>
+
+    <div class="p-group">
+      <label>Cantidad</label>
+      <div class="qty-row">
+        <div class="qty">
+          <button id="qMinus" aria-label="Disminuir">−</button>
+          <span id="qVal">1</span>
+          <button id="qPlus" aria-label="Aumentar">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-actions-buy">
+      <button class="btn btn-add" id="btnAdd">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        Agregar al carrito
+      </button>
+      <button class="btn btn-buy-now" id="btnBuyNow">
+        Comprar ahora
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </div>
+
+    <div class="p-specs">
+      <h4>Detalles de la pieza</h4>
+      <dl id="pSpecs"></dl>
+    </div>
+
+    <div class="p-info-blocks">
+      <div class="p-info-block">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        <div><strong>Pieza única</strong>Cada obra es irrepetible en forma, color y textura.</div>
+      </div>
+      <div class="p-info-block">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <div><strong>Hecha a mano</strong>Vitrofusión artesanal en taller del artista.</div>
+      </div>
+      <div class="p-info-block">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        <div><strong>Empaque seguro</strong>Embalaje especializado para piezas delicadas.</div>
+      </div>
+      <div class="p-info-block">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        <div><strong>Atención directa</strong>Coordinamos contigo por WhatsApp.</div>
+      </div>
+      <div class="p-info-block" style="grid-column:1/-1;background:rgba(243,207,179,.25)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <div><strong>Tiempo de entrega</strong>Cada pieza se elabora a mano. El envío se realiza en <b>8 días hábiles</b> tras confirmar tu compra.</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="toast" id="toast">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+  <span id="toastMsg">Agregado al carrito</span>
+  <a href="customer-info.html">Ver carrito →</a>
+</div>
+
+<footer class="p-footer">
+  © <span id="year"></span> Felipe Vergel · Arte en Vidrio · Floridablanca, Colombia
+</footer>
+
+<!-- Botón volver a la página anterior -->
+<button class="back-float" onclick="history.back()" aria-label="Volver a la página anterior">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+</button>
+
+<!-- Botón flotante WhatsApp -->
+<a href="https://wa.me/573116214726?text=Hola%20Felipe!%20Me%20interesa%20una%20pieza%20en%20vidrio." target="_blank" rel="noopener" class="wa-float" aria-label="Escribir por WhatsApp">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+  </svg>
+</a>
+
+<script src="products.js?v=20260528b"></script>
+<script>
+const $=(s,c=document)=>c.querySelector(s);
+const $$=(s,c=document)=>[...c.querySelectorAll(s)];
+const fmt=n=>"$"+(n||0).toLocaleString("es-CO");
+document.getElementById("year").textContent=new Date().getFullYear();
+
+// GET PRODUCT FROM URL
+const params=new URLSearchParams(window.location.search);
+const productId=params.get("id");
+
+let product=null;
+// 1) Buscar en el catálogo completo (products.js) — funciona con links directos, Instagram, WhatsApp
+if(typeof PRODUCTS!=="undefined"&&Array.isArray(PRODUCTS)){
+  product=PRODUCTS.find(p=>p.id===productId)||null;
+}
+// 2) Fallback: localStorage/sessionStorage (por si products.js no cargó)
+if(!product){
+  try{
+    const stored=localStorage.getItem("fv_view_product_"+productId)||sessionStorage.getItem("fv_view_product_"+productId);
+    if(stored)product=JSON.parse(stored);
+  }catch(e){}
+}
+
+if(!product){
+  // Show error
+  document.querySelector("main").innerHTML=`
+    <div class="p-error" style="grid-column:1/-1">
+      <h2>Pieza no encontrada</h2>
+      <p>No pudimos cargar la información de esta pieza. Vuelve al catálogo y selecciona otra.</p>
+      <a href="index.html#catalogo">Ver catálogo</a>
+    </div>
+  `;
+}else{
+  document.title=product.name+" · Felipe Vergel Arte en Vidrio";
+  $("#crumbName").textContent=product.name;
+  $("#pName").textContent=product.name;
+  $("#pPrice").textContent=fmt(product.price);
+  // Psicología de precios (anchoring)
+  if(typeof precioAnterior==="function"){
+    const antes=precioAnterior(product.price);
+    const off=descuentoPct(product.price);
+    const ahorro=antes-product.price;
+    $("#pPriceOld").textContent=fmt(antes);
+    $("#pPriceOff").textContent="−"+off+"%";
+    $("#pPriceSave").textContent="Ahorras "+fmt(ahorro)+" · precio especial por tiempo limitado";
+  }
+
+  // Specs
+  $("#pSpecs").innerHTML=`
+    <dt>Tamaño</dt><dd>${product.size}</dd>
+    <dt>Materiales</dt><dd>${product.materials}</dd>
+    <dt>Usos</dt><dd>${product.uses}</dd>
+  `;
+
+  // Colors
+  let curColor=product.colors[0];
+  $("#pColors").innerHTML=product.colors.map((c,i)=>
+    `<button class="color-pick${i===0?' active':''}" data-c="${c}">${c}</button>`
+  ).join("");
+  $$("#pColors .color-pick").forEach(b=>b.onclick=()=>{
+    curColor=b.dataset.c;
+    $$("#pColors .color-pick").forEach(x=>x.classList.toggle("active",x.dataset.c===curColor));
+  });
+
+  // Gallery
+  let curImg=0;
+  function updateGallery(){
+    $("#mainImg").src=product.images[curImg];
+    $("#mainImg").alt=product.name+" · imagen "+(curImg+1);
+    $("#counter").textContent=`${curImg+1} / ${product.images.length}`;
+    $$("#thumbs .p-thumb").forEach((t,i)=>t.classList.toggle("active",i===curImg));
+  }
+  $("#thumbs").innerHTML=product.images.map((src,i)=>
+    `<div class="p-thumb${i===0?' active':''}" data-i="${i}"><img src="${src}" alt="${product.name} ${i+1}" loading="lazy"></div>`
+  ).join("");
+  $$("#thumbs .p-thumb").forEach(t=>t.onclick=()=>{curImg=+t.dataset.i;updateGallery()});
+  $("#navPrev").onclick=()=>{curImg=(curImg-1+product.images.length)%product.images.length;updateGallery()};
+  $("#navNext").onclick=()=>{curImg=(curImg+1)%product.images.length;updateGallery()};
+  if(product.images.length<=1){
+    $("#navPrev").style.display="none";
+    $("#navNext").style.display="none";
+    $("#counter").style.display="none";
+  }
+  updateGallery();
+
+  // Qty
+  let qty=1;
+  $("#qMinus").onclick=()=>{if(qty>1){qty--;$("#qVal").textContent=qty}};
+  $("#qPlus").onclick=()=>{qty++;$("#qVal").textContent=qty};
+
+  // Sold out check
+  let soldOut={};
+  try{const s=localStorage.getItem("fv_sold_out");if(s)soldOut=JSON.parse(s)}catch(e){}
+  if(soldOut[product.id]){
+    $("#btnAdd").disabled=true;
+    $("#btnAdd").innerHTML="Agotado";
+    $("#btnBuyNow").disabled=true;
+    $("#btnBuyNow").style.display="none";
+  }
+
+  // CART (sincronizado con index.html via localStorage)
+  function getCart(){
+    try{
+      // Prioriza localStorage (sincronizado entre pestañas)
+      const raw=localStorage.getItem("fv_checkout_cart")||sessionStorage.getItem("cart");
+      return raw?JSON.parse(raw):[];
+    }catch(e){return[]}
+  }
+  function saveCart(c){
+    sessionStorage.setItem("cart",JSON.stringify(c));
+    localStorage.setItem("fv_checkout_cart",JSON.stringify(c));
+    updateCartCount();
+  }
+  function updateCartCount(){
+    const c=getCart();
+    $("#cartCount").textContent=c.reduce((s,i)=>s+i.qty,0);
+  }
+  function addToCart(){
+    if(soldOut[product.id])return;
+    const cart=getCart();
+    const key=product.id+"::"+curColor;
+    const existing=cart.find(i=>i.key===key);
+    if(existing)existing.qty+=qty;
+    else cart.push({key,id:product.id,name:product.name,color:curColor,qty,price:product.price,img:product.images[0]});
+    saveCart(cart);
+    showToast(`Agregado: ${qty}× ${product.name} (${curColor})`);
+  }
+  updateCartCount();
+
+  $("#btnAdd").onclick=addToCart;
+  $("#btnBuyNow").onclick=()=>{
+    addToCart();
+    setTimeout(()=>window.location.href="customer-info.html",400);
+  };
+
+  // Toast
+  function showToast(msg){
+    $("#toastMsg").textContent=msg;
+    $("#toast").classList.add("show");
+    clearTimeout(window._t);
+    window._t=setTimeout(()=>$("#toast").classList.remove("show"),3500);
+  }
+}
+</script>
+</body>
+</html>

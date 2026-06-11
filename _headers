@@ -1,0 +1,12 @@
+# Configuración de caché para Netlify
+# HTML y JS: siempre frescos (sin caché) para que los cambios se vean al instante
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+/products.js
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Imágenes y fuentes: caché largo (no cambian, para que el sitio cargue rápido)
+/img/*
+  Cache-Control: public, max-age=604800
+/fonts/*
+  Cache-Control: public, max-age=2592000

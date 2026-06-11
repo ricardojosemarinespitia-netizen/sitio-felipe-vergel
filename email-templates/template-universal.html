@@ -1,0 +1,109 @@
+<!--
+  ============================================================
+  TEMPLATE CLIENTE  →  EmailJS template_20wj574
+  ------------------------------------------------------------
+  Subject en EmailJS: {{asunto}}
+  To Email en EmailJS: {{to_email}}
+  Variables: {{nombre}} {{asunto}} {{{mensaje}}}  ← triple llave = HTML
+  ============================================================
+-->
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light only">
+<title>{{asunto}}</title>
+<!--[if mso]><style>*{font-family:Georgia,serif!important}</style><![endif]-->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;1,400&display=swap');
+  body,table,td{margin:0;padding:0}
+  img{border:0;display:block;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic}
+  a{text-decoration:none}
+  body{width:100%!important;background:#3a1c22;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}
+  @media only screen and (max-width:620px){
+    .wrap{width:100%!important}
+    .px{padding-left:26px!important;padding-right:26px!important}
+    .h1{font-size:26px!important}
+  }
+</style>
+</head>
+<body style="margin:0;padding:0;background:#3a1c22;">
+
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;color:#3a1c22;font-size:1px;">
+  {{asunto}}&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;
+</div>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#3a1c22;background-image:linear-gradient(180deg,#572932 0%,#3a1c22 100%);">
+<tr><td align="center" style="padding:34px 16px 44px;">
+
+  <table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0"
+    style="width:600px;max-width:600px;background:#572932;border-radius:22px;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.35);">
+
+    <tr><td style="height:5px;background:#C66E4E;line-height:5px;font-size:5px;">&nbsp;</td></tr>
+
+    <!-- LOGO -->
+    <tr><td align="center" class="px" style="padding:40px 48px 0;">
+      <img src="https://felipevergel.com/img/logo/logo_blanco.png" width="110" alt="Felipe Vergel · Arte en Vidrio"
+        style="width:110px;height:auto;margin:0 auto 18px;">
+      <div style="font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#F3CFB3;font-weight:600;">
+        ✦&nbsp;&nbsp;Arte en Vidrio&nbsp;&nbsp;✦
+      </div>
+    </td></tr>
+
+    <!-- TÍTULO -->
+    <tr><td align="center" class="px" style="padding:20px 48px 0;">
+      <h1 class="h1" style="margin:0;font-family:'Lora',Georgia,serif;font-style:italic;font-weight:500;font-size:32px;line-height:1.15;color:#FAF4ED;">
+        {{asunto}}
+      </h1>
+    </td></tr>
+
+    <!-- SALUDO -->
+    <tr><td class="px" style="padding:20px 56px 0;">
+      <p style="margin:0;font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:15px;line-height:1.8;color:#F3CFB3;font-weight:300;">
+        Hola <strong style="color:#FAF4ED;font-weight:600;">{{nombre}}</strong>,
+      </p>
+    </td></tr>
+
+    <!-- CUERPO DINÁMICO (HTML enviado desde el código) -->
+    <tr><td class="px" style="padding:16px 56px 0;">
+      {{{mensaje}}}
+    </td></tr>
+
+    <!-- CTA -->
+    <tr><td align="center" style="padding:30px 48px 6px;">
+      <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 auto;">
+        <tr><td align="center" bgcolor="#C66E4E" style="border-radius:999px;">
+          <a href="https://felipevergel.com/#catalogo"
+            style="display:inline-block;padding:15px 38px;font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:#FAF4ED;border-radius:999px;">
+            Ver catálogo de piezas
+          </a>
+        </td></tr>
+      </table>
+    </td></tr>
+
+    <!-- CITA -->
+    <tr><td align="center" class="px" style="padding:32px 56px 44px;">
+      <p style="margin:0;font-family:'Lora',Georgia,serif;font-style:italic;font-size:15px;line-height:1.6;color:#F3CFB3;">
+        "El cristal es mi lenguaje: mi musa, mi motor y mi medio para crear arte que emociona."
+      </p>
+      <p style="margin:10px 0 0;font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#C66E4E;font-weight:600;">— Felipe Vergel</p>
+    </td></tr>
+
+  </table>
+
+  <!-- FOOTER -->
+  <table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:600px;">
+    <tr><td align="center" style="padding:24px 40px 10px;">
+      <p style="margin:0;font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:12px;line-height:1.7;color:#B89A8E;font-weight:300;">
+        Felipe Vergel · Arte en Vidrio · Floridablanca, Santander<br>
+        <a href="https://wa.me/573116214726" style="color:#F3CFB3;">WhatsApp 311 621 4726</a>&nbsp;&nbsp;·&nbsp;&nbsp;
+        <a href="mailto:felipevergelarteenvidrio@gmail.com" style="color:#F3CFB3;">felipevergelarteenvidrio@gmail.com</a>
+      </p>
+    </td></tr>
+  </table>
+
+</td></tr>
+</table>
+</body>
+</html>
