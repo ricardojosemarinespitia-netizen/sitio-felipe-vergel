@@ -1287,11 +1287,12 @@ function guardarSesion(){try{sessionStorage.setItem("fv_sesion",JSON.stringify(f
 // HERO + CONTACT BG
 (function(){
   const c=FELIPE_IMGS.filter(x=>!x.includes("-60")&&!x.includes("-61"));
-  if(!fvSesion.heroImg)fvSesion.heroImg=c[Math.floor(Math.random()*Math.min(10,c.length))]||FELIPE_IMGS[0];
-  if(!fvSesion.contactoImg)fvSesion.contactoImg=c[Math.floor(Math.random()*c.length)]||FELIPE_IMGS[1];
-  document.getElementById("heroBg").style.backgroundImage=`url('${fvSesion.heroImg}')`;
+  // FOTOS ALEATORIAS DESACTIVADAS
+  // if(!fvSesion.heroImg)fvSesion.heroImg=c[Math.floor(Math.random()*Math.min(10,c.length))]||FELIPE_IMGS[0];
+  // if(!fvSesion.contactoImg)fvSesion.contactoImg=c[Math.floor(Math.random()*c.length)]||FELIPE_IMGS[1];
+  // document.getElementById("heroBg").style.backgroundImage=`url('${fvSesion.heroImg}')`;
   const cbg=document.getElementById("contactoBg");
-  if(cbg)cbg.style.backgroundImage=`url('${fvSesion.contactoImg}')`;
+  // if(cbg)cbg.style.backgroundImage=`url('${fvSesion.contactoImg}')`;
   guardarSesion();
 })();
 
