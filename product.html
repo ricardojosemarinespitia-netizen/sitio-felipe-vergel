@@ -91,6 +91,14 @@ img{display:block;max-width:100%;height:auto}
 .p-thumb img{width:100%;height:100%;object-fit:cover}
 .p-thumb:hover{opacity:1}
 .p-thumb.active{opacity:1;border-color:var(--cobre);transform:translateY(-2px)}
+
+/* LUPA DE AUMENTO (desktop) */
+@media(hover:hover){.p-gallery-main{cursor:zoom-in}}
+.zoom-lens{position:absolute;width:200px;height:200px;border-radius:50%;border:3px solid rgba(250,244,237,.95);box-shadow:0 10px 34px rgba(0,0,0,.32),inset 0 0 0 1px rgba(0,0,0,.06);pointer-events:none;overflow:hidden;display:none;z-index:4;background:var(--crema-2)}
+.zoom-lens img{position:absolute;top:0;left:0;max-width:none;object-fit:cover}
+.p-gallery-main.zooming .zoom-lens{display:block}
+.p-gallery-nav{z-index:6}
+.p-gallery-counter{z-index:6}
 @media(max-width:640px){
   .p-thumb{width:64px;height:64px;flex:0 0 64px}
   .p-gallery-nav{width:42px;height:42px;font-size:18px}
@@ -415,6 +423,32 @@ if(!product){
     $("#counter").style.display="none";
   }
   updateGallery();
+
+  // LUPA DE AUMENTO (solo dispositivos con hover/mouse)
+  if(window.matchMedia("(hover:hover)").matches){
+    const box=$(".p-gallery-main");
+    const ZOOM=2.2;
+    const lens=document.createElement("div");
+    lens.className="zoom-lens";
+    const lImg=document.createElement("img");
+    lImg.alt="";
+    lens.appendChild(lImg);
+    box.appendChild(lens);
+    box.addEventListener("mousemove",e=>{
+      const r=box.getBoundingClientRect();
+      const x=e.clientX-r.left, y=e.clientY-r.top;
+      box.classList.add("zooming");
+      // la imagen de la lupa replica la vista actual ampliada ZOOM veces
+      if(lImg.src!==$("#mainImg").src)lImg.src=$("#mainImg").src;
+      lImg.style.width=r.width*ZOOM+"px";
+      lImg.style.height=r.height*ZOOM+"px";
+      lens.style.left=(x-lens.offsetWidth/2)+"px";
+      lens.style.top=(y-lens.offsetHeight/2)+"px";
+      lImg.style.left=-(x*ZOOM-lens.offsetWidth/2)+"px";
+      lImg.style.top=-(y*ZOOM-lens.offsetHeight/2)+"px";
+    });
+    box.addEventListener("mouseleave",()=>box.classList.remove("zooming"));
+  }
 
   // Qty
   let qty=1;
