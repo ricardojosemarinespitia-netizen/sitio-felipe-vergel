@@ -89,38 +89,38 @@
           </td>
         </tr>
 
-        {{#if email_cliente}}<tr>
+        {{#email_cliente}}<tr>
           <td style="padding:12px 18px;border-bottom:1px solid rgba(201,164,126,.1);">
             <span style="font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:11px;color:#c9a47e;font-weight:600;letter-spacing:1px;text-transform:uppercase;">Correo</span>
           </td>
           <td style="padding:12px 18px;border-bottom:1px solid rgba(201,164,126,.1);">
             <a href="mailto:{{email_cliente}}" style="font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:14px;color:#a8d5d1;">{{email_cliente}}</a>
           </td>
-        </tr>{{/if}}
+        </tr>{{/email_cliente}}
 
-        {{#if telefono}}<tr>
+        {{#telefono}}<tr>
           <td style="padding:12px 18px;border-bottom:1px solid rgba(201,164,126,.1);">
             <span style="font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:11px;color:#c9a47e;font-weight:600;letter-spacing:1px;text-transform:uppercase;">Teléfono</span>
           </td>
           <td style="padding:12px 18px;border-bottom:1px solid rgba(201,164,126,.1);">
             <a href="tel:{{telefono}}" style="font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:14px;color:#a8d5d1;">{{telefono}}</a>
           </td>
-        </tr>{{/if}}
+        </tr>{{/telefono}}
 
-        {{#if fecha}}<tr>
+        {{#fecha}}<tr>
           <td style="padding:12px 18px;">
             <span style="font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:11px;color:#c9a47e;font-weight:600;letter-spacing:1px;text-transform:uppercase;">Fecha</span>
           </td>
           <td style="padding:12px 18px;">
             <span style="font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:14px;color:#d4e8e6;">{{fecha}}</span>
           </td>
-        </tr>{{/if}}
+        </tr>{{/fecha}}
 
       </table>
     </td></tr>
 
     <!-- DETALLES DEL PEDIDO (solo aparece en pedidos, no en suscriptores) -->
-    {{#if referencia}}<tr><td class="px" style="padding:22px 48px 0;">
+    {{#referencia}}<tr><td class="px" style="padding:22px 48px 0;">
       <div style="font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#c9a47e;font-weight:700;margin-bottom:12px;">
         Detalle
       </div>
@@ -136,44 +136,44 @@
           </td>
         </tr>
 
-        {{#if productos}}<tr>
+        {{#productos}}<tr>
           <td style="padding:12px 18px;border-bottom:1px solid rgba(201,164,126,.1);vertical-align:top;">
             <span style="font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:11px;color:#c9a47e;font-weight:600;letter-spacing:1px;text-transform:uppercase;">Productos</span>
           </td>
           <td style="padding:12px 18px;border-bottom:1px solid rgba(201,164,126,.1);">
             <span style="font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:13px;color:#d4e8e6;line-height:1.7;white-space:pre-line;">{{productos}}</span>
           </td>
-        </tr>{{/if}}
+        </tr>{{/productos}}
 
-        {{#if codigo_descuento}}<tr>
+        {{#codigo_descuento}}<tr>
           <td style="padding:12px 18px;border-bottom:1px solid rgba(201,164,126,.1);">
             <span style="font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:11px;color:#c9a47e;font-weight:600;letter-spacing:1px;text-transform:uppercase;">Código Club</span>
           </td>
           <td style="padding:12px 18px;border-bottom:1px solid rgba(201,164,126,.1);">
             <span style="font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:14px;color:#FAF4ED;letter-spacing:2px;font-weight:600;">{{codigo_descuento}}</span>
           </td>
-        </tr>{{/if}}
+        </tr>{{/codigo_descuento}}
 
-        {{#if direccion}}<tr>
+        {{#direccion}}<tr>
           <td style="padding:12px 18px;border-bottom:1px solid rgba(201,164,126,.1);">
             <span style="font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:11px;color:#c9a47e;font-weight:600;letter-spacing:1px;text-transform:uppercase;">Dirección</span>
           </td>
           <td style="padding:12px 18px;border-bottom:1px solid rgba(201,164,126,.1);">
             <span style="font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:14px;color:#d4e8e6;">{{direccion}}</span>
           </td>
-        </tr>{{/if}}
+        </tr>{{/direccion}}
 
-        {{#if total}}<tr>
+        {{#total}}<tr>
           <td style="padding:14px 18px;">
             <span style="font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:11px;color:#c9a47e;font-weight:600;letter-spacing:1px;text-transform:uppercase;">Total</span>
           </td>
           <td style="padding:14px 18px;">
             <span style="font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:20px;color:#FAF4ED;font-weight:800;">${{total}} COP</span>
           </td>
-        </tr>{{/if}}
+        </tr>{{/total}}
 
       </table>
-    </td></tr>{{/if}}
+    </td></tr>{{/referencia}}
 
     <!-- ACCIONES RÁPIDAS -->
     <tr><td align="center" style="padding:28px 48px 8px;">
