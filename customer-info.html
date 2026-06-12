@@ -133,6 +133,15 @@ input.error{border-color:#d32f2f;background:#fff5f5}
 .summary-item .info .meta{font-size:10px;color:var(--tinta-soft);text-transform:uppercase;letter-spacing:.08em}
 .summary-item .info .meta .sep{margin:0 6px;opacity:.4}
 .summary-item .sub{font-size:13px;color:var(--cobre-dark);font-weight:700;text-align:right}
+.summary-item .right{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.qty-ctrl{display:inline-flex;align-items:center;border:1px solid var(--linea);border-radius:999px;background:var(--crema-2);overflow:hidden}
+.qty-ctrl button{width:26px;height:26px;display:flex;align-items:center;justify-content:center;color:var(--cobre-dark);font-size:15px;font-weight:700;line-height:1;transition:background .15s}
+.qty-ctrl button:hover{background:var(--crema-rosa)}
+.qty-ctrl button:disabled{opacity:.35;cursor:not-allowed}
+.qty-ctrl .qty-val{min-width:24px;text-align:center;font-size:12px;font-weight:400;color:var(--tinta)}
+.item-remove{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-soft);font-weight:200;display:inline-flex;align-items:center;gap:4px;transition:color .15s}
+.item-remove:hover{color:#b91c1c}
+.item-remove svg{width:11px;height:11px}
 .summary-empty{padding:50px 24px;text-align:center;color:var(--tinta-soft);font-size:12px}
 .summary-totals{padding:18px 24px;border-top:1px solid var(--linea);background:var(--crema)}
 .summary-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;margin-bottom:10px;color:var(--tinta-soft);font-weight:200}
@@ -483,14 +492,25 @@ function renderSummary(){
   const shipping=calcShipping(discountedSubtotal,deliveryMethod);
   const total=discountedSubtotal+shipping;
   count.textContent=totalQty===1?"1 pieza":`${totalQty} piezas`;
-  items.innerHTML=cart.map(i=>`
+  items.innerHTML=cart.map((i,idx)=>`
     <div class="summary-item">
       <img src="${i.img}" alt="${i.name}" loading="lazy">
       <div class="info">
         <h4>${i.name}</h4>
-        <div class="meta">${i.color}<span class="sep">·</span>×${i.qty}</div>
+        <div class="meta">${i.color}${i.sku?`<span class="sep">·</span>Ref. ${i.sku}`:""}</div>
+        <div class="qty-ctrl" style="margin-top:8px">
+          <button type="button" onclick="cambiarCantidad(${idx},-1)" aria-label="Quitar uno"${i.qty<=1?" disabled":""}>−</button>
+          <span class="qty-val">${i.qty}</span>
+          <button type="button" onclick="cambiarCantidad(${idx},1)" aria-label="Agregar uno">+</button>
+        </div>
       </div>
-      <div class="sub">${fmt(i.price*i.qty)}</div>
+      <div class="right">
+        <div class="sub">${fmt(i.price*i.qty)}</div>
+        <button type="button" class="item-remove" onclick="eliminarItem(${idx})" aria-label="Eliminar producto">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          Quitar
+        </button>
+      </div>
     </div>
   `).join("");
   $("#sumSubtotal").textContent=fmt(subtotal);
@@ -506,6 +526,31 @@ function renderSummary(){
   totals.style.display="block";
 }
 renderSummary();
+
+// Guarda el carrito en los dos almacenes para que quede sincronizado
+function persistCart(){
+  try{
+    localStorage.setItem("fv_checkout_cart",JSON.stringify(cart));
+    sessionStorage.setItem("cart",JSON.stringify(cart));
+  }catch(e){}
+}
+
+// +/- cantidad de un producto del resumen
+function cambiarCantidad(idx,delta){
+  const item=cart[idx];
+  if(!item)return;
+  item.qty=Math.max(1,(item.qty||1)+delta);
+  persistCart();
+  renderSummary();
+}
+
+// Quitar un producto del resumen
+function eliminarItem(idx){
+  if(!cart[idx])return;
+  cart.splice(idx,1);
+  persistCart();
+  renderSummary();
+}
 
 // LOAD SAVED INFO
 try{
