@@ -607,7 +607,7 @@ $("#btnPay").onclick=async()=>{
   // registrarlo y enviar correos AUNQUE el cliente no dé "Volver al comercio".
   // Fire-and-forget: si la función no está desplegada, no afecta el flujo normal.
   if(paymentMethod==="pse"){
-    try{fetch("/.netlify/functions/save-pending",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(pedido)})}catch(e){}
+    try{fetch("https://exquisite-pasca-848b8b.netlify.app/.netlify/functions/save-pending",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(pedido)})}catch(e){}
   }
 
   if(paymentMethod==="whatsapp"){
@@ -743,7 +743,7 @@ async function guardarPedido(order){
       try{ await enviarCorreos(pedido); }catch(e){ console.error("enviarCorreos:",e); }
       // Avisar al servidor que este pedido YA se procesó aquí, para que el webhook
       // de Wompi no lo registre/envíe por segunda vez.
-      try{fetch("/.netlify/functions/save-pending",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...pedido,_status:"done"})})}catch(e){}
+      try{fetch("https://exquisite-pasca-848b8b.netlify.app/.netlify/functions/save-pending",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...pedido,_status:"done"})})}catch(e){}
       if(window.FVPerfil) window.FVPerfil.addOrder({ref:pedido.ref,fecha:new Date().toISOString(),items:pedido.cart.map(i=>({name:i.name,qty:i.qty,price:i.price})),total:pedido.total,metodo:"Wompi PSE",estado:status==="APPROVED"?"APROBADO":"PENDIENTE"});
     }
     $("#waitingView").style.display="none";
