@@ -446,20 +446,28 @@ function aplicarCodigo(){
   btn.textContent="Verificando…";btn.disabled=true;
   const cbName="_fvdc"+Date.now();
   const s=document.createElement("script");
+  let completed=false;
   const to=setTimeout(()=>{
-    document.body.removeChild(s);delete window[cbName];
+    if(completed)return;
+    completed=true;
+    try{document.body.removeChild(s);}catch(e){}
+    delete window[cbName];
     btn.textContent="Aplicar";btn.disabled=false;
-    // fallback local si no responde el servidor
     msg.style.color="#b91c1c";msg.textContent="No se pudo verificar. Intenta de nuevo.";
-  },7000);
+    console.error("Timeout verificando código de descuento");
+  },10000);
   window[cbName]=function(res){
-    clearTimeout(to);document.body.removeChild(s);delete window[cbName];
+    if(completed)return;
+    completed=true;
+    clearTimeout(to);
+    try{document.body.removeChild(s);}catch(e){}
+    delete window[cbName];
     btn.disabled=false;
-    if(res.valid){
+    if(res&&res.valid){
       activeDiscount.code=code;renderSummary();
       msg.style.color="#15803d";msg.textContent="¡Código aplicado! 15% de descuento en tus productos.";
       input.style.borderColor="#15803d";btn.textContent="✓ Aplicado";btn.style.background="var(--verde-dark)";
-    }else if(res.used){
+    }else if(res&&res.used){
       activeDiscount={code:"",amount:0};renderSummary();
       msg.style.color="#b91c1c";msg.textContent="Este código ya fue utilizado en una compra anterior.";
       input.style.borderColor="#b91c1c";btn.textContent="Aplicar";
@@ -470,6 +478,15 @@ function aplicarCodigo(){
     }
   };
   s.src=CLUB_API+"?action=checkCode&code="+encodeURIComponent(code)+"&callback="+cbName;
+  s.onerror=()=>{
+    if(completed)return;
+    completed=true;
+    clearTimeout(to);
+    delete window[cbName];
+    btn.textContent="Aplicar";btn.disabled=false;
+    msg.style.color="#b91c1c";msg.textContent="Error al conectar. Intenta de nuevo.";
+    console.error("Error cargando script JSONP");
+  };
   document.body.appendChild(s);
 }
 
