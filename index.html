@@ -1080,11 +1080,25 @@ if(backTop)backTop.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
     let c="";for(let i=0;i<7;i++)c+=chars[Math.floor(Math.random()*chars.length)];
     return "FV15-"+c;
   }
-  // Recupera el código guardado para este email (o genera uno nuevo)
+  // Genera código de descuento basado en hash del email (determinístico, igual que en servidor)
+  function fnv1a7(str) {
+    let h = 0x811c9dc5;
+    for (let i = 0; i < str.length; i++) {
+      h = (Math.imul(h ^ str.charCodeAt(i), 0x01000193)) >>> 0;
+    }
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let out = "";
+    for (let j = 0; j < 7; j++) {
+      out += chars[h % chars.length];
+      h = (Math.imul(h, 16807) + 1013904223) >>> 0;
+    }
+    return out;
+  }
+  // Recupera el código guardado para este email (o genera uno nuevo basado en su hash)
   function codigoPara(email){
     const k="fv_codigo_"+email.toLowerCase().trim();
     let c=localStorage.getItem(k);
-    if(!c){c=generarCodigo();try{localStorage.setItem(k,c)}catch(e){}}
+    if(!c){c="FV15-"+fnv1a7(email.toLowerCase().trim());try{localStorage.setItem(k,c)}catch(e){}}
     return c;
   }
   // Lista de emails ya registrados (en este dispositivo)
