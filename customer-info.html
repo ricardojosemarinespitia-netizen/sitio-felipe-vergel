@@ -15,30 +15,26 @@
 <link rel="apple-touch-icon" href="img/logo/favicon-portada-192.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500family=Lora:ital,wght@0,400;0,500;1,400&display=swapfamily=Jost:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,300family=Lora:ital,wght@0,400;0,500;1,400&display=swapdisplay=swap" rel="stylesheet">
 <script src="perfil.js" defer></script>
 <style>
-@font-face{font-family:'Poppins';font-weight:200;font-style:normal;src:url('fonts/Poppins-ExtraLight.ttf') format('truetype');font-display:swap}
-@font-face{font-family:'Poppins';font-weight:400;font-style:normal;src:url('fonts/Poppins-ExtraLight.ttf') format('truetype');font-display:swap}
-@font-face{font-family:'Poppins';font-weight:700;font-style:normal;src:url('fonts/Poppins-Bold.ttf') format('truetype');font-display:swap}
-@font-face{font-family:'Poppins';font-weight:800;font-style:normal;src:url('fonts/Poppins-ExtraBold.ttf') format('truetype');font-display:swap}
 
 :root{
-  --verde:#C04C36;--verde-dark:#572932;--verde-soft:#C66E4E;
-  --cobre:#C66E4E;--cobre-dark:#8A391B;
-  --crema:#FAF4ED;--crema-2:#F5E8D8;--crema-rosa:#F3CFB3;
-  --tinta:#3F4443;--tinta-soft:#6B5F5A;--linea:#E8DDD0;
+  --verde:#9C4A2F;--verde-dark:#2B211B;--verde-soft:#B96A4B;
+  --cobre:#C08552;--cobre-dark:#8A4A2B;
+  --crema:#F4EEE3;--crema-2:#ECE3D2;--crema-rosa:#E7CFB4;
+  --tinta:#332A24;--tinta-soft:#7C6E63;--linea:#E0D6C5;
   --shadow:0 10px 40px -10px rgba(63,68,67,.18);
-  --radius:18px;--radius-sm:12px;--radius-lg:24px;
+  --radius:4px;--radius-sm:3px;--radius-lg:6px;
 }
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 html,body{margin:0;padding:0;overflow-x:hidden}
-body{font-family:'Poppins',-apple-system,sans-serif;font-weight:200;color:var(--tinta);background:var(--crema);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;-webkit-tap-highlight-color:transparent}
+body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tinta);background:var(--crema);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;-webkit-tap-highlight-color:transparent}
 a{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
 button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-tap-highlight-color:transparent}
 input,select,textarea{font-family:inherit;font-size:16px}
-.h-serif{font-family:'Lora',serif;font-weight:400;font-style:italic}
+.h-serif{font-family:'Cormorant Garamond',serif;font-weight:400;font-style:italic}
 
 /* HEADER */
 .ci-header{background:var(--crema);border-bottom:1px solid var(--linea);padding:18px 0;position:sticky;top:0;z-index:50;backdrop-filter:blur(12px)}
@@ -46,7 +42,7 @@ input,select,textarea{font-family:inherit;font-size:16px}
 @media(max-width:640px){.ci-header{padding:14px 0}.ci-header-inner{padding:0 16px}.ci-logo img{height:36px}.ci-back{padding:7px 12px;font-size:10px}.ci-back svg{width:12px;height:12px}}
 .ci-logo{display:flex;align-items:center;gap:12px}
 .ci-logo img{height:42px;width:auto}
-.ci-back{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-soft);font-weight:200;padding:8px 14px;border-radius:999px;transition:all .25s;border:1px solid transparent}
+.ci-back{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-soft);font-weight:200;padding:8px 14px;border-radius:2px;transition:all .25s;border:1px solid transparent}
 .ci-back:hover{background:var(--crema-2);color:var(--verde);border-color:var(--linea)}
 .ci-back svg{width:14px;height:14px}
 
@@ -68,7 +64,7 @@ input,select,textarea{font-family:inherit;font-size:16px}
 @media(max-width:640px){.ci-wrap{padding:24px 16px 60px;gap:22px}.ci-title{font-size:26px}.ci-sub{margin-bottom:24px;font-size:12.5px}}
 
 .ci-title{margin:0 0 8px;font-size:clamp(28px,4vw,38px);color:var(--verde-dark);font-weight:700;letter-spacing:-.02em}
-.ci-title .acc{color:var(--cobre);font-family:'Lora',serif;font-weight:400;font-style:italic}
+.ci-title .acc{color:var(--cobre);font-family:'Cormorant Garamond',serif;font-weight:400;font-style:italic}
 .ci-sub{color:var(--tinta-soft);font-size:13px;margin:0 0 36px;font-weight:200}
 
 /* FORM */
@@ -108,7 +104,7 @@ input.error{border-color:#d32f2f;background:#fff5f5}
 
 /* ACTIONS */
 .ci-actions{display:flex;flex-direction:column;gap:10px;margin-top:8px}
-.btn{width:100%;padding:16px 24px;border-radius:999px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;cursor:pointer;transition:all .25s;border:none;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px}
+.btn{width:100%;padding:16px 24px;border-radius:2px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;cursor:pointer;transition:all .25s;border:none;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px}
 @media(max-width:640px){.btn{padding:15px 20px;font-size:10.5px;letter-spacing:.14em}}
 .btn-primary{background:var(--verde);color:#fff;box-shadow:0 4px 16px -4px rgba(192,76,54,.4)}
 .btn-primary:hover{background:var(--verde-dark);transform:translateY(-2px);box-shadow:0 8px 24px -6px rgba(192,76,54,.5)}
@@ -134,7 +130,7 @@ input.error{border-color:#d32f2f;background:#fff5f5}
 .summary-item .info .meta .sep{margin:0 6px;opacity:.4}
 .summary-item .sub{font-size:13px;color:var(--cobre-dark);font-weight:700;text-align:right}
 .summary-item .right{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
-.qty-ctrl{display:inline-flex;align-items:center;border:1px solid var(--linea);border-radius:999px;background:var(--crema-2);overflow:hidden}
+.qty-ctrl{display:inline-flex;align-items:center;border:1px solid var(--linea);border-radius:2px;background:var(--crema-2);overflow:hidden}
 .qty-ctrl button{width:26px;height:26px;display:flex;align-items:center;justify-content:center;color:var(--cobre-dark);font-size:15px;font-weight:700;line-height:1;transition:background .15s}
 .qty-ctrl button:hover{background:var(--crema-rosa)}
 .qty-ctrl button:disabled{opacity:.35;cursor:not-allowed}
@@ -368,16 +364,16 @@ input.error{border-color:#d32f2f;background:#fff5f5}
       <div id="discountInputArea" style="display:none;margin-top:10px">
         <div style="display:flex;gap:8px">
           <input type="text" id="discountCode" placeholder="FV15-XXXXXXX" maxlength="12"
-            style="flex:1;padding:10px 14px;border:1.5px solid var(--linea);border-radius:999px;font-family:inherit;font-size:13px;color:var(--tinta);background:var(--crema-2);outline:none;transition:border-color .2s;text-transform:uppercase;letter-spacing:.06em;font-weight:200"
+            style="flex:1;padding:10px 14px;border:1.5px solid var(--linea);border-radius:2px;font-family:inherit;font-size:13px;color:var(--tinta);background:var(--crema-2);outline:none;transition:border-color .2s;text-transform:uppercase;letter-spacing:.06em;font-weight:200"
             oninput="this.value=this.value.toUpperCase()"
             onfocus="this.style.borderColor='var(--cobre)'"
             onblur="this.style.borderColor='var(--linea)'">
           <button onclick="aplicarCodigo()" id="applyDiscountBtn"
-            style="padding:10px 16px;border-radius:999px;background:var(--verde);color:#fff;border:none;cursor:pointer;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;font-family:inherit;white-space:nowrap;transition:background .2s"
+            style="padding:10px 16px;border-radius:2px;background:var(--verde);color:#fff;border:none;cursor:pointer;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;font-family:inherit;white-space:nowrap;transition:background .2s"
             onmouseover="this.style.background='var(--verde-dark)'"
             onmouseout="this.style.background='var(--verde)'">Aplicar</button>
         </div>
-        <div id="discountMsg" style="font-size:12px;margin-top:8px;font-family:'Lora',serif;font-style:italic"></div>
+        <div id="discountMsg" style="font-size:12px;margin-top:8px;font-family:'Cormorant Garamond',serif;font-style:italic"></div>
       </div>
     </div>
 

@@ -15,29 +15,27 @@
 <link rel="apple-touch-icon" href="img/logo/favicon-portada-192.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500family=Lora:ital,wght@0,400;0,500;1,400&display=swapfamily=Jost:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,300family=Lora:ital,wght@0,400;0,500;1,400&display=swapdisplay=swap" rel="stylesheet">
 <!-- EmailJS: envío automático de correos (factura a Felipe + confirmación al comprador) -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script src="perfil.js" defer></script>
 <style>
-@font-face{font-family:'Poppins';font-weight:200;font-style:normal;src:url('fonts/Poppins-ExtraLight.ttf') format('truetype');font-display:swap}
-@font-face{font-family:'Poppins';font-weight:700;font-style:normal;src:url('fonts/Poppins-Bold.ttf') format('truetype');font-display:swap}
 
 :root{
-  --verde:#C04C36;--verde-dark:#572932;--verde-soft:#C66E4E;
-  --cobre:#C66E4E;--cobre-dark:#8A391B;
-  --crema:#FAF4ED;--crema-2:#F5E8D8;--crema-rosa:#F3CFB3;
-  --tinta:#3F4443;--tinta-soft:#6B5F5A;--linea:#E8DDD0;
+  --verde:#9C4A2F;--verde-dark:#2B211B;--verde-soft:#B96A4B;
+  --cobre:#C08552;--cobre-dark:#8A4A2B;
+  --crema:#F4EEE3;--crema-2:#ECE3D2;--crema-rosa:#E7CFB4;
+  --tinta:#332A24;--tinta-soft:#7C6E63;--linea:#E0D6C5;
   --shadow:0 10px 40px -10px rgba(63,68,67,.18);
-  --radius:18px;--radius-sm:12px;--radius-lg:24px;
+  --radius:4px;--radius-sm:3px;--radius-lg:6px;
 }
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 html,body{margin:0;padding:0;overflow-x:hidden}
-body{font-family:'Poppins',-apple-system,sans-serif;font-weight:200;color:var(--tinta);background:var(--crema);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;-webkit-tap-highlight-color:transparent}
+body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tinta);background:var(--crema);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;-webkit-tap-highlight-color:transparent}
 a{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
 button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-tap-highlight-color:transparent}
-.h-serif{font-family:'Lora',serif;font-weight:400;font-style:italic}
+.h-serif{font-family:'Cormorant Garamond',serif;font-weight:400;font-style:italic}
 
 /* HEADER */
 .co-header{background:rgba(250,244,237,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--linea);padding:18px 0;position:sticky;top:0;z-index:50}
@@ -45,7 +43,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 @media(max-width:640px){.co-header{padding:14px 0}.co-header-inner{padding:0 16px}.co-logo img{height:36px}.co-back{padding:7px 12px;font-size:10px}.co-back svg{width:12px;height:12px}}
 .co-logo{display:flex;align-items:center;gap:12px}
 .co-logo img{height:42px;width:auto}
-.co-back{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-soft);font-weight:200;padding:9px 16px;border-radius:999px;transition:all .25s;border:1px solid transparent}
+.co-back{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-soft);font-weight:200;padding:9px 16px;border-radius:2px;transition:all .25s;border:1px solid transparent}
 .co-back:hover{background:var(--crema-2);color:var(--verde);border-color:var(--linea)}
 .co-back svg{width:14px;height:14px}
 
@@ -67,13 +65,13 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 @media(max-width:640px){.co-wrap{padding:24px 16px 60px;gap:22px}.co-title{font-size:26px}.co-sub{margin-bottom:24px;font-size:12.5px}.co-content{gap:18px}}
 
 .co-title{margin:0 0 8px;font-size:clamp(28px,4vw,38px);color:var(--verde-dark);font-weight:700;letter-spacing:-.02em}
-.co-title .acc{color:var(--cobre);font-family:'Lora',serif;font-weight:400;font-style:italic}
+.co-title .acc{color:var(--cobre);font-family:'Cormorant Garamond',serif;font-weight:400;font-style:italic}
 .co-sub{color:var(--tinta-soft);font-size:13px;margin:0 0 36px;font-weight:200}
 
 .co-content{display:flex;flex-direction:column;gap:24px}
 .co-card{background:#fff;padding:28px 32px;border-radius:var(--radius-lg);border:1px solid var(--linea);box-shadow:0 2px 12px -4px rgba(63,68,67,.04)}
 .co-card h3{margin:0 0 4px;font-size:14px;color:var(--verde-dark);font-weight:700;letter-spacing:.02em;text-transform:uppercase;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.co-card h3 a{font-size:11px;color:var(--cobre-dark);text-transform:none;letter-spacing:0;font-weight:400;font-family:'Lora',serif;font-style:italic}
+.co-card h3 a{font-size:11px;color:var(--cobre-dark);text-transform:none;letter-spacing:0;font-weight:400;font-family:'Cormorant Garamond',serif;font-style:italic}
 .co-card h3 a:hover{color:var(--verde)}
 .co-card .card-sub{font-size:12px;color:var(--tinta-soft);margin:0 0 18px;font-weight:200}
 @media(max-width:640px){.co-card{padding:22px 18px;border-radius:var(--radius)}.co-card h3{font-size:13px}.co-card .card-sub{margin-bottom:14px;font-size:11.5px}}
@@ -108,7 +106,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 
 /* ACTIONS */
 .co-actions{display:flex;flex-direction:column;gap:10px;margin-top:8px}
-.btn{width:100%;padding:16px 24px;border-radius:999px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;cursor:pointer;transition:all .25s;border:none;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px}
+.btn{width:100%;padding:16px 24px;border-radius:2px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;cursor:pointer;transition:all .25s;border:none;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px}
 @media(max-width:640px){.btn{padding:15px 20px;font-size:10.5px;letter-spacing:.14em}}
 .btn-primary{background:var(--verde);color:#fff;box-shadow:0 4px 16px -4px rgba(192,76,54,.4)}
 .btn-primary:hover{background:var(--verde-dark);transform:translateY(-2px);box-shadow:0 8px 24px -6px rgba(192,76,54,.5)}
@@ -154,7 +152,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .success-icon svg{width:40px;height:40px;stroke-width:2.5}
 .success-card h2{margin:0 0 12px;font-size:26px;color:var(--verde-dark);font-weight:700}
 .success-card p{color:var(--tinta-soft);font-size:14px;margin:0 0 8px;font-weight:200;line-height:1.7}
-.success-card .ref{display:inline-block;margin-top:14px;padding:6px 14px;background:var(--crema-2);border-radius:999px;font-size:12px;color:var(--verde-dark);font-weight:400;letter-spacing:.05em}
+.success-card .ref{display:inline-block;margin-top:14px;padding:6px 14px;background:var(--crema-2);border-radius:2px;font-size:12px;color:var(--verde-dark);font-weight:400;letter-spacing:.05em}
 .success-actions{display:flex;flex-direction:column;gap:10px;margin-top:32px}
 
 /* FOOTER */
