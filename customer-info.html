@@ -295,13 +295,17 @@ input.error{border-color:#d32f2f;background:#fff5f5}
 
         <div class="row-3" id="rowCity">
           <div class="field">
-            <label for="city">Ciudad</label>
-            <input type="text" id="city" placeholder="Tu ciudad" autocomplete="address-level2" required>
-            <div class="field-err" id="err-city">La ciudad es requerida</div>
+            <label for="department">Departamento</label>
+            <select id="department" autocomplete="address-level1" required>
+              <option value="">Selecciona...</option>
+            </select>
           </div>
           <div class="field">
-            <label for="department">Departamento</label>
-            <input type="text" id="department" placeholder="Ej: Santander" autocomplete="address-level1">
+            <label for="city">Ciudad / Municipio</label>
+            <select id="city" autocomplete="address-level2" required disabled>
+              <option value="">Primero elige departamento</option>
+            </select>
+            <div class="field-err" id="err-city">La ciudad es requerida</div>
           </div>
           <div class="field">
             <label for="zipCode">Código postal</label>
@@ -403,6 +407,7 @@ input.error{border-color:#d32f2f;background:#fff5f5}
   </svg>
 </a>
 
+<script src="colombia.js"></script>
 <script>
 const $=(s,c=document)=>c.querySelector(s);
 const $$=(s,c=document)=>[...c.querySelectorAll(s)];
@@ -569,6 +574,23 @@ function eliminarItem(idx){
   renderSummary();
 }
 
+// SELECTS DE DEPARTAMENTO Y MUNICIPIO (datos DANE en colombia.js)
+(function(){
+  const selDep=$("#department"),selMun=$("#city");
+  if(!selDep||!selMun||typeof COLOMBIA==="undefined")return;
+  Object.keys(COLOMBIA).sort().forEach(dep=>{
+    const o=document.createElement("option");o.value=dep;o.textContent=dep;selDep.appendChild(o);
+  });
+  window._fillMunicipios=function(keep){
+    const muns=COLOMBIA[selDep.value]||[];
+    selMun.innerHTML='<option value="">'+(muns.length?"Selecciona tu municipio":"Primero elige departamento")+'</option>';
+    muns.forEach(m=>{const o=document.createElement("option");o.value=m;o.textContent=m;selMun.appendChild(o);});
+    selMun.disabled=muns.length===0;
+    if(keep&&muns.indexOf(keep)!==-1)selMun.value=keep;
+  };
+  selDep.addEventListener("change",()=>window._fillMunicipios());
+})();
+
 // LOAD SAVED INFO
 try{
   const saved=JSON.parse(localStorage.getItem("fv_customer_info")||"null");
@@ -576,6 +598,11 @@ try{
     ["email","phone","firstName","lastName","docId","address","addressDetail","city","department","zipCode","notes"].forEach(k=>{
       const el=$("#"+k);if(el&&saved[k])el.value=saved[k];
     });
+    // Con selects: reconstruir municipios del departamento guardado y reaplicar la ciudad
+    if(saved.department&&typeof window._fillMunicipios==="function"){
+      $("#department").value=saved.department;
+      window._fillMunicipios(saved.city||"");
+    }
     if(saved.news)$("#news").checked=true;
     if(saved.deliveryMethod==="bucaramanga")selectDelivery("bucaramanga");
   }

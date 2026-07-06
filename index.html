@@ -248,6 +248,70 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 }
 @media(max-width:380px){.nov-img{width:104px}.nov-body{padding:12px 13px}}
 
+/* COLECCIONES: portadas por categoría con efecto de scroll */
+.nov-grid.nov-colecciones{grid-template-columns:repeat(5,1fr);gap:18px;max-width:1280px}
+.nov-cat-card{border:none;background:var(--crema-2)}
+.nov-cat-card .nov-img{aspect-ratio:3/4.4;width:100%}
+.nov-cat-card .nov-img img{will-change:transform}
+.nov-cat-card .nov-txt{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:70px 14px 14px;background:linear-gradient(180deg,transparent 0%,rgba(26,20,16,.05) 30%,rgba(26,20,16,.42) 100%);display:flex;flex-direction:column;align-items:center}
+.nov-cat-card .nov-btn{width:auto;padding:12px 20px;box-shadow:0 8px 24px -8px rgba(0,0,0,.35)}
+@media(min-width:1025px){
+  .nov-cat-card[data-cat="bandejas"] img{object-position:50% 50%}
+  .nov-cat-card[data-cat="centros-mesa"] img{object-position:50% 55%}
+  .nov-cat-card[data-cat="floreros"] img{object-position:50% 42%}
+  .nov-cat-card[data-cat="porta-plantas"] img{object-position:50% 62%}
+  .nov-cat-card[data-cat="pedestales"] img{object-position:50% 45%}
+}
+@media(max-width:1024px){
+  .nov-grid.nov-colecciones{grid-template-columns:repeat(2,1fr);gap:14px;max-width:640px}
+  .nov-cat-card:last-child{grid-column:1/-1}
+  .nov-cat-card:last-child .nov-img{aspect-ratio:16/9}
+}
+@media(max-width:640px){
+  .nov-cat-card{flex-direction:column;border-radius:var(--radius-lg)}
+  .nov-cat-card .nov-img{width:100%;aspect-ratio:3/3.6;align-self:auto}
+  .nov-cat-card .nov-btn{padding:10px 16px;font-size:9.5px}
+  .nov-cat-card .nov-txt{padding:50px 10px 12px}
+}
+
+/* CÍRCULO: banda de suscripción inline */
+.circulo-band{padding:96px 0;background:var(--crema-2);text-align:center;border-top:1px solid var(--linea);border-bottom:1px solid var(--linea)}
+.circulo-band .eyebrow{color:var(--cobre-dark);font-size:11px;letter-spacing:.3em;text-transform:uppercase;font-weight:400;display:block;margin-bottom:16px}
+.circulo-band h2{font-size:clamp(30px,4.4vw,48px);margin:0 0 14px;color:var(--verde-dark)}
+.circulo-band h2 .acc{color:var(--cobre-dark);font-family:'Lora',serif;font-weight:400;font-style:italic}
+.circulo-sub{color:var(--tinta-soft);max-width:520px;margin:0 auto 34px;font-size:14px;font-weight:200;line-height:1.8}
+.circulo-sub strong{color:var(--cobre-dark);font-weight:700}
+#circuloForm{display:flex;gap:12px;justify-content:center;align-items:stretch;max-width:640px;margin:0 auto;flex-wrap:wrap}
+#circuloForm input{flex:1;min-width:200px;padding:15px 20px;border:1px solid var(--linea);border-radius:999px;font-family:inherit;font-size:14px;font-weight:200;color:var(--tinta);background:#fff;outline:none;transition:border-color .2s}
+#circuloForm input:focus{border-color:var(--cobre)}
+.circulo-btn{padding:15px 30px;border-radius:999px;background:var(--verde);color:#fff;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;transition:all .25s;white-space:nowrap}
+.circulo-btn:hover{background:var(--verde-dark);transform:translateY(-2px)}
+.circulo-note{font-size:11px;color:var(--tinta-soft);margin:18px 0 0;font-family:'Lora',serif;font-style:italic}
+@media(max-width:640px){
+  .circulo-band{padding:60px 0}
+  #circuloForm{flex-direction:column;gap:10px}
+  #circuloForm input,.circulo-btn{width:100%}
+}
+
+/* FOOTER PREMIUM */
+.fv-footer{background:var(--verde-dark);color:rgba(250,244,237,.82);padding:70px 0 34px}
+.fvf-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:56px;padding-bottom:44px;border-bottom:1px solid rgba(250,244,237,.14)}
+.fvf-brand img{height:52px;width:auto;margin-bottom:20px}
+.fvf-brand p{font-size:13px;font-weight:200;line-height:1.8;margin:0 0 18px;max-width:340px;color:rgba(250,244,237,.72)}
+.fvf-insta{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:200;color:var(--crema-rosa);transition:color .2s}
+.fvf-insta:hover{color:#fff}
+.fvf-insta svg{width:17px;height:17px}
+.fvf-col h4{font-size:11px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;color:var(--crema-rosa);margin:6px 0 20px}
+.fvf-col a{display:block;font-size:13.5px;font-weight:200;padding:7px 0;color:rgba(250,244,237,.78);transition:color .2s,transform .2s}
+.fvf-col a:hover{color:#fff;transform:translateX(3px)}
+.fvf-bottom{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;padding-top:26px;font-size:11.5px;font-weight:200;color:rgba(250,244,237,.55)}
+.fvf-bottom .heart{color:var(--cobre)}
+@media(max-width:820px){
+  .fv-footer{padding:52px 0 28px}
+  .fvf-grid{grid-template-columns:1fr;gap:36px;padding-bottom:34px}
+  .fvf-bottom{flex-direction:column;gap:6px;text-align:center;align-items:center}
+}
+
 /* CATALOGO */
 .catalogo{padding:120px 0;background:var(--crema-2)}
 @media(max-width:640px){.catalogo{padding:70px 0}}
@@ -732,17 +796,17 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
       <h2 class="h-display">Así nace <span class="acc">cada pieza</span></h2>
     </div>
     <div class="proceso-grid">
-      <div class="proceso-step" style="--proceso-fondo:url('img/proceso/composicion.png')">
+      <div class="proceso-step" style="--proceso-fondo:url('img/proceso/composicion.jpg')">
         <span class="num">— 01</span>
         <h3>Composición</h3>
         <p>Fragmentos de vidrio se cortan y superponen como pinceladas. El color y la textura se deciden capa por capa, a mano.</p>
       </div>
-      <div class="proceso-step" style="--proceso-fondo:url('img/proceso/fusion.png')">
+      <div class="proceso-step" style="--proceso-fondo:url('img/proceso/fusion.jpg')">
         <span class="num">— 02</span>
         <h3>Fusión</h3>
         <p>El horno alcanza los 800 °C y los fragmentos se vuelven uno. El fuego decide los últimos matices: ahí vive lo irrepetible.</p>
       </div>
-      <div class="proceso-step" style="--proceso-fondo:url('img/proceso/revelacion.png')">
+      <div class="proceso-step" style="--proceso-fondo:url('img/proceso/revelacion.jpg')">
         <span class="num">— 03</span>
         <h3>Revelación</h3>
         <p>Un enfriamiento lento de horas templa el vidrio. Al abrir el horno, la pieza revela una forma que no volverá a existir.</p>
@@ -754,9 +818,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 <section class="novedades" id="novedades">
   <div class="container">
     <div class="nov-head">
-      <span class="eyebrow">Selección destacada</span>
-      <h2 class="h-display">Novedades <span class="acc">de autor</span></h2>
-      <p>Piezas escogidas que están enamorando a nuestros coleccionistas. Cada obra es única — cuando se va, no vuelve.</p>
+      <span class="eyebrow">Colecciones</span>
+      <h2 class="h-display">Explora las <span class="acc">colecciones</span></h2>
+      <p>Cinco universos en vidrio, creados a mano en vitrofusión. Toca una portada y descubre las piezas únicas de cada colección.</p>
     </div>
     <div class="nov-grid" id="novGrid"></div>
   </div>
@@ -778,6 +842,21 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
       <span class="cat-results-count" id="catResultsCount"></span>
     </div>
     <div class="product-grid" id="grid"></div>
+  </div>
+</section>
+
+<!-- CÍRCULO: suscripción inline (estilo editorial) -->
+<section class="circulo-band" id="circulo">
+  <div class="container">
+    <span class="eyebrow">Círculo Felipe Vergel</span>
+    <h2 class="h-display">Sé el primero <span class="acc">en saberlo</span></h2>
+    <p class="circulo-sub">Lanzamientos privados, piezas únicas antes que nadie y un <strong>15% en tu primera compra</strong> al unirte.</p>
+    <form id="circuloForm" novalidate>
+      <input type="text" id="circuloNombre" placeholder="Tu nombre" autocomplete="given-name">
+      <input type="email" id="circuloEmail" placeholder="Tu correo electrónico" required autocomplete="email">
+      <button type="submit" class="circulo-btn">Unirme al Círculo</button>
+    </form>
+    <p class="circulo-note">Sin spam. Solo arte, luz y vidrio.</p>
   </div>
 </section>
 
@@ -814,10 +893,44 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
       <p class="cierre-firma">— Felipe Vergel</p>
       <div class="cierre-rule"></div>
       <p class="cierre-dir">Floridablanca, Santander · Colombia</p>
-      <p class="cierre-copy">© <span id="year"></span> Felipe Vergel · Arte en Vidrio · Hecho con <span class="heart">♥</span> en Floridablanca</p>
     </div>
   </div>
 </section>
+
+<!-- FOOTER PREMIUM -->
+<footer class="fv-footer">
+  <div class="container">
+    <div class="fvf-grid">
+      <div class="fvf-brand">
+        <img src="img/logo/logo_blanco.png" alt="Felipe Vergel · Arte en Vidrio" loading="lazy">
+        <p>Piezas únicas en vidrio, creadas a mano en vitrofusión. Artista Revelación Nacional FAREX 2025. Arte que dialoga con la luz, hecho en Floridablanca, Colombia.</p>
+        <a href="https://instagram.com/felipevergel.arteenvidrio" target="_blank" rel="noopener" class="fvf-insta">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          @felipevergel.arteenvidrio
+        </a>
+      </div>
+      <div class="fvf-col">
+        <h4>Explora</h4>
+        <a href="#sobre">Manifiesto</a>
+        <a href="#proceso">El proceso</a>
+        <a href="#novedades">Colecciones</a>
+        <a href="#catalogo">Piezas de autor</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+      <div class="fvf-col">
+        <h4>Atención</h4>
+        <a href="https://wa.me/573116214726" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="mailto:felipevergelarteenvidrio@gmail.com">Correo electrónico</a>
+        <a href="#circulo">Únete al Círculo · 15% OFF</a>
+        <a href="https://maps.app.goo.gl/qh56xu8Usv7sHigi8" target="_blank" rel="noopener">Visita el taller</a>
+      </div>
+    </div>
+    <div class="fvf-bottom">
+      <span>© <span id="year"></span> Felipe Vergel · Arte en Vidrio. Todos los derechos reservados.</span>
+      <span>Hecho con <span class="heart">♥</span> en Floridablanca, Colombia</span>
+    </div>
+  </div>
+</footer>
 
 <!-- Club de Descuentos -->
 <div class="club-overlay" id="clubOverlay" role="dialog" aria-modal="true" aria-labelledby="clubTitle">
@@ -1509,50 +1622,94 @@ function pickRandom(arr,n){
   while(copy.length&&out.length<n){out.push(copy.splice(Math.floor(Math.random()*copy.length),1)[0])}
   return out;
 }
+// Portadas fijas de colección: foto elegida por categoría + encuadre del efecto scroll
+const COLECCIONES=[
+  {cat:"bandejas",     img:"img/bandeja-hoja-maxi-irregular/bandeja-hoja-maxi-irregular-02.jpg", start:"50% 50%", focus:"50% 55%", zoom:"0.18"},
+  {cat:"centros-mesa", img:"img/centro-mesa-conico-mosaico/centro-mesa-conico-mosaico-05.jpg",   start:"50% 40%", focus:"50% 60%", zoom:"0.20"},
+  {cat:"floreros",     img:"img/florero-alto-irregular/florero-alto-irregular-03.jpg",           start:"50% 30%", focus:"50% 45%", zoom:"0.16"},
+  {cat:"porta-plantas",img:"img/porta-matera/porta-matera-03.jpg",                               start:"50% 45%", focus:"50% 65%", zoom:"0.20"},
+  {cat:"pedestales",   img:"img/porta-pasabocas-doble/porta-pasabocas-doble-01.jpg",             start:"50% 35%", focus:"50% 48%", zoom:"0.16"}
+];
 function renderNovedades(){
-  // Selección estable durante la sesión: solo cambia al refrescar (F5)
-  let sel=[];
-  if(fvSesion.novedades&&fvSesion.novedades.length){
-    sel=fvSesion.novedades.map(id=>PRODUCTS.find(p=>p.id===id)).filter(Boolean);
-  }
-  if(!sel.length){
-    const disponibles=PRODUCTS.filter(p=>!soldOut[p.id]);
-    sel=pickRandom(disponibles,3);
-    fvSesion.novedades=sel.map(p=>p.id);
-    guardarSesion();
-  }
   const catName=id=>(CATEGORIES.find(c=>c[0]===id)||[,id])[1];
-  novGrid.innerHTML=sel.map(p=>{
-    const antes=precioAnterior(p.price);
-    const off=descuentoPct(p.price);
-    const ahorro=antes-p.price;
-    const descs=NOV_DESC[p.cat]||["Una pieza única de autor, hecha a mano en vitrofusión."];
-    // descripción determinista (estable) según el id, no random
-    const desc=descs[p.id.length%descs.length];
-    return `<article class="nov-card" data-id="${p.id}">
-      <div class="nov-img">
-        <div class="nov-flag">
-          <span class="tag tag-new">Novedad</span>
-          <span class="tag tag-off">−${off}%</span>
-        </div>
-        <div class="nov-fav">♥</div>
-        <img src="${p.images[0]}" alt="${p.name}" loading="lazy">
-        ${p.images[1]?`<img class="img-alt" src="${p.images[1]}" alt="" loading="lazy" aria-hidden="true">`:''}
+  novGrid.classList.add("nov-colecciones");
+  novGrid.innerHTML=COLECCIONES.map(c=>`<article class="nov-card nov-cat-card" data-cat="${c.cat}">
+    <div class="nov-img">
+      <img src="${c.img}" alt="${catName(c.cat)}" loading="lazy" data-start="${c.start}" data-focus="${c.focus}" data-zoom="${c.zoom}">
+      <div class="nov-txt">
+        <button class="nov-btn" aria-label="Descubrir ${catName(c.cat)}">Descubrir piezas <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
       </div>
-      <div class="nov-body">
-        <div class="nov-cat">${catName(p.cat)}</div>
-        <h3 class="nov-name">${p.name}</h3>
-        <p class="nov-desc">${desc}</p>
-        <div class="nov-price-row">
-          <span class="nov-price">${fmt(p.price)}</span>
-          <span class="nov-price-old">${fmt(antes)}</span>
-        </div>
-        <div class="nov-save">Ahorras ${fmt(ahorro)} hoy</div>
-        <button class="nov-btn">Ver pieza <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
-      </div>
-    </article>`;
-  }).join("");
-  $$(".nov-card").forEach(c=>c.onclick=()=>openProductPage(c.dataset.id));
+    </div>
+  </article>`).join("");
+  $$(".nov-cat-card").forEach(c=>c.onclick=()=>abrirColeccion(c.dataset.cat));
+  initFotoFocus();
+}
+// Abre la categoría en el catálogo (reutiliza la lógica de los círculos)
+function abrirColeccion(cat){
+  if(!CATEGORIES.some(c=>c[0]===cat))return;
+  activeCat=cat;
+  fvSesion.activeCat=cat;
+  guardarSesion();
+  const hint=document.getElementById("catHint");
+  if(hint)hint.classList.add("hidden");
+  renderCircles();
+  updateResultsBar(activeCat);
+  renderGrid();
+  gridEl.classList.add("visible");
+  document.getElementById("catalogo").scrollIntoView({behavior:"smooth"});
+}
+// Efecto simétrico: la foto abre al entrar, llega plena al centro del
+// viewport y se cierra al salir. Móvil: viaja + zoom. PC: solo zoom en GPU.
+function initFotoFocus(){
+  const mq=window.matchMedia("(max-width:1024px)");
+  const reduce=window.matchMedia("(prefers-reduced-motion: reduce)");
+  const imgs=Array.from(document.querySelectorAll(".nov-cat-card .nov-img img")).filter(i=>i.dataset.focus);
+  if(!imgs.length)return;
+  const parse=s=>s.replace(/%/g,"").trim().split(/\s+/).map(Number);
+  let ticking=false;
+  const pcOrigin=new Map();
+  function cacheOrigins(){
+    imgs.forEach(img=>pcOrigin.set(img,getComputedStyle(img).objectPosition));
+  }
+  cacheOrigins();
+  function frame(){
+    ticking=false;
+    if(reduce.matches)return;
+    const vh=window.innerHeight;
+    imgs.forEach(img=>{
+      const r=img.closest(".nov-img").getBoundingClientRect();
+      if(r.bottom<-80||r.top>vh+80)return;
+      const p=(vh/2-r.top)/(r.height/2);
+      let t=1-Math.abs(1-p);
+      t=Math.max(0,Math.min(1,t));
+      const e=t*t*(3-2*t);
+      const zoomMax=parseFloat(img.dataset.zoom||"0.14");
+      if(!mq.matches){
+        // PC: zoom anclado a la pieza
+        img.style.transition="none";
+        img.style.objectPosition="";
+        img.style.transformOrigin=pcOrigin.get(img)||"50% 50%";
+        img.style.transform="scale("+(1+zoomMax*0.6*e).toFixed(3)+")";
+        return;
+      }
+      // Móvil: viaje de encuadre + zoom
+      const [sx,sy]=parse(img.dataset.start||"50 50");
+      const [fx,fy]=parse(img.dataset.focus);
+      img.style.transition="none";
+      img.style.transformOrigin="50% 50%";
+      img.style.objectPosition=(sx+(fx-sx)*e)+"% "+(sy+(fy-sy)*e)+"%";
+      img.style.transform="scale("+(1+zoomMax*e).toFixed(3)+")";
+    });
+  }
+  function onScroll(){if(!ticking){ticking=true;requestAnimationFrame(frame);}}
+  mq.addEventListener("change",()=>{
+    imgs.forEach(img=>{img.style.transition="";img.style.objectPosition="";img.style.transform="";img.style.transformOrigin="";});
+    cacheOrigins();
+    onScroll();
+  });
+  window.addEventListener("scroll",onScroll,{passive:true});
+  window.addEventListener("resize",onScroll);
+  onScroll();
 }
 renderNovedades();
 
@@ -1740,6 +1897,30 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeModal();closeC
     var alt = card.querySelector(".img-alt");
     if(alt) setTimeout(function(){ alt.style.opacity = ""; }, 600);
   }, {passive:true});
+})();
+</script>
+<script>
+// Círculo inline: reutiliza el flujo completo del modal del Club
+// (anti-duplicados, EmailJS, Google Sheets, perfil) sin duplicar lógica.
+(function(){
+  var f=document.getElementById("circuloForm");
+  if(!f)return;
+  f.addEventListener("submit",function(e){
+    e.preventDefault();
+    var emEl=document.getElementById("circuloEmail");
+    var em=(emEl.value||"").trim();
+    var no=(document.getElementById("circuloNombre").value||"").trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){emEl.focus();emEl.style.borderColor="#b91c1c";return;}
+    emEl.style.borderColor="";
+    var me=document.getElementById("clubEmail");
+    var mn=document.getElementById("clubNombre");
+    if(me)me.value=em;
+    if(mn&&no)mn.value=no;
+    var ov=document.getElementById("clubOverlay");
+    if(ov)ov.classList.add("show");
+    var cf=document.getElementById("clubForm");
+    if(cf){if(cf.requestSubmit)cf.requestSubmit();else cf.dispatchEvent(new Event("submit",{cancelable:true}));}
+  });
 })();
 </script>
 </body>
