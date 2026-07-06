@@ -381,9 +381,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .product-info .price-row{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
 .product-info .price{color:var(--cobre-dark);font-size:15px;font-weight:700}
 .product-info .price-old{color:var(--tinta-soft);font-size:12px;font-weight:200;text-decoration:line-through;opacity:.7}
-.product-info .price-off{font-size:9px;font-weight:700;letter-spacing:.04em;color:#fff;background:var(--verde);padding:2px 7px;border-radius:2px;text-transform:uppercase}
+.product-info .price-off{font-size:8.5px;font-weight:500;letter-spacing:.04em;color:var(--cobre-dark);background:rgba(192,133,82,.13);border:1px solid rgba(192,133,82,.28);padding:2px 7px;border-radius:2px}
 .product-info .view{display:inline-block;margin-top:8px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--verde-soft);font-weight:200}
-.product-badge.badge-novedad{background:var(--verde);color:#fff;font-weight:700}
 @media(max-width:768px){.product-info{padding:12px 14px 16px}.product-info h3{font-size:12.5px;line-height:1.35}.product-info .price{font-size:12px}.product-info .view{font-size:9px;margin-top:6px}}
 @media(max-width:380px){.product-info{padding:10px 12px 14px}.product-info h3{font-size:11.5px}}
 
@@ -790,7 +789,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
       <p>Reconocido como Artista Revelación Nacional en FAREX Cartagena 2025, la feria de arte más importante de Colombia. Estudié Artes Plásticas en la Universidad Jorge Tadeo Lozano y perfeccioné la técnica de vitrofusión en talleres italianos.</p>
       <p>La vitrofusión es el arte de unir y fusionar fragmentos de vidrio mediante calor intenso, permitiendo que cada pieza sea irrepetible en forma, color y textura. A diferencia del vidrio soplado, esta técnica se basa en la superposición y fusión de materiales ya trabajados.</p>
       <div class="sobre-stats">
-        <div><b>2025</b><span>FAREX · Revelación Nacional</span></div>
         <div><b>800<em>°C</em></b><span>de fusión en horno</span></div>
         <div><b>100<em>%</em></b><span>hecho a mano</span></div>
       </div>
@@ -1496,7 +1494,6 @@ function renderGrid(){
     const off=descuentoPct(p.price);
     return `<article class="product-card" data-id="${p.id}">
       <div class="product-img">
-        <span class="product-badge badge-novedad">−${off}%</span>
         ${isSold?'<div class="product-sold-out"><span>Agotado</span></div>':''}
         <img src="${p.images[0]}" alt="${p.name}" loading="lazy">
         ${p.images[1]?`<img class="img-alt" src="${p.images[1]}" alt="" loading="lazy" aria-hidden="true">`:''}
@@ -1504,7 +1501,7 @@ function renderGrid(){
       <div class="product-info">
         <h3>${p.name}</h3>
         ${p.sku?`<div style="font-size:9px;letter-spacing:.1em;color:var(--tinta-soft);opacity:.65;margin-bottom:4px;font-weight:400">Ref. ${p.sku}</div>`:''}
-        ${isSold?`<div class="price">Agotado</div>`:`<div class="price-row"><span class="price">${fmt(p.price)}</span><span class="price-old">${fmt(antes)}</span></div>`}
+        ${isSold?`<div class="price">Agotado</div>`:`<div class="price-row"><span class="price">${fmt(p.price)}</span><span class="price-old">${fmt(antes)}</span><span class="price-off">−${off}%</span></div>`}
         <div class="view">${isSold?'Ver pieza →':'Ver detalles →'}</div>
       </div>
       ${isAdmin?`<button style="position:absolute;top:10px;right:10px;z-index:3;padding:6px 12px;border-radius:2px;background:${isSold?'#25d366':'#e74c3c'};color:#fff;font-size:9px;letter-spacing:.08em;text-transform:uppercase;font-weight:700" data-toggle="${p.id}">${isSold?'Habilitar':'Agotar'}</button>`:''}
