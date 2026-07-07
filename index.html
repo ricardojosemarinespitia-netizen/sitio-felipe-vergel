@@ -177,12 +177,14 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .sobre-text h2 .acc{color:var(--cobre-dark);display:block}
 .sobre-text p{color:var(--tinta-soft);font-size:13.5px;margin:0 0 13px;max-width:520px;line-height:1.7;font-weight:200}
 .farex-badge{display:block;background:none;border:none;padding:0;color:var(--cobre-dark);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;letter-spacing:.03em;text-transform:none;font-weight:500;margin:0 0 20px}
-.sobre-mosaic{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.sobre-mosaic .m{overflow:hidden;border-radius:var(--radius);background:#eee;aspect-ratio:1/1}
-.sobre-mosaic .m:first-child{grid-column:span 2;aspect-ratio:16/9}
+.sobre-mosaic{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;align-items:start}
+.sobre-mosaic .m{overflow:hidden;background:#eee;box-shadow:var(--shadow)}
+.sobre-mosaic .m1{aspect-ratio:3/4;border-radius:160px 160px 4px 4px}
+.sobre-mosaic .m2{aspect-ratio:4/5;margin-top:56px;border-radius:4px}
+.sobre-mosaic .m3{grid-column:span 2;aspect-ratio:21/9;margin-top:2px;border-radius:4px 4px 4px 90px}
 .sobre-mosaic .m img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
 .sobre-mosaic .m:hover img{transform:scale(1.05)}
-@media(max-width:900px){.sobre-mosaic{max-width:340px;margin:0 auto}}
+@media(max-width:900px){.sobre-mosaic{max-width:360px;margin:0 auto;gap:12px}.sobre-mosaic .m1{border-radius:120px 120px 4px 4px}.sobre-mosaic .m2{margin-top:38px}.sobre-mosaic .m3{border-radius:4px 4px 4px 64px}}
 
 /* NOVEDADES */
 .novedades{padding:100px 0 110px;background:var(--crema);position:relative;overflow:hidden}
@@ -286,7 +288,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 }
 
 /* FOOTER PREMIUM */
-.fv-footer{background:var(--verde-dark);color:rgba(250,244,237,.82);padding:80px 0 34px}
+.fv-footer{background:#4A2418;color:rgba(250,244,237,.82);padding:80px 0 34px}
 .fvf-quote{text-align:center;padding-bottom:60px;margin-bottom:60px;border-bottom:1px solid rgba(250,244,237,.14)}
 .fvf-quote .q{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(21px,2.8vw,32px);line-height:1.5;color:rgba(250,244,237,.92);max-width:760px;margin:0 auto 18px}
 .fvf-quote .q-firma{font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;font-weight:400;color:rgba(250,244,237,.5)}
@@ -658,8 +660,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 /* SOBRE — cifras del oficio */
 .sobre-stats{display:flex;gap:40px;margin-top:32px;flex-wrap:wrap}
 .sobre-stats>div{display:flex;flex-direction:column}
-.sobre-stats b{font-size:30px;font-weight:800;color:var(--verde-dark);letter-spacing:-.02em;line-height:1}
-.sobre-stats b em{font-style:normal;color:var(--cobre);font-size:20px}
+.sobre-stats b{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:500;color:var(--verde-dark);letter-spacing:.01em;line-height:1}
+.sobre-stats b em{font-style:italic;color:var(--cobre-dark);font-size:22px}
 .sobre-stats span{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--tinta-soft);margin-top:8px;font-weight:200}
 @media(max-width:640px){.sobre-stats{gap:26px;margin-top:24px}.sobre-stats b{font-size:24px}}
 
@@ -779,9 +781,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
       <span class="eyebrow">Manifiesto</span>
       <h2 class="h-display">Felipe <span class="acc h-serif">Vergel Acevedo</span></h2>
       <div class="farex-badge">Artista Revelación · FAREX 2025</div>
-      <p>El cristal transformó mi mirada y se convirtió en mi forma de creación. Exploro lo imperfecto como parte esencial de la belleza del proceso artístico. Cada obra es una experiencia que conecta materia, luz y emoción.</p>
-      <p>Reconocido como Artista Revelación Nacional en FAREX Cartagena 2025, la feria de arte más importante de Colombia. Estudié Artes Plásticas en la Universidad Jorge Tadeo Lozano y perfeccioné la técnica de vitrofusión en talleres italianos.</p>
-      <p>La vitrofusión es el arte de unir y fusionar fragmentos de vidrio mediante calor intenso, permitiendo que cada pieza sea irrepetible en forma, color y textura. A diferencia del vidrio soplado, esta técnica se basa en la superposición y fusión de materiales ya trabajados.</p>
+      <p>El cristal transformó mi mirada y se convirtió en mi forma de creación. Cada obra conecta materia, luz y emoción, abrazando lo imperfecto como parte esencial de la belleza.</p>
+      <p>Formado en Artes Plásticas en la Universidad Jorge Tadeo Lozano y en talleres italianos, trabajo la vitrofusión: fragmentos de vidrio fundidos a fuego intenso que hacen de cada pieza algo irrepetible.</p>
       <div class="sobre-stats">
         <div><b>800<em>°C</em></b><span>de fusión en horno</span></div>
         <div><b>100<em>%</em></b><span>hecho a mano</span></div>
@@ -814,11 +815,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
   <div class="container">
     <div class="fvf-quote">
       <p class="q">"El cristal es mi lenguaje: mi musa, mi motor y mi medio para crear arte que emociona."</p>
-      <span class="q-firma">— Felipe Vergel · Floridablanca, Santander</span>
     </div>
     <div class="fvf-grid">
       <div class="fvf-brand">
-        <img src="img/logo/logo_blanco.png" alt="Felipe Vergel · Arte en Vidrio" loading="lazy">
+        <img src="img/logo/logo_fv_ladrillo.png" alt="Felipe Vergel · Arte en Vidrio" loading="lazy" style="filter:brightness(0) invert(1);opacity:.92">
         <p>Piezas únicas en vidrio, creadas a mano en vitrofusión. Artista Revelación Nacional FAREX 2025. Arte que dialoga con la luz, hecho en Floridablanca, Colombia.</p>
         <a href="https://instagram.com/felipevergel.arteenvidrio" target="_blank" rel="noopener" class="fvf-insta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
