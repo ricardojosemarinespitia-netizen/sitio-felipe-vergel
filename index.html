@@ -176,15 +176,13 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .sobre-text h2{font-size:clamp(28px,3.6vw,40px);margin:0 0 18px;color:var(--verde-dark)}
 .sobre-text h2 .acc{color:var(--cobre-dark);display:block}
 .sobre-text p{color:var(--tinta-soft);font-size:13.5px;margin:0 0 13px;max-width:520px;line-height:1.7;font-weight:200}
-.farex-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 15px;border-radius:2px;background:rgba(198,110,78,.12);border:1px solid rgba(198,110,78,.3);color:var(--cobre-dark);font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-top:6px;margin-bottom:16px}
-.sobre-mosaic{display:grid;grid-template-columns:1fr 1fr;gap:12px;grid-template-rows:repeat(3,138px)}
-.sobre-mosaic .m{overflow:hidden;border-radius:var(--radius);background:#eee}
+.farex-badge{display:flex;align-items:center;gap:12px;background:none;border:none;padding:0;color:var(--cobre-dark);font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:400;margin:2px 0 22px}
+.farex-badge::before{content:"";flex:0 0 auto;width:28px;height:1px;background:var(--cobre);opacity:.55}
+.sobre-mosaic{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.sobre-mosaic .m{overflow:hidden;border-radius:var(--radius);background:#eee;aspect-ratio:4/5}
 .sobre-mosaic .m img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
 .sobre-mosaic .m:hover img{transform:scale(1.05)}
-.sobre-mosaic .m1{grid-row:span 2}
-.sobre-mosaic .m4{grid-row:span 2}
-@media(max-width:900px){.sobre-mosaic{grid-template-rows:repeat(3,160px);max-width:480px;margin:0 auto}}
-@media(max-width:560px){.sobre-mosaic{grid-template-rows:repeat(3,120px)}}
+@media(max-width:900px){.sobre-mosaic{max-width:440px;margin:0 auto}}
 
 /* NOVEDADES */
 .novedades{padding:100px 0 110px;background:var(--crema);position:relative;overflow:hidden}
@@ -664,8 +662,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .sobre-stats b em{font-style:normal;color:var(--cobre);font-size:20px}
 .sobre-stats span{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--tinta-soft);margin-top:8px;font-weight:200}
 @media(max-width:640px){.sobre-stats{gap:26px;margin-top:24px}.sobre-stats b{font-size:24px}}
-.sobre-mosaic .m1{border-radius:120px 22px 22px 22px}
-.sobre-mosaic .m5{border-radius:22px 22px 22px 120px}
 
 /* PROCESO — el ritual del fuego */
 .proceso{margin-top:84px}
@@ -782,7 +778,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
     <div class="sobre-text">
       <span class="eyebrow">Manifiesto</span>
       <h2 class="h-display">Felipe <span class="acc h-serif">Vergel Acevedo</span></h2>
-      <div class="farex-badge">✦ Artista Revelación Nacional · FAREX Cartagena 2025</div>
+      <div class="farex-badge">Artista Revelación Nacional · FAREX Cartagena 2025</div>
       <p>El cristal transformó mi mirada y se convirtió en mi forma de creación. Exploro lo imperfecto como parte esencial de la belleza del proceso artístico. Cada obra es una experiencia que conecta materia, luz y emoción.</p>
       <p>Reconocido como Artista Revelación Nacional en FAREX Cartagena 2025, la feria de arte más importante de Colombia. Estudié Artes Plásticas en la Universidad Jorge Tadeo Lozano y perfeccioné la técnica de vitrofusión en talleres italianos.</p>
       <p>La vitrofusión es el arte de unir y fusionar fragmentos de vidrio mediante calor intenso, permitiendo que cada pieza sea irrepetible en forma, color y textura. A diferencia del vidrio soplado, esta técnica se basa en la superposición y fusión de materiales ya trabajados.</p>
@@ -794,7 +790,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
     <div class="sobre-mosaic" id="sobreMosaic">
       <div class="m m1"></div><div class="m m2"></div>
       <div class="m m3"></div><div class="m m4"></div>
-      <div class="m m5"></div>
     </div>
   </div>
 </section>
