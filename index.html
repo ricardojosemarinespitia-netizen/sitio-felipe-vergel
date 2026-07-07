@@ -176,13 +176,13 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .sobre-text h2{font-size:clamp(28px,3.6vw,40px);margin:0 0 18px;color:var(--verde-dark)}
 .sobre-text h2 .acc{color:var(--cobre-dark);display:block}
 .sobre-text p{color:var(--tinta-soft);font-size:13.5px;margin:0 0 13px;max-width:520px;line-height:1.7;font-weight:200}
-.farex-badge{display:flex;align-items:center;gap:12px;background:none;border:none;padding:0;color:var(--cobre-dark);font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:400;margin:2px 0 22px}
-.farex-badge::before{content:"";flex:0 0 auto;width:28px;height:1px;background:var(--cobre);opacity:.55}
-.sobre-mosaic{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.sobre-mosaic .m{overflow:hidden;border-radius:var(--radius);background:#eee;aspect-ratio:4/5}
+.farex-badge{display:block;background:none;border:none;padding:0;color:var(--cobre-dark);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;letter-spacing:.03em;text-transform:none;font-weight:500;margin:0 0 20px}
+.sobre-mosaic{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sobre-mosaic .m{overflow:hidden;border-radius:var(--radius);background:#eee;aspect-ratio:1/1}
+.sobre-mosaic .m:first-child{grid-column:span 2;aspect-ratio:16/9}
 .sobre-mosaic .m img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
 .sobre-mosaic .m:hover img{transform:scale(1.05)}
-@media(max-width:900px){.sobre-mosaic{max-width:440px;margin:0 auto}}
+@media(max-width:900px){.sobre-mosaic{max-width:340px;margin:0 auto}}
 
 /* NOVEDADES */
 .novedades{padding:100px 0 110px;background:var(--crema);position:relative;overflow:hidden}
@@ -778,7 +778,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
     <div class="sobre-text">
       <span class="eyebrow">Manifiesto</span>
       <h2 class="h-display">Felipe <span class="acc h-serif">Vergel Acevedo</span></h2>
-      <div class="farex-badge">Artista Revelación Nacional · FAREX Cartagena 2025</div>
+      <div class="farex-badge">Artista Revelación · FAREX 2025</div>
       <p>El cristal transformó mi mirada y se convirtió en mi forma de creación. Exploro lo imperfecto como parte esencial de la belleza del proceso artístico. Cada obra es una experiencia que conecta materia, luz y emoción.</p>
       <p>Reconocido como Artista Revelación Nacional en FAREX Cartagena 2025, la feria de arte más importante de Colombia. Estudié Artes Plásticas en la Universidad Jorge Tadeo Lozano y perfeccioné la técnica de vitrofusión en talleres italianos.</p>
       <p>La vitrofusión es el arte de unir y fusionar fragmentos de vidrio mediante calor intenso, permitiendo que cada pieza sea irrepetible en forma, color y textura. A diferencia del vidrio soplado, esta técnica se basa en la superposición y fusión de materiales ya trabajados.</p>
@@ -789,7 +789,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
     </div>
     <div class="sobre-mosaic" id="sobreMosaic">
       <div class="m m1"></div><div class="m m2"></div>
-      <div class="m m3"></div><div class="m m4"></div>
+      <div class="m m3"></div>
     </div>
   </div>
 </section>
