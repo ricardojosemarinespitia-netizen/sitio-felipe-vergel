@@ -151,17 +151,17 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;background:#1a1f1e}
 .hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.95;filter:none}
 .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,18,16,.35) 0%,rgba(20,18,16,.55) 60%,rgba(20,18,16,.75) 100%)}
-.hero-inner{position:relative;z-index:1;color:#fff;width:100%;max-width:none;display:flex;flex-direction:column;align-items:center;padding-bottom:120px}
+.hero-inner{position:relative;z-index:1;color:#fff;width:100%;max-width:none;display:flex;flex-direction:column;align-items:center;padding-bottom:64px}
 .hero-eyebrow{display:inline-block;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--cobre);margin-bottom:26px;font-weight:200}
-.hero-drop{display:inline-block;font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:var(--crema-rosa);font-weight:400;margin-bottom:20px;text-shadow:0 2px 18px rgba(0,0,0,.5)}
-.hero-lead{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(46px,7.4vw,92px);line-height:1;color:#fff;margin:0 0 30px;letter-spacing:.01em;text-shadow:0 2px 30px rgba(0,0,0,.4)}
+.hero-drop{display:inline-block;font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:var(--crema-rosa);font-weight:400;margin-bottom:12px;text-shadow:0 2px 18px rgba(0,0,0,.5)}
+.hero-lead{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(40px,6.2vw,78px);line-height:1;color:#fff;margin:0 0 20px;letter-spacing:.01em;text-shadow:0 2px 30px rgba(0,0,0,.4)}
 .hero-actions{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;align-items:center}
 .hero-cta.ghost{background:transparent;border-color:rgba(255,255,255,.5)}
 .hero-cta.ghost:hover{background:rgba(255,255,255,.12);border-color:#fff;color:#fff}
 @media(max-width:640px){.hero-drop{font-size:9.5px;letter-spacing:.3em}.hero-actions{gap:12px;flex-direction:column;width:100%;max-width:320px}.hero-actions .hero-cta{width:100%}}
 .hero h1{font-size:clamp(36px,7vw,76px);margin:0 0 10px;color:#fff;line-height:1.04}
 .hero h1 .sub{display:block;font-family:'Jost';font-weight:200;font-size:clamp(13px,2vw,20px);letter-spacing:.08em;margin-top:8px;color:rgba(255,255,255,.7)}
-.hero-tagline{font-family:'Cormorant Garamond',serif;font-weight:400;font-style:italic;font-size:clamp(17px,2.5vw,26px);color:var(--cobre);margin:22px 0 28px;line-height:1.4;letter-spacing:.01em}
+.hero-tagline{font-family:'Cormorant Garamond',serif;font-weight:400;font-style:italic;font-size:clamp(17px,2.5vw,26px);color:var(--cobre);margin:14px 0 0;line-height:1.4;letter-spacing:.01em}
 .hero p{font-size:clamp(13px,1.3vw,15px);max-width:500px;color:rgba(255,255,255,.78);margin:0 0 36px;font-weight:200;line-height:1.8}
 .hero-cta{display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:17px 42px;border:1px solid rgba(255,255,255,.75);border-radius:2px;background:rgba(22,17,12,.18);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);color:#fff;font-size:11.5px;letter-spacing:.28em;text-transform:uppercase;font-weight:500;transition:all .3s;min-height:52px}
 .hero-cta:hover{background:var(--crema);color:var(--verde-dark);border-color:var(--crema)}
@@ -388,6 +388,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .product-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--linea)}
 .product-card:active{transform:scale(.98)}
 .product-img{position:relative;aspect-ratio:1/1;background:#eee;overflow:hidden}
+/* Fotos de la lámpara: encuadre bajo el techo para que el vidrio llene la foto, sin espacio vacío arriba */
+.product-img img[src*="lamparas/"],.p-gallery-main img[src*="lamparas/"],.p-thumb img[src*="lamparas/"]{object-position:50% 78%}
 .product-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
 .product-card:hover .product-img img{transform:scale(1.04)}
 .product-badge{position:absolute;top:14px;left:14px;background:rgba(250,247,242,.95);color:var(--verde);font-size:9px;letter-spacing:.15em;text-transform:uppercase;font-weight:200;padding:5px 11px;border-radius:2px}
@@ -762,7 +764,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
       <a href="#novedades" class="hero-cta">Descubrir la pieza</a>
       <a href="#catalogo" class="hero-cta ghost">Descubrir piezas completas</a>
     </div>
-    <p class="hero-tagline" style="color:#fff;font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.2vw,28px);font-weight:400;font-style:italic;margin-top:24px;margin-bottom:0;letter-spacing:.02em;opacity:.95">Luz que florece en vidrio</p>
+    <p class="hero-tagline" style="color:#fff;font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.2vw,28px);font-weight:400;font-style:italic;margin-top:14px;margin-bottom:0;letter-spacing:.02em;opacity:.95">Luz que florece en vidrio</p>
   </div>
   <div class="hero-scroll">↓ Desliza</div>
 </section>

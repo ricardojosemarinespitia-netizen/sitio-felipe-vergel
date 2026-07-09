@@ -76,6 +76,8 @@ img{display:block;max-width:100%;height:auto}
 @media(max-width:920px){.p-gallery{position:static}}
 .p-gallery-main{position:relative;aspect-ratio:1/1;background:var(--crema-2);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:14px;box-shadow:0 8px 30px -10px rgba(63,68,67,.15)}
 .p-gallery-main img{width:100%;height:100%;object-fit:cover;transition:opacity .35s}
+/* Fotos de la lámpara: encuadre bajo el techo para que el vidrio llene la foto */
+.p-gallery-main img[src*="lamparas/"],.p-thumb img[src*="lamparas/"]{object-position:50% 78%}
 .p-gallery-nav{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;background:rgba(250,244,237,.95);color:var(--verde);display:flex;align-items:center;justify-content:center;font-size:20px;backdrop-filter:blur(8px);transition:all .25s;box-shadow:0 4px 12px -4px rgba(63,68,67,.2)}
 .p-gallery-nav:hover{background:#fff;transform:translateY(-50%) scale(1.08)}
 .p-gallery-nav.prev{left:18px}
