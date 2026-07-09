@@ -254,16 +254,16 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .col-overlay .col-eyebrow{font-size:10.5px;letter-spacing:.42em;text-transform:uppercase;font-weight:400;color:var(--crema-rosa);margin-bottom:16px;opacity:.95}
 .col-overlay h3{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,5.6vw,74px);font-weight:500;letter-spacing:.02em;line-height:1;margin:0 0 14px;color:#fff}
 .col-overlay p{font-size:14.5px;font-weight:300;line-height:1.75;color:rgba(255,255,255,.88);max-width:460px;margin:0 0 30px}
-/* Panel de la nueva pieza: overlay más suave y compacto para que el vidrio se aprecie */
-.is-novedad .col-overlay{background:linear-gradient(to bottom,rgba(12,9,6,0) 0%,rgba(12,9,6,0) 52%,rgba(12,9,6,.34) 78%,rgba(12,9,6,.72) 100%);padding-bottom:56px}
+/* Panel de la nueva pieza: texto ARRIBA para que el vidrio quede totalmente libre abajo */
+.is-novedad .col-overlay{justify-content:flex-start;padding:112px 7vw 0;background:linear-gradient(to bottom,rgba(12,9,6,.72) 0%,rgba(12,9,6,.42) 22%,rgba(12,9,6,.12) 40%,rgba(12,9,6,0) 54%)}
 .is-novedad .col-overlay p{max-width:400px}
 .btn-descubrir{display:inline-flex;align-items:center;gap:12px;padding:15px 38px;border:1px solid rgba(255,255,255,.7);border-radius:2px;background:rgba(22,17,12,.16);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);color:#fff;font-size:11px;letter-spacing:.26em;text-transform:uppercase;font-weight:500;transition:all .35s}
 .is-novedad .btn-descubrir{background:var(--cobre);border-color:var(--cobre)}
 .is-novedad:hover .btn-descubrir{background:var(--crema);color:var(--verde-dark);border-color:var(--crema)}
 .col-panel:hover .btn-descubrir{background:var(--crema);color:var(--verde-dark);border-color:var(--crema)}
-.col-panel[data-cat="lamparas"] img{object-position:50% 60%}
+.col-panel[data-cat="lamparas"] img{object-position:50% 100%}
 @media(min-width:1025px){
-  .col-panel[data-cat="lamparas"] img{object-position:50% 58%}
+  .col-panel[data-cat="lamparas"] img{object-position:50% 100%}
   .col-panel[data-cat="bandejas"] img{object-position:50% 50%}
   .col-panel[data-cat="centros-mesa"] img{object-position:50% 55%}
   .col-panel[data-cat="floreros"] img{object-position:50% 42%}
@@ -278,6 +278,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
   .col-overlay{padding:0 24px 50px}
   .col-overlay .col-eyebrow{font-size:9.5px;letter-spacing:.34em}
   .col-overlay p{font-size:13px;margin-bottom:24px;max-width:none}
+  .is-novedad .col-overlay{padding:92px 24px 0}
   .btn-descubrir{padding:13px 30px;font-size:10px;letter-spacing:.22em}
 }
 
@@ -362,7 +363,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 @media(max-width:640px){.cat-results{padding:10px 14px;margin-bottom:14px}.cat-results-name{font-size:11px}}
 
 /* CIRCULAR SILHOUETTE CATEGORY SELECTOR */
-.cat-circles{display:flex;flex-wrap:wrap;gap:28px;justify-content:center;margin-bottom:60px;padding:20px 0}
+.cat-circles{display:flex;flex-wrap:wrap;gap:28px;justify-content:center;margin-bottom:40px;padding:20px 0}
 .cat-circle{display:flex;flex-direction:column;align-items:center;gap:12px;cursor:pointer;transition:transform .28s ease}
 .cat-circle:hover{transform:translateY(-5px)}
 .cat-circle:hover .circle-img{border-color:var(--cobre-dark);box-shadow:0 8px 28px -6px rgba(198,110,78,.35)}
@@ -375,10 +376,13 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .product-grid{opacity:0;transition:opacity .3s ease}
 .product-grid.visible{opacity:1}
 @media(max-width:900px){.cat-circle .circle-img{width:88px;height:88px}.cat-circles{gap:18px}}
-@media(max-width:640px){.cat-circle .circle-img{width:70px;height:70px}.cat-circles{gap:14px}.cat-circle .circle-label{font-size:9px;max-width:72px}}
+@media(max-width:640px){.cat-circle .circle-img{width:70px;height:70px}.cat-circles{gap:14px;margin-bottom:28px}.cat-circle .circle-label{font-size:9px;max-width:72px}.catalogo{padding-top:44px;padding-bottom:48px}}
 
 .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:32px}
-@media(max-width:768px){.product-grid{grid-template-columns:repeat(2,1fr);gap:14px}}
+/* Pocas piezas: no estirar a lo ancho, centrar tarjetas de tamaño natural */
+.product-grid.few{grid-template-columns:repeat(auto-fit,minmax(260px,320px));justify-content:center}
+@media(max-width:768px){.product-grid{grid-template-columns:repeat(2,1fr);gap:14px}
+  .product-grid.few{grid-template-columns:minmax(0,320px);gap:14px}}
 @media(max-width:380px){.product-grid{gap:10px}}
 .product-card{background:var(--crema);border-radius:var(--radius);overflow:hidden;transition:transform .4s,box-shadow .4s;cursor:pointer;border:1px solid transparent;position:relative}
 .product-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--linea)}
@@ -1496,6 +1500,7 @@ function renderGrid(){
   if(!activeCat){gridEl.innerHTML="";return;}
   const catName=id=>(CATEGORIES.find(c=>c[0]===id)||[,id])[1];
   const list=PRODUCTS.filter(p=>p.cat===activeCat).sort((a,b)=>b.price-a.price);
+  gridEl.classList.toggle("few",list.length<=2);
   gridEl.innerHTML=list.map(p=>{
     const isSold=soldOut[p.id];
     const antes=precioAnterior(p.price);
