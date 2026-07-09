@@ -153,6 +153,11 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,18,16,.35) 0%,rgba(20,18,16,.55) 60%,rgba(20,18,16,.75) 100%)}
 .hero-inner{position:relative;z-index:1;color:#fff;width:100%;max-width:none;display:flex;flex-direction:column;align-items:center;padding-bottom:120px}
 .hero-eyebrow{display:inline-block;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--cobre);margin-bottom:26px;font-weight:200}
+.hero-drop{display:inline-flex;align-items:center;gap:9px;font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;color:#fff;font-weight:500;padding:8px 18px;border:1px solid rgba(243,207,179,.5);border-radius:2px;background:rgba(198,110,78,.28);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);margin-bottom:18px}
+.hero-drop::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--crema-rosa);box-shadow:0 0 0 0 rgba(231,207,180,.7);animation:heroPulse 2.2s infinite}
+@keyframes heroPulse{0%{box-shadow:0 0 0 0 rgba(231,207,180,.6)}70%{box-shadow:0 0 0 8px rgba(231,207,180,0)}100%{box-shadow:0 0 0 0 rgba(231,207,180,0)}}
+.hero-lead{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(44px,7vw,86px);line-height:1;color:#fff;margin:0 0 26px;letter-spacing:.01em;text-shadow:0 2px 30px rgba(0,0,0,.35)}
+@media(max-width:640px){.hero-drop{font-size:9px;letter-spacing:.2em;padding:7px 14px}}
 .hero h1{font-size:clamp(36px,7vw,76px);margin:0 0 10px;color:#fff;line-height:1.04}
 .hero h1 .sub{display:block;font-family:'Jost';font-weight:200;font-size:clamp(13px,2vw,20px);letter-spacing:.08em;margin-top:8px;color:rgba(255,255,255,.7)}
 .hero-tagline{font-family:'Cormorant Garamond',serif;font-weight:400;font-style:italic;font-size:clamp(17px,2.5vw,26px);color:var(--cobre);margin:22px 0 28px;line-height:1.4;letter-spacing:.01em}
@@ -248,9 +253,16 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 .col-overlay .col-eyebrow{font-size:10.5px;letter-spacing:.42em;text-transform:uppercase;font-weight:400;color:var(--crema-rosa);margin-bottom:16px;opacity:.95}
 .col-overlay h3{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,5.6vw,74px);font-weight:500;letter-spacing:.02em;line-height:1;margin:0 0 14px;color:#fff}
 .col-overlay p{font-size:14.5px;font-weight:300;line-height:1.75;color:rgba(255,255,255,.88);max-width:460px;margin:0 0 30px}
+.col-flag{position:absolute;top:26px;left:7vw;z-index:3;display:inline-flex;align-items:center;gap:8px;font-size:10px;letter-spacing:.28em;text-transform:uppercase;font-weight:600;color:#fff;padding:8px 16px;border-radius:2px;background:var(--cobre-dark);box-shadow:0 8px 24px -8px rgba(138,74,43,.6)}
+.col-flag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--crema-rosa)}
+.col-precio{display:flex;align-items:baseline;gap:8px;font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:600;color:#fff;margin:0 0 26px;letter-spacing:.01em}
+.col-precio span{font-family:'Jost';font-size:11px;font-weight:400;letter-spacing:.2em;color:var(--crema-rosa);text-transform:uppercase}
 .btn-descubrir{display:inline-flex;align-items:center;gap:12px;padding:15px 38px;border:1px solid rgba(255,255,255,.7);border-radius:2px;background:rgba(22,17,12,.16);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);color:#fff;font-size:11px;letter-spacing:.26em;text-transform:uppercase;font-weight:500;transition:all .35s}
+.is-novedad .btn-descubrir{background:var(--cobre);border-color:var(--cobre)}
+.is-novedad:hover .btn-descubrir{background:var(--crema);color:var(--verde-dark);border-color:var(--crema)}
 .col-panel:hover .btn-descubrir{background:var(--crema);color:var(--verde-dark);border-color:var(--crema)}
 @media(min-width:1025px){
+  .col-panel[data-cat="lamparas"] img{object-position:50% 42%}
   .col-panel[data-cat="bandejas"] img{object-position:50% 50%}
   .col-panel[data-cat="centros-mesa"] img{object-position:50% 55%}
   .col-panel[data-cat="floreros"] img{object-position:50% 42%}
@@ -266,6 +278,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
   .col-overlay .col-eyebrow{font-size:9.5px;letter-spacing:.34em}
   .col-overlay p{font-size:13px;margin-bottom:24px;max-width:none}
   .btn-descubrir{padding:13px 30px;font-size:10px;letter-spacing:.22em}
+  .col-flag{top:18px;left:24px;font-size:9px;padding:7px 13px;letter-spacing:.2em}
+  .col-precio{font-size:27px;margin-bottom:20px}
 }
 
 /* CÍRCULO: banda de suscripción inline */
@@ -739,8 +753,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
   <div class="hero-light" aria-hidden="true"></div>
   <div class="container hero-inner">
     <h1 class="sr-only">Felipe Vergel · Arte en Vidrio · Vitrofusión artesanal en Floridablanca, Colombia</h1>
-    <a href="#catalogo" class="hero-cta">Explorar Piezas de Autor</a>
-    <p class="hero-tagline" style="color:#fff;font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.2vw,28px);font-weight:400;font-style:italic;margin-top:24px;margin-bottom:0;letter-spacing:.02em;opacity:.95">Vidrio que dialoga con la luz</p>
+    <span class="hero-drop">Nueva pieza · Edición coleccionable</span>
+    <p class="hero-lead">Lámpara Flor</p>
+    <a href="#novedades" class="hero-cta">Descubrir la pieza</a>
+    <p class="hero-tagline" style="color:#fff;font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.2vw,28px);font-weight:400;font-style:italic;margin-top:24px;margin-bottom:0;letter-spacing:.02em;opacity:.95">Luz que florece en vidrio</p>
   </div>
   <div class="hero-scroll">↓ Desliza</div>
 </section>
@@ -749,7 +765,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
   <div class="container">
     <div class="nov-head">
       <span class="eyebrow">Colecciones</span>
-      <h2 class="h-display">Cinco universos <span class="acc">en vidrio</span></h2>
+      <h2 class="h-display">Universos <span class="acc">en vidrio</span></h2>
       <p>Obras creadas a mano en vitrofusión. Cada colección es un territorio propio de luz, color y materia.</p>
     </div>
   </div>
@@ -1393,7 +1409,8 @@ function guardarSesion(){try{sessionStorage.setItem("fv_sesion",JSON.stringify(f
 // HERO + CONTACT BG
 (function(){
   const c=FELIPE_IMGS.filter(x=>!x.includes("-60")&&!x.includes("-61"));
-  if(!fvSesion.heroImg)fvSesion.heroImg=c[Math.floor(Math.random()*Math.min(10,c.length))]||FELIPE_IMGS[0];
+  // Lanzamiento: el hero siempre muestra la nueva pieza coleccionable (Lámpara Flor)
+  fvSesion.heroImg="img/lamparas/lampara-hero.jpg";
   if(!fvSesion.contactoImg)fvSesion.contactoImg=c[Math.floor(Math.random()*c.length)]||FELIPE_IMGS[1];
   document.getElementById("heroBg").style.backgroundImage=`url('${fvSesion.heroImg}')`;
   const cbg=document.getElementById("contactoBg");
@@ -1535,6 +1552,7 @@ function pickRandom(arr,n){
 }
 // Portadas cinematográficas de colección: foto, título, descripción y encuadre del efecto scroll
 const COLECCIONES=[
+  {cat:"lamparas",     title:"Lámpara Flor",   desc:"La nueva pieza coleccionable: vidrio fundido a 800 °C que cae y florece. La luz atraviesa su textura y proyecta el gesto del fuego. Cada lámpara es única.", img:"img/lamparas/lampara-01.jpg", start:"50% 42%", focus:"50% 46%", zoom:"0.16", novedad:true, precio:"$280.000"},
   {cat:"bandejas",     title:"Bandejas",       desc:"Hojas y vetas de vidrio que sostienen lo cotidiano y lo convierten en ceremonia.",        img:"img/bandeja-hoja-maxi-irregular/bandeja-hoja-maxi-irregular-02.jpg", start:"50% 50%", focus:"50% 55%", zoom:"0.18"},
   {cat:"centros-mesa", title:"Centros de Mesa",desc:"El corazón de la mesa: color, textura y luz fundidos a 800 °C.",                          img:"img/centro-mesa-conico-mosaico/centro-mesa-conico-mosaico-05.jpg",   start:"50% 40%", focus:"50% 60%", zoom:"0.20"},
   {cat:"floreros",     title:"Floreros",       desc:"Vasijas esculturales donde las flores dialogan con la transparencia.",                    img:"img/florero-alto-irregular/florero-alto-irregular-03.jpg",           start:"50% 30%", focus:"50% 45%", zoom:"0.16"},
@@ -1545,13 +1563,15 @@ function renderNovedades(){
   const nPiezas=cat=>PRODUCTS.filter(p=>p.cat===cat).length;
   novGrid.innerHTML=COLECCIONES.map(c=>{
     const n=nPiezas(c.cat);
-    return `<article class="col-panel" data-cat="${c.cat}">
+    return `<article class="col-panel${c.novedad?' is-novedad':''}" data-cat="${c.cat}">
     <img src="${c.img}" alt="${c.title}" loading="lazy" data-start="${c.start}" data-focus="${c.focus}" data-zoom="${c.zoom}">
+    ${c.novedad?`<span class="col-flag">Novedad</span>`:""}
     <div class="col-overlay">
-      <span class="col-eyebrow">Colección · ${n} pieza${n!==1?"s":""} única${n!==1?"s":""}</span>
+      <span class="col-eyebrow">${c.novedad?"Pieza coleccionable":`Colección · ${n} pieza${n!==1?"s":""} única${n!==1?"s":""}`}</span>
       <h3>${c.title}</h3>
       <p>${c.desc}</p>
-      <button class="btn-descubrir" aria-label="Descubrir ${c.title}">Descubrir</button>
+      ${c.precio?`<div class="col-precio">${c.precio}<span>COP</span></div>`:""}
+      <button class="btn-descubrir" aria-label="Descubrir ${c.title}">${c.novedad?"Quiero esta pieza":"Descubrir"}</button>
     </div>
   </article>`}).join("");
   $$(".col-panel").forEach(c=>c.onclick=()=>abrirColeccion(c.dataset.cat));
