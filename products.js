@@ -3,7 +3,7 @@ const PRODUCTS=[
     "id": "lampara-flor-colgante",
     "sku": "LAM-001",
     "cat": "lamparas",
-    "name": "Lámpara Flor · Pieza Coleccionable",
+    "name": "Lámpara Caribe · Pieza Coleccionable",
     "price": 280000,
     "size": "24 cm de largo × 14 cm de ancho",
     "materials": "Vidrio — vitrofusión · casquillo E27",
