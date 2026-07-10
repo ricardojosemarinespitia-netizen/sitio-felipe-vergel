@@ -250,10 +250,7 @@ img{display:block;max-width:100%;height:auto}
     <p class="p-subtitle">Pieza única de autor en vidrio · creada a mano por Felipe Vergel</p>
     <div class="p-price-wrap">
       <span class="p-price" id="pPrice"></span>
-      <span class="p-price-old" id="pPriceOld"></span>
-      <span class="p-price-off" id="pPriceOff"></span>
     </div>
-    <p class="p-price-save" id="pPriceSave"></p>
 
     <div class="p-divider"></div>
 
@@ -374,15 +371,6 @@ if(!product){
   $("#crumbName").textContent=product.name;
   $("#pName").textContent=product.name;
   $("#pPrice").textContent=fmt(product.price);
-  // Psicología de precios (anchoring)
-  if(typeof precioAnterior==="function"){
-    const antes=precioAnterior(product.price);
-    const off=descuentoPct(product.price);
-    const ahorro=antes-product.price;
-    $("#pPriceOld").textContent=fmt(antes);
-    $("#pPriceOff").textContent="−"+off+"%";
-    $("#pPriceSave").textContent="Ahorras "+fmt(ahorro)+" · precio especial por tiempo limitado";
-  }
 
   // Specs
   $("#pSpecs").innerHTML=`
