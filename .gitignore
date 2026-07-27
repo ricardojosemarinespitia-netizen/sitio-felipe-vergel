@@ -4,3 +4,25 @@ LAMPARAS-*.zip
 *.zip
 RUT*.pdf
 FOTO.jpg
+
+# Codigo de backend (Apps Script) — NUNCA se publica junto al sitio.
+# GitHub Pages sirve como estatico todo lo que este en el repo: si un .gs
+# vive aqui, cualquiera lo descarga con su URL y se lleva los SECRETO.
+_backend-no-publicar/
+*.gs
+
+# ============================================================
+#  fv-functions/ es OTRO repositorio de git (tiene su propio .git y su
+#  propio remote: github.com/.../fv-functions.git). Se despliega solo,
+#  a Netlify (exquisite-pasca-848b8b), NO con este sitio.
+#
+#  Sin esta linea, un "git add -A" rutinario aqui lo commitea como
+#  gitlink de submodulo sin declarar: se sube una referencia rota que
+#  nadie puede clonar y el codigo de las funciones no viaja.
+#  Comprobado con: git add --dry-run -A
+#    warning: adding embedded git repository: fv-functions
+#
+#  Para publicar las funciones: entrar a sitio-felipe-vergel/fv-functions
+#  y hacer commit + push ALLI (rama main).
+# ============================================================
+fv-functions/

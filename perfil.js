@@ -7,6 +7,10 @@ const set=d=>{try{localStorage.setItem(SK,JSON.stringify(d))}catch(e){}};
 const getHist=()=>{try{return JSON.parse(localStorage.getItem(SH)||'[]')}catch(e){return[]}};
 const fmt=n=>n!=null?new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0}).format(n):'—';
 const fmtD=s=>{try{return new Date(s).toLocaleDateString('es-CO',{year:'numeric',month:'long',day:'numeric'})}catch(e){return s||''}};
+// Escapa texto antes de meterlo en una plantilla HTML. El nombre y la foto
+// vienen de la cuenta de Google del visitante y el historial vive en
+// localStorage: son datos de fuera, no se pegan crudos en innerHTML.
+const esc=s=>String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 function ini(n,e){if(n){const p=n.trim().split(/\s+/);return p.length>=2?(p[0][0]+p[1][0]).toUpperCase():p[0].slice(0,2).toUpperCase()}return(e||'?')[0].toUpperCase()}
 function aBg(e){let h=0;for(let i=0;i<(e||'').length;i++)h=(h<<5)-h+e.charCodeAt(i)|0;return['#8A391B','#572932','#7a4b32','#5a4a4a','#855b4a'][Math.abs(h)%5]}
 
@@ -118,8 +122,8 @@ function close(){
 function buildIn(p){
   const in2=ini(p.nombre,p.email), bg=aBg(p.email);
   const ava=p.avatar
-    ?`<img src="${p.avatar}" alt="${p.nombre||''}">`
-    :`<div class="fvp-ava-i" style="background:${bg}">${in2}</div>`;
+    ?`<img src="${esc(p.avatar)}" alt="${esc(p.nombre||'')}">`
+    :`<div class="fvp-ava-i" style="background:${bg}">${esc(in2)}</div>`;
   const gb=p.metodoLogin==='google'
     ?`<span class="fvp-gbadge"><svg width="13" height="13" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6 8-11.3 8a12 12 0 1 1 0-24c3 0 5.8 1.1 8 3l5.7-5.7C33.6 5.7 29 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15 18.9 12 24 12c3 0 5.8 1.1 8 3l5.7-5.7C33.6 5.7 29 4 24 4 16.3 4 9.7 8.4 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5 0 9.5-1.9 13-5l-6-5c-2 1.4-4.4 2-7 2-5.3 0-9.7-3.3-11.3-8l-6.5 5C9.5 39.5 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.2 4.3-4 5.7l6.1 5C42.1 35.9 44 30.4 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg></span>`
     :'';
@@ -127,21 +131,21 @@ function buildIn(p){
   const estados={'APROBADO':'fvp-s-ap','APPROVED':'fvp-s-ap','WHATSAPP':'fvp-s-wa','PENDIENTE':'fvp-s-pe','PENDING':'fvp-s-pe'};
   const ordersHTML=hist.length===0
     ?`<p class="fvp-empty">Aún no tienes pedidos. <a href="index.html#catalogo" style="color:var(--cobre-dark,#8A391B);text-decoration:underline">Explorar piezas</a></p>`
-    :hist.map(o=>`<div class="fvp-order"><div class="fvp-order-top"><span class="fvp-oref">${o.ref}</span><span class="fvp-ostate ${estados[o.estado]||'fvp-s-pe'}">${o.estado}</span></div><div class="fvp-odate">${fmtD(o.fecha)}</div><div class="fvp-oitems">${(o.items||[]).map(i=>`${i.qty}× ${i.name}`).join(', ')}</div><div class="fvp-ototal">${fmt(o.total)}</div></div>`).join('');
+    :hist.map(o=>`<div class="fvp-order"><div class="fvp-order-top"><span class="fvp-oref">${esc(o.ref)}</span><span class="fvp-ostate ${estados[o.estado]||'fvp-s-pe'}">${esc(o.estado)}</span></div><div class="fvp-odate">${esc(fmtD(o.fecha))}</div><div class="fvp-oitems">${(o.items||[]).map(i=>`${esc(i.qty)}× ${esc(i.name)}`).join(', ')}</div><div class="fvp-ototal">${esc(fmt(o.total))}</div></div>`).join('');
   return `
   <div class="fvp-user">
     <div class="fvp-ava">${ava}${gb}</div>
     <div class="fvp-info">
-      <div class="fvp-name">${p.nombre||'Coleccionista'}</div>
-      <div class="fvp-email">${p.email}</div>
-      <div class="fvp-since">Miembro desde ${fmtD(p.fechaRegistro)}</div>
+      <div class="fvp-name">${esc(p.nombre||'Coleccionista')}</div>
+      <div class="fvp-email">${esc(p.email)}</div>
+      <div class="fvp-since">Miembro desde ${esc(fmtD(p.fechaRegistro))}</div>
       <div class="fvp-badge">✦ Círculo Felipe Vergel</div>
     </div>
   </div>
   <div class="fvp-sec">
     <div class="fvp-sec-t">Código de descuento</div>
     <div class="fvp-code-row">
-      <div class="fvp-code" id="fvPCode">${p.codigoDescuento||'—'}</div>
+      <div class="fvp-code" id="fvPCode">${esc(p.codigoDescuento||'—')}</div>
       <button class="fvp-copy" id="fvPCopy" title="Copiar código"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
     </div>
     <p class="fvp-code-note">15% OFF en tu primera compra · solo válido una vez</p>
@@ -213,8 +217,8 @@ function renderBtn(perfil){
   if(perfil){
     const bg=aBg(perfil.email), in2=ini(perfil.nombre,perfil.email);
     btn.innerHTML=perfil.avatar
-      ?`<img src="${perfil.avatar}" alt="${perfil.nombre||''}" style="width:30px;height:30px;border-radius:50%;object-fit:cover;display:block;border:2px solid var(--crema-rosa,#F3CFB3)">`
-      :`<span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:${bg};color:#fff;font-size:11px;font-weight:800;font-family:'Jost',sans-serif">${in2}</span>`;
+      ?`<img src="${esc(perfil.avatar)}" alt="${esc(perfil.nombre||'')}" style="width:30px;height:30px;border-radius:50%;object-fit:cover;display:block;border:2px solid var(--crema-rosa,#F3CFB3)">`
+      :`<span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:${bg};color:#fff;font-size:11px;font-weight:800;font-family:'Jost',sans-serif">${esc(in2)}</span>`;
     btn.title=perfil.nombre||perfil.email;
     btn.setAttribute('aria-label','Mi perfil — '+(perfil.nombre||perfil.email));
   }else{

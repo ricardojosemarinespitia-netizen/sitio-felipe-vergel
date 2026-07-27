@@ -1,0 +1,22 @@
+COPIA OBSOLETA DE LAS FUNCIONES DE NETLIFY
+==========================================
+
+La version viva y desplegada es:
+
+    sitio-felipe-vergel/fv-functions/netlify/functions/
+
+Ese es un repositorio de git aparte
+(github.com/ricardojosemarinespitia-netizen/fv-functions.git, rama main)
+y es el que Netlify construye para:
+
+    https://exquisite-pasca-848b8b.netlify.app/.netlify/functions/...
+
+que es la URL que usan checkout.html (wompi-sign, save-pending) y el
+panel de webhooks de Wompi (wompi-webhook).
+
+Esta carpeta es un duplicado antiguo. Se ha dejado SINCRONIZADA con la
+canonica para que no haya dos comportamientos distintos, pero no se
+despliega desde aqui y no debe editarse aqui.
+
+Falta a proposito en esta copia: wompi-sign.js y lib/catalogo-precios.js.
+Viven solo en fv-functions/.

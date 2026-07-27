@@ -1,0 +1,147 @@
+/* ============================================================================
+   tokens.css · Felipe Vergel — Arte en Vidrio
+   Una sola fuente de verdad. Antes de esto habia CUATRO :root copiados en
+   index/product/checkout/customer-info, y ya divergian: --shadow valia
+   rgba(43,33,27,.16) en index y rgba(63,68,67,.18) en los otros tres.
+
+   REGLA DURA: ningun color, tamano, espacio, radio, sombra o duracion se
+   escribe suelto en un componente. Si no existe aqui, o se agrega con
+   criterio, o no se necesita.
+
+   NOTA SOBRE LOS NOMBRES: --verde NO es verde, es terracota. Es un nombre
+   fosil de una paleta anterior. NO se renombra porque perfil.js lo consume
+   como var(--verde,#C04C36): si el nombre cambia, ese archivo cae en
+   silencio a la paleta vieja y el panel de perfil se desincroniza del sitio.
+   Renombrar exige tocar perfil.js en el mismo cambio.
+   ========================================================================= */
+
+:root{
+
+  /* --- COLOR ---------------------------------------------------------------
+     Ratio medido con WCAG 2.1 sobre --crema #F4EEE3 (el fondo dominante).
+     El numero al lado no es adorno: es lo que impide que el token se aclare
+     "porque se veia mas elegante" y vuelva a caer bajo AA.                  */
+
+  --verde:#9C4A2F;        /* terracota · texto sobre crema  5.30:1  AA       */
+  --verde-dark:#2B211B;   /* marron casi negro · sobre crema 13.61:1  AAA    */
+  /* --verde-soft #B96A4B se elimino: 3.48:1, fallaba AA, y su unico uso era
+     el "Ver pieza" del catalogo a 10px. Ahora ese texto usa --cobre-dark. */
+
+  --cobre:#C08552;        /* 2.71:1 — FALLA AA. DECORATIVO UNICAMENTE:
+                             bordes, rellenos, aros y acentos sobre fondo
+                             OSCURO (sobre el footer #4A2418 da 4.32:1).
+                             Para texto sobre fondo claro usa --cobre-dark. */
+  --cobre-dark:#8A4A2B;   /* acento de TEXTO sobre crema     5.88:1  AA      */
+
+  --crema:#F4EEE3;        /* fondo dominante                                 */
+  --crema-2:#ECE3D2;      /* fondo alterno / superficies hundidas            */
+  --crema-rosa:#E7CFB4;   /* 1.30:1 sobre crema — solo sobre fondo oscuro:
+                             sobre el footer #4A2418 da 8.98:1  AAA         */
+
+  --tinta:#332A24;        /* texto principal · sobre crema  12.14:1  AAA     */
+  --tinta-soft:#67594E;   /* texto secundario · sobre crema  5.84:1  AA
+                             Antes #7C6E63 = 4.26:1, es decir FALLABA AA
+                             siendo el color de TODO el texto secundario.    */
+  --linea:#E0D6C5;        /* bordes · no-texto, 1.16:1, decorativo           */
+
+  /* --- FORMA ---------------------------------------------------------------
+     Cuatro radios. Doce valores distintos no es vocabulario, es ruido.
+     OJO: el sitio escribe border-radius:2px a mano en ~45 botones mientras
+     --radius decia 4px. El valor real es 2px, asi que el token dice 2px.   */
+  --radius-sm:2px;   /* botones, inputs, badges — el valor que el sitio usa  */
+  --radius:4px;      /* tarjetas de producto, banners                        */
+  --radius-lg:6px;   /* modales, paneles, bloques de specs                   */
+  --radius-full:50%; /* avatares, botones circulares                         */
+
+  /* --- SOMBRA --------------------------------------------------------------
+     Tenida con el color de la escena, nunca gris. La variante fria
+     rgba(63,68,67,.18) venia de la paleta fosil y ensuciaba el crema.      */
+  --shadow:0 10px 40px -10px rgba(43,33,27,.16);
+
+  /* --- ESCALA TIPOGRAFICA --------------------------------------------------
+     9 pasos fluidos. Antes habia 28 tamanos distintos en el sitio, con
+     medio pixel (8.5 9.5 10.5 11.5 12.5 13.5 14.5 16.5): eso no se elige,
+     se acumula. La razon se abre en pantallas grandes (mas contraste de
+     jerarquia donde hay sitio) y el suelo sube a 10px: las micro-etiquetas
+     de 8-9.5px en versalitas eran fisicamente ilegibles en movil.          */
+  --t-2xs:clamp(10px, 0.58rem + 0.15vw, 11px);   /* micro-etiquetas  <-9/9.5/10/10.5 */
+  --t-xs :clamp(11px, 0.62rem + 0.20vw, 12px);   /* eyebrows, tags, nav  <-11/11.5   */
+  --t-sm :clamp(12px, 0.68rem + 0.25vw, 13px);   /* UI pequena           <-12/12.5   */
+  --t-md :clamp(13px, 0.74rem + 0.30vw, 14.5px); /* prosa secundaria <-13/13.5/14/14.5 */
+  --t-lg :clamp(15px, 0.86rem + 0.35vw, 16.5px); /* cuerpo           <-15/16/16.5    */
+  --t-xl :clamp(17px, 0.95rem + 0.55vw, 20px);   /* entradilla, h4   <-17/18/20      */
+  --t-2xl:clamp(21px, 1.05rem + 1.40vw, 30px);   /* h3      <-21/22/23/24/26/28/30   */
+  --t-3xl:clamp(26px, 1.25rem + 2.60vw, 44px);   /* h2      <-32/34/36/40/44         */
+  --t-4xl:clamp(34px, 1.50rem + 5.20vw, 76px);   /* h1 / display                     */
+
+  /* --- ESPACIO -------------------------------------------------------------
+     Base 4px, saltos suficientemente distintos como para que elegir "el
+     siguiente" sea una decision y no una duda de 2px.                      */
+  --e-1:4px;  --e-2:8px;   --e-3:12px;  --e-4:16px;
+  --e-5:24px; --e-6:32px;  --e-7:48px;  --e-8:64px;
+  --e-9:96px; --e-10:128px;
+
+  /* --- MOVIMIENTO ----------------------------------------------------------
+     Cinco duraciones y cinco curvas. Un vocabulario corto obliga a la
+     coherencia: un boton y un panel a pantalla completa no pueden
+     compartir curva.                                                       */
+  --d-1:120ms;  /* micro-feedback: color, opacidad                          */
+  --d-2:200ms;  /* botones, inputs                                          */
+  --d-3:350ms;  /* paneles, drawers                                         */
+  --d-4:600ms;  /* zoom de imagen, barrido de luz                           */
+  --d-5:900ms;  /* revelados al scroll                                      */
+
+  --c-salida:cubic-bezier(.4,0,1,1);       /* sale rapido, nadie espera     */
+  --c-entrada:cubic-bezier(0,0,.2,1);      /* entra frenando                */
+  --c-suave:cubic-bezier(.4,0,.2,1);       /* estandar bidireccional        */
+  --c-expresiva:cubic-bezier(.2,.65,.2,1); /* revelados con caracter        */
+  --c-fisica:cubic-bezier(.34,1.4,.64,1);  /* rebote corto, solo micro-UI   */
+}
+
+/* ============================================================================
+   BASE COMPARTIDA
+   Estaba repetida en los 4 archivos con variantes menores.
+   ========================================================================= */
+
+*,*::before,*::after{box-sizing:border-box}
+
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+html,body{margin:0;padding:0}
+
+/* Contencion horizontal SIN matar los sticky.
+   Los 4 archivos declaraban `overflow-x:hidden`, y `hidden` convierte al
+   elemento en scroll container: eso rompe todo `position:sticky` que cuelgue
+   debajo — en product.html son la cabecera Y la galeria. `clip` recorta
+   igual pero no crea scroll container. Se declara `hidden` antes para que
+   Safari <16, que no entiende `clip`, siga conteniendo el desborde. */
+html,body{overflow-x:hidden;overflow-x:clip}
+
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
+button{font-family:inherit;cursor:pointer;border:none;background:none;
+       -webkit-tap-highlight-color:transparent}
+
+::selection{background:var(--cobre-dark);color:#fff}
+
+/* Anillo de foco visible en TODO el sitio. Antes solo existia en index.html:
+   product, checkout y customer-info — el 75% del embudo de compra — se
+   recorrian con teclado a ciegas. --cobre-dark da 5.88:1 sobre crema; el
+   --cobre original daba 2.71:1 y no llegaba ni al 3:1 que exige WCAG 1.4.11
+   para indicadores de foco. */
+:focus-visible{outline:2px solid var(--cobre-dark);outline-offset:3px;
+               border-radius:var(--radius-sm)}
+
+/* prefers-reduced-motion: duracion casi cero CONSERVANDO los estados
+   finales. Un `animation:none` global dejaria invisible cualquier elemento
+   que dependa de la animacion para aparecer (aqui: .reveal y .cat-circle,
+   que arrancan en opacity:0). */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+    scroll-behavior:auto!important;
+  }
+  .reveal{opacity:1!important;transform:none!important}
+  .cat-circle{opacity:1!important}
+}

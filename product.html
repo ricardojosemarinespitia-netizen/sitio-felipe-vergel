@@ -1,6 +1,13 @@
 <!doctype html>
 <html lang="es">
 <head>
+<meta charset="utf-8">
+<!-- Politica de seguridad de contenido (CSP).
+     GitHub Pages no permite cabeceras propias, asi que la CSP viaja como
+     <meta http-equiv>. Por eso no lleva frame-ancestors ni report-uri: esas
+     directivas solo funcionan como cabecera HTTP real (ver _headers). -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.jsdelivr.net https://accounts.google.com https://apis.google.com https://script.google.com https://script.googleusercontent.com; script-src-elem 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.jsdelivr.net https://accounts.google.com https://apis.google.com https://script.google.com https://script.googleusercontent.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com; style-src-elem 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://*.googleusercontent.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://accounts.google.com; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://api.emailjs.com https://script.google.com https://script.googleusercontent.com https://docs.google.com https://www.googleapis.com https://accounts.google.com https://production.wompi.co https://exquisite-pasca-848b8b.netlify.app https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com; frame-src https://accounts.google.com https://checkout.wompi.co; form-action 'self' https://docs.google.com https://checkout.wompi.co; manifest-src 'self'; worker-src 'self' blob:">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-E2SG3MESQW"></script>
 <script>
@@ -9,7 +16,6 @@
   gtag('js', new Date());
   gtag('config', 'G-E2SG3MESQW');
 </script>
-<meta charset="utf-8">
 <title>Pieza · Felipe Vergel Arte en Vidrio</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="format-detection" content="telephone=no">
@@ -23,53 +29,46 @@
 <link rel="apple-touch-icon" href="img/logo/favicon-portada-192.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500family=Lora:ital,wght@0,400;0,500;1,400&display=swapfamily=Jost:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,300family=Lora:ital,wght@0,400;0,500;1,400&display=swapdisplay=swap" rel="stylesheet">
+<!-- La URL anterior venia sin los `&` de separacion, asi que Google devolvia
+     404 y NI Cormorant NI Jost cargaban: esta pagina se veia entera en la
+     fuente del sistema. Ademas pedia Lora, que no se usa en ningun
+     font-family del sitio, y repetia display=swap tres veces. -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Jost:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
 <script src="perfil.js" defer></script>
+<link rel="stylesheet" href="tokens.css?v=1">
 <style>
-
-:root{
-  --verde:#9C4A2F;--verde-dark:#2B211B;--verde-soft:#B96A4B;
-  --cobre:#C08552;--cobre-dark:#8A4A2B;
-  --crema:#F4EEE3;--crema-2:#ECE3D2;--crema-rosa:#E7CFB4;
-  --tinta:#332A24;--tinta-soft:#7C6E63;--linea:#E0D6C5;
-  --shadow:0 10px 40px -10px rgba(63,68,67,.18);
-  --radius:4px;--radius-sm:3px;--radius-lg:6px;
-}
-*,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
-html,body{margin:0;padding:0;overflow-x:hidden}
 body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tinta);background:var(--crema);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;-webkit-tap-highlight-color:transparent}
-a{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
-button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-tap-highlight-color:transparent}
-img{display:block;max-width:100%;height:auto}
 .h-serif{font-family:'Cormorant Garamond',serif;font-weight:400;font-style:italic}
 
 /* HEADER */
 .p-header{background:rgba(250,244,237,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--linea);padding:18px 0;position:sticky;top:0;z-index:50}
 .p-header-inner{max-width:1280px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.p-logo{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.p-logo{display:flex;align-items:center;min-height:44px;gap:12px;flex-shrink:0}
 .p-logo img{height:44px;width:auto}
 .p-actions{display:flex;align-items:center;gap:10px}
-.p-back{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-soft);font-weight:200;padding:9px 16px;border-radius:2px;transition:all .25s;border:1px solid transparent;min-height:40px}
+.p-back{display:inline-flex;align-items:center;gap:8px;font-size:var(--t-sm);letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-soft);font-weight:200;padding:9px 16px;border-radius:2px;transition:all .25s;border:1px solid transparent;min-height:44px}
 .p-back:hover{background:var(--crema-2);color:var(--verde);border-color:var(--linea)}
 .p-back svg{width:14px;height:14px}
-.p-cart-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:2px;background:var(--verde);color:#fff;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;transition:all .25s;min-height:40px}
+.p-cart-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:2px;background:var(--verde);color:#fff;font-size:var(--t-xs);letter-spacing:.1em;text-transform:uppercase;font-weight:700;transition:all .25s;min-height:44px}
 .p-cart-btn:hover{background:var(--verde-dark)}
 .p-cart-btn svg{width:14px;height:14px}
-.p-cart-count{display:inline-flex;align-items:center;justify-content:center;background:var(--crema-rosa);color:var(--verde-dark);min-width:18px;height:18px;border-radius:9px;font-size:10px;font-weight:700;padding:0 6px}
+.p-cart-count{display:inline-flex;align-items:center;justify-content:center;background:var(--crema-rosa);color:var(--verde-dark);min-width:18px;height:18px;border-radius:9px;font-size:var(--t-2xs);font-weight:700;padding:0 6px}
 @media(max-width:640px){
   .p-header{padding:12px 0}
   .p-header-inner{padding:0 16px;gap:8px}
   .p-logo img{height:36px}
-  .p-back span,.p-back{padding:8px 12px;font-size:10px}
+  .p-back span,.p-back{padding:8px 12px;font-size:var(--t-2xs)}
   .p-back span{display:none}
-  .p-cart-btn{padding:8px 14px;font-size:10px}
+  .p-cart-btn{padding:8px 14px;font-size:var(--t-2xs)}
   .p-cart-btn span:not(.p-cart-count){display:none}
 }
 
 /* BREADCRUMB */
-.p-crumb{max-width:1280px;margin:0 auto;padding:18px 32px 0;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--tinta-soft);font-weight:200}
-.p-crumb a{color:var(--tinta-soft);transition:color .2s}
+.p-crumb{max-width:1280px;margin:0 auto;padding:18px 32px 0;font-size:var(--t-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--tinta-soft);font-weight:200}
+/* Los enlaces de miga median 15px de alto. Un inline-block con padding
+   vertical los lleva a 27px: cumple el minimo AA de WCAG 2.5.8 (24px).
+   Los 44px de 2.5.5 (AAA) obligarian a romper la linea de la miga. */
+.p-crumb a{display:inline-block;padding:6px 0;color:var(--tinta-soft);transition:color var(--d-2)}
 .p-crumb a:hover{color:var(--verde)}
 .p-crumb .sep{margin:0 10px;opacity:.4}
 .p-crumb .current{color:var(--cobre-dark);font-weight:400}
@@ -77,7 +76,7 @@ img{display:block;max-width:100%;height:auto}
 /* MAIN GRID */
 .p-wrap{max-width:1280px;margin:0 auto;padding:30px 32px 80px;display:grid;grid-template-columns:1.15fr 1fr;gap:60px;align-items:start}
 @media(max-width:920px){.p-wrap{grid-template-columns:1fr;gap:32px;padding:24px 24px 60px}}
-@media(max-width:640px){.p-wrap{padding:18px 16px 60px;gap:24px}.p-crumb{padding:14px 16px 0;font-size:10px}}
+@media(max-width:640px){.p-wrap{padding:18px 16px 60px;gap:24px}.p-crumb{padding:14px 16px 0;font-size:var(--t-2xs)}}
 
 /* GALLERY */
 .p-gallery{position:sticky;top:110px}
@@ -86,11 +85,11 @@ img{display:block;max-width:100%;height:auto}
 .p-gallery-main img{width:100%;height:100%;object-fit:cover;transition:opacity .35s}
 /* Fotos de la lámpara: encuadre bajo el techo para que el vidrio llene la foto */
 .p-gallery-main img[src*="lamparas/"],.p-thumb img[src*="lamparas/"]{object-position:50% 78%}
-.p-gallery-nav{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;background:rgba(250,244,237,.95);color:var(--verde);display:flex;align-items:center;justify-content:center;font-size:20px;backdrop-filter:blur(8px);transition:all .25s;box-shadow:0 4px 12px -4px rgba(63,68,67,.2)}
+.p-gallery-nav{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;background:rgba(250,244,237,.95);color:var(--verde);display:flex;align-items:center;justify-content:center;font-size:var(--t-xl);backdrop-filter:blur(8px);transition:all .25s;box-shadow:0 4px 12px -4px rgba(63,68,67,.2)}
 .p-gallery-nav:hover{background:#fff;transform:translateY(-50%) scale(1.08)}
 .p-gallery-nav.prev{left:18px}
 .p-gallery-nav.next{right:18px}
-.p-gallery-counter{position:absolute;bottom:18px;right:18px;background:rgba(63,68,67,.65);color:#fff;padding:6px 12px;border-radius:2px;font-size:11px;letter-spacing:.08em;font-weight:400;backdrop-filter:blur(4px)}
+.p-gallery-counter{position:absolute;bottom:18px;right:18px;background:rgba(63,68,67,.65);color:#fff;padding:6px 12px;border-radius:2px;font-size:var(--t-xs);letter-spacing:.08em;font-weight:400;backdrop-filter:blur(4px)}
 .p-thumbs{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px}
 .p-thumbs::-webkit-scrollbar{height:6px}
 .p-thumbs::-webkit-scrollbar-thumb{background:var(--linea);border-radius:6px}
@@ -108,93 +107,94 @@ img{display:block;max-width:100%;height:auto}
 .p-gallery-counter{z-index:6}
 @media(max-width:640px){
   .p-thumb{width:64px;height:64px;flex:0 0 64px}
-  .p-gallery-nav{width:42px;height:42px;font-size:18px}
+  .p-gallery-nav{width:42px;height:42px;font-size:var(--t-xl)}
   .p-gallery-nav.prev{left:12px}.p-gallery-nav.next{right:12px}
-  .p-gallery-counter{bottom:12px;right:12px;font-size:10px;padding:5px 10px}
+  .p-gallery-counter{bottom:12px;right:12px;font-size:var(--t-2xs);padding:5px 10px}
 }
 
 /* DETAILS */
 .p-details{padding:8px 0}
-.p-eyebrow{display:inline-block;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--cobre);font-weight:700;margin-bottom:14px;padding:6px 12px;background:rgba(243,207,179,.3);border-radius:2px}
-.p-name{font-size:clamp(28px,4vw,42px);margin:0 0 10px;color:var(--verde-dark);font-weight:700;letter-spacing:-.02em;line-height:1.15}
-.p-subtitle{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:var(--tinta-soft);margin-bottom:20px;font-weight:400}
+.p-eyebrow{display:inline-block;font-size:var(--t-2xs);letter-spacing:.28em;text-transform:uppercase;color:var(--cobre-dark);font-weight:700;margin-bottom:14px;padding:6px 12px;background:rgba(243,207,179,.3);border-radius:2px}
+.p-name{font-size:var(--t-3xl);margin:0 0 10px;color:var(--verde-dark);font-weight:700;letter-spacing:-.02em;line-height:1.15}
+.p-subtitle{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:var(--t-lg);color:var(--tinta-soft);margin-bottom:20px;font-weight:400}
 .p-price-wrap{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:18px 0 10px}
-.p-price{font-size:30px;color:var(--cobre-dark);font-weight:700;letter-spacing:-.01em}
-.p-price-old{font-size:18px;color:var(--tinta-soft);font-weight:200;text-decoration:line-through;opacity:.7}
-.p-price-off{font-size:11px;font-weight:700;letter-spacing:.06em;color:#fff;background:var(--verde);padding:5px 12px;border-radius:2px;text-transform:uppercase}
-.p-price-save{font-size:12px;color:var(--verde);font-weight:400;margin:0 0 26px;font-family:'Cormorant Garamond',serif;font-style:italic}
-@media(max-width:640px){.p-price{font-size:26px}.p-price-old{font-size:16px}}
+.p-price{font-size:var(--t-2xl);color:var(--cobre-dark);font-weight:700;letter-spacing:-.01em}
+/* .p-price-old / .p-price-off / .p-price-save se fueron con precioAnterior():
+   el precio tachado ficticio esta desactivado a proposito y no debe volver
+   (Ley 1480: anunciar descuento sobre un precio de referencia que nunca
+   existio es publicidad enganosa). Sin markup en ningun archivo. */
+@media(max-width:640px){.p-price{font-size:var(--t-2xl)}}
 @media(max-width:640px){
-  .p-name{font-size:26px;line-height:1.18}
-  .p-subtitle{font-size:13px;margin-bottom:16px}
-  .p-price{font-size:24px;margin:14px 0 22px}
-  .p-eyebrow{font-size:9px;letter-spacing:.22em;padding:5px 10px;margin-bottom:12px}
+  .p-name{font-size:var(--t-2xl);line-height:1.18}
+  .p-subtitle{font-size:var(--t-md);margin-bottom:16px}
+  .p-price{font-size:var(--t-2xl);margin:14px 0 22px}
+  .p-eyebrow{font-size:var(--t-2xs);letter-spacing:.22em;padding:5px 10px;margin-bottom:12px}
   .p-divider{margin:18px 0}
   .p-group{margin-bottom:20px}
-  .p-group label{margin-bottom:10px;font-size:10px}
-  .color-pick{padding:8px 14px;font-size:11.5px;min-height:38px}
-  .qty button{padding:11px 16px;font-size:17px;min-width:44px;min-height:44px}
-  .qty span{padding:0 14px;min-width:28px;font-size:13px}
-  .btn{padding:16px 24px;font-size:11px;min-height:48px}
+  .p-group label{margin-bottom:10px;font-size:var(--t-2xs)}
+  .color-pick{padding:8px 14px;font-size:var(--t-xs);min-height:38px}
+  .qty button{padding:11px 16px;font-size:var(--t-xl);min-width:44px;min-height:44px}
+  .qty span{padding:0 14px;min-width:28px;font-size:var(--t-md)}
+  .btn{padding:16px 24px;font-size:var(--t-xs);min-height:48px}
   .p-specs{padding:20px 22px;margin-top:26px}
-  .p-specs h4{font-size:11px;margin-bottom:14px}
-  .p-specs dt{font-size:9.5px}
-  .p-specs dd{font-size:12.5px}
+  .p-specs h4{font-size:var(--t-xs);margin-bottom:14px}
+  .p-specs dt{font-size:var(--t-2xs)}
+  .p-specs dd{font-size:var(--t-sm)}
 }
 .p-divider{height:1px;background:var(--linea);margin:24px 0}
 
 .p-group{margin-bottom:24px}
-.p-group label{display:block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--tinta-soft);margin-bottom:12px;font-weight:400}
+.p-group label{display:block;font-size:var(--t-xs);letter-spacing:.18em;text-transform:uppercase;color:var(--tinta-soft);margin-bottom:12px;font-weight:400}
 .color-picks{display:flex;flex-wrap:wrap;gap:8px}
-.color-pick{padding:9px 16px;border:1.5px solid var(--linea);border-radius:2px;font-size:12px;color:var(--verde-dark);background:#fff;transition:all .2s;font-weight:200;cursor:pointer}
+.color-pick{padding:9px 16px;border:1.5px solid var(--linea);border-radius:2px;font-size:var(--t-sm);color:var(--verde-dark);background:#fff;transition:all .2s;font-weight:200;cursor:pointer}
 .color-pick:hover{border-color:var(--cobre-dark);color:var(--cobre-dark)}
 .color-pick.active{background:var(--verde);color:#fff;border-color:var(--verde);font-weight:400}
 
 .qty-row{display:flex;align-items:center;gap:16px}
 .qty{display:inline-flex;align-items:center;border:1.5px solid var(--linea);border-radius:2px;overflow:hidden;background:#fff}
-.qty button{padding:12px 18px;color:var(--verde);font-size:18px;background:#fff;transition:background .2s;font-weight:400}
+.qty button{padding:12px 18px;color:var(--verde);font-size:var(--t-xl);background:#fff;transition:background .2s;font-weight:400}
 .qty button:hover{background:var(--crema-2)}
-.qty span{padding:0 18px;min-width:32px;text-align:center;font-weight:700;font-size:14px;color:var(--verde-dark)}
+.qty span{padding:0 18px;min-width:32px;text-align:center;font-weight:700;font-size:var(--t-md);color:var(--verde-dark)}
 
 .p-actions-buy{display:flex;flex-direction:column;gap:10px;margin-top:8px}
-.btn{width:100%;padding:18px 28px;border-radius:2px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;cursor:pointer;transition:all .25s;border:none;display:inline-flex;align-items:center;justify-content:center;gap:10px}
+.btn{width:100%;padding:18px 28px;border-radius:2px;font-size:var(--t-sm);letter-spacing:.16em;text-transform:uppercase;font-weight:700;cursor:pointer;transition:all .25s;border:none;display:inline-flex;align-items:center;justify-content:center;gap:10px}
 .btn-add{background:var(--verde);color:#fff;box-shadow:0 4px 16px -4px rgba(192,76,54,.4)}
 .btn-add:hover{background:var(--verde-dark);transform:translateY(-2px);box-shadow:0 8px 24px -6px rgba(192,76,54,.5)}
 .btn-add:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.btn-buy-now{background:var(--cobre);color:#fff}
-.btn-buy-now:hover{background:var(--cobre-dark)}
+.btn-buy-now{background:var(--cobre-dark);color:#fff}
+.btn-buy-now:hover{background:var(--verde-dark)}
 .btn svg{width:16px;height:16px}
 
 /* SPECS */
 .p-specs{background:#fff;border:1px solid var(--linea);border-radius:var(--radius-lg);padding:24px 28px;margin-top:32px}
-.p-specs h4{margin:0 0 18px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--verde-dark);font-weight:700}
-.p-specs dl{margin:0;display:grid;grid-template-columns:120px 1fr;gap:14px 20px;font-size:13px}
-.p-specs dt{color:var(--tinta-soft);font-weight:400;text-transform:uppercase;font-size:10px;letter-spacing:.12em;padding-top:2px}
+.p-specs h4{margin:0 0 18px;font-size:var(--t-sm);letter-spacing:.2em;text-transform:uppercase;color:var(--verde-dark);font-weight:700}
+.p-specs dl{margin:0;display:grid;grid-template-columns:120px 1fr;gap:14px 20px;font-size:var(--t-md)}
+.p-specs dt{color:var(--tinta-soft);font-weight:400;text-transform:uppercase;font-size:var(--t-2xs);letter-spacing:.12em;padding-top:2px}
 .p-specs dd{margin:0;color:var(--tinta);font-weight:200}
 @media(max-width:560px){.p-specs dl{grid-template-columns:1fr;gap:6px 0}.p-specs dt{margin-top:10px}}
 
 /* INFO BLOCKS */
 .p-info-blocks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
 @media(max-width:560px){.p-info-blocks{grid-template-columns:1fr}}
-.p-info-block{display:flex;align-items:flex-start;gap:12px;padding:16px;background:var(--crema-2);border-radius:var(--radius-sm);font-size:12px;color:var(--tinta);font-weight:200;line-height:1.5}
+.p-info-block{display:flex;align-items:flex-start;gap:12px;padding:16px;background:var(--crema-2);border-radius:var(--radius-sm);font-size:var(--t-sm);color:var(--tinta);font-weight:200;line-height:1.5}
 .p-info-block svg{width:20px;height:20px;flex-shrink:0;color:var(--cobre-dark);margin-top:2px}
-.p-info-block strong{display:block;font-weight:700;color:var(--verde-dark);margin-bottom:2px;font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.p-info-block strong{display:block;font-weight:700;color:var(--verde-dark);margin-bottom:2px;font-size:var(--t-xs);letter-spacing:.06em;text-transform:uppercase}
 
 /* TOAST */
-.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--verde-dark);color:#fff;padding:16px 28px;border-radius:2px;font-size:13px;font-weight:400;display:flex;align-items:center;gap:10px;box-shadow:0 12px 40px -8px rgba(87,41,50,.4);z-index:200;transition:transform .35s cubic-bezier(.4,0,.2,1);max-width:90vw}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--verde-dark);color:#fff;padding:16px 28px;border-radius:2px;font-size:var(--t-md);font-weight:400;display:flex;align-items:center;gap:10px;box-shadow:0 12px 40px -8px rgba(87,41,50,.4);z-index:200;transition:transform .35s cubic-bezier(.4,0,.2,1);max-width:90vw}
 .toast.show{transform:translateX(-50%) translateY(0)}
 .toast svg{width:18px;height:18px;color:var(--crema-rosa);flex-shrink:0}
 .toast a{color:var(--crema-rosa);text-decoration:underline;font-weight:700;margin-left:6px}
 
 /* ERROR STATE */
 .p-error{max-width:600px;margin:80px auto;text-align:center;padding:40px 24px}
-.p-error h2{color:var(--verde-dark);font-size:24px;margin-bottom:10px}
+.p-error h2{color:var(--verde-dark);font-size:var(--t-2xl);margin-bottom:10px}
 .p-error p{color:var(--tinta-soft);margin-bottom:24px}
-.p-error a{display:inline-block;padding:14px 28px;background:var(--verde);color:#fff;border-radius:2px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+.p-error a{display:inline-block;padding:14px 28px;background:var(--verde);color:#fff;border-radius:2px;font-size:var(--t-xs);letter-spacing:.14em;text-transform:uppercase;font-weight:700}
 .p-error a:hover{background:var(--verde-dark)}
 
 /* FOOTER */
-.p-footer{text-align:center;padding:30px 20px;font-size:11px;color:var(--tinta-soft);font-weight:200;letter-spacing:.05em;border-top:1px solid var(--linea);background:var(--crema-2)}
+.p-footer{text-align:center;padding:30px 20px;font-size:var(--t-xs);color:var(--tinta-soft);font-weight:200;letter-spacing:.05em;border-top:1px solid var(--linea);background:var(--crema-2)}
 
 /* FLOATING WhatsApp BUTTON */
 .wa-float{position:fixed;bottom:26px;right:26px;z-index:90;width:56px;height:56px;border-radius:50%;background:#25d366;color:#fff;box-shadow:0 4px 18px -4px rgba(37,211,102,.45),0 2px 6px rgba(0,0,0,.12);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);text-decoration:none}

@@ -1,6 +1,13 @@
 <!doctype html>
 <html lang="es">
 <head>
+<meta charset="utf-8">
+<!-- Politica de seguridad de contenido (CSP).
+     GitHub Pages no permite cabeceras propias, asi que la CSP viaja como
+     <meta http-equiv>. Por eso no lleva frame-ancestors ni report-uri: esas
+     directivas solo funcionan como cabecera HTTP real (ver _headers). -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.jsdelivr.net https://accounts.google.com https://apis.google.com https://script.google.com https://script.googleusercontent.com; script-src-elem 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.jsdelivr.net https://accounts.google.com https://apis.google.com https://script.google.com https://script.googleusercontent.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com; style-src-elem 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://*.googleusercontent.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://accounts.google.com; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://api.emailjs.com https://script.google.com https://script.googleusercontent.com https://docs.google.com https://www.googleapis.com https://accounts.google.com https://production.wompi.co https://exquisite-pasca-848b8b.netlify.app https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com; frame-src https://accounts.google.com https://checkout.wompi.co; form-action 'self' https://docs.google.com https://checkout.wompi.co; manifest-src 'self'; worker-src 'self' blob:">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-E2SG3MESQW"></script>
 <script>
@@ -9,7 +16,6 @@
   gtag('js', new Date());
   gtag('config', 'G-E2SG3MESQW');
 </script>
-<meta charset="utf-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -23,87 +29,78 @@
 <link rel="apple-touch-icon" href="img/logo/favicon-portada-192.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500family=Lora:ital,wght@0,400;0,500;1,400&display=swapfamily=Jost:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,300family=Lora:ital,wght@0,400;0,500;1,400&display=swapdisplay=swap" rel="stylesheet">
+<!-- La URL anterior venia sin los `&` de separacion, asi que Google devolvia
+     404 y NI Cormorant NI Jost cargaban: la pantalla de pago se veia entera
+     en la fuente del sistema. Ademas pedia Lora, que no se usa en ningun
+     font-family del sitio, y repetia display=swap tres veces. -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Jost:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
 <!-- EmailJS: envío automático de correos (factura a Felipe + confirmación al comprador) -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script src="perfil.js" defer></script>
+<link rel="stylesheet" href="tokens.css?v=1">
 <style>
-
-:root{
-  --verde:#9C4A2F;--verde-dark:#2B211B;--verde-soft:#B96A4B;
-  --cobre:#C08552;--cobre-dark:#8A4A2B;
-  --crema:#F4EEE3;--crema-2:#ECE3D2;--crema-rosa:#E7CFB4;
-  --tinta:#332A24;--tinta-soft:#7C6E63;--linea:#E0D6C5;
-  --shadow:0 10px 40px -10px rgba(63,68,67,.18);
-  --radius:4px;--radius-sm:3px;--radius-lg:6px;
-}
-*,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
-html,body{margin:0;padding:0;overflow-x:hidden}
 body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tinta);background:var(--crema);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;-webkit-tap-highlight-color:transparent}
-a{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
-button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-tap-highlight-color:transparent}
 .h-serif{font-family:'Cormorant Garamond',serif;font-weight:400;font-style:italic}
 
 /* HEADER */
 .co-header{background:rgba(250,244,237,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--linea);padding:18px 0;position:sticky;top:0;z-index:50}
 .co-header-inner{max-width:1180px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-@media(max-width:640px){.co-header{padding:14px 0}.co-header-inner{padding:0 16px}.co-logo img{height:36px}.co-back{padding:7px 12px;font-size:10px}.co-back svg{width:12px;height:12px}}
+@media(max-width:640px){.co-header{padding:14px 0}.co-header-inner{padding:0 16px}.co-logo img{height:36px}.co-back{padding:7px 12px;font-size:var(--t-2xs)}.co-back svg{width:12px;height:12px}}
 .co-logo{display:flex;align-items:center;gap:12px}
 .co-logo img{height:42px;width:auto}
-.co-back{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-soft);font-weight:200;padding:9px 16px;border-radius:2px;transition:all .25s;border:1px solid transparent}
+.co-back{display:inline-flex;align-items:center;gap:8px;font-size:var(--t-sm);letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-soft);font-weight:200;padding:9px 16px;border-radius:2px;transition:all .25s;border:1px solid transparent}
 .co-back:hover{background:var(--crema-2);color:var(--verde);border-color:var(--linea)}
 .co-back svg{width:14px;height:14px}
 
 /* BREADCRUMBS */
 .co-steps{background:var(--crema-2);padding:18px 0;border-bottom:1px solid var(--linea)}
-.co-steps-inner{max-width:1180px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:center;gap:24px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:400;color:var(--tinta-soft)}
+.co-steps-inner{max-width:1180px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:center;gap:24px;font-size:var(--t-xs);letter-spacing:.18em;text-transform:uppercase;font-weight:400;color:var(--tinta-soft)}
 .co-step{display:flex;align-items:center;gap:8px;opacity:.5}
 .co-step.active{opacity:1;color:var(--verde);font-weight:700}
 .co-step.done{opacity:1;color:var(--cobre-dark)}
-.co-step-num{width:24px;height:24px;border-radius:50%;background:var(--linea);color:var(--tinta-soft);display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
+.co-step-num{width:24px;height:24px;border-radius:50%;background:var(--linea);color:var(--tinta-soft);display:inline-flex;align-items:center;justify-content:center;font-size:var(--t-xs);font-weight:700}
 .co-step.active .co-step-num{background:var(--verde);color:#fff}
-.co-step.done .co-step-num{background:var(--cobre);color:#fff}
+.co-step.done .co-step-num{background:var(--cobre-dark);color:#fff}
 .co-step-sep{width:32px;height:1px;background:var(--linea)}
-@media(max-width:680px){.co-steps-inner{gap:10px;font-size:9px}.co-step-sep{width:18px}}
+@media(max-width:680px){.co-steps-inner{gap:10px;font-size:var(--t-2xs)}.co-step-sep{width:18px}}
 
 /* CONTENT */
 .co-wrap{max-width:1180px;margin:0 auto;padding:48px 32px 80px;display:grid;grid-template-columns:1fr 420px;gap:48px;align-items:start}
 @media(max-width:920px){.co-wrap{grid-template-columns:1fr;gap:32px;padding:32px 24px 60px}}
-@media(max-width:640px){.co-wrap{padding:24px 16px 60px;gap:22px}.co-title{font-size:26px}.co-sub{margin-bottom:24px;font-size:12.5px}.co-content{gap:18px}}
+@media(max-width:640px){.co-wrap{padding:24px 16px 60px;gap:22px}.co-title{font-size:var(--t-2xl)}.co-sub{margin-bottom:24px;font-size:var(--t-sm)}.co-content{gap:18px}}
 
-.co-title{margin:0 0 8px;font-size:clamp(28px,4vw,38px);color:var(--verde-dark);font-weight:700;letter-spacing:-.02em}
-.co-title .acc{color:var(--cobre);font-family:'Cormorant Garamond',serif;font-weight:400;font-style:italic}
-.co-sub{color:var(--tinta-soft);font-size:13px;margin:0 0 36px;font-weight:200}
+.co-title{margin:0 0 8px;font-size:var(--t-3xl);color:var(--verde-dark);font-weight:700;letter-spacing:-.02em}
+.co-title .acc{color:var(--cobre-dark);font-family:'Cormorant Garamond',serif;font-weight:400;font-style:italic}
+.co-sub{color:var(--tinta-soft);font-size:var(--t-md);margin:0 0 36px;font-weight:200}
 
 .co-content{display:flex;flex-direction:column;gap:24px}
 .co-card{background:#fff;padding:28px 32px;border-radius:var(--radius-lg);border:1px solid var(--linea);box-shadow:0 2px 12px -4px rgba(63,68,67,.04)}
-.co-card h3{margin:0 0 4px;font-size:14px;color:var(--verde-dark);font-weight:700;letter-spacing:.02em;text-transform:uppercase;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.co-card h3 a{font-size:11px;color:var(--cobre-dark);text-transform:none;letter-spacing:0;font-weight:400;font-family:'Cormorant Garamond',serif;font-style:italic}
+.co-card h3{margin:0 0 4px;font-size:var(--t-md);color:var(--verde-dark);font-weight:700;letter-spacing:.02em;text-transform:uppercase;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.co-card h3 a{font-size:var(--t-xs);color:var(--cobre-dark);text-transform:none;letter-spacing:0;font-weight:400;font-family:'Cormorant Garamond',serif;font-style:italic}
 .co-card h3 a:hover{color:var(--verde)}
-.co-card .card-sub{font-size:12px;color:var(--tinta-soft);margin:0 0 18px;font-weight:200}
-@media(max-width:640px){.co-card{padding:22px 18px;border-radius:var(--radius)}.co-card h3{font-size:13px}.co-card .card-sub{margin-bottom:14px;font-size:11.5px}}
+.co-card .card-sub{font-size:var(--t-sm);color:var(--tinta-soft);margin:0 0 18px;font-weight:200}
+@media(max-width:640px){.co-card{padding:22px 18px;border-radius:var(--radius)}.co-card h3{font-size:var(--t-md)}.co-card .card-sub{margin-bottom:14px;font-size:var(--t-xs)}}
 
 /* DATA REVIEW */
 .data-rows{display:grid;grid-template-columns:1fr 1fr;gap:16px 24px;margin-top:14px}
 @media(max-width:560px){.data-rows{grid-template-columns:1fr}}
 .data-row{display:flex;flex-direction:column;gap:3px}
-.data-row .lbl{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--tinta-soft);font-weight:400}
-.data-row .val{font-size:13px;color:var(--tinta);font-weight:200;word-break:break-word}
+.data-row .lbl{font-size:var(--t-2xs);letter-spacing:.14em;text-transform:uppercase;color:var(--tinta-soft);font-weight:400}
+.data-row .val{font-size:var(--t-md);color:var(--tinta);font-weight:200;word-break:break-word}
 .data-row.full{grid-column:1/-1}
 
 /* PAYMENT */
 .pay-opts{display:flex;flex-direction:column;gap:12px;margin-top:6px}
 .pay-opt{display:flex;align-items:center;gap:16px;padding:20px 22px;border:2px solid var(--linea);border-radius:var(--radius);cursor:pointer;transition:all .25s;background:#fff;text-align:left;width:100%;min-height:80px}
-@media(max-width:640px){.pay-opt{padding:16px 16px;gap:12px}.pay-opt .pay-icon{width:42px;height:42px}.pay-opt .pay-icon svg{width:20px;height:20px}.pay-opt .pay-info h4{font-size:13px}.pay-opt .pay-info p{font-size:10.5px}}
+@media(max-width:640px){.pay-opt{padding:16px 16px;gap:12px}.pay-opt .pay-icon{width:42px;height:42px}.pay-opt .pay-icon svg{width:20px;height:20px}.pay-opt .pay-info h4{font-size:var(--t-md)}.pay-opt .pay-info p{font-size:var(--t-2xs)}}
 .pay-opt:hover{border-color:var(--cobre-dark);transform:translateY(-1px)}
 .pay-opt.active{border-color:var(--cobre);background:rgba(243,207,179,.15);box-shadow:0 0 0 4px rgba(198,110,78,.08)}
 .pay-opt .pay-icon{width:48px;height:48px;border-radius:var(--radius-sm);background:var(--crema-2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .25s}
-.pay-opt.active .pay-icon{background:var(--cobre);color:#fff}
+.pay-opt.active .pay-icon{background:var(--cobre-dark);color:#fff}
 .pay-opt .pay-icon svg{width:24px;height:24px}
 .pay-opt .pay-info{flex:1;min-width:0}
-.pay-opt .pay-info h4{margin:0 0 3px;font-size:14px;font-weight:700;color:var(--verde-dark)}
-.pay-opt .pay-info p{margin:0;font-size:11px;color:var(--tinta-soft);font-weight:200;line-height:1.4}
+.pay-opt .pay-info h4{margin:0 0 3px;font-size:var(--t-md);font-weight:700;color:var(--verde-dark)}
+.pay-opt .pay-info p{margin:0;font-size:var(--t-xs);color:var(--tinta-soft);font-weight:200;line-height:1.4}
 .pay-opt .pay-check{width:22px;height:22px;border-radius:50%;border:2px solid var(--linea);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
 .pay-opt.active .pay-check{border-color:var(--cobre);background:var(--cobre)}
 .pay-opt.active .pay-check::after{content:"";width:8px;height:8px;border-radius:50%;background:#fff}
@@ -114,8 +111,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 
 /* ACTIONS */
 .co-actions{display:flex;flex-direction:column;gap:10px;margin-top:8px}
-.btn{width:100%;padding:16px 24px;border-radius:2px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;cursor:pointer;transition:all .25s;border:none;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px}
-@media(max-width:640px){.btn{padding:15px 20px;font-size:10.5px;letter-spacing:.14em}}
+.btn{width:100%;padding:16px 24px;border-radius:2px;font-size:var(--t-xs);letter-spacing:.16em;text-transform:uppercase;font-weight:700;cursor:pointer;transition:all .25s;border:none;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px}
+@media(max-width:640px){.btn{padding:15px 20px;font-size:var(--t-2xs);letter-spacing:.14em}}
 .btn-primary{background:var(--verde);color:#fff;box-shadow:0 4px 16px -4px rgba(192,76,54,.4)}
 .btn-primary:hover{background:var(--verde-dark);transform:translateY(-2px);box-shadow:0 8px 24px -6px rgba(192,76,54,.5)}
 .btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none}
@@ -130,41 +127,41 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 @media(max-width:920px){.summary{position:static;order:-1}}
 @media(max-width:640px){.summary{border-radius:var(--radius)}.summary-head{padding:18px 20px}.summary-item{padding:12px 20px;gap:12px}.summary-item img{width:54px;height:54px}.summary-totals{padding:16px 20px}}
 .summary-head{padding:22px 24px;border-bottom:1px solid var(--linea);background:var(--crema-2)}
-.summary-head h3{margin:0;font-size:14px;color:var(--verde-dark);font-weight:700;letter-spacing:.02em}
-.summary-head .count{font-size:11px;color:var(--tinta-soft);font-weight:200;margin-top:2px;letter-spacing:.05em}
+.summary-head h3{margin:0;font-size:var(--t-md);color:var(--verde-dark);font-weight:700;letter-spacing:.02em}
+.summary-head .count{font-size:var(--t-xs);color:var(--tinta-soft);font-weight:200;margin-top:2px;letter-spacing:.05em}
 .summary-items{max-height:340px;overflow-y:auto;padding:8px 0}
 .summary-items::-webkit-scrollbar{width:6px}
 .summary-items::-webkit-scrollbar-thumb{background:var(--linea);border-radius:6px}
 .summary-item{display:grid;grid-template-columns:60px 1fr auto;gap:14px;padding:12px 24px;align-items:center}
 .summary-item img{width:60px;height:60px;object-fit:cover;border-radius:var(--radius-sm);background:var(--crema-2)}
-.summary-item .info h4{margin:0 0 3px;font-size:12px;color:var(--verde-dark);font-weight:200}
-.summary-item .info .meta{font-size:10px;color:var(--tinta-soft);text-transform:uppercase;letter-spacing:.08em}
+.summary-item .info h4{margin:0 0 3px;font-size:var(--t-sm);color:var(--verde-dark);font-weight:200}
+.summary-item .info .meta{font-size:var(--t-2xs);color:var(--tinta-soft);text-transform:uppercase;letter-spacing:.08em}
 .summary-item .info .meta .sep{margin:0 6px;opacity:.4}
-.summary-item .sub{font-size:13px;color:var(--cobre-dark);font-weight:700;text-align:right}
+.summary-item .sub{font-size:var(--t-md);color:var(--cobre-dark);font-weight:700;text-align:right}
 .summary-totals{padding:18px 24px;border-top:1px solid var(--linea);background:var(--crema)}
-.summary-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;margin-bottom:10px;color:var(--tinta-soft);font-weight:200}
+.summary-row{display:flex;justify-content:space-between;align-items:center;font-size:var(--t-md);margin-bottom:10px;color:var(--tinta-soft);font-weight:200}
 .summary-row:last-child{margin-bottom:0}
 .summary-row.total{padding-top:14px;border-top:1px solid var(--linea);margin-top:14px}
-.summary-row.total span:first-child{font-size:11px;text-transform:uppercase;letter-spacing:.14em;font-weight:700;color:var(--verde-dark)}
-.summary-row.total span:last-child{font-size:22px;font-weight:700;color:var(--verde-dark)}
+.summary-row.total span:first-child{font-size:var(--t-xs);text-transform:uppercase;letter-spacing:.14em;font-weight:700;color:var(--verde-dark)}
+.summary-row.total span:last-child{font-size:var(--t-2xl);font-weight:700;color:var(--verde-dark)}
 
 /* ALERT */
-.alert{background:rgba(211,47,47,.06);border:1px solid rgba(211,47,47,.25);color:#a82a2a;padding:14px 16px;border-radius:var(--radius-sm);font-size:12px;margin-bottom:20px;display:none;font-weight:400}
+.alert{background:rgba(211,47,47,.06);border:1px solid rgba(211,47,47,.25);color:#a82a2a;padding:14px 16px;border-radius:var(--radius-sm);font-size:var(--t-sm);margin-bottom:20px;display:none;font-weight:400}
 .alert.show{display:block}
 
 /* SUCCESS */
 .success-wrap{max-width:560px;margin:60px auto;padding:0 24px;text-align:center}
 .success-card{background:#fff;border:1px solid var(--linea);border-radius:var(--radius-lg);padding:50px 36px;box-shadow:0 8px 30px -10px rgba(63,68,67,.12)}
-@media(max-width:640px){.success-wrap{margin:36px auto;padding:0 16px}.success-card{padding:38px 24px;border-radius:var(--radius)}.success-icon{width:68px;height:68px;margin-bottom:18px}.success-icon svg{width:32px;height:32px}.success-card h2{font-size:22px}.success-card p{font-size:13px}}
-.success-icon{width:80px;height:80px;border-radius:50%;background:var(--cobre);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:36px}
+@media(max-width:640px){.success-wrap{margin:36px auto;padding:0 16px}.success-card{padding:38px 24px;border-radius:var(--radius)}.success-icon{width:68px;height:68px;margin-bottom:18px}.success-icon svg{width:32px;height:32px}.success-card h2{font-size:var(--t-2xl)}.success-card p{font-size:var(--t-md)}}
+.success-icon{width:80px;height:80px;border-radius:50%;background:var(--cobre-dark);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:var(--t-3xl)}
 .success-icon svg{width:40px;height:40px;stroke-width:2.5}
-.success-card h2{margin:0 0 12px;font-size:26px;color:var(--verde-dark);font-weight:700}
-.success-card p{color:var(--tinta-soft);font-size:14px;margin:0 0 8px;font-weight:200;line-height:1.7}
-.success-card .ref{display:inline-block;margin-top:14px;padding:6px 14px;background:var(--crema-2);border-radius:2px;font-size:12px;color:var(--verde-dark);font-weight:400;letter-spacing:.05em}
+.success-card h2{margin:0 0 12px;font-size:var(--t-2xl);color:var(--verde-dark);font-weight:700}
+.success-card p{color:var(--tinta-soft);font-size:var(--t-md);margin:0 0 8px;font-weight:200;line-height:1.7}
+.success-card .ref{display:inline-block;margin-top:14px;padding:6px 14px;background:var(--crema-2);border-radius:2px;font-size:var(--t-sm);color:var(--verde-dark);font-weight:400;letter-spacing:.05em}
 .success-actions{display:flex;flex-direction:column;gap:10px;margin-top:32px}
 
 /* FOOTER */
-.co-footer{text-align:center;padding:30px 20px;font-size:11px;color:var(--tinta-soft);font-weight:200;letter-spacing:.05em;border-top:1px solid var(--linea);background:var(--crema-2)}
+.co-footer{text-align:center;padding:30px 20px;font-size:var(--t-xs);color:var(--tinta-soft);font-weight:200;letter-spacing:.05em;border-top:1px solid var(--linea);background:var(--crema-2)}
 .co-footer .secure{display:inline-flex;align-items:center;gap:6px;color:var(--cobre-dark);font-weight:400;margin-bottom:6px}
 .co-footer .secure svg{width:14px;height:14px}
 
@@ -395,7 +392,26 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-ta
 
 <script>
 const WOMPI_KEY="pub_prod_Nic5INHYDJiWHxDscG9g8OcPYElRjPYi";
+/* ============================================================
+   FIRMA DE INTEGRIDAD DE WOMPI
+   ------------------------------------------------------------
+   La firma se calcula AHORA EN EL SERVIDOR (fv-functions →
+   /.netlify/functions/wompi-sign). El servidor recalcula el monto
+   desde su propio catálogo de precios y firma ese monto, así que
+   nadie puede pagar $1.000 por una pieza de $400.000.
+
+   ⚠ WOMPI_INTEGRITY sigue aquí SOLO como respaldo temporal para que
+   el checkout no muera si la función todavía no está desplegada.
+   Este valor ya está quemado (estuvo público). ORDEN A SEGUIR:
+     1. Desplegar fv-functions con la variable WOMPI_INTEGRITY en Netlify.
+     2. Probar un pago real y confirmar en la consola que NO aparece
+        "Firma local de respaldo".
+     3. Rotar el secreto en Wompi y actualizarlo SOLO en Netlify.
+     4. Borrar la constante WOMPI_INTEGRITY y el bloque marcado
+        "RESPALDO HEREDADO" de este archivo.
+   ============================================================ */
 const WOMPI_INTEGRITY="prod_integrity_MSnUF7LppO8qVbioxKOZoxsdmRyCBt7s";
+const FIRMA_API="https://exquisite-pasca-848b8b.netlify.app/.netlify/functions/wompi-sign";
 const WA_NUMBER="573116214726";
 const FORM_ID="1FAIpQLSflsK1YlaHGgdxFdOQ4pvnrF_cA0KUnLUVubAlO2eD3LBfm4Q";
 
@@ -423,58 +439,56 @@ if(emailjsListo){ try{ emailjs.init({publicKey:EMAILJS_PUBLIC_KEY}); }catch(e){}
 async function enviarCorreos(pedido){
   if(!emailjsListo)return; // si no está configurado, no hace nada
   const lineas=pedido.cart.map(i=>`${i.qty}x ${i.sku?`[${i.sku}] `:''}${i.name} (${i.color}) - ${fmt(i.price*i.qty)}`).join("\n");
-  // Datos base comunes
-  const base={
-    referencia: pedido.ref,
-    nombre: pedido.fullName,
-    email_cliente: pedido.email,
-    telefono: pedido.phone,
-    documento: pedido.docId,
-    direccion: pedido.address,
-    ciudad: pedido.city,
-    metodo_entrega: pedido.deliveryMethod==="bucaramanga"?"Envío gratis · Zona metropolitana de Bucaramanga":"Envío a domicilio",
-    productos: lineas,
-    subtotal: fmt(pedido.subtotal),
-    descuento: pedido.discountAmount>0?`-${fmt(pedido.discountAmount)} (${pedido.discountCode})`:"—",
-    envio: pedido.shipping>0?fmt(pedido.shipping):"Gratis",
-    total: fmt(pedido.total),
-    metodo_pago: pedido.paymentMethod==="whatsapp"?"WhatsApp":"PSE / Wompi",
-    notas: pedido.notes||"—",
-    email_felipe: EMAIL_FELIPE,
-    fecha_envio: "8 días hábiles",
-    codigo_descuento: pedido.discountCode||""
-  };
+  const esWhatsApp    = pedido.paymentMethod==="whatsapp";
+  const metodoPagoTxt = esWhatsApp?"WhatsApp (pago por confirmar)":"PSE / Wompi";
+  const metodoEntrega = pedido.deliveryMethod==="bucaramanga"?"Envío gratis · Zona metropolitana de Bucaramanga":"Envío a domicilio";
+  const notasTxt      = pedido.notes||"—";
   const descLineHtml=pedido.discountAmount>0?`<tr><td style="padding:10px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#B89A8E;">Descuento (${pedido.discountCode})</td><td align="right" style="padding:10px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#C66E4E;">-${fmt(pedido.discountAmount)}</td></tr>`:"";
-  const entrega=`${pedido.address}, ${pedido.city}`;
+  // Dirección completa: calle + apto, municipio, departamento y código postal.
+  // Antes solo salía "dirección, ciudad" y Felipe no sabía a qué departamento enviar.
+  const entrega=[pedido.address,pedido.city,pedido.department,pedido.zipCode?"CP "+pedido.zipCode:""]
+    .filter(Boolean).join(", ");
   const fechaHoy=new Date().toLocaleDateString("es-CO",{year:"numeric",month:"long",day:"numeric"});
 
-  const msgCliente=`<p style="font-family:-apple-system,sans-serif;font-size:15px;line-height:1.8;color:#E7CDBC;margin:0 0 20px;">Tu pedido fue confirmado. Tu pieza entra al taller hoy y estará lista en aproximadamente <strong style="color:#FAF4ED;">8 días hábiles</strong>.</p><table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background:rgba(243,207,179,0.07);border-radius:14px;overflow:hidden;margin-bottom:16px;"><tr><td colspan="2" style="padding:12px 18px;border-bottom:1px solid rgba(243,207,179,.15);"><span style="font-family:-apple-system,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#C66E4E;font-weight:700;">Referencia</span><br><span style="font-family:-apple-system,sans-serif;font-size:18px;font-weight:800;color:#FAF4ED;letter-spacing:2px;">${pedido.ref}</span></td></tr><tr><td colspan="2" style="padding:12px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#E7CDBC;white-space:pre-line;">${lineas}</td></tr><tr><td style="padding:10px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#B89A8E;">Subtotal</td><td align="right" style="padding:10px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#F3CFB3;">${fmt(pedido.subtotal)}</td></tr>${descLineHtml}<tr><td style="padding:10px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#B89A8E;">Envío</td><td align="right" style="padding:10px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#F3CFB3;">${pedido.shipping>0?fmt(pedido.shipping):"Gratis"}</td></tr><tr><td style="padding:14px 18px;font-family:-apple-system,sans-serif;font-size:13px;font-weight:700;color:#F3CFB3;">Total</td><td align="right" style="padding:14px 18px;font-family:-apple-system,sans-serif;font-size:20px;font-weight:800;color:#FAF4ED;">${fmt(pedido.total)}</td></tr></table><p style="font-family:-apple-system,sans-serif;font-size:13px;color:#B89A8E;margin:0;"><strong style="color:#F3CFB3;">Entrega:</strong> ${entrega} &nbsp;·&nbsp; <strong style="color:#F3CFB3;">Fecha:</strong> ${fechaHoy}</p>`;
+  const introCliente=esWhatsApp
+    ?`Recibimos tu solicitud de pedido. Felipe te escribirá por WhatsApp para confirmar el pago y coordinar la entrega. Una vez confirmado, tu pieza estará lista en aproximadamente <strong style="color:#FAF4ED;">8 días hábiles</strong>.`
+    :`Tu pedido fue confirmado. Tu pieza entra al taller hoy y estará lista en aproximadamente <strong style="color:#FAF4ED;">8 días hábiles</strong>.`;
+  const msgCliente=`<p style="font-family:-apple-system,sans-serif;font-size:15px;line-height:1.8;color:#E7CDBC;margin:0 0 20px;">${introCliente}</p><table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background:rgba(243,207,179,0.07);border-radius:14px;overflow:hidden;margin-bottom:16px;"><tr><td colspan="2" style="padding:12px 18px;border-bottom:1px solid rgba(243,207,179,.15);"><span style="font-family:-apple-system,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#C66E4E;font-weight:700;">Referencia</span><br><span style="font-family:-apple-system,sans-serif;font-size:18px;font-weight:800;color:#FAF4ED;letter-spacing:2px;">${pedido.ref}</span></td></tr><tr><td colspan="2" style="padding:12px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#E7CDBC;white-space:pre-line;">${lineas}</td></tr><tr><td style="padding:10px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#B89A8E;">Subtotal</td><td align="right" style="padding:10px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#F3CFB3;">${fmt(pedido.subtotal)}</td></tr>${descLineHtml}<tr><td style="padding:10px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#B89A8E;">Envío</td><td align="right" style="padding:10px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#F3CFB3;">${pedido.shipping>0?fmt(pedido.shipping):"Gratis"}</td></tr><tr><td style="padding:14px 18px;font-family:-apple-system,sans-serif;font-size:13px;font-weight:700;color:#F3CFB3;">Total</td><td align="right" style="padding:14px 18px;font-family:-apple-system,sans-serif;font-size:20px;font-weight:800;color:#FAF4ED;">${fmt(pedido.total)}</td></tr></table><p style="font-family:-apple-system,sans-serif;font-size:13px;color:#B89A8E;margin:0;"><strong style="color:#F3CFB3;">Entrega:</strong> ${entrega} &nbsp;·&nbsp; <strong style="color:#F3CFB3;">Fecha:</strong> ${fechaHoy}${pedido.notes?`<br><strong style="color:#F3CFB3;">Tu nota:</strong> ${pedido.notes}`:""}</p>`;
 
-  const msgFelipe=`<p style="font-family:-apple-system,sans-serif;font-size:14px;line-height:1.7;color:#d4e8e6;margin:0;"><strong style="color:#FAF4ED;">Referencia:</strong> ${pedido.ref}<br><strong style="color:#FAF4ED;">Cliente:</strong> ${pedido.fullName}<br><strong style="color:#FAF4ED;">Correo:</strong> ${pedido.email}<br><strong style="color:#FAF4ED;">Teléfono:</strong> ${pedido.phone}<br><strong style="color:#FAF4ED;">Total:</strong> ${fmt(pedido.total)}<br><strong style="color:#FAF4ED;">Entrega:</strong> ${entrega}<br><strong style="color:#FAF4ED;">Piezas:</strong><br>${lineas.replace(/\n/g,"<br>")}</p>`;
+  const msgFelipe=`<p style="font-family:-apple-system,sans-serif;font-size:14px;line-height:1.7;color:#d4e8e6;margin:0;"><strong style="color:#FAF4ED;">Referencia:</strong> ${pedido.ref}<br><strong style="color:#FAF4ED;">Cliente:</strong> ${pedido.fullName}<br><strong style="color:#FAF4ED;">Cédula / NIT:</strong> ${pedido.docId||"—"}<br><strong style="color:#FAF4ED;">Correo:</strong> ${pedido.email}<br><strong style="color:#FAF4ED;">Teléfono:</strong> ${pedido.phone}<br><strong style="color:#FAF4ED;">Método de pago:</strong> ${metodoPagoTxt}<br><strong style="color:#FAF4ED;">Total:</strong> ${fmt(pedido.total)}<br><br><strong style="color:#FAF4ED;">Dirección de entrega:</strong><br>${entrega}<br><strong style="color:#FAF4ED;">Tipo de envío:</strong> ${metodoEntrega}<br><br><strong style="color:#FAF4ED;">Notas del cliente:</strong> ${notasTxt}<br><br><strong style="color:#FAF4ED;">Piezas:</strong><br>${lineas.replace(/\n/g,"<br>")}</p>`;
 
   const paramsFelipe={
     nombre: pedido.fullName,
     to_email: EMAIL_FELIPE,
-    asunto: `Nuevo pedido · ${pedido.ref} · ${fmt(pedido.total)}`,
+    asunto: `${esWhatsApp?"Pedido por WhatsApp":"Nuevo pedido"} · ${pedido.ref} · ${fmt(pedido.total)}`,
     mensaje: msgFelipe,
     // Casillas individuales del template (antes salían vacías porque no se pasaban)
     email_cliente: pedido.email,
     telefono: pedido.phone,
+    documento: pedido.docId||"—",
     fecha: fechaHoy,
     referencia: pedido.ref,
     productos: lineas,
     codigo_descuento: pedido.discountCode||"",
     direccion: entrega,
+    ciudad: pedido.city||"—",
+    departamento: pedido.department||"—",
+    metodo_entrega: metodoEntrega,
+    metodo_pago: metodoPagoTxt,
+    notas: notasTxt,
     total: (pedido.total||0).toLocaleString("es-CO")
   };
   const paramsCliente={
     nombre: pedido.fullName,
     to_email: pedido.email,
-    asunto: `Tu pedido está confirmado · ${pedido.ref}`,
+    asunto: esWhatsApp?`Recibimos tu pedido · ${pedido.ref}`:`Tu pedido está confirmado · ${pedido.ref}`,
     mensaje: msgCliente,
     referencia: pedido.ref,
     productos: lineas,
     subtotal: fmt(pedido.subtotal),
+    direccion: entrega,
+    metodo_entrega: metodoEntrega,
+    notas: notasTxt,
     total: (pedido.total||0).toLocaleString("es-CO")
   };
   const resultados=await Promise.allSettled([
@@ -595,14 +609,18 @@ $("#btnPay").onclick=async()=>{
   const subtotal=cart.reduce((s,i)=>s+i.price*i.qty,0);
   const shipping=window._checkoutShipping||0;
   const total=window._checkoutTotal||(subtotal+shipping);
-  const ref="FV-"+Date.now()+"-"+Math.random().toString(36).slice(2,7).toUpperCase();
+  // Sufijo aleatorio de 5 caracteres SIEMPRE. Con toString(36).slice(2,7) el
+  // sufijo salía más corto (o vacío) cuando el aleatorio caía en un decimal
+  // corto, y una referencia sin sufijo no pasa el RE_REF de wompi-sign: el pago
+  // caía al respaldo local. padEnd garantiza la longitud.
+  const ref="FV-"+Date.now()+"-"+Math.random().toString(36).slice(2,7).padEnd(5,"0").toUpperCase();
   const fullAddress=info.address?info.address+(info.addressDetail?", "+info.addressDetail:""):"—";
 
   // Objeto de pedido completo (para Google Forms + correos)
   const discountAmt=window._checkoutDiscount||0;
   const pedido={
     ref,email:info.email,fullName,docId:info.docId,
-    address:fullAddress,city:info.city,zipCode:info.zipCode,
+    address:fullAddress,city:info.city,department:info.department,zipCode:info.zipCode,
     phone:info.phone,cart,subtotal,discountCode:info.discountCode||null,discountAmount:discountAmt,shipping,total,
     deliveryMethod:info.deliveryMethod,notes:info.notes,
     waNotif:info.waNotif,paymentMethod
@@ -613,11 +631,14 @@ $("#btnPay").onclick=async()=>{
   // registrarlo y enviar correos AUNQUE el cliente no dé "Volver al comercio".
   // Fire-and-forget: si la función no está desplegada, no afecta el flujo normal.
   if(paymentMethod==="pse"){
-    try{fetch("https://exquisite-pasca-848b8b.netlify.app/.netlify/functions/save-pending",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(pedido)})}catch(e){}
+    try{fetch("/.netlify/functions/save-pending",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(pedido)})}catch(e){}
   }
 
   if(paymentMethod==="whatsapp"){
     guardarPedido(pedido);
+    // Avisar a Felipe y al cliente por correo. Sin esto, si el cliente no llegaba a
+    // pulsar "Enviar" en WhatsApp, el pedido quedaba solo en el Excel y nadie se enteraba.
+    enviarCorreos(pedido).catch(e=>console.error("enviarCorreos (WhatsApp):",e));
     if(window.FVPerfil) window.FVPerfil.addOrder({ref:pedido.ref,fecha:new Date().toISOString(),items:pedido.cart.map(i=>({name:i.name,qty:i.qty,price:i.price})),total:pedido.total,metodo:"WhatsApp",estado:"WHATSAPP"});
     const lines=cart.map(i=>`• ${i.qty}× ${i.sku?`[${i.sku}] `:''}${i.name} (${i.color}) — ${fmt(i.price*i.qty)}`).join("\n");
     const discLine=discountAmt>0?`\nDescuento (${pedido.discountCode}): -${fmt(discountAmt)}`:"";
@@ -628,10 +649,61 @@ $("#btnPay").onclick=async()=>{
     // PSE - Wompi (con firma de integridad SHA256 requerida por Wompi)
     // Abrimos la ventana ANTES del await para que Safari no la bloquee como popup
     const wompiWin=window.open("","_blank");
-    const amountCents=String(total*100);
-    const sigStr=ref+amountCents+"COP"+WOMPI_INTEGRITY;
-    const sigBuf=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(sigStr));
-    const signature=Array.from(new Uint8Array(sigBuf)).map(b=>b.toString(16).padStart(2,"0")).join("");
+    let amountCents=String(total*100);
+    let signature=null;
+    // ---- CAMINO SEGURO: el servidor recalcula el monto y lo firma ----
+    // Mandamos solo ids y cantidades. El precio lo pone el catálogo del servidor.
+    // Tope de 4 s: esta petición ocurre con la ventana emergente de Wompi ya
+    // abierta EN BLANCO delante del cliente. Si el servidor no contesta a
+    // tiempo se sigue adelante (respaldo de abajo) en vez de dejar la pantalla
+    // vacía hasta que el navegador se rinda solo.
+    const ctlFirma=("AbortController" in window)?new AbortController():null;
+    const toFirma=ctlFirma?setTimeout(()=>ctlFirma.abort(),4000):null;
+    try{
+      const rf=await fetch(FIRMA_API,{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        signal:ctlFirma?ctlFirma.signal:undefined,
+        body:JSON.stringify({
+          ref,
+          items:cart.map(i=>({id:i.id,qty:i.qty})),
+          deliveryMethod:info.deliveryMethod||"domicilio",
+          discountCode:pedido.discountCode||""
+        })
+      });
+      if(rf.ok){
+        const jf=await rf.json();
+        if(jf&&jf.ok&&jf.signature&&jf.amountInCents>0){
+          signature=jf.signature;
+          amountCents=String(jf.amountInCents);
+          const totalSrv=jf.amountInCents/100;
+          // Si el servidor calculó otro total (carrito con precio viejo, código
+          // que el Club rechazó), manda el del servidor: es el que se va a cobrar.
+          // Actualizamos lo que se muestra y lo que se guarda para que el cliente
+          // nunca vea un número distinto del que paga.
+          if(totalSrv!==total&&jf.resumen){
+            pedido.subtotal=jf.resumen.subtotal;
+            pedido.discountAmount=jf.resumen.descuento;
+            pedido.discountCode=jf.resumen.codigo||null;
+            pedido.shipping=jf.resumen.envio;
+            pedido.total=totalSrv;
+            try{$("#sumTotal").textContent=fmt(totalSrv)}catch(e){}
+            try{localStorage.setItem("fv_pending_order",JSON.stringify(pedido))}catch(e){}
+            try{fetch("/.netlify/functions/save-pending",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(pedido)})}catch(e){}
+          }
+        }
+      }
+    }catch(e){console.error("Firma en servidor no disponible:",e)}
+    finally{if(toFirma)clearTimeout(toFirma)}
+    // ---- RESPALDO HEREDADO (BORRAR tras rotar el secreto, ver cabecera) ----
+    // Solo se usa si la función wompi-sign no respondió. Firma con el secreto
+    // que está en este archivo: es el agujero C1 y por eso es temporal.
+    if(!signature){
+      console.warn("Firma local de respaldo: wompi-sign no respondió. El secreto de integridad sigue expuesto en el navegador.");
+      const sigStr=ref+amountCents+"COP"+WOMPI_INTEGRITY;
+      const sigBuf=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(sigStr));
+      signature=Array.from(new Uint8Array(sigBuf)).map(b=>b.toString(16).padStart(2,"0")).join("");
+    }
     const wompiURL="https://checkout.wompi.co/p/?"+new URLSearchParams({
       "public-key":WOMPI_KEY,
       currency:"COP",
@@ -671,7 +743,10 @@ $("#btnPay").onclick=async()=>{
 
 // Save order to Google Forms
 async function guardarPedido(order){
-  const {ref,email,fullName,docId,address,city,zipCode,phone,cart:c,total}=order;
+  const {ref,email,fullName,docId,address,city,department,zipCode,phone,cart:c,total}=order;
+  // Dirección completa (calle + apto, municipio, departamento, CP). Antes la hoja solo
+  // recibía la ciudad y Felipe no tenía a dónde despachar.
+  const direccionCompleta=[address,city,department,zipCode?"CP "+zipCode:""].filter(Boolean).join(", ");
   const productos=c.map(i=>`${i.qty}× ${i.sku?`[${i.sku}] `:''}${i.name} (${i.color}) — ${fmt(i.price*i.qty)}`).join(" | ");
   // Guardamos referencia + correo + productos en la descripción para que el correo
   // del comprador quede en el Excel. (Va embebido, no como celda-correo suelta, para
@@ -680,7 +755,7 @@ async function guardarPedido(order){
   const qty=c.reduce((s,i)=>s+i.qty,0);
   const fd=new URLSearchParams();
   fd.append("entry.297753956",fullName);
-  fd.append("entry.1064695391",address+(city?", "+city:""));
+  fd.append("entry.1064695391",direccionCompleta);
   fd.append("entry.1732518498",phone);
   fd.append("entry.1495498498",desc);
   fd.append("entry.932926498",String(qty));
@@ -707,6 +782,10 @@ async function guardarPedido(order){
           metodoPago:order.paymentMethod==="whatsapp"?"WhatsApp":"Wompi",
           metodoEntrega:order.deliveryMethod==="bucaramanga"?"Bucaramanga gratis":"Domicilio",
           ciudad:city||"",
+          direccion:direccionCompleta,
+          departamento:department||"",
+          codigoPostal:zipCode||"",
+          documento:docId||"",
           notas:order.notes||""
         })
       });
@@ -749,7 +828,7 @@ async function guardarPedido(order){
       try{ await enviarCorreos(pedido); }catch(e){ console.error("enviarCorreos:",e); }
       // Avisar al servidor que este pedido YA se procesó aquí, para que el webhook
       // de Wompi no lo registre/envíe por segunda vez.
-      try{fetch("https://exquisite-pasca-848b8b.netlify.app/.netlify/functions/save-pending",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...pedido,_status:"done"})})}catch(e){}
+      try{fetch("/.netlify/functions/save-pending",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...pedido,_status:"done"})})}catch(e){}
       if(window.FVPerfil) window.FVPerfil.addOrder({ref:pedido.ref,fecha:new Date().toISOString(),items:pedido.cart.map(i=>({name:i.name,qty:i.qty,price:i.price})),total:pedido.total,metodo:"Wompi PSE",estado:status==="APPROVED"?"APROBADO":"PENDIENTE"});
     }
     $("#waitingView").style.display="none";
