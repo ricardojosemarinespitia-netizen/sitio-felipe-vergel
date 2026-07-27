@@ -1,0 +1,35 @@
+FUNCIONES DE NETLIFY DE ESTE SITIO
+==================================
+
+Esta carpeta SI se despliega. netlify.toml (functions = "netlify/functions")
+la publica en el proyecto de Netlify "vocal-mandazi-179175", que sirve:
+
+    https://felipevergel.com/.netlify/functions/...
+
+Desde el 27-jul-2026 esta es la copia viva de save-pending y wompi-webhook:
+
+  - checkout.html llama a /.netlify/functions/save-pending (ruta relativa,
+    mismo dominio).
+  - El panel de Wompi apunta a
+    https://felipevergel.com/.netlify/functions/wompi-webhook
+
+Las dos cosas TIENEN que vivir en el mismo sitio de Netlify: save-pending
+escribe el pedido en el almacen de Blobs del sitio y wompi-webhook lo lee de
+ahi. Si una apunta a un sitio y la otra a otro, el webhook no encuentra el
+pedido y no se envia ningun correo.
+
+Variables de entorno necesarias (ya configuradas en vocal-mandazi-179175):
+    WOMPI_EVENTS_SECRET
+    EMAILJS_PRIVATE_KEY
+
+PENDIENTE: wompi-sign
+---------------------
+wompi-sign.js NO esta en esta carpeta. Sigue viviendo solo en el repo aparte
+fv-functions (github.com/ricardojosemarinespitia-netizen/fv-functions.git),
+desplegado en exquisite-pasca-848b8b.netlify.app, y checkout.html lo llama
+ahi mediante FIRMA_API.
+
+Para terminar de consolidar todo en felipevergel.com hay que copiar aqui
+wompi-sign.js + lib/catalogo-precios.js y anadir la variable de entorno con
+el secreto de integridad de Wompi. Mientras tanto checkout.html tiene un
+respaldo que firma en el navegador, lo que deja expuesto ese secreto.
