@@ -868,7 +868,9 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
   <div class="modal-inner">
     <button class="modal-close" id="modalClose">×</button>
     <div class="gallery">
-      <div class="gallery-main"><img id="gMain" src="" alt=""></div>
+      <!-- Sin src="": con el atributo vacio el navegador lo resuelve contra la URL
+           del documento y vuelve a descargar la pagina entera. El JS asigna el src. -->
+      <div class="gallery-main"><img id="gMain" alt=""></div>
       <button class="gallery-nav prev" id="gPrev">‹</button>
       <button class="gallery-nav next" id="gNext">›</button>
       <div class="gallery-thumbs" id="gThumbs"></div>

@@ -244,7 +244,9 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tin
 <main class="p-wrap" id="productView">
   <section class="p-gallery">
     <div class="p-gallery-main">
-      <img id="mainImg" src="" alt="">
+      <!-- Sin src="" (ver index.html): el atributo vacio provoca una descarga
+           extra de la pagina completa. El JS asigna el src al cargar. -->
+      <img id="mainImg" alt="">
       <button class="p-gallery-nav prev" id="navPrev" aria-label="Imagen anterior">‹</button>
       <button class="p-gallery-nav next" id="navNext" aria-label="Imagen siguiente">›</button>
       <div class="p-gallery-counter" id="counter">1 / 1</div>

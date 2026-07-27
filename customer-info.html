@@ -89,10 +89,13 @@ input,select,textarea{font-family:inherit;font-size:16px}
 @media(max-width:640px){.ci-form{gap:20px}}
 
 label{display:block;font-size:var(--t-xs);letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-soft);margin-bottom:8px;font-weight:400}
-input[type="text"],input[type="email"],input[type="tel"],select{width:100%;padding:14px 16px;border:1px solid var(--linea);border-radius:var(--radius-sm);font-family:inherit;font-size:var(--t-lg);color:var(--tinta);background:var(--crema);transition:all .2s;font-weight:200;min-height:48px}
+/* max(16px, …): por debajo de 16px iOS hace zoom automatico al enfocar el campo
+   y descoloca el formulario. --t-lg baja a ~15px en moviles estrechos, asi que
+   el max() conserva la escala en escritorio (16,5px) y garantiza el minimo. */
+input[type="text"],input[type="email"],input[type="tel"],select{width:100%;padding:14px 16px;border:1px solid var(--linea);border-radius:var(--radius-sm);font-family:inherit;font-size:max(16px, var(--t-lg));color:var(--tinta);background:var(--crema);transition:all .2s;font-weight:200;min-height:48px}
 input:focus,select:focus{outline:none;border-color:var(--cobre);background:#fff;box-shadow:0 0 0 4px rgba(198,110,78,.1)}
 @media(max-width:640px){
-  input[type="text"],input[type="email"],input[type="tel"],select{font-size:var(--t-lg);padding:13px 14px}
+  input[type="text"],input[type="email"],input[type="tel"],select{font-size:max(16px, var(--t-lg));padding:13px 14px}
 }
 input.error{border-color:#d32f2f;background:#fff5f5}
 .field{margin-bottom:16px}
