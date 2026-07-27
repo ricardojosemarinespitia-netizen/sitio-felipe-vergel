@@ -828,18 +828,3 @@ const FELIPE_IMGS=["img/felipe/felipe-01.jpg", "img/felipe/felipe-02.jpg", "img/
 const CATEGORIES=[["lamparas", "Lámparas"], ["bandejas", "Bandejas"], ["centros-mesa", "Centros de Mesa"], ["floreros", "Floreros"], ["solitarios", "Solitarios"], ["porta-plantas", "Porta Plantas"], ["vajilla", "Vajilla"], ["pedestales", "Pedestales"], ["portavasos", "Portavasos"]];
 const SILHOUETTES={"lamparas": "img/lamparas/lampara-01.jpg", "bandejas": "img/silhouettes/bandejas.png", "centros-mesa": "img/silhouettes/centros-mesa.png", "floreros": "img/silhouettes/floreros.png", "solitarios": "img/silhouettes/solitarios.png", "porta-plantas": "img/silhouettes/porta-plantas.png", "vajilla": "img/silhouettes/vajilla.png", "pedestales": "img/silhouettes/pedestales.png", "portavasos": "img/silhouettes/portavasos.png"};
 
-// ===== PSICOLOGÍA DE PRECIOS (anchoring effect) =====
-// Calcula un "precio antes" mayor para que el precio real parezca oferta.
-// Determinista por producto (no cambia en cada recarga).
-function precioAnterior(precio){
-  // factor entre 1.28 y 1.42 según el precio (pseudo-aleatorio estable)
-  const factor = 1.28 + ((precio/1000) % 14) / 100;
-  let antes = precio * factor;
-  // redondear hacia arriba a múltiplo de 5.000 para que se vea natural
-  antes = Math.ceil(antes / 5000) * 5000;
-  return antes;
-}
-function descuentoPct(precio){
-  const antes = precioAnterior(precio);
-  return Math.round((1 - precio/antes) * 100);
-}
