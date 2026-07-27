@@ -435,6 +435,13 @@ const EMAILJS_TPL_FELIPE   = "template_80c4173";  // notificación de nuevo pedi
 const EMAILJS_TPL_CLIENTE  = "template_20wj574";  // confirmación de compra para el cliente
 const EMAIL_FELIPE         = "felipevergelarteenvidrio@gmail.com";
 const VENTAS_API           = "https://script.google.com/macros/s/AKfycbz9BVbko_lCUMGsSHmSTn8Pu3Kd9L3LFSB6uhaqQZNn6Qi7iK4Hs5bcD3GoR6EBwYc8Jw/exec";
+/* Clave que el Apps Script exige para ESCRIBIR en la hoja de Ventas y para
+   marcar cupones usados. Antes doPost aceptaba cualquier POST: bastaba tener
+   la URL para inyectar ventas falsas. No es un secreto fuerte (viaja al
+   navegador, es visible en "ver codigo fuente"): filtra bots y URLs sueltas,
+   no a alguien que lea el fuente. El registro de suscriptor del Circulo NO la
+   necesita, sigue siendo publico a proposito. */
+const VENTAS_KEY           = "felipe-ventas-2025";
 
 const emailjsListo = EMAILJS_PUBLIC_KEY!=="TU_PUBLIC_KEY" && typeof emailjs!=="undefined";
 if(emailjsListo){ try{ emailjs.init({publicKey:EMAILJS_PUBLIC_KEY}); }catch(e){} }
@@ -772,6 +779,12 @@ async function guardarPedido(order){
       const lineas=c.map(i=>`${i.qty}× ${i.name} (${i.color})`).join("\n");
       await fetch(VENTAS_API,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},
         body:JSON.stringify({
+          // Desde el 27-jul-2026 el Apps Script exige esta clave para ESCRIBIR
+          // (antes cualquiera con la URL podia inyectar ventas falsas). Va aqui
+          // porque el navegador llama al endpoint directo en el flujo WhatsApp:
+          // sube la barrera de "cualquiera con la URL" a "alguien que lea el
+          // codigo fuente", no es proteccion criptografica.
+          key:VENTAS_KEY,
           ref,
           nombre:fullName,
           email,
@@ -799,7 +812,7 @@ async function guardarPedido(order){
   if(order.discountCode){
     try{
       await fetch(VENTAS_API,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},
-        body:JSON.stringify({action:"markUsed",code:order.discountCode,ref,email})
+        body:JSON.stringify({key:VENTAS_KEY,action:"markUsed",code:order.discountCode,ref,email})
       });
     }catch(e){console.error("markUsed:",e)}
   }
