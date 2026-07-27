@@ -37,7 +37,11 @@
 <script src="perfil.js" defer></script>
 <link rel="stylesheet" href="tokens.css?v=1">
 <style>
-body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tinta);background:var(--crema);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;-webkit-tap-highlight-color:transparent}
+/* overscroll-behavior-y: evita que el navegador integrado de Instagram/Facebook
+   se robe el swipe vertical para su propio gesto de "pull" (mismo arreglo que
+   index.html). */
+html{overscroll-behavior-y:contain}
+body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tinta);background:var(--crema);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;-webkit-tap-highlight-color:transparent;overscroll-behavior-y:contain}
 /* 16px LITERAL, no un token: por debajo de 16px iOS hace zoom automatico al
    enfocar el campo y descuadra el formulario. Es la unica excepcion
    justificada a la escala en todo el sitio. */
