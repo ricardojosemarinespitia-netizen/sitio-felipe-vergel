@@ -41,7 +41,7 @@ const EMAILJS_TPL_CLIENTE  = "template_20wj574";  // confirmación para el clien
 const EMAILJS_PUBLIC_KEY   = "XVjxIagv23vBCkzTX";
 const EMAIL_FELIPE         = "felipevergelarteenvidrio@gmail.com";
 const FORM_ID              = "1FAIpQLSflsK1YlaHGgdxFdOQ4pvnrF_cA0KUnLUVubAlO2eD3LBfm4Q";
-const VENTAS_API           = "https://script.google.com/macros/s/AKfycbznN-5jCwKFFvSeKEiFuvaqwCW2DLv7OpQm6jCmEgH8w2qHIZtTfCPNsi3saPAv7j3s/exec";
+const VENTAS_API           = "https://script.google.com/macros/s/AKfycbz9BVbko_lCUMGsSHmSTn8Pu3Kd9L3LFSB6uhaqQZNn6Qi7iK4Hs5bcD3GoR6EBwYc8Jw/exec";
 
 const fmt = (n) => "$" + (Number(n) || 0).toLocaleString("es-CO");
 const sepNum = (n) => (Number(n) || 0).toLocaleString("es-CO");
