@@ -1,26 +1,5 @@
 const PRODUCTS=[
   {
-    "id": "lampara-flor-colgante",
-    "sku": "LAM-001",
-    "cat": "lamparas",
-    "name": "Lámpara Caribe · Pieza Coleccionable",
-    "price": 280000,
-    "size": "24 cm de largo × 14 cm de ancho",
-    "materials": "Vidrio — vitrofusión · casquillo E27",
-    "colors": [
-      "Transparente",
-      "Azul cobalto",
-      "Verde agua"
-    ],
-    "uses": "Luz colgante de autor para cocina, comedor o un rincón especial. Cada lámpara es una pieza única e irrepetible.",
-    "images": [
-      "img/lamparas/lampara-01.jpg",
-      "img/lamparas/lampara-02.jpg",
-      "img/lamparas/lampara-03.jpg",
-      "img/lamparas/lampara-04.jpg"
-    ]
-  },
-  {
     "id": "lampara-caribe-brisa",
     "sku": "LAM-002",
     "cat": "lamparas",
