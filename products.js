@@ -21,6 +21,87 @@ const PRODUCTS=[
     ]
   },
   {
+    "id": "lampara-caribe-brisa",
+    "sku": "LAM-002",
+    "cat": "lamparas",
+    "name": "Lámpara Caribe Brisa",
+    "price": 280000,
+    "size": "27 cm de alto × 12 cm diámetro inferior × 10 cm diámetro superior",
+    "materials": "Vidrio — vitrofusión · casquillo E27",
+    "colors": [
+      "Transparente"
+    ],
+    "uses": "Luz colgante de autor para cocina, comedor o un rincón especial. Cada lámpara es una pieza única e irrepetible.",
+    "images": [
+      "img/lampara-caribe-brisa/lampara-caribe-brisa-01.jpg",
+      "img/lampara-caribe-brisa/lampara-caribe-brisa-02.jpg",
+      "img/lampara-caribe-brisa/lampara-caribe-brisa-03.jpg",
+      "img/lampara-caribe-brisa/lampara-caribe-brisa-04.jpg",
+      "img/lampara-caribe-brisa/lampara-caribe-brisa-05.jpg"
+    ]
+  },
+  {
+    "id": "lampara-caribe-coral",
+    "sku": "LAM-003",
+    "cat": "lamparas",
+    "name": "Lámpara Caribe Coral",
+    "price": 160000,
+    "size": "17 cm de alto × 7 cm diámetro inferior × 15 cm diámetro superior",
+    "materials": "Vidrio — vitrofusión · casquillo E27",
+    "colors": [
+      "Transparente"
+    ],
+    "uses": "Luz colgante de autor para cocina, comedor o un rincón especial. Cada lámpara es una pieza única e irrepetible.",
+    "images": [
+      "img/lampara-caribe-coral/lampara-caribe-coral-01.jpg",
+      "img/lampara-caribe-coral/lampara-caribe-coral-02.jpg",
+      "img/lampara-caribe-coral/lampara-caribe-coral-03.jpg",
+      "img/lampara-caribe-coral/lampara-caribe-coral-04.jpg",
+      "img/lampara-caribe-coral/lampara-caribe-coral-05.jpg"
+    ]
+  },
+  {
+    "id": "lampara-caribe-marea",
+    "sku": "LAM-004",
+    "cat": "lamparas",
+    "name": "Lámpara Caribe Marea",
+    "price": 280000,
+    "size": "25 cm de alto × 21 cm diámetro inferior × 9 cm diámetro superior",
+    "materials": "Vidrio — vitrofusión · casquillo E27",
+    "colors": [
+      "Transparente"
+    ],
+    "uses": "Luz colgante de autor para cocina, comedor o un rincón especial. Cada lámpara es una pieza única e irrepetible.",
+    "images": [
+      "img/lampara-caribe-marea/lampara-caribe-marea-01.jpg",
+      "img/lampara-caribe-marea/lampara-caribe-marea-02.jpg",
+      "img/lampara-caribe-marea/lampara-caribe-marea-03.jpg",
+      "img/lampara-caribe-marea/lampara-caribe-marea-04.jpg",
+      "img/lampara-caribe-marea/lampara-caribe-marea-05.jpg",
+      "img/lampara-caribe-marea/lampara-caribe-marea-06.jpg"
+    ]
+  },
+  {
+    "id": "aplique-caribe-marea",
+    "sku": "LAM-005",
+    "cat": "lamparas",
+    "name": "Aplique Caribe Marea",
+    "price": 280000,
+    "size": "18 cm de alto × 19 cm diámetro inferior × 9 cm diámetro superior",
+    "materials": "Vidrio — vitrofusión · casquillo E27",
+    "colors": [
+      "Transparente"
+    ],
+    "uses": "Aplique de pared de autor, luz cálida para un rincón especial. Cada pieza es única e irrepetible.",
+    "images": [
+      "img/aplique-caribe-marea/aplique-caribe-marea-01.jpg",
+      "img/aplique-caribe-marea/aplique-caribe-marea-02.jpg",
+      "img/aplique-caribe-marea/aplique-caribe-marea-03.jpg",
+      "img/aplique-caribe-marea/aplique-caribe-marea-04.jpg",
+      "img/aplique-caribe-marea/aplique-caribe-marea-05.jpg"
+    ]
+  },
+  {
     "id": "bandeja-maxi-rect-ondas",
     "sku": "BAN-001",
     "cat": "bandejas",
