@@ -945,8 +945,7 @@ const PRODUCTS=[
       "img/bandeja-folia-hoja/bandeja-folia-hoja-06.jpg",
       "img/bandeja-folia-hoja/bandeja-folia-hoja-07.jpg",
       "img/bandeja-folia-hoja/bandeja-folia-hoja-08.jpg",
-      "img/bandeja-folia-hoja/bandeja-folia-hoja-09.jpg",
-      "img/bandeja-folia-hoja/bandeja-folia-hoja-10.jpg"
+      "img/bandeja-folia-hoja/bandeja-folia-hoja-09.jpg"
     ]
   }
 ];
