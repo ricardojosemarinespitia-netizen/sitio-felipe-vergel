@@ -104,8 +104,8 @@ const PRODUCTS=[
   },
   {
     "id": "bandeja-hoja-maxi-irregular",
-    "sku": "BAN-002",
-    "cat": "bandejas",
+    "sku": "CEN-014",
+    "cat": "centros-mesa",
     "name": "Hoja Orgánica Midi",
     "price": 260000,
     "size": "60 cm largo × 40 cm ancho × 4 cm alto",
@@ -126,8 +126,8 @@ const PRODUCTS=[
   },
   {
     "id": "bandeja-hoja-midi-relieve",
-    "sku": "BAN-003",
-    "cat": "bandejas",
+    "sku": "CEN-015",
+    "cat": "centros-mesa",
     "name": "Hoja Orgánica",
     "price": 190000,
     "size": "50 cm largo × 26 cm ancho × 3 cm alto (aprox)",
@@ -149,8 +149,8 @@ const PRODUCTS=[
   },
   {
     "id": "bandeja-hoja-jaspeada-xl",
-    "sku": "BAN-004",
-    "cat": "bandejas",
+    "sku": "CEN-016",
+    "cat": "centros-mesa",
     "name": "Hoja Orgánica Maxi",
     "price": 310000,
     "size": "60 cm largo × 46 cm ancho × 3 cm alto (aprox)",
