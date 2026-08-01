@@ -861,6 +861,47 @@ const PRODUCTS=[
     ]
   },
   {
+    "id": "centro-mesa-marea",
+    "sku": "CEN-012",
+    "cat": "centros-mesa",
+    "name": "Centro de Mesa Marea",
+    "price": 320000,
+    "size": "Diámetro 48 cm × 12 cm alto",
+    "materials": "Vidrio — vitrofusión",
+    "colors": [
+      "Ámbar"
+    ],
+    "uses": "Frutero, centro de mesa, objeto de diseño decorativo.",
+    "images": [
+      "img/centro-mesa-marea/centro-mesa-marea-01.jpg",
+      "img/centro-mesa-marea/centro-mesa-marea-02.jpg",
+      "img/centro-mesa-marea/centro-mesa-marea-03.jpg",
+      "img/centro-mesa-marea/centro-mesa-marea-04.jpg",
+      "img/centro-mesa-marea/centro-mesa-marea-05.jpg",
+      "img/centro-mesa-marea/centro-mesa-marea-06.jpg"
+    ]
+  },
+  {
+    "id": "centro-mesa-folia",
+    "sku": "CEN-013",
+    "cat": "centros-mesa",
+    "name": "Centro de Mesa Folia",
+    "price": 310000,
+    "size": "Diámetro 48 cm × 12 cm alto",
+    "materials": "Vidrio — vitrofusión",
+    "colors": [
+      "Verde"
+    ],
+    "uses": "Frutero, centro de mesa, objeto de diseño decorativo.",
+    "images": [
+      "img/centro-mesa-folia/centro-mesa-folia-01.jpg",
+      "img/centro-mesa-folia/centro-mesa-folia-02.jpg",
+      "img/centro-mesa-folia/centro-mesa-folia-03.jpg",
+      "img/centro-mesa-folia/centro-mesa-folia-04.jpg",
+      "img/centro-mesa-folia/centro-mesa-folia-05.jpg"
+    ]
+  },
+  {
     "id": "bandeja-vetas",
     "sku": "BAN-005",
     "cat": "bandejas",
@@ -881,6 +922,31 @@ const PRODUCTS=[
       "img/bandeja-vetas/bandeja-vetas-02.jpg",
       "img/bandeja-vetas/bandeja-vetas-03.jpg",
       "img/bandeja-vetas/bandeja-vetas-04.jpg"
+    ]
+  },
+  {
+    "id": "bandeja-folia-hoja",
+    "sku": "BAN-006",
+    "cat": "bandejas",
+    "name": "Bandeja Folia",
+    "price": 310000,
+    "size": "65 cm largo × 40 cm ancho",
+    "materials": "Vidrio — vitrofusión",
+    "colors": [
+      "Azul"
+    ],
+    "uses": "Para servir, centro de mesa, pieza decorativa.",
+    "images": [
+      "img/bandeja-folia-hoja/bandeja-folia-hoja-01.jpg",
+      "img/bandeja-folia-hoja/bandeja-folia-hoja-02.jpg",
+      "img/bandeja-folia-hoja/bandeja-folia-hoja-03.jpg",
+      "img/bandeja-folia-hoja/bandeja-folia-hoja-04.jpg",
+      "img/bandeja-folia-hoja/bandeja-folia-hoja-05.jpg",
+      "img/bandeja-folia-hoja/bandeja-folia-hoja-06.jpg",
+      "img/bandeja-folia-hoja/bandeja-folia-hoja-07.jpg",
+      "img/bandeja-folia-hoja/bandeja-folia-hoja-08.jpg",
+      "img/bandeja-folia-hoja/bandeja-folia-hoja-09.jpg",
+      "img/bandeja-folia-hoja/bandeja-folia-hoja-10.jpg"
     ]
   }
 ];
