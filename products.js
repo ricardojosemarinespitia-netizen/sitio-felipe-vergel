@@ -926,8 +926,8 @@ const PRODUCTS=[
   },
   {
     "id": "bandeja-folia-hoja",
-    "sku": "BAN-006",
-    "cat": "bandejas",
+    "sku": "CEN-017",
+    "cat": "centros-mesa",
     "name": "Bandeja Folia",
     "price": 310000,
     "size": "65 cm largo × 40 cm ancho",
