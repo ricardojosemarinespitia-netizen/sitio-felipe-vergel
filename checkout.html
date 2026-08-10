@@ -399,22 +399,23 @@ const WOMPI_KEY="pub_prod_Nic5INHYDJiWHxDscG9g8OcPYElRjPYi";
 /* ============================================================
    FIRMA DE INTEGRIDAD DE WOMPI
    ------------------------------------------------------------
-   La firma se calcula AHORA EN EL SERVIDOR (fv-functions →
+   La firma se calcula SOLO EN EL SERVIDOR (fv-functions →
    /.netlify/functions/wompi-sign). El servidor recalcula el monto
    desde su propio catálogo de precios y firma ese monto, así que
    nadie puede pagar $1.000 por una pieza de $400.000.
 
-   ⚠ WOMPI_INTEGRITY sigue aquí SOLO como respaldo temporal para que
-   el checkout no muera si la función todavía no está desplegada.
-   Este valor ya está quemado (estuvo público). ORDEN A SEGUIR:
-     1. Desplegar fv-functions con la variable WOMPI_INTEGRITY en Netlify.
-     2. Probar un pago real y confirmar en la consola que NO aparece
-        "Firma local de respaldo".
-     3. Rotar el secreto en Wompi y actualizarlo SOLO en Netlify.
-     4. Borrar la constante WOMPI_INTEGRITY y el bloque marcado
-        "RESPALDO HEREDADO" de este archivo.
+   El secreto de integridad (prod_integrity_...) YA NO vive en este
+   archivo. Estuvo público y quemado; el respaldo que lo firmaba en el
+   navegador se eliminó. Ahora el checkout FALLA CERRADO: si la función
+   de firma no responde, se muestra un error y NO se abre Wompi, en vez
+   de firmar con un secreto expuesto.
+
+   PENDIENTE (acción del dueño, no de código): rotar el secreto de
+   integridad en el panel de Wompi (Comercio > Desarrolladores) y
+   actualizarlo SOLO en la variable WOMPI_INTEGRITY de Netlify. Hasta
+   rotarlo, el secreto viejo sigue siendo válido en Wompi aunque ya no
+   aparezca aquí.
    ============================================================ */
-const WOMPI_INTEGRITY="prod_integrity_MSnUF7LppO8qVbioxKOZoxsdmRyCBt7s";
 const FIRMA_API="https://exquisite-pasca-848b8b.netlify.app/.netlify/functions/wompi-sign";
 const WA_NUMBER="573116214726";
 const FORM_ID="1FAIpQLSflsK1YlaHGgdxFdOQ4pvnrF_cA0KUnLUVubAlO2eD3LBfm4Q";
@@ -706,14 +707,16 @@ $("#btnPay").onclick=async()=>{
       }
     }catch(e){console.error("Firma en servidor no disponible:",e)}
     finally{if(toFirma)clearTimeout(toFirma)}
-    // ---- RESPALDO HEREDADO (BORRAR tras rotar el secreto, ver cabecera) ----
-    // Solo se usa si la función wompi-sign no respondió. Firma con el secreto
-    // que está en este archivo: es el agujero C1 y por eso es temporal.
+    // ---- FALLA CERRADO ----
+    // Ya NO hay firma local de respaldo: el secreto de integridad no vive en
+    // el navegador. Si wompi-sign no respondió, NO se abre Wompi (firmar aquí
+    // era el agujero C1). Se avisa al cliente y se corta el flujo.
     if(!signature){
-      console.warn("Firma local de respaldo: wompi-sign no respondió. El secreto de integridad sigue expuesto en el navegador.");
-      const sigStr=ref+amountCents+"COP"+WOMPI_INTEGRITY;
-      const sigBuf=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(sigStr));
-      signature=Array.from(new Uint8Array(sigBuf)).map(b=>b.toString(16).padStart(2,"0")).join("");
+      console.error("wompi-sign no respondió: no se puede firmar el pago de forma segura.");
+      if(wompiWin){try{wompiWin.close()}catch(e){}}
+      alert("No pudimos iniciar el pago seguro en este momento. Por favor vuelve a intentarlo en unos segundos o escríbenos por WhatsApp y lo resolvemos.");
+      $("#btnPay").disabled=false;
+      return;
     }
     const wompiURL="https://checkout.wompi.co/p/?"+new URLSearchParams({
       "public-key":WOMPI_KEY,
