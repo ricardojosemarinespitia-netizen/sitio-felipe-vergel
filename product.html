@@ -395,22 +395,42 @@ if(!product){
   `;
 
   // Colors
+  // colorImages: mapa color → índice de la foto de ese color (products.js).
+  // Al elegir un color la galería salta a SU foto; al navegar la galería se
+  // resalta el color de la foto visible. Si el producto no trae mapa, el
+  // selector se comporta como antes (solo texto).
+  const colorMap=product.colorImages||{};
   let curColor=product.colors[0];
   $("#pColors").innerHTML=product.colors.map((c,i)=>
     `<button class="color-pick${i===0?' active':''}" data-c="${c}">${c}</button>`
   ).join("");
+  function marcarColor(){
+    $$("#pColors .color-pick").forEach(x=>x.classList.toggle("active",x.dataset.c===curColor));
+  }
   $$("#pColors .color-pick").forEach(b=>b.onclick=()=>{
     curColor=b.dataset.c;
-    $$("#pColors .color-pick").forEach(x=>x.classList.toggle("active",x.dataset.c===curColor));
+    marcarColor();
+    if(colorMap[curColor]!=null&&product.images[colorMap[curColor]]){
+      curImg=colorMap[curColor];
+      updateGallery();
+    }
   });
 
   // Gallery
   let curImg=0;
+  // índice de foto → color (inverso de colorMap) para sincronizar el selector
+  const imgColor={};
+  for(const c in colorMap)if(imgColor[colorMap[c]]==null)imgColor[colorMap[c]]=c;
   function updateGallery(){
     $("#mainImg").src=product.images[curImg];
-    $("#mainImg").alt=product.name+" · imagen "+(curImg+1);
+    $("#mainImg").alt=product.name+(imgColor[curImg]?" · "+imgColor[curImg]:" · imagen "+(curImg+1));
     $("#counter").textContent=`${curImg+1} / ${product.images.length}`;
     $$("#thumbs .p-thumb").forEach((t,i)=>t.classList.toggle("active",i===curImg));
+    // si la foto visible corresponde a un color, reflejarlo en el selector
+    if(imgColor[curImg]&&imgColor[curImg]!==curColor){
+      curColor=imgColor[curImg];
+      marcarColor();
+    }
   }
   $("#thumbs").innerHTML=product.images.map((src,i)=>
     `<div class="p-thumb${i===0?' active':''}" data-i="${i}"><img src="${src}" alt="${product.name} ${i+1}" loading="lazy"></div>`

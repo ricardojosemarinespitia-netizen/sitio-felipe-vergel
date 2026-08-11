@@ -100,7 +100,11 @@ const PRODUCTS=[
       "img/bandeja-maxi-rect-ondas/bandeja-maxi-rect-ondas-01.jpg",
       "img/bandeja-maxi-rect-ondas/bandeja-maxi-rect-ondas-02.jpg",
       "img/bandeja-maxi-rect-ondas/bandeja-maxi-rect-ondas-03.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Azul": 0,
+      "Aguamarina": 1
+    }
   },
   {
     "id": "bandeja-hoja-maxi-irregular",
@@ -122,7 +126,12 @@ const PRODUCTS=[
       "img/bandeja-hoja-maxi-irregular/bandeja-hoja-maxi-irregular-02.jpg",
       "img/bandeja-hoja-maxi-irregular/bandeja-hoja-maxi-irregular-03.jpg",
       "img/bandeja-hoja-maxi-irregular/bandeja-hoja-maxi-irregular-04.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Verde": 0,
+      "Amarillo": 2,
+      "Azul": 3
+    }
   },
   {
     "id": "bandeja-hoja-midi-relieve",
@@ -145,7 +154,13 @@ const PRODUCTS=[
       "img/bandeja-hoja-midi-relieve/bandeja-hoja-midi-relieve-03.jpg",
       "img/bandeja-hoja-midi-relieve/bandeja-hoja-midi-relieve-04.jpg",
       "img/bandeja-hoja-midi-relieve/bandeja-hoja-midi-relieve-05.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Verde": 0,
+      "Verde y amarillo degradé": 1,
+      "Azul rey": 2,
+      "Transparente": 4
+    }
   },
   {
     "id": "bandeja-hoja-jaspeada-xl",
@@ -165,7 +180,10 @@ const PRODUCTS=[
       "img/bandeja-hoja-jaspeada-xl/bandeja-hoja-jaspeada-xl-02.jpg",
       "img/bandeja-hoja-jaspeada-xl/bandeja-hoja-jaspeada-xl-03.jpg",
       "img/bandeja-hoja-jaspeada-xl/bandeja-hoja-jaspeada-xl-04.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Transparente con chispas amarillo": 1
+    }
   },
   {
     "id": "centro-mesa-redondo-mosaico",
@@ -188,7 +206,12 @@ const PRODUCTS=[
       "img/centro-mesa-redondo-mosaico/centro-mesa-redondo-mosaico-02.jpg",
       "img/centro-mesa-redondo-mosaico/centro-mesa-redondo-mosaico-03.jpg",
       "img/centro-mesa-redondo-mosaico/centro-mesa-redondo-mosaico-04.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Transparente": 0,
+      "Azul": 1,
+      "Celeste": 2
+    }
   },
   {
     "id": "centro-mesa-ovalado-franjas",
@@ -210,7 +233,12 @@ const PRODUCTS=[
       "img/centro-mesa-ovalado-franjas/centro-mesa-ovalado-franjas-02.jpg",
       "img/centro-mesa-ovalado-franjas/centro-mesa-ovalado-franjas-03.jpg",
       "img/centro-mesa-ovalado-franjas/centro-mesa-ovalado-franjas-04.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Verde agua": 0,
+      "Transparente": 2,
+      "Azul": 3
+    }
   },
   {
     "id": "centro-mesa-ovalado-mosaico",
@@ -233,7 +261,11 @@ const PRODUCTS=[
       "img/centro-mesa-ovalado-mosaico/centro-mesa-ovalado-mosaico-03.jpg",
       "img/centro-mesa-ovalado-mosaico/centro-mesa-ovalado-mosaico-04.jpg",
       "img/centro-mesa-ovalado-mosaico/centro-mesa-ovalado-mosaico-05.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Transparente": 0,
+      "Azul": 1
+    }
   },
   {
     "id": "centro-mesa-conico-mosaico",
@@ -257,7 +289,13 @@ const PRODUCTS=[
       "img/centro-mesa-conico-mosaico/centro-mesa-conico-mosaico-03.jpg",
       "img/centro-mesa-conico-mosaico/centro-mesa-conico-mosaico-04.jpg",
       "img/centro-mesa-conico-mosaico/centro-mesa-conico-mosaico-05.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Verde": 0,
+      "Celeste": 1,
+      "Azul": 2,
+      "Transparente": 3
+    }
   },
   {
     "id": "centro-mesa-conico-degrade",
@@ -277,7 +315,11 @@ const PRODUCTS=[
       "img/centro-mesa-conico-degrade/centro-mesa-conico-degrade-02.jpg",
       "img/centro-mesa-conico-degrade/centro-mesa-conico-degrade-03.jpg",
       "img/centro-mesa-conico-degrade/centro-mesa-conico-degrade-04.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Transparente degradé verde-amarillo-turquesa": 0,
+      "Aguamarina degradé verde-amarillo": 2
+    }
   },
   {
     "id": "centro-mesa-ovalado-hojas",
@@ -300,7 +342,11 @@ const PRODUCTS=[
       "img/centro-mesa-ovalado-hojas/centro-mesa-ovalado-hojas-02.jpg",
       "img/centro-mesa-ovalado-hojas/centro-mesa-ovalado-hojas-03.jpg",
       "img/centro-mesa-ovalado-hojas/centro-mesa-ovalado-hojas-04.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Transparente": 0,
+      "Azul": 1
+    }
   },
   {
     "id": "centro-mesa-conico-hojas",
@@ -323,7 +369,10 @@ const PRODUCTS=[
       "img/centro-mesa-conico-hojas/centro-mesa-conico-hojas-02.jpg",
       "img/centro-mesa-conico-hojas/centro-mesa-conico-hojas-03.jpg",
       "img/centro-mesa-conico-hojas/centro-mesa-conico-hojas-04.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Transparente": 0
+    }
   },
   {
     "id": "centro-mesa-cuadrado-mosaico",
@@ -344,7 +393,11 @@ const PRODUCTS=[
       "img/centro-mesa-cuadrado-mosaico/centro-mesa-cuadrado-mosaico-02.jpg",
       "img/centro-mesa-cuadrado-mosaico/centro-mesa-cuadrado-mosaico-03.jpg",
       "img/centro-mesa-cuadrado-mosaico/centro-mesa-cuadrado-mosaico-04.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Gris": 0,
+      "Celeste": 2
+    }
   },
   {
     "id": "centro-mesa-ovalado-liso",
@@ -368,7 +421,13 @@ const PRODUCTS=[
       "img/centro-mesa-ovalado-liso/centro-mesa-ovalado-liso-03.jpg",
       "img/centro-mesa-ovalado-liso/centro-mesa-ovalado-liso-04.jpg",
       "img/centro-mesa-ovalado-liso/centro-mesa-ovalado-liso-05.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Transparente": 1,
+      "Azul": 2,
+      "Gris": 3,
+      "Dorado": 4
+    }
   },
   {
     "id": "centro-mesa-conico-franjas",
@@ -391,7 +450,12 @@ const PRODUCTS=[
       "img/centro-mesa-conico-franjas/centro-mesa-conico-franjas-02.jpg",
       "img/centro-mesa-conico-franjas/centro-mesa-conico-franjas-03.jpg",
       "img/centro-mesa-conico-franjas/centro-mesa-conico-franjas-04.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Gris": 0,
+      "Azul": 1,
+      "Transparente": 2
+    }
   },
   {
     "id": "florero-triptico",
@@ -415,7 +479,13 @@ const PRODUCTS=[
       "img/florero-triptico/florero-triptico-03.jpg",
       "img/florero-triptico/florero-triptico-04.jpg",
       "img/florero-triptico/florero-triptico-05.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Transparente": 0,
+      "Gris": 2,
+      "Verde": 3,
+      "Azul": 4
+    }
   },
   {
     "id": "florero-alto-irregular",
@@ -439,7 +509,14 @@ const PRODUCTS=[
       "img/florero-alto-irregular/florero-alto-irregular-03.jpg",
       "img/florero-alto-irregular/florero-alto-irregular-04.jpg",
       "img/florero-alto-irregular/florero-alto-irregular-05.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Gris": 0,
+      "Transparente": 1,
+      "Amarillo": 2,
+      "Azul": 3,
+      "Verde": 4
+    }
   },
   {
     "id": "florero-irregular-boca-ancha",
@@ -462,7 +539,13 @@ const PRODUCTS=[
       "img/florero-irregular-boca-ancha/florero-irregular-boca-ancha-03.jpg",
       "img/florero-irregular-boca-ancha/florero-irregular-boca-ancha-04.jpg",
       "img/florero-irregular-boca-ancha/florero-irregular-boca-ancha-05.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Transparente": 0,
+      "Gris": 1,
+      "Verde": 2,
+      "Azul": 3
+    }
   },
   {
     "id": "florero-diptico",
@@ -486,7 +569,11 @@ const PRODUCTS=[
       "img/florero-diptico/florero-diptico-03.jpg",
       "img/florero-diptico/florero-diptico-04.jpg",
       "img/florero-diptico/florero-diptico-05.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Transparente": 1,
+      "Verde": 2
+    }
   },
   {
     "id": "mini-florero",
@@ -508,7 +595,12 @@ const PRODUCTS=[
       "img/mini-florero/mini-florero-02.jpg",
       "img/mini-florero/mini-florero-03.jpg",
       "img/mini-florero/mini-florero-04.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Verde": 0,
+      "Gris": 1,
+      "Transparente": 2
+    }
   },
   {
     "id": "vaso-florero",
@@ -531,7 +623,12 @@ const PRODUCTS=[
       "img/vaso-florero/vaso-florero-03.jpg",
       "img/vaso-florero/vaso-florero-04.jpg",
       "img/vaso-florero/vaso-florero-05.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Transparente": 1,
+      "Azul": 2,
+      "Verde": 3
+    }
   },
   {
     "id": "solitario-circular",
@@ -555,7 +652,11 @@ const PRODUCTS=[
       "img/solitario-circular/solitario-circular-03.jpg",
       "img/solitario-circular/solitario-circular-04.jpg",
       "img/solitario-circular/solitario-circular-05.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Gris": 1,
+      "Transparente": 4
+    }
   },
   {
     "id": "solitario-guitarra",
@@ -579,7 +680,11 @@ const PRODUCTS=[
       "img/solitario-guitarra/solitario-guitarra-03.jpg",
       "img/solitario-guitarra/solitario-guitarra-04.jpg",
       "img/solitario-guitarra/solitario-guitarra-05.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Azul": 2,
+      "Verde": 3
+    }
   },
   {
     "id": "solitario-teja",
@@ -607,7 +712,15 @@ const PRODUCTS=[
       "img/solitario-teja/solitario-teja-05.jpg",
       "img/solitario-teja/solitario-teja-06.jpg",
       "img/solitario-teja/solitario-teja-07.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Verde": 0,
+      "Cobre": 1,
+      "Transparente": 2,
+      "Azul": 3,
+      "Dorado": 4,
+      "Gris": 6
+    }
   },
   {
     "id": "porta-plantas-individual",
@@ -631,7 +744,13 @@ const PRODUCTS=[
       "img/porta-plantas-individual/porta-plantas-individual-03.jpg",
       "img/porta-plantas-individual/porta-plantas-individual-04.jpg",
       "img/porta-plantas-individual/porta-plantas-individual-05.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Gris": 0,
+      "Transparente": 1,
+      "Verde": 2,
+      "Azul": 3
+    }
   },
   {
     "id": "porta-plantas-doble",
@@ -655,7 +774,13 @@ const PRODUCTS=[
       "img/porta-plantas-doble/porta-plantas-doble-03.jpg",
       "img/porta-plantas-doble/porta-plantas-doble-04.jpg",
       "img/porta-plantas-doble/porta-plantas-doble-05.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Verde": 0,
+      "Azul": 1,
+      "Gris": 3,
+      "Transparente": 4
+    }
   },
   {
     "id": "porta-plantas-triple",
@@ -679,7 +804,10 @@ const PRODUCTS=[
       "img/porta-plantas-triple/porta-plantas-triple-03.jpg",
       "img/porta-plantas-triple/porta-plantas-triple-04.jpg",
       "img/porta-plantas-triple/porta-plantas-triple-05.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Verde": 0
+    }
   },
   {
     "id": "porta-matera",
@@ -702,7 +830,12 @@ const PRODUCTS=[
       "img/porta-matera/porta-matera-03.jpg",
       "img/porta-matera/porta-matera-04.jpg",
       "img/porta-matera/porta-matera-05.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Gris": 0,
+      "Azul": 1,
+      "Verde": 3
+    }
   },
   {
     "id": "porta-pasabocas-doble",
@@ -725,7 +858,11 @@ const PRODUCTS=[
       "img/porta-pasabocas-doble/porta-pasabocas-doble-03.jpg",
       "img/porta-pasabocas-doble/porta-pasabocas-doble-04.jpg",
       "img/porta-pasabocas-doble/porta-pasabocas-doble-05.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Verde": 2,
+      "Azul rey": 3
+    }
   },
   {
     "id": "plato-postre",
@@ -747,7 +884,12 @@ const PRODUCTS=[
       "img/plato-postre/plato-postre-03.jpg",
       "img/plato-postre/plato-postre-04.jpg",
       "img/plato-postre/plato-postre-05.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Azul": 1,
+      "Transparente": 2,
+      "Gris": 4
+    }
   },
   {
     "id": "plato-ensalada",
@@ -769,7 +911,12 @@ const PRODUCTS=[
       "img/plato-ensalada/plato-ensalada-03.jpg",
       "img/plato-ensalada/plato-ensalada-04.jpg",
       "img/plato-ensalada/plato-ensalada-05.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Transparente": 0,
+      "Azul": 2,
+      "Gris": 3
+    }
   },
   {
     "id": "plato-cena",
@@ -791,7 +938,12 @@ const PRODUCTS=[
       "img/plato-cena/plato-cena-03.jpg",
       "img/plato-cena/plato-cena-04.jpg",
       "img/plato-cena/plato-cena-05.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Azul": 0,
+      "Gris": 1,
+      "Transparente": 3
+    }
   },
   {
     "id": "pedestal-repostero",
@@ -814,7 +966,12 @@ const PRODUCTS=[
       "img/pedestal-repostero/pedestal-repostero-03.jpg",
       "img/pedestal-repostero/pedestal-repostero-04.jpg",
       "img/pedestal-repostero/pedestal-repostero-05.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Transparente": 0,
+      "Amarillo": 1,
+      "Azul": 2
+    }
   },
   {
     "id": "portavasos-cuadrados",
@@ -836,7 +993,11 @@ const PRODUCTS=[
       "img/portavasos-cuadrados/portavasos-cuadrados-03.jpg",
       "img/portavasos-cuadrados/portavasos-cuadrados-04.jpg",
       "img/portavasos-cuadrados/portavasos-cuadrados-05.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Gris": 2,
+      "Azul": 3
+    }
   },
   {
     "id": "centro-mesa-conico",
@@ -858,7 +1019,13 @@ const PRODUCTS=[
       "img/centro-mesa-conico/centro-mesa-conico-02.jpg",
       "img/centro-mesa-conico/centro-mesa-conico-03.jpg",
       "img/centro-mesa-conico/centro-mesa-conico-04.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Transparente": 0,
+      "Verde": 1,
+      "Azul": 2,
+      "Gris": 3
+    }
   },
   {
     "id": "centro-mesa-marea",
@@ -922,7 +1089,11 @@ const PRODUCTS=[
       "img/bandeja-vetas/bandeja-vetas-02.jpg",
       "img/bandeja-vetas/bandeja-vetas-03.jpg",
       "img/bandeja-vetas/bandeja-vetas-04.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Transparente": 0,
+      "Verde": 2
+    }
   },
   {
     "id": "bandeja-folia-hoja",
@@ -949,6 +1120,7 @@ const PRODUCTS=[
     ]
   }
 ];
+
 
 const FELIPE_IMGS=["img/felipe/felipe-01.jpg", "img/felipe/felipe-02.jpg", "img/felipe/felipe-03.jpg", "img/felipe/felipe-04.jpg", "img/felipe/felipe-05.jpg", "img/felipe/felipe-06.jpg", "img/felipe/felipe-07.jpg", "img/felipe/felipe-08.jpg", "img/felipe/felipe-09.jpg", "img/felipe/felipe-10.jpg", "img/felipe/felipe-11.jpg", "img/felipe/felipe-12.jpg", "img/felipe/felipe-13.jpg", "img/felipe/felipe-14.jpg", "img/felipe/felipe-15.jpg", "img/felipe/felipe-16.jpg", "img/felipe/felipe-17.jpg", "img/felipe/felipe-18.jpg", "img/felipe/felipe-19.jpg", "img/felipe/felipe-20.jpg", "img/felipe/felipe-21.jpg", "img/felipe/felipe-22.jpg", "img/felipe/felipe-23.jpg", "img/felipe/felipe-24.jpg", "img/felipe/felipe-25.jpg", "img/felipe/felipe-26.jpg", "img/felipe/felipe-27.jpg", "img/felipe/felipe-28.jpg", "img/felipe/felipe-29.jpg", "img/felipe/felipe-30.jpg", "img/felipe/felipe-31.jpg", "img/felipe/felipe-32.jpg", "img/felipe/felipe-33.jpg", "img/felipe/felipe-34.jpg", "img/felipe/felipe-35.jpg", "img/felipe/felipe-36.jpg", "img/felipe/felipe-37.jpg", "img/felipe/felipe-38.jpg", "img/felipe/felipe-39.jpg", "img/felipe/felipe-40.jpg", "img/felipe/felipe-41.jpg", "img/felipe/felipe-42.jpg", "img/felipe/felipe-43.jpg", "img/felipe/felipe-44.jpg", "img/felipe/felipe-45.jpg", "img/felipe/felipe-46.jpg", "img/felipe/felipe-47.jpg", "img/felipe/felipe-48.jpg", "img/felipe/felipe-49.jpg", "img/felipe/felipe-50.jpg", "img/felipe/felipe-51.jpg", "img/felipe/felipe-52.jpg", "img/felipe/felipe-53.jpg", "img/felipe/felipe-54.jpg", "img/felipe/felipe-55.jpg", "img/felipe/felipe-56.jpg", "img/felipe/felipe-57.jpg", "img/felipe/felipe-58.jpg", "img/felipe/felipe-59.jpg", "img/felipe/felipe-60.jpg", "img/felipe/felipe-61.jpg", "img/felipe/felipe-62.jpg", "img/felipe/felipe-63.jpg", "img/felipe/felipe-64.jpg", "img/felipe/felipe-65.jpg", "img/felipe/felipe-66.jpg", "img/felipe/felipe-67.jpg", "img/felipe/felipe-68.jpg", "img/felipe/felipe-69.jpg", "img/felipe/felipe-70.jpg", "img/felipe/felipe-71.jpg", "img/felipe/felipe-72.jpg", "img/felipe/felipe-73.jpg", "img/felipe/felipe-74.jpg", "img/felipe/felipe-75.jpg", "img/felipe/felipe-76.jpg", "img/felipe/felipe-77.jpg", "img/felipe/felipe-78.jpg", "img/felipe/felipe-79.jpg", "img/felipe/felipe-80.jpg", "img/felipe/felipe-81.jpg", "img/felipe/felipe-82.jpg", "img/felipe/felipe-83.jpg", "img/felipe/felipe-84.jpg", "img/felipe/felipe-85.jpg", "img/felipe/felipe-86.jpg", "img/felipe/felipe-87.jpg", "img/felipe/felipe-88.jpg", "img/felipe/felipe-89.jpg", "img/felipe/felipe-90.jpg", "img/felipe/felipe-91.jpg", "img/felipe/felipe-92.jpg", "img/felipe/felipe-93.jpg", "img/felipe/felipe-94.jpg", "img/felipe/felipe-95.jpg", "img/felipe/felipe-96.jpg", "img/felipe/felipe-97.jpg", "img/felipe/felipe-98.jpg", "img/felipe/felipe-99.jpg", "img/felipe/felipe-100.jpg", "img/felipe/felipe-101.jpg", "img/felipe/felipe-102.jpg", "img/felipe/felipe-103.jpg", "img/felipe/felipe-104.jpg", "img/felipe/felipe-105.jpg", "img/felipe/felipe-106.jpg", "img/felipe/felipe-107.jpg", "img/felipe/felipe-108.jpg", "img/felipe/felipe-109.jpg", "img/felipe/felipe-110.jpg", "img/felipe/felipe-111.jpg", "img/felipe/felipe-112.jpg", "img/felipe/felipe-113.jpg", "img/felipe/felipe-114.jpg", "img/felipe/felipe-115.jpg", "img/felipe/felipe-116.jpg", "img/felipe/felipe-117.jpg", "img/felipe/felipe-118.jpg", "img/felipe/felipe-119.jpg", "img/felipe/felipe-120.jpg", "img/felipe/felipe-121.jpg", "img/felipe/felipe-122.jpg", "img/felipe/felipe-123.jpg", "img/felipe/felipe-124.jpg", "img/felipe/felipe-125.jpg"];
 const CATEGORIES=[["lamparas", "Lámparas"], ["bandejas", "Bandejas"], ["centros-mesa", "Centros de Mesa"], ["floreros", "Floreros"], ["solitarios", "Solitarios"], ["porta-plantas", "Porta Plantas"], ["vajilla", "Vajilla"], ["pedestales", "Pedestales"], ["portavasos", "Portavasos"]];
