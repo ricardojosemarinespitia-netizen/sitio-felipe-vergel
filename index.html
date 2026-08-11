@@ -122,9 +122,12 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
 /* NAV */
 .nav{position:fixed;top:0;left:0;right:0;z-index:100;background:linear-gradient(180deg,rgba(20,18,16,.5) 0%,rgba(20,18,16,.2) 70%,rgba(20,18,16,0) 100%);backdrop-filter:blur(0);-webkit-backdrop-filter:blur(0);border-bottom:none;transition:background .4s,backdrop-filter .4s,box-shadow .4s}
 .nav.scrolled{background:rgba(250,244,237,.50);backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px);box-shadow:0 2px 20px -4px rgba(26,35,34,.08)}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;height:70px}
-.nav-logo{display:flex;align-items:center;min-height:44px;gap:10px}  /* era 34px de alto en movil */
-.nav-logo img{height:38px;width:auto;transition:filter .3s,opacity .3s}
+/* min-height (no height) + min-width:0: con "letra grande" del sistema el
+   contenido crecia dentro de una barra de alto fijo y se recortaba, y el
+   logo empujaba el carrito fuera de la pantalla. */
+.nav-inner{display:flex;align-items:center;justify-content:space-between;min-height:70px;gap:12px}
+.nav-logo{display:flex;align-items:center;min-height:44px;gap:10px;min-width:0;flex-shrink:1}  /* era 34px de alto en movil */
+.nav-logo img{height:38px;width:auto;max-width:100%;transition:filter .3s,opacity .3s}
 .nav:not(.scrolled) .nav-logo img{filter:brightness(0) invert(1) drop-shadow(0 2px 6px rgba(0,0,0,.3));opacity:.95}
 /* .nav-logo-text (4 reglas): el logo es solo imagen desde hace tiempo. */
 .nav-links{display:flex;gap:36px;font-size:var(--t-xs);font-weight:400;letter-spacing:.14em;text-transform:uppercase}
@@ -132,7 +135,7 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
 .nav:not(.scrolled) .nav-links a{color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.4)}
 .nav-links a:hover{color:var(--cobre-dark)}  /* sobre nav clara: 2.71:1 -> 5.88:1 */
 .nav:not(.scrolled) .nav-links a:hover{color:var(--crema-rosa)}
-.nav-cart{position:relative;display:flex;align-items:center;min-height:44px;gap:8px;padding:10px 16px;border-radius:var(--radius-sm);background:var(--verde);color:var(--crema);font-size:var(--t-xs);letter-spacing:.08em;text-transform:uppercase;transition:background .2s;box-shadow:0 2px 12px -2px rgba(192,76,54,.3)}
+.nav-cart{position:relative;display:flex;align-items:center;min-height:44px;gap:8px;flex-shrink:0;white-space:nowrap;padding:10px 16px;border-radius:var(--radius-sm);background:var(--verde);color:var(--crema);font-size:var(--t-xs);letter-spacing:.08em;text-transform:uppercase;transition:background .2s;box-shadow:0 2px 12px -2px rgba(192,76,54,.3)}
 .nav-cart:hover{background:var(--verde-dark)}
 .cart-count{background:var(--crema-rosa);color:var(--verde-dark);min-width:18px;height:18px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;font-size:var(--t-2xs);font-weight:700;padding:0 6px}
 .nav-burger{display:none;background:none;border:none;font-size:var(--t-2xl);color:var(--verde);transition:color .3s;width:44px;height:44px;align-items:center;justify-content:center;border-radius:2px}
@@ -147,7 +150,7 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
   .nav-cart{padding:9px 14px}
 }
 @media(max-width:480px){
-  .nav-inner{height:64px}
+  .nav-inner{min-height:64px}
   .nav-logo img{height:34px!important}
   .nav-links.open{top:64px}
   .nav-cart{padding:8px 12px;gap:6px}
@@ -209,7 +212,10 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
 .nov-head h2{font-size:var(--t-3xl);margin:0 0 14px;color:var(--verde-dark)}
 .nov-head h2 .acc{color:var(--cobre-dark);font-family:'Cormorant Garamond',serif;font-weight:400;font-style:italic}
 .nov-head p{color:var(--tinta-soft);max-width:540px;margin:0 auto;font-size:var(--t-md);font-weight:200;line-height:1.8}
-@media(max-width:640px){.nov-head{margin-bottom:var(--e-5)}}
+/* (Se quito `@media(max-width:640px){.nov-head{margin-bottom:var(--e-5)}}`:
+   estaba muerta. El unico .nov-head del markup vive dentro de
+   .colecciones, y `.colecciones .nov-head` gana por especificidad. El
+   valor real se fija en el bloque movil del final del archivo.) */
 
 /* COLECCIONES: portadas cinematográficas a pantalla completa */
 .colecciones{background:var(--crema);padding:100px 0 0}
@@ -299,7 +305,9 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
 
 /* CATALOGO */
 .catalogo{padding:120px 0;background:var(--crema-2)}
-@media(max-width:640px){.catalogo{padding:70px 0}}
+/* padding vertical anulado mas abajo por otra regla del mismo @media;
+   aqui solo queda el lateral, que es lo que de verdad se aplica. */
+@media(max-width:640px){.catalogo{padding-left:0;padding-right:0}}
 .cat-head{text-align:center;margin-bottom:50px}
 @media(max-width:640px){.cat-head{margin-bottom:34px}}
 .cat-head .eyebrow{color:var(--cobre-dark);font-size:var(--t-xs);letter-spacing:.28em;text-transform:uppercase;font-weight:200;display:block;margin-bottom:18px}
@@ -361,7 +369,9 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
 .product-card{background:var(--crema);border-radius:var(--radius);overflow:hidden;transition:transform .4s,box-shadow .4s;cursor:pointer;border:1px solid transparent;position:relative}
 .product-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--linea)}
 .product-card:active{transform:scale(.98)}
-.product-img{position:relative;aspect-ratio:1/1;background:#eee;overflow:hidden}
+/* 4/5 en vez de 1/1: la mayoria del catalogo son fotos verticales 2:3 y
+   en marco cuadrado se les recortaba un tercio (piezas altas cortadas). */
+.product-img{position:relative;aspect-ratio:4/5;background:var(--crema-2);overflow:hidden}
 /* Fotos de la lámpara: encuadre bajo el techo para que el vidrio llene la foto, sin espacio vacío arriba */
 .product-img img[src*="lamparas/"],.p-gallery-main img[src*="lamparas/"],.p-thumb img[src*="lamparas/"]{object-position:50% 78%}
 .product-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
@@ -389,9 +399,12 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
 @media(max-width:640px){.modal{padding:0}.modal-inner{border-radius:0;max-height:100vh;height:100vh}}
 .modal-close{position:absolute;top:18px;right:18px;z-index:5;width:40px;height:40px;border-radius:50%;background:var(--crema);color:var(--verde);font-size:var(--t-xl);border:1px solid var(--linea);display:flex;align-items:center;justify-content:center}
 .modal-close:hover{background:var(--verde);color:var(--crema)}
-.gallery{background:#f0ebe0;position:relative;min-height:400px}
-.gallery-main{aspect-ratio:1/1;background:#eee;overflow:hidden}
-.gallery-main img{width:100%;height:100%;object-fit:cover}
+/* min-width:0 obligatorio: sin esto, .gallery-thumbs (overflow-x:auto)
+   le impone su ancho de contenido a esta columna de la grilla en vez de
+   recortar (bug de CSS grid), desbordando el modal completo en movil. */
+.gallery{background:#f0ebe0;position:relative;min-height:400px;min-width:0}
+.gallery-main{aspect-ratio:4/5;background:var(--crema-2);overflow:hidden}
+.gallery-main img{width:100%;height:100%;object-fit:contain}
 .gallery-thumbs{display:flex;gap:8px;padding:14px;overflow-x:auto}
 .gallery-thumbs img{width:64px;height:64px;object-fit:cover;flex:0 0 64px;cursor:pointer;opacity:.6;transition:opacity .2s;border-radius:10px;border:2px solid transparent}
 .gallery-thumbs img.active{opacity:1;border-color:var(--cobre)}
@@ -399,7 +412,7 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
 .gallery-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(250,247,242,.95);color:var(--verde);display:flex;align-items:center;justify-content:center;font-size:var(--t-xl)}
 .gallery-nav.prev{left:14px}.gallery-nav.next{right:14px}
 .gallery-nav:hover{background:#fff}
-.details{padding:36px 40px}
+.details{padding:36px 40px;min-width:0}
 @media(max-width:640px){.details{padding:26px 22px}}
 .details h3{font-size:var(--t-2xl);margin:0 0 4px;color:var(--verde-dark);font-weight:200}
 .details .subtitle{font-size:var(--t-sm);color:var(--tinta-soft);font-style:italic;margin-bottom:14px;font-family:'Cormorant Garamond',serif}
@@ -660,6 +673,45 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
    animacion (fadeUp con `both`): sin esto se quedarian en opacity:0. */
 @media(prefers-reduced-motion:reduce){
   .hero h1,.hero-tagline,.hero-inner>p,.hero-cta{opacity:1!important;transform:none!important}
+}
+
+/* ============================================================
+   MOVIL + ACCESIBILIDAD — bloque autoritativo (va AL FINAL a proposito)
+   ------------------------------------------------------------
+   Cualquier ajuste movil nuevo va AQUI. Al ir de ultimo gana por orden
+   de cascada y no puede quedar "muerto" pisado por una regla base
+   posterior (el fallo que tenian product/checkout/customer-info, donde
+   todo el bloque movil se escribio antes de las bases y no se aplicaba).
+   ============================================================ */
+
+/* Sin min-width:0 la celda 1fr no baja de su ancho de contenido y un
+   nombre de pieza largo empuja la fila fuera del cajon del carrito. */
+.cart-item .info{min-width:0}
+.cart-item .info h4{overflow-wrap:anywhere}
+.cookie-banner .ck-text{min-width:0}
+/* Cajas de tamano fijo con un glifo/numero dentro: con la fuente del
+   sistema aumentada el contenido se recortaba. */
+.cart-count{min-width:18px;min-height:18px;height:auto;line-height:1;padding:2px 6px}
+.nav-burger{min-width:44px;min-height:44px;height:auto;line-height:1}
+.gallery-nav{min-width:44px;min-height:44px;height:auto;line-height:1}
+/* dvh: en iOS Safari 100vh incluye la barra de URL y el pie del modal
+   (boton Agregar al carrito) quedaba debajo del borde visible. */
+@media(max-width:640px){.modal-inner{height:100dvh;max-height:100dvh}}
+
+@media(max-width:640px){
+  /* Interlineado: 1.8 con texto de 13-14px deja los renglones muy
+     separados y alarga cada bloque en celular. */
+  .hero p,.nov-head p,.circulo-sub,.fvf-brand p,.cat-head p{line-height:1.62}
+  .colecciones .nov-head{margin-bottom:28px}
+  .cat-circles{padding:6px 0}
+  .cart-empty{padding:48px 20px}
+  .hero-inner{padding-bottom:68px}
+  .order-form{padding:24px 20px}
+  /* width:100% + nowrap no puede encoger: el texto desbordaba el form. */
+  .circulo-btn{white-space:normal}
+  /* Alturas fijas con texto absoluto encima: con letra grande el titulo
+     se salia de la foto. */
+  .club-photo{height:auto;min-height:210px}
 }
 </style>
 </head>

@@ -192,6 +192,55 @@ input.error{border-color:#d32f2f;background:#fff5f5}
 .back-float:hover{background:var(--verde-dark);transform:translateY(-3px)}
 .back-float svg{width:20px;height:20px}
 @media(max-width:640px){.back-float{width:44px;height:44px;bottom:18px;left:18px}}
+
+/* ============================================================
+   MOVIL + ACCESIBILIDAD — bloque autoritativo (va AL FINAL a proposito)
+   ------------------------------------------------------------
+   Arriba hay varios @media(max-width:640px) MUERTOS: se escribieron
+   ANTES de las reglas base con el mismo selector y misma
+   especificidad, asi que la base posterior los pisa y el movil nunca
+   recibia el ajuste (huecos de 36px, H1 en tamano de escritorio y el
+   resumen con paddings y miniaturas de 64px).
+   Este bloque va al final, asi que gana por orden de cascada.
+   REGLA: cualquier ajuste movil nuevo va AQUI, no arriba.
+   ============================================================ */
+
+/* La fila del resumen lleva miniatura + nombre + control de cantidad +
+   precio + "Quitar". Sin min-width:0 ninguna celda baja de su ancho de
+   contenido y la fila entera empuja la pagina fuera de la pantalla. */
+.summary-item{min-width:0}
+.summary-item .info{min-width:0}
+.summary-item .right{min-width:0}
+.summary-item .info h4{overflow-wrap:anywhere}
+.ci-header-inner{gap:12px}
+.ci-logo{flex-shrink:1;min-width:0}
+.ci-logo img{max-width:100%}
+.ci-back{min-width:0}
+.btn svg{flex-shrink:0}
+/* Alto fijo + fuente aumentada = numero/simbolo recortado.
+   Los +/- ademas subian de 26px al objetivo tactil recomendado. */
+.ci-step-num{min-width:24px;min-height:24px;height:auto;flex-shrink:0}
+.ci-steps-inner{flex-wrap:wrap;row-gap:8px}
+.qty-ctrl button{min-width:32px;min-height:32px;height:auto}
+/* El input de descuento es flex:1 pero sin min-width:0 conserva su ancho
+   intrinseco (~20 caracteres) y desborda junto al boton "Aplicar". */
+.discount-row input,.discount-row>input{min-width:0}
+
+@media(max-width:640px){
+  .ci-logo img{height:36px}
+  .ci-back{padding:7px 12px;font-size:var(--t-2xs)}
+  .ci-back svg{width:12px;height:12px}
+  .ci-title{font-size:var(--t-2xl)}
+  .ci-sub{margin:0 0 20px;font-size:var(--t-sm)}
+  /* espacio para los dos botones flotantes */
+  .ci-wrap{padding-bottom:90px}
+  .summary-head{padding:16px 18px}
+  .summary-item{padding:12px 18px;gap:10px;grid-template-columns:52px 1fr auto}
+  .summary-item img{width:52px;height:52px}
+  .summary-totals{padding:16px 18px}
+  .summary-note{padding:12px 18px 16px}
+  .summary-empty{padding:32px 18px}
+}
 </style>
 </head>
 <body>

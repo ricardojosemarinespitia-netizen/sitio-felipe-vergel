@@ -46,10 +46,14 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tin
 
 /* HEADER */
 .p-header{background:rgba(250,244,237,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--linea);padding:18px 0;position:sticky;top:0;z-index:50}
-.p-header-inner{max-width:1280px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.p-logo{display:flex;align-items:center;min-height:44px;gap:12px;flex-shrink:0}
-.p-logo img{height:44px;width:auto}
-.p-actions{display:flex;align-items:center;gap:10px}
+.p-header-inner{max-width:1280px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:nowrap}
+/* min-width:0 en ambos lados: si el usuario tiene "letra grande" activada
+   en el sistema, el logo y los botones crecen y sin esto la barra se
+   desbordaba fuera de la pantalla (flex no encoge por debajo del
+   contenido salvo que se le permita). */
+.p-logo{display:flex;align-items:center;min-height:44px;gap:12px;flex-shrink:1;min-width:0}
+.p-logo img{height:44px;width:auto;max-width:100%}
+.p-actions{display:flex;align-items:center;gap:10px;min-width:0;flex-shrink:0}
 .p-back{display:inline-flex;align-items:center;gap:8px;font-size:var(--t-sm);letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-soft);font-weight:200;padding:9px 16px;border-radius:2px;transition:all .25s;border:1px solid transparent;min-height:44px}
 .p-back:hover{background:var(--crema-2);color:var(--verde);border-color:var(--linea)}
 .p-back svg{width:14px;height:14px}
@@ -83,10 +87,23 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tin
 @media(max-width:640px){.p-wrap{padding:18px 16px 60px;gap:24px}.p-crumb{padding:14px 16px 0;font-size:var(--t-2xs)}}
 
 /* GALLERY */
-.p-gallery{position:sticky;top:110px}
+/* min-width:0 es obligatorio: sin esto, el carril de miniaturas (.p-thumbs,
+   overflow-x:auto) le impone a esta columna de la grilla su ancho SIN
+   recortar como minimo (bug clasico de CSS grid: min-width:auto por
+   defecto). En movil eso empujaba TODA la pagina 59px mas ancha que la
+   pantalla (434px de contenido en un viewport de 375px), desbordando
+   imagen, titulo, precio y todo lo demas fuera de la vista. */
+.p-gallery{position:sticky;top:110px;min-width:0}
 @media(max-width:920px){.p-gallery{position:static}}
-.p-gallery-main{position:relative;aspect-ratio:1/1;background:var(--crema-2);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:14px;box-shadow:0 8px 30px -10px rgba(63,68,67,.15)}
-.p-gallery-main img{width:100%;height:100%;object-fit:cover;transition:opacity .35s}
+/* 4/5, no 1/1: 158 de las 204 fotos del catalogo son verticales 2:3
+   (800x1200). En un marco cuadrado con object-fit:cover se les recortaba
+   un tercio del alto — piezas altas (floreros, lamparas, pedestales)
+   aparecian decapitadas. */
+.p-gallery-main{position:relative;aspect-ratio:4/5;background:var(--crema-2);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:14px;box-shadow:0 8px 30px -10px rgba(63,68,67,.15)}
+/* contain, no cover: la foto principal es la que decide la compra, no
+   puede recortar la pieza. El fondo crema del marco disimula el sobrante
+   porque las fotos de producto ya vienen sobre fondo claro. */
+.p-gallery-main img{width:100%;height:100%;object-fit:contain;transition:opacity .35s}
 /* Fotos de la lámpara: encuadre bajo el techo para que el vidrio llene la foto */
 .p-gallery-main img[src*="lamparas/"],.p-thumb img[src*="lamparas/"]{object-position:50% 78%}
 .p-gallery-nav{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;background:rgba(250,244,237,.95);color:var(--verde);display:flex;align-items:center;justify-content:center;font-size:var(--t-xl);backdrop-filter:blur(8px);transition:all .25s;box-shadow:0 4px 12px -4px rgba(63,68,67,.2)}
@@ -105,7 +122,10 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tin
 /* LUPA DE AUMENTO (desktop) */
 @media(hover:hover){.p-gallery-main{cursor:zoom-in}}
 .zoom-lens{position:absolute;width:200px;height:200px;border-radius:50%;border:3px solid rgba(250,244,237,.95);box-shadow:0 10px 34px rgba(0,0,0,.32),inset 0 0 0 1px rgba(0,0,0,.06);pointer-events:none;overflow:hidden;display:none;z-index:4;background:var(--crema-2)}
-.zoom-lens img{position:absolute;top:0;left:0;max-width:none;object-fit:cover}
+/* contain para que la lupa amplie exactamente lo que se ve en el marco
+   (que ahora tambien es contain); con cover la lupa mostraba un encuadre
+   distinto al de la foto y el zoom "saltaba". */
+.zoom-lens img{position:absolute;top:0;left:0;max-width:none;object-fit:contain}
 .p-gallery-main.zooming .zoom-lens{display:block}
 .p-gallery-nav{z-index:6}
 .p-gallery-counter{z-index:6}
@@ -117,7 +137,7 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tin
 }
 
 /* DETAILS */
-.p-details{padding:8px 0}
+.p-details{padding:8px 0;min-width:0}
 .p-eyebrow{display:inline-block;font-size:var(--t-2xs);letter-spacing:.28em;text-transform:uppercase;color:var(--cobre-dark);font-weight:700;margin-bottom:14px;padding:6px 12px;background:rgba(243,207,179,.3);border-radius:2px}
 .p-name{font-size:var(--t-3xl);margin:0 0 10px;color:var(--verde-dark);font-weight:700;letter-spacing:-.02em;line-height:1.15}
 .p-subtitle{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:var(--t-lg);color:var(--tinta-soft);margin-bottom:20px;font-weight:400}
@@ -127,24 +147,6 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tin
    el precio tachado ficticio esta desactivado a proposito y no debe volver
    (Ley 1480: anunciar descuento sobre un precio de referencia que nunca
    existio es publicidad enganosa). Sin markup en ningun archivo. */
-@media(max-width:640px){.p-price{font-size:var(--t-2xl)}}
-@media(max-width:640px){
-  .p-name{font-size:var(--t-2xl);line-height:1.18}
-  .p-subtitle{font-size:var(--t-md);margin-bottom:16px}
-  .p-price{font-size:var(--t-2xl);margin:14px 0 22px}
-  .p-eyebrow{font-size:var(--t-2xs);letter-spacing:.22em;padding:5px 10px;margin-bottom:12px}
-  .p-divider{margin:18px 0}
-  .p-group{margin-bottom:20px}
-  .p-group label{margin-bottom:10px;font-size:var(--t-2xs)}
-  .color-pick{padding:8px 14px;font-size:var(--t-xs);min-height:38px}
-  .qty button{padding:11px 16px;font-size:var(--t-xl);min-width:44px;min-height:44px}
-  .qty span{padding:0 14px;min-width:28px;font-size:var(--t-md)}
-  .btn{padding:16px 24px;font-size:var(--t-xs);min-height:48px}
-  .p-specs{padding:20px 22px;margin-top:26px}
-  .p-specs h4{font-size:var(--t-xs);margin-bottom:14px}
-  .p-specs dt{font-size:var(--t-2xs)}
-  .p-specs dd{font-size:var(--t-sm)}
-}
 .p-divider{height:1px;background:var(--linea);margin:24px 0}
 
 .p-group{margin-bottom:24px}
@@ -183,6 +185,39 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tin
 .p-info-block{display:flex;align-items:flex-start;gap:12px;padding:16px;background:var(--crema-2);border-radius:var(--radius-sm);font-size:var(--t-sm);color:var(--tinta);font-weight:200;line-height:1.5}
 .p-info-block svg{width:20px;height:20px;flex-shrink:0;color:var(--cobre-dark);margin-top:2px}
 .p-info-block strong{display:block;font-weight:700;color:var(--verde-dark);margin-bottom:2px;font-size:var(--t-xs);letter-spacing:.06em;text-transform:uppercase}
+
+/* ============================================================
+   MOVIL — espaciado compacto
+   OJO: este bloque TIENE que ir despues de las reglas base. Antes
+   vivia arriba (junto a .p-price) y por eso estaba MUERTO: reglas
+   como .p-divider o .p-group se declaraban despues con la misma
+   especificidad y lo pisaban. Resultado: el movil nunca recibio
+   ningun ajuste y quedaban huecos enormes entre textos.
+   Si se agregan reglas nuevas de .p-* , van ANTES de este bloque.
+   ============================================================ */
+@media(max-width:640px){
+  .p-name{font-size:var(--t-2xl);line-height:1.18;margin:0 0 6px}
+  .p-subtitle{font-size:var(--t-md);margin-bottom:10px}
+  .p-eyebrow{font-size:var(--t-2xs);letter-spacing:.22em;padding:5px 10px;margin-bottom:10px}
+  .p-price-wrap{margin:10px 0 6px}
+  .p-price{font-size:var(--t-2xl)}
+  .p-divider{margin:14px 0}
+  .p-group{margin-bottom:16px}
+  .p-group label{margin-bottom:8px;font-size:var(--t-2xs)}
+  .color-pick{padding:8px 14px;font-size:var(--t-xs);min-height:38px}
+  .qty button{padding:11px 16px;font-size:var(--t-xl);min-width:44px;min-height:44px}
+  .qty span{padding:0 14px;min-width:28px;font-size:var(--t-md)}
+  .btn{padding:15px 24px;font-size:var(--t-xs);min-height:48px}
+  .p-actions-buy{gap:8px;margin-top:4px}
+  .p-specs{padding:18px 20px;margin-top:20px}
+  .p-specs h4{font-size:var(--t-xs);margin-bottom:12px}
+  .p-specs dl{gap:10px 16px}
+  .p-specs dt{font-size:var(--t-2xs)}
+  .p-specs dd{font-size:var(--t-sm)}
+  .p-info-blocks{margin-top:12px;gap:10px}
+  .p-info-block{padding:13px}
+  .p-details{padding:0}
+}
 
 /* TOAST */
 .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--verde-dark);color:#fff;padding:16px 28px;border-radius:2px;font-size:var(--t-md);font-weight:400;display:flex;align-items:center;gap:10px;box-shadow:0 12px 40px -8px rgba(87,41,50,.4);z-index:200;transition:transform .35s cubic-bezier(.4,0,.2,1);max-width:90vw}

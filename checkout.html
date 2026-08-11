@@ -182,6 +182,53 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tin
 .back-float:hover{background:var(--verde-dark);transform:translateY(-3px)}
 .back-float svg{width:20px;height:20px}
 @media(max-width:640px){.back-float{width:44px;height:44px;bottom:18px;left:18px}}
+
+/* ============================================================
+   MOVIL + ACCESIBILIDAD — bloque autoritativo (va AL FINAL a proposito)
+   ------------------------------------------------------------
+   Arriba hay varios @media(max-width:640px) que estan MUERTOS: se
+   escribieron ANTES de las reglas base con el mismo selector y misma
+   especificidad, asi que la regla base posterior los pisa y el movil
+   nunca recibia el ajuste (por eso quedaban huecos enormes entre
+   textos y el resumen conservaba paddings de escritorio).
+   Este bloque va al final, asi que gana por orden de cascada.
+   REGLA: cualquier ajuste movil nuevo va AQUI, no arriba.
+   ============================================================ */
+
+/* Sin min-width:0 una celda de grid/flex no baja de su ancho de contenido:
+   un nombre de pieza largo o un precio de 7 cifras empujaba la fila
+   entera fuera de la pantalla. */
+.summary-item{min-width:0}
+.summary-item .info{min-width:0}
+.summary-item .info h4{overflow-wrap:anywhere}
+.co-card h3{flex-wrap:wrap;min-width:0}
+.co-logo{flex-shrink:1;min-width:0}
+.co-logo img{max-width:100%}
+.co-back{min-width:0}
+.btn svg{flex-shrink:0}
+/* Alto fijo + fuente aumentada = numero recortado. */
+.co-step-num{min-width:24px;min-height:24px;height:auto;flex-shrink:0}
+.co-steps-inner{flex-wrap:wrap;row-gap:8px}
+
+@media(max-width:640px){
+  .co-logo img{height:36px}
+  .co-back{padding:7px 12px;font-size:var(--t-2xs)}
+  .co-back svg{width:12px;height:12px}
+  .co-title{font-size:var(--t-2xl)}
+  .co-sub{margin:0 0 20px;font-size:var(--t-sm)}
+  .co-content{gap:16px}
+  /* espacio para los dos botones flotantes */
+  .co-wrap{padding-bottom:90px}
+  .pay-opt .pay-icon{width:42px;height:42px}
+  .pay-opt .pay-icon svg{width:20px;height:20px}
+  .pay-opt .pay-info p{font-size:var(--t-2xs)}
+  .summary-head{padding:16px 18px}
+  .summary-item{padding:12px 18px;gap:10px;grid-template-columns:54px 1fr auto}
+  .summary-item img{width:54px;height:54px}
+  .summary-totals{padding:16px 18px}
+  .success-icon{width:68px;height:68px;margin:0 auto 18px}
+  .success-icon svg{width:32px;height:32px}
+}
 </style>
 </head>
 <body>
