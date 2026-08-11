@@ -482,26 +482,29 @@ const PRODUCTS=[
     "size": "23 cm largo × 14 cm alto × 11 cm fondo (aprox)",
     "materials": "Vidrio — vitrofusión",
     "colors": [
-      "Azul",
       "Transparente",
-      "Celeste",
+      "Rosa",
       "Gris",
-      "Rosa"
+      "Azul",
+      "Verde",
+      "Dorado"
     ],
     "uses": "Flores, hojas.",
     "images": [
-      "img/florero-triptico/florero-triptico-01.jpg?v=2",
-      "img/florero-triptico/florero-triptico-02.jpg?v=2",
-      "img/florero-triptico/florero-triptico-03.jpg?v=2",
-      "img/florero-triptico/florero-triptico-04.jpg?v=2",
-      "img/florero-triptico/florero-triptico-05.jpg?v=2"
+      "img/florero-triptico/florero-triptico-01.jpg?v=4",
+      "img/florero-triptico/florero-triptico-02.jpg?v=4",
+      "img/florero-triptico/florero-triptico-03.jpg?v=4",
+      "img/florero-triptico/florero-triptico-04.jpg?v=4",
+      "img/florero-triptico/florero-triptico-05.jpg?v=4",
+      "img/florero-triptico/florero-triptico-06.jpg?v=4"
     ],
     "colorImages": {
-      "Azul": 4,
-      "Gris": 2,
-      "Rosa": 1,
       "Transparente": 0,
-      "Celeste": 3
+      "Rosa": 1,
+      "Gris": 2,
+      "Azul": 3,
+      "Verde": 4,
+      "Dorado": 5
     }
   },
   {
@@ -584,17 +587,15 @@ const PRODUCTS=[
       "img/florero-diptico/florero-diptico-01.jpg?v=2",
       "img/florero-diptico/florero-diptico-02.jpg?v=2",
       "img/florero-diptico/florero-diptico-03.jpg?v=2",
-      "img/florero-diptico/florero-diptico-04.jpg?v=2",
-      "img/florero-diptico/florero-diptico-05.jpg?v=2",
-      "img/florero-diptico/florero-diptico-06.jpg?v=3",
-      "img/florero-diptico/florero-diptico-07.jpg?v=3"
+      "img/florero-diptico/florero-diptico-04.jpg?v=3",
+      "img/florero-diptico/florero-diptico-05.jpg?v=3"
     ],
     "colorImages": {
       "Rosa": 0,
       "Transparente": 1,
       "Verde": 2,
-      "Gris": 5,
-      "Azul": 6
+      "Gris": 3,
+      "Azul": 4
     }
   },
   {
@@ -1162,6 +1163,8 @@ const PRODUCTS=[
     }
   }
 ];
+
+
 
 
 
