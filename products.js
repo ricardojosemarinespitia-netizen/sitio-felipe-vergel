@@ -8,7 +8,10 @@ const PRODUCTS=[
     "size": "27 cm de alto × 12 cm diámetro inferior × 10 cm diámetro superior",
     "materials": "Vidrio — vitrofusión · casquillo E27",
     "colors": [
-      "Transparente"
+      "Transparente",
+      "Azul",
+      "Gris",
+      "Verde"
     ],
     "uses": "Luz colgante de autor para cocina, comedor o un rincón especial. Cada lámpara es una pieza única e irrepetible.",
     "images": [
@@ -17,7 +20,13 @@ const PRODUCTS=[
       "img/lampara-caribe-brisa/lampara-caribe-brisa-03.jpg",
       "img/lampara-caribe-brisa/lampara-caribe-brisa-04.jpg",
       "img/lampara-caribe-brisa/lampara-caribe-brisa-05.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Azul": 0,
+      "Gris": 3,
+      "Transparente": 2,
+      "Verde": 1
+    }
   },
   {
     "id": "lampara-caribe-coral",
@@ -28,7 +37,10 @@ const PRODUCTS=[
     "size": "17 cm de alto × 7 cm diámetro inferior × 15 cm diámetro superior",
     "materials": "Vidrio — vitrofusión · casquillo E27",
     "colors": [
-      "Transparente"
+      "Transparente",
+      "Azul",
+      "Gris",
+      "Verde agua"
     ],
     "uses": "Luz colgante de autor para cocina, comedor o un rincón especial. Cada lámpara es una pieza única e irrepetible.",
     "images": [
@@ -37,7 +49,13 @@ const PRODUCTS=[
       "img/lampara-caribe-coral/lampara-caribe-coral-03.jpg",
       "img/lampara-caribe-coral/lampara-caribe-coral-04.jpg",
       "img/lampara-caribe-coral/lampara-caribe-coral-05.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Azul": 2,
+      "Gris": 3,
+      "Transparente": 4,
+      "Verde agua": 1
+    }
   },
   {
     "id": "lampara-caribe-marea",
@@ -48,7 +66,10 @@ const PRODUCTS=[
     "size": "25 cm de alto × 21 cm diámetro inferior × 9 cm diámetro superior",
     "materials": "Vidrio — vitrofusión · casquillo E27",
     "colors": [
-      "Transparente"
+      "Transparente",
+      "Azul",
+      "Gris",
+      "Verde"
     ],
     "uses": "Luz colgante de autor para cocina, comedor o un rincón especial. Cada lámpara es una pieza única e irrepetible.",
     "images": [
@@ -58,7 +79,13 @@ const PRODUCTS=[
       "img/lampara-caribe-marea/lampara-caribe-marea-04.jpg",
       "img/lampara-caribe-marea/lampara-caribe-marea-05.jpg",
       "img/lampara-caribe-marea/lampara-caribe-marea-06.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Azul": 1,
+      "Gris": 0,
+      "Transparente": 5,
+      "Verde": 3
+    }
   },
   {
     "id": "aplique-caribe-marea",
@@ -69,7 +96,10 @@ const PRODUCTS=[
     "size": "18 cm de alto × 19 cm diámetro inferior × 9 cm diámetro superior",
     "materials": "Vidrio — vitrofusión · casquillo E27",
     "colors": [
-      "Transparente"
+      "Transparente",
+      "Azul",
+      "Gris",
+      "Verde"
     ],
     "uses": "Aplique de pared de autor, luz cálida para un rincón especial. Cada pieza es única e irrepetible.",
     "images": [
@@ -78,7 +108,13 @@ const PRODUCTS=[
       "img/aplique-caribe-marea/aplique-caribe-marea-03.jpg",
       "img/aplique-caribe-marea/aplique-caribe-marea-04.jpg",
       "img/aplique-caribe-marea/aplique-caribe-marea-05.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Azul": 2,
+      "Gris": 0,
+      "Transparente": 3,
+      "Verde": 1
+    }
   },
   {
     "id": "bandeja-maxi-rect-ondas",
@@ -89,11 +125,8 @@ const PRODUCTS=[
     "size": "60 cm largo × 35 cm fondo × 4 cm alto",
     "materials": "Vidrio — vitrofusión",
     "colors": [
-      "Amarillo",
       "Azul",
-      "Aguamarina",
-      "Verde",
-      "Transparente"
+      "Turquesa"
     ],
     "uses": "Para servir, centro de mesa, pieza decorativa.",
     "images": [
@@ -103,7 +136,7 @@ const PRODUCTS=[
     ],
     "colorImages": {
       "Azul": 0,
-      "Aguamarina": 1
+      "Turquesa": 1
     }
   },
   {
@@ -117,8 +150,7 @@ const PRODUCTS=[
     "colors": [
       "Amarillo",
       "Azul",
-      "Verde",
-      "Transparente"
+      "Verde"
     ],
     "uses": "Para servir, centro de mesa, pieza decorativa.",
     "images": [
@@ -128,9 +160,9 @@ const PRODUCTS=[
       "img/bandeja-hoja-maxi-irregular/bandeja-hoja-maxi-irregular-04.jpg"
     ],
     "colorImages": {
-      "Verde": 0,
       "Amarillo": 2,
-      "Azul": 3
+      "Azul": 3,
+      "Verde": 0
     }
   },
   {
@@ -145,7 +177,7 @@ const PRODUCTS=[
       "Transparente",
       "Verde",
       "Verde y amarillo degradé",
-      "Azul rey"
+      "Azul"
     ],
     "uses": "Bandeja para servir, bandeja decorativa.",
     "images": [
@@ -156,10 +188,10 @@ const PRODUCTS=[
       "img/bandeja-hoja-midi-relieve/bandeja-hoja-midi-relieve-05.jpg"
     ],
     "colorImages": {
-      "Verde": 0,
+      "Azul": 2,
+      "Transparente": 4,
       "Verde y amarillo degradé": 1,
-      "Azul rey": 2,
-      "Transparente": 4
+      "Verde": 0
     }
   },
   {
@@ -171,8 +203,8 @@ const PRODUCTS=[
     "size": "60 cm largo × 46 cm ancho × 3 cm alto (aprox)",
     "materials": "Vidrio — vitrofusión",
     "colors": [
-      "Transparente con chispas amarillo",
-      "Verde"
+      "Amarillo",
+      "Transparente degradé verde"
     ],
     "uses": "Bandeja para servir, bandeja decorativa.",
     "images": [
@@ -182,7 +214,8 @@ const PRODUCTS=[
       "img/bandeja-hoja-jaspeada-xl/bandeja-hoja-jaspeada-xl-04.jpg"
     ],
     "colorImages": {
-      "Transparente con chispas amarillo": 1
+      "Amarillo": 0,
+      "Transparente degradé verde": 1
     }
   },
   {
@@ -195,10 +228,8 @@ const PRODUCTS=[
     "materials": "Vidrio — vitrofusión",
     "colors": [
       "Transparente",
-      "Verde",
       "Azul",
-      "Celeste",
-      "Gris"
+      "Celeste"
     ],
     "uses": "Frutero, centro de mesa, objeto de diseño decorativo.",
     "images": [
@@ -208,9 +239,9 @@ const PRODUCTS=[
       "img/centro-mesa-redondo-mosaico/centro-mesa-redondo-mosaico-04.jpg"
     ],
     "colorImages": {
-      "Transparente": 0,
       "Azul": 1,
-      "Celeste": 2
+      "Celeste": 2,
+      "Transparente": 0
     }
   },
   {
@@ -224,8 +255,7 @@ const PRODUCTS=[
     "colors": [
       "Transparente",
       "Azul",
-      "Verde agua",
-      "Gris"
+      "Verde agua"
     ],
     "uses": "Recipiente para servir, frutero, centro de mesa.",
     "images": [
@@ -235,9 +265,9 @@ const PRODUCTS=[
       "img/centro-mesa-ovalado-franjas/centro-mesa-ovalado-franjas-04.jpg"
     ],
     "colorImages": {
-      "Verde agua": 0,
+      "Azul": 3,
       "Transparente": 2,
-      "Azul": 3
+      "Verde agua": 0
     }
   },
   {
@@ -250,9 +280,7 @@ const PRODUCTS=[
     "materials": "Vidrio — vitrofusión",
     "colors": [
       "Azul",
-      "Transparente",
-      "Gris",
-      "Verde"
+      "Transparente"
     ],
     "uses": "Pieza de arte, centro de mesa, frutero.",
     "images": [
@@ -263,8 +291,8 @@ const PRODUCTS=[
       "img/centro-mesa-ovalado-mosaico/centro-mesa-ovalado-mosaico-05.jpg"
     ],
     "colorImages": {
-      "Transparente": 0,
-      "Azul": 1
+      "Azul": 1,
+      "Transparente": 0
     }
   },
   {
@@ -279,8 +307,7 @@ const PRODUCTS=[
       "Celeste",
       "Azul",
       "Verde",
-      "Transparente",
-      "Gris"
+      "Transparente"
     ],
     "uses": "Frutero, centro de mesa, objeto decorativo.",
     "images": [
@@ -291,10 +318,10 @@ const PRODUCTS=[
       "img/centro-mesa-conico-mosaico/centro-mesa-conico-mosaico-05.jpg"
     ],
     "colorImages": {
-      "Verde": 0,
-      "Celeste": 1,
       "Azul": 2,
-      "Transparente": 3
+      "Celeste": 1,
+      "Transparente": 3,
+      "Verde": 0
     }
   },
   {
@@ -317,8 +344,8 @@ const PRODUCTS=[
       "img/centro-mesa-conico-degrade/centro-mesa-conico-degrade-04.jpg"
     ],
     "colorImages": {
-      "Transparente degradé verde-amarillo-turquesa": 0,
-      "Aguamarina degradé verde-amarillo": 2
+      "Aguamarina degradé verde-amarillo": 2,
+      "Transparente degradé verde-amarillo-turquesa": 0
     }
   },
   {
@@ -330,11 +357,8 @@ const PRODUCTS=[
     "size": "54 cm largo × 38 cm ancho × 9 cm alto",
     "materials": "Vidrio — vitrofusión",
     "colors": [
-      "Celeste",
       "Azul",
-      "Verde",
-      "Transparente",
-      "Gris"
+      "Verde"
     ],
     "uses": "Frutero, centro de mesa, objeto decorativo.",
     "images": [
@@ -344,8 +368,8 @@ const PRODUCTS=[
       "img/centro-mesa-ovalado-hojas/centro-mesa-ovalado-hojas-04.jpg"
     ],
     "colorImages": {
-      "Transparente": 0,
-      "Azul": 1
+      "Azul": 1,
+      "Verde": 0
     }
   },
   {
@@ -357,11 +381,7 @@ const PRODUCTS=[
     "size": "Diámetro sup. 42 cm × diámetro inf. 10 cm × 12 cm alto",
     "materials": "Vidrio — vitrofusión",
     "colors": [
-      "Celeste",
-      "Azul",
-      "Verde",
-      "Transparente",
-      "Gris"
+      "Transparente"
     ],
     "uses": "Frutero, centro de mesa, objeto decorativo.",
     "images": [
@@ -384,8 +404,7 @@ const PRODUCTS=[
     "materials": "Vidrio — vitrofusión",
     "colors": [
       "Celeste",
-      "Gris",
-      "Transparente"
+      "Gris"
     ],
     "uses": "Frutero, ensaladera, centro de mesa, pieza decorativa.",
     "images": [
@@ -395,8 +414,8 @@ const PRODUCTS=[
       "img/centro-mesa-cuadrado-mosaico/centro-mesa-cuadrado-mosaico-04.jpg"
     ],
     "colorImages": {
-      "Gris": 0,
-      "Celeste": 2
+      "Celeste": 2,
+      "Gris": 0
     }
   },
   {
@@ -411,8 +430,7 @@ const PRODUCTS=[
       "Dorado",
       "Transparente",
       "Gris",
-      "Azul",
-      "Verde"
+      "Azul"
     ],
     "uses": "Frutero, ensaladera, centro de mesa, pieza decorativa.",
     "images": [
@@ -423,10 +441,10 @@ const PRODUCTS=[
       "img/centro-mesa-ovalado-liso/centro-mesa-ovalado-liso-05.jpg"
     ],
     "colorImages": {
-      "Transparente": 1,
       "Azul": 2,
+      "Dorado": 4,
       "Gris": 3,
-      "Dorado": 4
+      "Transparente": 1
     }
   },
   {
@@ -438,9 +456,7 @@ const PRODUCTS=[
     "size": "Diámetro sup. 42 cm × diámetro inf. 10 cm × 12 cm alto",
     "materials": "Vidrio — vitrofusión",
     "colors": [
-      "Celeste",
       "Azul",
-      "Verde",
       "Transparente",
       "Gris"
     ],
@@ -452,8 +468,8 @@ const PRODUCTS=[
       "img/centro-mesa-conico-franjas/centro-mesa-conico-franjas-04.jpg"
     ],
     "colorImages": {
-      "Gris": 0,
       "Azul": 1,
+      "Gris": 0,
       "Transparente": 2
     }
   },
@@ -466,11 +482,11 @@ const PRODUCTS=[
     "size": "23 cm largo × 14 cm alto × 11 cm fondo (aprox)",
     "materials": "Vidrio — vitrofusión",
     "colors": [
-      "Vinotinto",
       "Verde",
       "Azul",
       "Transparente",
-      "Gris"
+      "Gris",
+      "Rosa"
     ],
     "uses": "Flores, hojas.",
     "images": [
@@ -481,10 +497,11 @@ const PRODUCTS=[
       "img/florero-triptico/florero-triptico-05.jpg"
     ],
     "colorImages": {
-      "Transparente": 0,
+      "Azul": 4,
       "Gris": 2,
-      "Verde": 3,
-      "Azul": 4
+      "Rosa": 1,
+      "Transparente": 0,
+      "Verde": 3
     }
   },
   {
@@ -498,9 +515,9 @@ const PRODUCTS=[
     "colors": [
       "Transparente",
       "Verde",
-      "Amarillo",
       "Gris",
-      "Azul"
+      "Azul",
+      "Cobre"
     ],
     "uses": "Florero, objeto decorativo.",
     "images": [
@@ -511,10 +528,10 @@ const PRODUCTS=[
       "img/florero-alto-irregular/florero-alto-irregular-05.jpg"
     ],
     "colorImages": {
+      "Azul": 3,
+      "Cobre": 2,
       "Gris": 0,
       "Transparente": 1,
-      "Amarillo": 2,
-      "Azul": 3,
       "Verde": 4
     }
   },
@@ -541,10 +558,10 @@ const PRODUCTS=[
       "img/florero-irregular-boca-ancha/florero-irregular-boca-ancha-05.jpg"
     ],
     "colorImages": {
-      "Transparente": 0,
+      "Azul": 3,
       "Gris": 1,
-      "Verde": 2,
-      "Azul": 3
+      "Transparente": 0,
+      "Verde": 2
     }
   },
   {
@@ -556,11 +573,9 @@ const PRODUCTS=[
     "size": "14 cm alto × 18 cm largo × 9 cm fondo (aprox)",
     "materials": "Vidrio — vitrofusión",
     "colors": [
-      "Vinotinto",
       "Verde",
-      "Azul",
       "Transparente",
-      "Gris"
+      "Rosa"
     ],
     "uses": "Flores, hojas, espigas.",
     "images": [
@@ -571,6 +586,7 @@ const PRODUCTS=[
       "img/florero-diptico/florero-diptico-05.jpg"
     ],
     "colorImages": {
+      "Rosa": 0,
       "Transparente": 1,
       "Verde": 2
     }
@@ -586,8 +602,8 @@ const PRODUCTS=[
     "colors": [
       "Verde",
       "Transparente",
-      "Amarillo",
-      "Gris"
+      "Gris",
+      "Verde manzana"
     ],
     "uses": "Flores, hojas, mini plantas.",
     "images": [
@@ -597,9 +613,10 @@ const PRODUCTS=[
       "img/mini-florero/mini-florero-04.jpg"
     ],
     "colorImages": {
-      "Verde": 0,
       "Gris": 1,
-      "Transparente": 2
+      "Transparente": 3,
+      "Verde": 2,
+      "Verde manzana": 0
     }
   },
   {
@@ -611,10 +628,9 @@ const PRODUCTS=[
     "size": "22 cm alto × 12 cm diámetro sup. × 8 cm diámetro inf. (aprox)",
     "materials": "Vidrio — vitrofusión",
     "colors": [
-      "Azul",
       "Verde",
       "Transparente",
-      "Gris"
+      "Rosa"
     ],
     "uses": "Florero, pieza decorativa.",
     "images": [
@@ -625,8 +641,8 @@ const PRODUCTS=[
       "img/vaso-florero/vaso-florero-05.jpg"
     ],
     "colorImages": {
+      "Rosa": 0,
       "Transparente": 1,
-      "Azul": 2,
       "Verde": 3
     }
   },
@@ -640,10 +656,7 @@ const PRODUCTS=[
     "materials": "Vidrio — vitrofusión",
     "colors": [
       "Transparente",
-      "Azul",
-      "Verde",
-      "Gris",
-      "Amarillo"
+      "Gris"
     ],
     "uses": "Flores, hojas, espigas.",
     "images": [
@@ -667,11 +680,8 @@ const PRODUCTS=[
     "size": "18.5 cm alto × 14 cm ancho (aprox)",
     "materials": "Vidrio — vitrofusión",
     "colors": [
-      "Transparente",
-      "Vinotinto",
       "Azul",
-      "Verde",
-      "Gris"
+      "Verde"
     ],
     "uses": "Flores, hojas, espigas.",
     "images": [
@@ -700,8 +710,7 @@ const PRODUCTS=[
       "Verde",
       "Azul",
       "Dorado",
-      "Cobre",
-      "Amarillo"
+      "Cobre"
     ],
     "uses": "Flores, hojas, espigas.",
     "images": [
@@ -714,12 +723,12 @@ const PRODUCTS=[
       "img/solitario-teja/solitario-teja-07.jpg"
     ],
     "colorImages": {
-      "Verde": 0,
-      "Cobre": 1,
-      "Transparente": 2,
       "Azul": 3,
+      "Cobre": 1,
       "Dorado": 4,
-      "Gris": 6
+      "Gris": 6,
+      "Transparente": 2,
+      "Verde": 0
     }
   },
   {
@@ -731,7 +740,6 @@ const PRODUCTS=[
     "size": "13 cm alto × 14 cm diámetro sup. × 9 cm diámetro inf. (aprox)",
     "materials": "Vidrio — vitrofusión",
     "colors": [
-      "Amarillo",
       "Transparente",
       "Azul",
       "Gris",
@@ -746,10 +754,10 @@ const PRODUCTS=[
       "img/porta-plantas-individual/porta-plantas-individual-05.jpg"
     ],
     "colorImages": {
+      "Azul": 3,
       "Gris": 0,
       "Transparente": 1,
-      "Verde": 2,
-      "Azul": 3
+      "Verde": 2
     }
   },
   {
@@ -764,8 +772,7 @@ const PRODUCTS=[
       "Verde",
       "Azul",
       "Transparente",
-      "Gris",
-      "Amarillo"
+      "Gris"
     ],
     "uses": "Plantas, velas, flores.",
     "images": [
@@ -776,10 +783,10 @@ const PRODUCTS=[
       "img/porta-plantas-doble/porta-plantas-doble-05.jpg"
     ],
     "colorImages": {
-      "Verde": 0,
       "Azul": 1,
       "Gris": 3,
-      "Transparente": 4
+      "Transparente": 4,
+      "Verde": 0
     }
   },
   {
@@ -792,10 +799,7 @@ const PRODUCTS=[
     "materials": "Vidrio — vitrofusión",
     "colors": [
       "Verde",
-      "Azul",
-      "Transparente",
-      "Gris",
-      "Amarillo"
+      "Gris"
     ],
     "uses": "Plantas, velas, flores.",
     "images": [
@@ -806,6 +810,7 @@ const PRODUCTS=[
       "img/porta-plantas-triple/porta-plantas-triple-05.jpg"
     ],
     "colorImages": {
+      "Gris": 4,
       "Verde": 0
     }
   },
@@ -820,7 +825,6 @@ const PRODUCTS=[
     "colors": [
       "Azul",
       "Verde",
-      "Transparente",
       "Gris"
     ],
     "uses": "Florero, champañera, hielera, porta matera.",
@@ -832,8 +836,8 @@ const PRODUCTS=[
       "img/porta-matera/porta-matera-05.jpg"
     ],
     "colorImages": {
-      "Gris": 0,
       "Azul": 1,
+      "Gris": 0,
       "Verde": 3
     }
   },
@@ -846,10 +850,9 @@ const PRODUCTS=[
     "size": "Diámetro inf. 25 cm × diámetro sup. 20 cm × 25 cm alto",
     "materials": "Vidrio y metal — vitrofusión",
     "colors": [
-      "Transparente",
       "Azul rey",
       "Verde",
-      "Celeste"
+      "Gris"
     ],
     "uses": "Pasabocas, muffins, galletas.",
     "images": [
@@ -860,8 +863,9 @@ const PRODUCTS=[
       "img/porta-pasabocas-doble/porta-pasabocas-doble-05.jpg"
     ],
     "colorImages": {
-      "Verde": 2,
-      "Azul rey": 3
+      "Azul rey": 3,
+      "Gris": 4,
+      "Verde": 2
     }
   },
   {
@@ -887,8 +891,8 @@ const PRODUCTS=[
     ],
     "colorImages": {
       "Azul": 1,
-      "Transparente": 2,
-      "Gris": 4
+      "Gris": 4,
+      "Transparente": 2
     }
   },
   {
@@ -913,9 +917,9 @@ const PRODUCTS=[
       "img/plato-ensalada/plato-ensalada-05.jpg"
     ],
     "colorImages": {
-      "Transparente": 0,
       "Azul": 2,
-      "Gris": 3
+      "Gris": 3,
+      "Transparente": 0
     }
   },
   {
@@ -956,8 +960,7 @@ const PRODUCTS=[
     "colors": [
       "Transparente",
       "Azul",
-      "Amarillo",
-      "Gris"
+      "Amarillo"
     ],
     "uses": "Pasabocas, panes, cupcakes, tortas, galletas, tablas de quesos, pizza.",
     "images": [
@@ -968,9 +971,9 @@ const PRODUCTS=[
       "img/pedestal-repostero/pedestal-repostero-05.jpg"
     ],
     "colorImages": {
-      "Transparente": 0,
       "Amarillo": 1,
-      "Azul": 2
+      "Azul": 2,
+      "Transparente": 0
     }
   },
   {
@@ -982,7 +985,6 @@ const PRODUCTS=[
     "size": "11 × 11 cm",
     "materials": "Vidrio — vitrofusión",
     "colors": [
-      "Transparente",
       "Gris",
       "Azul"
     ],
@@ -995,8 +997,8 @@ const PRODUCTS=[
       "img/portavasos-cuadrados/portavasos-cuadrados-05.jpg"
     ],
     "colorImages": {
-      "Gris": 2,
-      "Azul": 3
+      "Azul": 3,
+      "Gris": 2
     }
   },
   {
@@ -1021,10 +1023,10 @@ const PRODUCTS=[
       "img/centro-mesa-conico/centro-mesa-conico-04.jpg"
     ],
     "colorImages": {
-      "Transparente": 0,
-      "Verde": 1,
       "Azul": 2,
-      "Gris": 3
+      "Gris": 3,
+      "Transparente": 0,
+      "Verde": 1
     }
   },
   {
@@ -1036,7 +1038,11 @@ const PRODUCTS=[
     "size": "Diámetro 48 cm × 12 cm alto",
     "materials": "Vidrio — vitrofusión",
     "colors": [
-      "Ámbar"
+      "Azul",
+      "Dorado",
+      "Gris",
+      "Transparente",
+      "Verde"
     ],
     "uses": "Frutero, centro de mesa, objeto de diseño decorativo.",
     "images": [
@@ -1046,7 +1052,14 @@ const PRODUCTS=[
       "img/centro-mesa-marea/centro-mesa-marea-04.jpg",
       "img/centro-mesa-marea/centro-mesa-marea-05.jpg",
       "img/centro-mesa-marea/centro-mesa-marea-06.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Azul": 3,
+      "Dorado": 2,
+      "Gris": 4,
+      "Transparente": 0,
+      "Verde": 1
+    }
   },
   {
     "id": "centro-mesa-folia",
@@ -1057,7 +1070,10 @@ const PRODUCTS=[
     "size": "Diámetro 48 cm × 12 cm alto",
     "materials": "Vidrio — vitrofusión",
     "colors": [
-      "Verde"
+      "Azul",
+      "Gris",
+      "Transparente",
+      "Verde agua"
     ],
     "uses": "Frutero, centro de mesa, objeto de diseño decorativo.",
     "images": [
@@ -1066,7 +1082,13 @@ const PRODUCTS=[
       "img/centro-mesa-folia/centro-mesa-folia-03.jpg",
       "img/centro-mesa-folia/centro-mesa-folia-04.jpg",
       "img/centro-mesa-folia/centro-mesa-folia-05.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Azul": 1,
+      "Gris": 3,
+      "Transparente": 0,
+      "Verde agua": 2
+    }
   },
   {
     "id": "bandeja-vetas",
@@ -1077,10 +1099,7 @@ const PRODUCTS=[
     "size": "54 cm largo × 38 cm ancho × 9 cm alto",
     "materials": "Vidrio — vitrofusión",
     "colors": [
-      "Dorado",
       "Transparente",
-      "Gris",
-      "Azul",
       "Verde"
     ],
     "uses": "Para servir, centro de mesa, pieza decorativa.",
@@ -1104,7 +1123,11 @@ const PRODUCTS=[
     "size": "65 cm largo × 40 cm ancho",
     "materials": "Vidrio — vitrofusión",
     "colors": [
-      "Azul"
+      "Azul",
+      "Gris",
+      "Transparente",
+      "Verde agua",
+      "Verde"
     ],
     "uses": "Para servir, centro de mesa, pieza decorativa.",
     "images": [
@@ -1117,9 +1140,17 @@ const PRODUCTS=[
       "img/bandeja-folia-hoja/bandeja-folia-hoja-07.jpg",
       "img/bandeja-folia-hoja/bandeja-folia-hoja-08.jpg",
       "img/bandeja-folia-hoja/bandeja-folia-hoja-09.jpg"
-    ]
+    ],
+    "colorImages": {
+      "Azul": 7,
+      "Gris": 0,
+      "Transparente": 6,
+      "Verde agua": 3,
+      "Verde": 4
+    }
   }
 ];
+
 
 
 const FELIPE_IMGS=["img/felipe/felipe-01.jpg", "img/felipe/felipe-02.jpg", "img/felipe/felipe-03.jpg", "img/felipe/felipe-04.jpg", "img/felipe/felipe-05.jpg", "img/felipe/felipe-06.jpg", "img/felipe/felipe-07.jpg", "img/felipe/felipe-08.jpg", "img/felipe/felipe-09.jpg", "img/felipe/felipe-10.jpg", "img/felipe/felipe-11.jpg", "img/felipe/felipe-12.jpg", "img/felipe/felipe-13.jpg", "img/felipe/felipe-14.jpg", "img/felipe/felipe-15.jpg", "img/felipe/felipe-16.jpg", "img/felipe/felipe-17.jpg", "img/felipe/felipe-18.jpg", "img/felipe/felipe-19.jpg", "img/felipe/felipe-20.jpg", "img/felipe/felipe-21.jpg", "img/felipe/felipe-22.jpg", "img/felipe/felipe-23.jpg", "img/felipe/felipe-24.jpg", "img/felipe/felipe-25.jpg", "img/felipe/felipe-26.jpg", "img/felipe/felipe-27.jpg", "img/felipe/felipe-28.jpg", "img/felipe/felipe-29.jpg", "img/felipe/felipe-30.jpg", "img/felipe/felipe-31.jpg", "img/felipe/felipe-32.jpg", "img/felipe/felipe-33.jpg", "img/felipe/felipe-34.jpg", "img/felipe/felipe-35.jpg", "img/felipe/felipe-36.jpg", "img/felipe/felipe-37.jpg", "img/felipe/felipe-38.jpg", "img/felipe/felipe-39.jpg", "img/felipe/felipe-40.jpg", "img/felipe/felipe-41.jpg", "img/felipe/felipe-42.jpg", "img/felipe/felipe-43.jpg", "img/felipe/felipe-44.jpg", "img/felipe/felipe-45.jpg", "img/felipe/felipe-46.jpg", "img/felipe/felipe-47.jpg", "img/felipe/felipe-48.jpg", "img/felipe/felipe-49.jpg", "img/felipe/felipe-50.jpg", "img/felipe/felipe-51.jpg", "img/felipe/felipe-52.jpg", "img/felipe/felipe-53.jpg", "img/felipe/felipe-54.jpg", "img/felipe/felipe-55.jpg", "img/felipe/felipe-56.jpg", "img/felipe/felipe-57.jpg", "img/felipe/felipe-58.jpg", "img/felipe/felipe-59.jpg", "img/felipe/felipe-60.jpg", "img/felipe/felipe-61.jpg", "img/felipe/felipe-62.jpg", "img/felipe/felipe-63.jpg", "img/felipe/felipe-64.jpg", "img/felipe/felipe-65.jpg", "img/felipe/felipe-66.jpg", "img/felipe/felipe-67.jpg", "img/felipe/felipe-68.jpg", "img/felipe/felipe-69.jpg", "img/felipe/felipe-70.jpg", "img/felipe/felipe-71.jpg", "img/felipe/felipe-72.jpg", "img/felipe/felipe-73.jpg", "img/felipe/felipe-74.jpg", "img/felipe/felipe-75.jpg", "img/felipe/felipe-76.jpg", "img/felipe/felipe-77.jpg", "img/felipe/felipe-78.jpg", "img/felipe/felipe-79.jpg", "img/felipe/felipe-80.jpg", "img/felipe/felipe-81.jpg", "img/felipe/felipe-82.jpg", "img/felipe/felipe-83.jpg", "img/felipe/felipe-84.jpg", "img/felipe/felipe-85.jpg", "img/felipe/felipe-86.jpg", "img/felipe/felipe-87.jpg", "img/felipe/felipe-88.jpg", "img/felipe/felipe-89.jpg", "img/felipe/felipe-90.jpg", "img/felipe/felipe-91.jpg", "img/felipe/felipe-92.jpg", "img/felipe/felipe-93.jpg", "img/felipe/felipe-94.jpg", "img/felipe/felipe-95.jpg", "img/felipe/felipe-96.jpg", "img/felipe/felipe-97.jpg", "img/felipe/felipe-98.jpg", "img/felipe/felipe-99.jpg", "img/felipe/felipe-100.jpg", "img/felipe/felipe-101.jpg", "img/felipe/felipe-102.jpg", "img/felipe/felipe-103.jpg", "img/felipe/felipe-104.jpg", "img/felipe/felipe-105.jpg", "img/felipe/felipe-106.jpg", "img/felipe/felipe-107.jpg", "img/felipe/felipe-108.jpg", "img/felipe/felipe-109.jpg", "img/felipe/felipe-110.jpg", "img/felipe/felipe-111.jpg", "img/felipe/felipe-112.jpg", "img/felipe/felipe-113.jpg", "img/felipe/felipe-114.jpg", "img/felipe/felipe-115.jpg", "img/felipe/felipe-116.jpg", "img/felipe/felipe-117.jpg", "img/felipe/felipe-118.jpg", "img/felipe/felipe-119.jpg", "img/felipe/felipe-120.jpg", "img/felipe/felipe-121.jpg", "img/felipe/felipe-122.jpg", "img/felipe/felipe-123.jpg", "img/felipe/felipe-124.jpg", "img/felipe/felipe-125.jpg"];
