@@ -5,6 +5,11 @@ LAMPARAS-*.zip
 RUT*.pdf
 FOTO.jpg
 
+# Carpeta de trabajo: copia de TODAS las fotos ordenadas por producto y
+# renombradas con el color de la pieza (para revisar con Felipe). Son
+# duplicados de img/ (21 MB), no deben publicarse ni pesar en el repo.
+FOTOS POR COLOR/
+
 # Codigo de backend (Apps Script) — NUNCA se publica junto al sitio.
 # GitHub Pages sirve como estatico todo lo que este en el repo: si un .gs
 # vive aqui, cualquiera lo descarga con su URL y se lleva los SECRETO.
