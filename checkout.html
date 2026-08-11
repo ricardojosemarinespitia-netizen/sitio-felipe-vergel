@@ -817,15 +817,24 @@ async function guardarPedido(order){
   fd.append("entry.1732518498",phone);
   fd.append("entry.1495498498",desc);
   fd.append("entry.932926498",String(qty));
-  try{
-    await fetch(`https://docs.google.com/forms/d/e/${FORM_ID}/formResponse`,{method:"POST",body:fd,mode:"no-cors"});
-  }catch(e){console.error("Form error:",e)}
+  // Las 3 llamadas de aqui abajo (Forms, registrar venta, marcar cupón
+  // usado) no dependen una de la otra. Antes iban con `await` en fila:
+  // cada una espera a la anterior aunque no la necesite, y esto es
+  // justo lo que el cliente ve como "se demora al volver del pago"
+  // (checkout.html corre esto DESPUÉS de que Wompi confirma, con la
+  // pantalla de "espera" bloqueada hasta que termine todo). Lanzarlas
+  // juntas con Promise.allSettled tarda lo que tarda la MÁS LENTA de
+  // las 3, no la suma de las 3.
+  const tareas=[
+    fetch(`https://docs.google.com/forms/d/e/${FORM_ID}/formResponse`,{method:"POST",body:fd,mode:"no-cors"})
+      .catch(e=>console.error("Form error:",e))
+  ];
   // Registrar en hoja VENTAS, vía la función de Netlify (el servidor agrega
   // la clave; el navegador ya no la conoce, ver nota junto a VENTAS_API).
   if(VENTAS_API){
-    try{
-      const lineas=c.map(i=>`${i.qty}× ${i.name} (${i.color})`).join("\n");
-      await fetch(VENTAS_API,{method:"POST",headers:{"Content-Type":"application/json"},
+    const lineas=c.map(i=>`${i.qty}× ${i.name} (${i.color})`).join("\n");
+    tareas.push(
+      fetch(VENTAS_API,{method:"POST",headers:{"Content-Type":"application/json"},
         body:JSON.stringify({
           ref,
           nombre:fullName,
@@ -847,17 +856,18 @@ async function guardarPedido(order){
           documento:docId||"",
           notas:order.notes||""
         })
-      });
-    }catch(e){console.error("Ventas API:",e)}
+      }).catch(e=>console.error("Ventas API:",e))
+    );
   }
   // Marcar código de descuento como usado (una sola vez)
   if(order.discountCode){
-    try{
-      await fetch(VENTAS_API,{method:"POST",headers:{"Content-Type":"application/json"},
+    tareas.push(
+      fetch(VENTAS_API,{method:"POST",headers:{"Content-Type":"application/json"},
         body:JSON.stringify({action:"markUsed",code:order.discountCode,ref,email})
-      });
-    }catch(e){console.error("markUsed:",e)}
+      }).catch(e=>console.error("markUsed:",e))
+    );
   }
+  await Promise.allSettled(tareas);
 }
 
 // Verificar el resultado real del pago al volver de Wompi
@@ -869,9 +879,23 @@ async function guardarPedido(order){
   $("#checkoutView").style.display="none";
   $("#waitingView").style.display="block";
   let status=null;
+  // Consulta con timeout (6s) + 1 reintento. Sin esto, si la API de Wompi
+  // tarda o se cuelga una vez, el cliente se queda mirando "Verificando tu
+  // pago..." sin limite: el fetch original no tenia ni AbortController ni
+  // reintento, asi que un solo hipo de red dejaba la pantalla congelada.
+  async function consultarWompi(intento){
+    const ctl=new AbortController();
+    const to=setTimeout(()=>ctl.abort(),6000);
+    try{
+      const r=await fetch("https://production.wompi.co/v1/transactions/"+encodeURIComponent(wompiId),{signal:ctl.signal});
+      return await r.json();
+    }catch(e){
+      if(intento<1) return consultarWompi(intento+1); // 1 reintento
+      throw e;
+    }finally{ clearTimeout(to) }
+  }
   try{
-    const r=await fetch("https://production.wompi.co/v1/transactions/"+encodeURIComponent(wompiId));
-    const j=await r.json();
+    const j=await consultarWompi(0);
     status=j&&j.data&&j.data.status;
   }catch(e){console.error("Wompi API:",e)}
 
@@ -883,8 +907,18 @@ async function guardarPedido(order){
   if(status==="APPROVED" || status==="PENDING"){
     if(pedido && !sessionStorage.getItem("fv_done_"+pedido.ref)){
       sessionStorage.setItem("fv_done_"+pedido.ref,"1"); // evita doble registro si recarga
-      try{ await guardarPedido(pedido); }catch(e){ console.error("guardarPedido:",e); }
-      try{ await enviarCorreos(pedido); }catch(e){ console.error("enviarCorreos:",e); }
+      // OJO — esto YA NO se espera antes de mostrar la pantalla de éxito.
+      // Antes: await guardarPedido() y LUEGO await enviarCorreos(), en fila:
+      // hasta 5 peticiones de red seguidas (Forms, Ventas, markUsed, 2
+      // correos) con el cliente mirando "Verificando tu pago..." todo ese
+      // tiempo. Eso era la demora al volver de Wompi.
+      // Ahora corren en paralelo y de fondo: Wompi YA confirmó el pago (eso
+      // es lo único que de verdad hay que esperar), y si el navegador se
+      // cierra antes de que termine el registro/correo, el webhook de
+      // wompi-webhook.js hace exactamente lo mismo del lado servidor como
+      // respaldo — por eso es seguro no bloquear la vista en esto.
+      Promise.allSettled([guardarPedido(pedido), enviarCorreos(pedido)])
+        .then(r=>r.forEach((x,i)=>{ if(x.status==="rejected") console.error(i===0?"guardarPedido:":"enviarCorreos:", x.reason); }));
       // Avisar al servidor que este pedido YA se procesó aquí, para que el webhook
       // de Wompi no lo registre/envíe por segunda vez.
       try{fetch("https://exquisite-pasca-848b8b.netlify.app/.netlify/functions/save-pending",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...pedido,_status:"done"})})}catch(e){}
@@ -895,7 +929,9 @@ async function guardarPedido(order){
       $("#successView").style.display="block";
       $("#successRef").textContent="Referencia: "+(pedido?pedido.ref:(p.get("ref")||"—"));
     }else{
-      // PENDING: mostrar pantalla de "en proceso" pero la venta YA quedó registrada
+      // PENDING: mostrar pantalla de "en proceso". El registro y los correos
+      // van de fondo (ver arriba) y si no alcanzan a terminar aqui, el
+      // webhook de Wompi los completa del lado servidor minutos despues.
       $("#pendingView").style.display="block";
       $("#pendingRef").textContent="Referencia: "+(pedido?pedido.ref:(p.get("ref")||"—"));
     }
