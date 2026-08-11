@@ -482,9 +482,9 @@ const PRODUCTS=[
     "size": "23 cm largo × 14 cm alto × 11 cm fondo (aprox)",
     "materials": "Vidrio — vitrofusión",
     "colors": [
-      "Verde",
       "Azul",
       "Transparente",
+      "Celeste",
       "Gris",
       "Rosa"
     ],
@@ -501,7 +501,7 @@ const PRODUCTS=[
       "Gris": 2,
       "Rosa": 1,
       "Transparente": 0,
-      "Verde": 3
+      "Celeste": 3
     }
   },
   {
@@ -575,7 +575,9 @@ const PRODUCTS=[
     "colors": [
       "Verde",
       "Transparente",
-      "Rosa"
+      "Rosa",
+      "Gris",
+      "Azul"
     ],
     "uses": "Flores, hojas, espigas.",
     "images": [
@@ -583,12 +585,16 @@ const PRODUCTS=[
       "img/florero-diptico/florero-diptico-02.jpg?v=2",
       "img/florero-diptico/florero-diptico-03.jpg?v=2",
       "img/florero-diptico/florero-diptico-04.jpg?v=2",
-      "img/florero-diptico/florero-diptico-05.jpg?v=2"
+      "img/florero-diptico/florero-diptico-05.jpg?v=2",
+      "img/florero-diptico/florero-diptico-06.jpg?v=3",
+      "img/florero-diptico/florero-diptico-07.jpg?v=3"
     ],
     "colorImages": {
       "Rosa": 0,
       "Transparente": 1,
-      "Verde": 2
+      "Verde": 2,
+      "Gris": 5,
+      "Azul": 6
     }
   },
   {
@@ -1100,18 +1106,24 @@ const PRODUCTS=[
     "materials": "Vidrio — vitrofusión",
     "colors": [
       "Transparente",
-      "Verde"
+      "Gris",
+      "Verde",
+      "Azul"
     ],
     "uses": "Para servir, centro de mesa, pieza decorativa.",
     "images": [
-      "img/bandeja-vetas/bandeja-vetas-01.jpg?v=2",
-      "img/bandeja-vetas/bandeja-vetas-02.jpg?v=2",
-      "img/bandeja-vetas/bandeja-vetas-03.jpg?v=2",
-      "img/bandeja-vetas/bandeja-vetas-04.jpg?v=2"
+      "img/bandeja-vetas/bandeja-vetas-01.jpg?v=3",
+      "img/bandeja-vetas/bandeja-vetas-02.jpg?v=3",
+      "img/bandeja-vetas/bandeja-vetas-03.jpg?v=3",
+      "img/bandeja-vetas/bandeja-vetas-04.jpg?v=3",
+      "img/bandeja-vetas/bandeja-vetas-05.jpg?v=3",
+      "img/bandeja-vetas/bandeja-vetas-06.jpg?v=3"
     ],
     "colorImages": {
       "Transparente": 0,
-      "Verde": 2
+      "Gris": 1,
+      "Verde": 2,
+      "Azul": 3
     }
   },
   {
@@ -1150,6 +1162,7 @@ const PRODUCTS=[
     }
   }
 ];
+
 
 
 

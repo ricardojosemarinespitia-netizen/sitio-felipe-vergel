@@ -10,6 +10,11 @@ FOTO.jpg
 # duplicados de img/ (21 MB), no deben publicarse ni pesar en el repo.
 FOTOS POR COLOR/
 
+# Carpetas de correcciones puntuales (zips de fotos que Felipe manda por
+# Drive para reemplazar/agregar colores). Una vez copiadas a img/ y
+# publicadas, esta carpeta ya no hace falta en el repo.
+CORRECCION*/
+
 # Codigo de backend (Apps Script) — NUNCA se publica junto al sitio.
 # GitHub Pages sirve como estatico todo lo que este en el repo: si un .gs
 # vive aqui, cualquiera lo descarga con su URL y se lleva los SECRETO.
