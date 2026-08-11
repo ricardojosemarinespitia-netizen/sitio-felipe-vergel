@@ -15,11 +15,11 @@ const PRODUCTS=[
     ],
     "uses": "Luz colgante de autor para cocina, comedor o un rincón especial. Cada lámpara es una pieza única e irrepetible.",
     "images": [
-      "img/lampara-caribe-brisa/lampara-caribe-brisa-01.jpg",
-      "img/lampara-caribe-brisa/lampara-caribe-brisa-02.jpg",
-      "img/lampara-caribe-brisa/lampara-caribe-brisa-03.jpg",
-      "img/lampara-caribe-brisa/lampara-caribe-brisa-04.jpg",
-      "img/lampara-caribe-brisa/lampara-caribe-brisa-05.jpg"
+      "img/lampara-caribe-brisa/lampara-caribe-brisa-01.jpg?v=2",
+      "img/lampara-caribe-brisa/lampara-caribe-brisa-02.jpg?v=2",
+      "img/lampara-caribe-brisa/lampara-caribe-brisa-03.jpg?v=2",
+      "img/lampara-caribe-brisa/lampara-caribe-brisa-04.jpg?v=2",
+      "img/lampara-caribe-brisa/lampara-caribe-brisa-05.jpg?v=2"
     ],
     "colorImages": {
       "Azul": 0,
@@ -44,11 +44,11 @@ const PRODUCTS=[
     ],
     "uses": "Luz colgante de autor para cocina, comedor o un rincón especial. Cada lámpara es una pieza única e irrepetible.",
     "images": [
-      "img/lampara-caribe-coral/lampara-caribe-coral-01.jpg",
-      "img/lampara-caribe-coral/lampara-caribe-coral-02.jpg",
-      "img/lampara-caribe-coral/lampara-caribe-coral-03.jpg",
-      "img/lampara-caribe-coral/lampara-caribe-coral-04.jpg",
-      "img/lampara-caribe-coral/lampara-caribe-coral-05.jpg"
+      "img/lampara-caribe-coral/lampara-caribe-coral-01.jpg?v=2",
+      "img/lampara-caribe-coral/lampara-caribe-coral-02.jpg?v=2",
+      "img/lampara-caribe-coral/lampara-caribe-coral-03.jpg?v=2",
+      "img/lampara-caribe-coral/lampara-caribe-coral-04.jpg?v=2",
+      "img/lampara-caribe-coral/lampara-caribe-coral-05.jpg?v=2"
     ],
     "colorImages": {
       "Azul": 2,
@@ -73,12 +73,12 @@ const PRODUCTS=[
     ],
     "uses": "Luz colgante de autor para cocina, comedor o un rincón especial. Cada lámpara es una pieza única e irrepetible.",
     "images": [
-      "img/lampara-caribe-marea/lampara-caribe-marea-01.jpg",
-      "img/lampara-caribe-marea/lampara-caribe-marea-02.jpg",
-      "img/lampara-caribe-marea/lampara-caribe-marea-03.jpg",
-      "img/lampara-caribe-marea/lampara-caribe-marea-04.jpg",
-      "img/lampara-caribe-marea/lampara-caribe-marea-05.jpg",
-      "img/lampara-caribe-marea/lampara-caribe-marea-06.jpg"
+      "img/lampara-caribe-marea/lampara-caribe-marea-01.jpg?v=2",
+      "img/lampara-caribe-marea/lampara-caribe-marea-02.jpg?v=2",
+      "img/lampara-caribe-marea/lampara-caribe-marea-03.jpg?v=2",
+      "img/lampara-caribe-marea/lampara-caribe-marea-04.jpg?v=2",
+      "img/lampara-caribe-marea/lampara-caribe-marea-05.jpg?v=2",
+      "img/lampara-caribe-marea/lampara-caribe-marea-06.jpg?v=2"
     ],
     "colorImages": {
       "Azul": 1,
@@ -103,11 +103,11 @@ const PRODUCTS=[
     ],
     "uses": "Aplique de pared de autor, luz cálida para un rincón especial. Cada pieza es única e irrepetible.",
     "images": [
-      "img/aplique-caribe-marea/aplique-caribe-marea-01.jpg",
-      "img/aplique-caribe-marea/aplique-caribe-marea-02.jpg",
-      "img/aplique-caribe-marea/aplique-caribe-marea-03.jpg",
-      "img/aplique-caribe-marea/aplique-caribe-marea-04.jpg",
-      "img/aplique-caribe-marea/aplique-caribe-marea-05.jpg"
+      "img/aplique-caribe-marea/aplique-caribe-marea-01.jpg?v=2",
+      "img/aplique-caribe-marea/aplique-caribe-marea-02.jpg?v=2",
+      "img/aplique-caribe-marea/aplique-caribe-marea-03.jpg?v=2",
+      "img/aplique-caribe-marea/aplique-caribe-marea-04.jpg?v=2",
+      "img/aplique-caribe-marea/aplique-caribe-marea-05.jpg?v=2"
     ],
     "colorImages": {
       "Azul": 2,
@@ -130,9 +130,9 @@ const PRODUCTS=[
     ],
     "uses": "Para servir, centro de mesa, pieza decorativa.",
     "images": [
-      "img/bandeja-maxi-rect-ondas/bandeja-maxi-rect-ondas-01.jpg",
-      "img/bandeja-maxi-rect-ondas/bandeja-maxi-rect-ondas-02.jpg",
-      "img/bandeja-maxi-rect-ondas/bandeja-maxi-rect-ondas-03.jpg"
+      "img/bandeja-maxi-rect-ondas/bandeja-maxi-rect-ondas-01.jpg?v=2",
+      "img/bandeja-maxi-rect-ondas/bandeja-maxi-rect-ondas-02.jpg?v=2",
+      "img/bandeja-maxi-rect-ondas/bandeja-maxi-rect-ondas-03.jpg?v=2"
     ],
     "colorImages": {
       "Azul": 0,
@@ -154,10 +154,10 @@ const PRODUCTS=[
     ],
     "uses": "Para servir, centro de mesa, pieza decorativa.",
     "images": [
-      "img/bandeja-hoja-maxi-irregular/bandeja-hoja-maxi-irregular-01.jpg",
-      "img/bandeja-hoja-maxi-irregular/bandeja-hoja-maxi-irregular-02.jpg",
-      "img/bandeja-hoja-maxi-irregular/bandeja-hoja-maxi-irregular-03.jpg",
-      "img/bandeja-hoja-maxi-irregular/bandeja-hoja-maxi-irregular-04.jpg"
+      "img/bandeja-hoja-maxi-irregular/bandeja-hoja-maxi-irregular-01.jpg?v=2",
+      "img/bandeja-hoja-maxi-irregular/bandeja-hoja-maxi-irregular-02.jpg?v=2",
+      "img/bandeja-hoja-maxi-irregular/bandeja-hoja-maxi-irregular-03.jpg?v=2",
+      "img/bandeja-hoja-maxi-irregular/bandeja-hoja-maxi-irregular-04.jpg?v=2"
     ],
     "colorImages": {
       "Amarillo": 2,
@@ -181,11 +181,11 @@ const PRODUCTS=[
     ],
     "uses": "Bandeja para servir, bandeja decorativa.",
     "images": [
-      "img/bandeja-hoja-midi-relieve/bandeja-hoja-midi-relieve-01.jpg",
-      "img/bandeja-hoja-midi-relieve/bandeja-hoja-midi-relieve-02.jpg",
-      "img/bandeja-hoja-midi-relieve/bandeja-hoja-midi-relieve-03.jpg",
-      "img/bandeja-hoja-midi-relieve/bandeja-hoja-midi-relieve-04.jpg",
-      "img/bandeja-hoja-midi-relieve/bandeja-hoja-midi-relieve-05.jpg"
+      "img/bandeja-hoja-midi-relieve/bandeja-hoja-midi-relieve-01.jpg?v=2",
+      "img/bandeja-hoja-midi-relieve/bandeja-hoja-midi-relieve-02.jpg?v=2",
+      "img/bandeja-hoja-midi-relieve/bandeja-hoja-midi-relieve-03.jpg?v=2",
+      "img/bandeja-hoja-midi-relieve/bandeja-hoja-midi-relieve-04.jpg?v=2",
+      "img/bandeja-hoja-midi-relieve/bandeja-hoja-midi-relieve-05.jpg?v=2"
     ],
     "colorImages": {
       "Azul": 2,
@@ -208,10 +208,10 @@ const PRODUCTS=[
     ],
     "uses": "Bandeja para servir, bandeja decorativa.",
     "images": [
-      "img/bandeja-hoja-jaspeada-xl/bandeja-hoja-jaspeada-xl-01.jpg",
-      "img/bandeja-hoja-jaspeada-xl/bandeja-hoja-jaspeada-xl-02.jpg",
-      "img/bandeja-hoja-jaspeada-xl/bandeja-hoja-jaspeada-xl-03.jpg",
-      "img/bandeja-hoja-jaspeada-xl/bandeja-hoja-jaspeada-xl-04.jpg"
+      "img/bandeja-hoja-jaspeada-xl/bandeja-hoja-jaspeada-xl-01.jpg?v=2",
+      "img/bandeja-hoja-jaspeada-xl/bandeja-hoja-jaspeada-xl-02.jpg?v=2",
+      "img/bandeja-hoja-jaspeada-xl/bandeja-hoja-jaspeada-xl-03.jpg?v=2",
+      "img/bandeja-hoja-jaspeada-xl/bandeja-hoja-jaspeada-xl-04.jpg?v=2"
     ],
     "colorImages": {
       "Amarillo": 0,
@@ -233,10 +233,10 @@ const PRODUCTS=[
     ],
     "uses": "Frutero, centro de mesa, objeto de diseño decorativo.",
     "images": [
-      "img/centro-mesa-redondo-mosaico/centro-mesa-redondo-mosaico-01.jpg",
-      "img/centro-mesa-redondo-mosaico/centro-mesa-redondo-mosaico-02.jpg",
-      "img/centro-mesa-redondo-mosaico/centro-mesa-redondo-mosaico-03.jpg",
-      "img/centro-mesa-redondo-mosaico/centro-mesa-redondo-mosaico-04.jpg"
+      "img/centro-mesa-redondo-mosaico/centro-mesa-redondo-mosaico-01.jpg?v=2",
+      "img/centro-mesa-redondo-mosaico/centro-mesa-redondo-mosaico-02.jpg?v=2",
+      "img/centro-mesa-redondo-mosaico/centro-mesa-redondo-mosaico-03.jpg?v=2",
+      "img/centro-mesa-redondo-mosaico/centro-mesa-redondo-mosaico-04.jpg?v=2"
     ],
     "colorImages": {
       "Azul": 1,
@@ -259,10 +259,10 @@ const PRODUCTS=[
     ],
     "uses": "Recipiente para servir, frutero, centro de mesa.",
     "images": [
-      "img/centro-mesa-ovalado-franjas/centro-mesa-ovalado-franjas-01.jpg",
-      "img/centro-mesa-ovalado-franjas/centro-mesa-ovalado-franjas-02.jpg",
-      "img/centro-mesa-ovalado-franjas/centro-mesa-ovalado-franjas-03.jpg",
-      "img/centro-mesa-ovalado-franjas/centro-mesa-ovalado-franjas-04.jpg"
+      "img/centro-mesa-ovalado-franjas/centro-mesa-ovalado-franjas-01.jpg?v=2",
+      "img/centro-mesa-ovalado-franjas/centro-mesa-ovalado-franjas-02.jpg?v=2",
+      "img/centro-mesa-ovalado-franjas/centro-mesa-ovalado-franjas-03.jpg?v=2",
+      "img/centro-mesa-ovalado-franjas/centro-mesa-ovalado-franjas-04.jpg?v=2"
     ],
     "colorImages": {
       "Azul": 3,
@@ -284,11 +284,11 @@ const PRODUCTS=[
     ],
     "uses": "Pieza de arte, centro de mesa, frutero.",
     "images": [
-      "img/centro-mesa-ovalado-mosaico/centro-mesa-ovalado-mosaico-01.jpg",
-      "img/centro-mesa-ovalado-mosaico/centro-mesa-ovalado-mosaico-02.jpg",
-      "img/centro-mesa-ovalado-mosaico/centro-mesa-ovalado-mosaico-03.jpg",
-      "img/centro-mesa-ovalado-mosaico/centro-mesa-ovalado-mosaico-04.jpg",
-      "img/centro-mesa-ovalado-mosaico/centro-mesa-ovalado-mosaico-05.jpg"
+      "img/centro-mesa-ovalado-mosaico/centro-mesa-ovalado-mosaico-01.jpg?v=2",
+      "img/centro-mesa-ovalado-mosaico/centro-mesa-ovalado-mosaico-02.jpg?v=2",
+      "img/centro-mesa-ovalado-mosaico/centro-mesa-ovalado-mosaico-03.jpg?v=2",
+      "img/centro-mesa-ovalado-mosaico/centro-mesa-ovalado-mosaico-04.jpg?v=2",
+      "img/centro-mesa-ovalado-mosaico/centro-mesa-ovalado-mosaico-05.jpg?v=2"
     ],
     "colorImages": {
       "Azul": 1,
@@ -311,11 +311,11 @@ const PRODUCTS=[
     ],
     "uses": "Frutero, centro de mesa, objeto decorativo.",
     "images": [
-      "img/centro-mesa-conico-mosaico/centro-mesa-conico-mosaico-01.jpg",
-      "img/centro-mesa-conico-mosaico/centro-mesa-conico-mosaico-02.jpg",
-      "img/centro-mesa-conico-mosaico/centro-mesa-conico-mosaico-03.jpg",
-      "img/centro-mesa-conico-mosaico/centro-mesa-conico-mosaico-04.jpg",
-      "img/centro-mesa-conico-mosaico/centro-mesa-conico-mosaico-05.jpg"
+      "img/centro-mesa-conico-mosaico/centro-mesa-conico-mosaico-01.jpg?v=2",
+      "img/centro-mesa-conico-mosaico/centro-mesa-conico-mosaico-02.jpg?v=2",
+      "img/centro-mesa-conico-mosaico/centro-mesa-conico-mosaico-03.jpg?v=2",
+      "img/centro-mesa-conico-mosaico/centro-mesa-conico-mosaico-04.jpg?v=2",
+      "img/centro-mesa-conico-mosaico/centro-mesa-conico-mosaico-05.jpg?v=2"
     ],
     "colorImages": {
       "Azul": 2,
@@ -338,10 +338,10 @@ const PRODUCTS=[
     ],
     "uses": "Frutero, centro de mesa, objeto decorativo.",
     "images": [
-      "img/centro-mesa-conico-degrade/centro-mesa-conico-degrade-01.jpg",
-      "img/centro-mesa-conico-degrade/centro-mesa-conico-degrade-02.jpg",
-      "img/centro-mesa-conico-degrade/centro-mesa-conico-degrade-03.jpg",
-      "img/centro-mesa-conico-degrade/centro-mesa-conico-degrade-04.jpg"
+      "img/centro-mesa-conico-degrade/centro-mesa-conico-degrade-01.jpg?v=2",
+      "img/centro-mesa-conico-degrade/centro-mesa-conico-degrade-02.jpg?v=2",
+      "img/centro-mesa-conico-degrade/centro-mesa-conico-degrade-03.jpg?v=2",
+      "img/centro-mesa-conico-degrade/centro-mesa-conico-degrade-04.jpg?v=2"
     ],
     "colorImages": {
       "Aguamarina degradé verde-amarillo": 2,
@@ -362,10 +362,10 @@ const PRODUCTS=[
     ],
     "uses": "Frutero, centro de mesa, objeto decorativo.",
     "images": [
-      "img/centro-mesa-ovalado-hojas/centro-mesa-ovalado-hojas-01.jpg",
-      "img/centro-mesa-ovalado-hojas/centro-mesa-ovalado-hojas-02.jpg",
-      "img/centro-mesa-ovalado-hojas/centro-mesa-ovalado-hojas-03.jpg",
-      "img/centro-mesa-ovalado-hojas/centro-mesa-ovalado-hojas-04.jpg"
+      "img/centro-mesa-ovalado-hojas/centro-mesa-ovalado-hojas-01.jpg?v=2",
+      "img/centro-mesa-ovalado-hojas/centro-mesa-ovalado-hojas-02.jpg?v=2",
+      "img/centro-mesa-ovalado-hojas/centro-mesa-ovalado-hojas-03.jpg?v=2",
+      "img/centro-mesa-ovalado-hojas/centro-mesa-ovalado-hojas-04.jpg?v=2"
     ],
     "colorImages": {
       "Azul": 1,
@@ -385,10 +385,10 @@ const PRODUCTS=[
     ],
     "uses": "Frutero, centro de mesa, objeto decorativo.",
     "images": [
-      "img/centro-mesa-conico-hojas/centro-mesa-conico-hojas-01.jpg",
-      "img/centro-mesa-conico-hojas/centro-mesa-conico-hojas-02.jpg",
-      "img/centro-mesa-conico-hojas/centro-mesa-conico-hojas-03.jpg",
-      "img/centro-mesa-conico-hojas/centro-mesa-conico-hojas-04.jpg"
+      "img/centro-mesa-conico-hojas/centro-mesa-conico-hojas-01.jpg?v=2",
+      "img/centro-mesa-conico-hojas/centro-mesa-conico-hojas-02.jpg?v=2",
+      "img/centro-mesa-conico-hojas/centro-mesa-conico-hojas-03.jpg?v=2",
+      "img/centro-mesa-conico-hojas/centro-mesa-conico-hojas-04.jpg?v=2"
     ],
     "colorImages": {
       "Transparente": 0
@@ -408,10 +408,10 @@ const PRODUCTS=[
     ],
     "uses": "Frutero, ensaladera, centro de mesa, pieza decorativa.",
     "images": [
-      "img/centro-mesa-cuadrado-mosaico/centro-mesa-cuadrado-mosaico-01.jpg",
-      "img/centro-mesa-cuadrado-mosaico/centro-mesa-cuadrado-mosaico-02.jpg",
-      "img/centro-mesa-cuadrado-mosaico/centro-mesa-cuadrado-mosaico-03.jpg",
-      "img/centro-mesa-cuadrado-mosaico/centro-mesa-cuadrado-mosaico-04.jpg"
+      "img/centro-mesa-cuadrado-mosaico/centro-mesa-cuadrado-mosaico-01.jpg?v=2",
+      "img/centro-mesa-cuadrado-mosaico/centro-mesa-cuadrado-mosaico-02.jpg?v=2",
+      "img/centro-mesa-cuadrado-mosaico/centro-mesa-cuadrado-mosaico-03.jpg?v=2",
+      "img/centro-mesa-cuadrado-mosaico/centro-mesa-cuadrado-mosaico-04.jpg?v=2"
     ],
     "colorImages": {
       "Celeste": 2,
@@ -434,11 +434,11 @@ const PRODUCTS=[
     ],
     "uses": "Frutero, ensaladera, centro de mesa, pieza decorativa.",
     "images": [
-      "img/centro-mesa-ovalado-liso/centro-mesa-ovalado-liso-01.jpg",
-      "img/centro-mesa-ovalado-liso/centro-mesa-ovalado-liso-02.jpg",
-      "img/centro-mesa-ovalado-liso/centro-mesa-ovalado-liso-03.jpg",
-      "img/centro-mesa-ovalado-liso/centro-mesa-ovalado-liso-04.jpg",
-      "img/centro-mesa-ovalado-liso/centro-mesa-ovalado-liso-05.jpg"
+      "img/centro-mesa-ovalado-liso/centro-mesa-ovalado-liso-01.jpg?v=2",
+      "img/centro-mesa-ovalado-liso/centro-mesa-ovalado-liso-02.jpg?v=2",
+      "img/centro-mesa-ovalado-liso/centro-mesa-ovalado-liso-03.jpg?v=2",
+      "img/centro-mesa-ovalado-liso/centro-mesa-ovalado-liso-04.jpg?v=2",
+      "img/centro-mesa-ovalado-liso/centro-mesa-ovalado-liso-05.jpg?v=2"
     ],
     "colorImages": {
       "Azul": 2,
@@ -462,10 +462,10 @@ const PRODUCTS=[
     ],
     "uses": "Frutero, centro de mesa, objeto decorativo.",
     "images": [
-      "img/centro-mesa-conico-franjas/centro-mesa-conico-franjas-01.jpg",
-      "img/centro-mesa-conico-franjas/centro-mesa-conico-franjas-02.jpg",
-      "img/centro-mesa-conico-franjas/centro-mesa-conico-franjas-03.jpg",
-      "img/centro-mesa-conico-franjas/centro-mesa-conico-franjas-04.jpg"
+      "img/centro-mesa-conico-franjas/centro-mesa-conico-franjas-01.jpg?v=2",
+      "img/centro-mesa-conico-franjas/centro-mesa-conico-franjas-02.jpg?v=2",
+      "img/centro-mesa-conico-franjas/centro-mesa-conico-franjas-03.jpg?v=2",
+      "img/centro-mesa-conico-franjas/centro-mesa-conico-franjas-04.jpg?v=2"
     ],
     "colorImages": {
       "Azul": 1,
@@ -490,11 +490,11 @@ const PRODUCTS=[
     ],
     "uses": "Flores, hojas.",
     "images": [
-      "img/florero-triptico/florero-triptico-01.jpg",
-      "img/florero-triptico/florero-triptico-02.jpg",
-      "img/florero-triptico/florero-triptico-03.jpg",
-      "img/florero-triptico/florero-triptico-04.jpg",
-      "img/florero-triptico/florero-triptico-05.jpg"
+      "img/florero-triptico/florero-triptico-01.jpg?v=2",
+      "img/florero-triptico/florero-triptico-02.jpg?v=2",
+      "img/florero-triptico/florero-triptico-03.jpg?v=2",
+      "img/florero-triptico/florero-triptico-04.jpg?v=2",
+      "img/florero-triptico/florero-triptico-05.jpg?v=2"
     ],
     "colorImages": {
       "Azul": 4,
@@ -521,11 +521,11 @@ const PRODUCTS=[
     ],
     "uses": "Florero, objeto decorativo.",
     "images": [
-      "img/florero-alto-irregular/florero-alto-irregular-01.jpg",
-      "img/florero-alto-irregular/florero-alto-irregular-02.jpg",
-      "img/florero-alto-irregular/florero-alto-irregular-03.jpg",
-      "img/florero-alto-irregular/florero-alto-irregular-04.jpg",
-      "img/florero-alto-irregular/florero-alto-irregular-05.jpg"
+      "img/florero-alto-irregular/florero-alto-irregular-01.jpg?v=2",
+      "img/florero-alto-irregular/florero-alto-irregular-02.jpg?v=2",
+      "img/florero-alto-irregular/florero-alto-irregular-03.jpg?v=2",
+      "img/florero-alto-irregular/florero-alto-irregular-04.jpg?v=2",
+      "img/florero-alto-irregular/florero-alto-irregular-05.jpg?v=2"
     ],
     "colorImages": {
       "Azul": 3,
@@ -551,11 +551,11 @@ const PRODUCTS=[
     ],
     "uses": "Florero, pieza decorativa.",
     "images": [
-      "img/florero-irregular-boca-ancha/florero-irregular-boca-ancha-01.jpg",
-      "img/florero-irregular-boca-ancha/florero-irregular-boca-ancha-02.jpg",
-      "img/florero-irregular-boca-ancha/florero-irregular-boca-ancha-03.jpg",
-      "img/florero-irregular-boca-ancha/florero-irregular-boca-ancha-04.jpg",
-      "img/florero-irregular-boca-ancha/florero-irregular-boca-ancha-05.jpg"
+      "img/florero-irregular-boca-ancha/florero-irregular-boca-ancha-01.jpg?v=2",
+      "img/florero-irregular-boca-ancha/florero-irregular-boca-ancha-02.jpg?v=2",
+      "img/florero-irregular-boca-ancha/florero-irregular-boca-ancha-03.jpg?v=2",
+      "img/florero-irregular-boca-ancha/florero-irregular-boca-ancha-04.jpg?v=2",
+      "img/florero-irregular-boca-ancha/florero-irregular-boca-ancha-05.jpg?v=2"
     ],
     "colorImages": {
       "Azul": 3,
@@ -579,11 +579,11 @@ const PRODUCTS=[
     ],
     "uses": "Flores, hojas, espigas.",
     "images": [
-      "img/florero-diptico/florero-diptico-01.jpg",
-      "img/florero-diptico/florero-diptico-02.jpg",
-      "img/florero-diptico/florero-diptico-03.jpg",
-      "img/florero-diptico/florero-diptico-04.jpg",
-      "img/florero-diptico/florero-diptico-05.jpg"
+      "img/florero-diptico/florero-diptico-01.jpg?v=2",
+      "img/florero-diptico/florero-diptico-02.jpg?v=2",
+      "img/florero-diptico/florero-diptico-03.jpg?v=2",
+      "img/florero-diptico/florero-diptico-04.jpg?v=2",
+      "img/florero-diptico/florero-diptico-05.jpg?v=2"
     ],
     "colorImages": {
       "Rosa": 0,
@@ -607,10 +607,10 @@ const PRODUCTS=[
     ],
     "uses": "Flores, hojas, mini plantas.",
     "images": [
-      "img/mini-florero/mini-florero-01.jpg",
-      "img/mini-florero/mini-florero-02.jpg",
-      "img/mini-florero/mini-florero-03.jpg",
-      "img/mini-florero/mini-florero-04.jpg"
+      "img/mini-florero/mini-florero-01.jpg?v=2",
+      "img/mini-florero/mini-florero-02.jpg?v=2",
+      "img/mini-florero/mini-florero-03.jpg?v=2",
+      "img/mini-florero/mini-florero-04.jpg?v=2"
     ],
     "colorImages": {
       "Gris": 1,
@@ -634,11 +634,11 @@ const PRODUCTS=[
     ],
     "uses": "Florero, pieza decorativa.",
     "images": [
-      "img/vaso-florero/vaso-florero-01.jpg",
-      "img/vaso-florero/vaso-florero-02.jpg",
-      "img/vaso-florero/vaso-florero-03.jpg",
-      "img/vaso-florero/vaso-florero-04.jpg",
-      "img/vaso-florero/vaso-florero-05.jpg"
+      "img/vaso-florero/vaso-florero-01.jpg?v=2",
+      "img/vaso-florero/vaso-florero-02.jpg?v=2",
+      "img/vaso-florero/vaso-florero-03.jpg?v=2",
+      "img/vaso-florero/vaso-florero-04.jpg?v=2",
+      "img/vaso-florero/vaso-florero-05.jpg?v=2"
     ],
     "colorImages": {
       "Rosa": 0,
@@ -660,11 +660,11 @@ const PRODUCTS=[
     ],
     "uses": "Flores, hojas, espigas.",
     "images": [
-      "img/solitario-circular/solitario-circular-01.jpg",
-      "img/solitario-circular/solitario-circular-02.jpg",
-      "img/solitario-circular/solitario-circular-03.jpg",
-      "img/solitario-circular/solitario-circular-04.jpg",
-      "img/solitario-circular/solitario-circular-05.jpg"
+      "img/solitario-circular/solitario-circular-01.jpg?v=2",
+      "img/solitario-circular/solitario-circular-02.jpg?v=2",
+      "img/solitario-circular/solitario-circular-03.jpg?v=2",
+      "img/solitario-circular/solitario-circular-04.jpg?v=2",
+      "img/solitario-circular/solitario-circular-05.jpg?v=2"
     ],
     "colorImages": {
       "Gris": 1,
@@ -685,11 +685,11 @@ const PRODUCTS=[
     ],
     "uses": "Flores, hojas, espigas.",
     "images": [
-      "img/solitario-guitarra/solitario-guitarra-01.jpg",
-      "img/solitario-guitarra/solitario-guitarra-02.jpg",
-      "img/solitario-guitarra/solitario-guitarra-03.jpg",
-      "img/solitario-guitarra/solitario-guitarra-04.jpg",
-      "img/solitario-guitarra/solitario-guitarra-05.jpg"
+      "img/solitario-guitarra/solitario-guitarra-01.jpg?v=2",
+      "img/solitario-guitarra/solitario-guitarra-02.jpg?v=2",
+      "img/solitario-guitarra/solitario-guitarra-03.jpg?v=2",
+      "img/solitario-guitarra/solitario-guitarra-04.jpg?v=2",
+      "img/solitario-guitarra/solitario-guitarra-05.jpg?v=2"
     ],
     "colorImages": {
       "Azul": 2,
@@ -714,13 +714,13 @@ const PRODUCTS=[
     ],
     "uses": "Flores, hojas, espigas.",
     "images": [
-      "img/solitario-teja/solitario-teja-01.jpg",
-      "img/solitario-teja/solitario-teja-02.jpg",
-      "img/solitario-teja/solitario-teja-03.jpg",
-      "img/solitario-teja/solitario-teja-04.jpg",
-      "img/solitario-teja/solitario-teja-05.jpg",
-      "img/solitario-teja/solitario-teja-06.jpg",
-      "img/solitario-teja/solitario-teja-07.jpg"
+      "img/solitario-teja/solitario-teja-01.jpg?v=2",
+      "img/solitario-teja/solitario-teja-02.jpg?v=2",
+      "img/solitario-teja/solitario-teja-03.jpg?v=2",
+      "img/solitario-teja/solitario-teja-04.jpg?v=2",
+      "img/solitario-teja/solitario-teja-05.jpg?v=2",
+      "img/solitario-teja/solitario-teja-06.jpg?v=2",
+      "img/solitario-teja/solitario-teja-07.jpg?v=2"
     ],
     "colorImages": {
       "Azul": 3,
@@ -747,11 +747,11 @@ const PRODUCTS=[
     ],
     "uses": "Orquídeas, velas, plantas, flores.",
     "images": [
-      "img/porta-plantas-individual/porta-plantas-individual-01.jpg",
-      "img/porta-plantas-individual/porta-plantas-individual-02.jpg",
-      "img/porta-plantas-individual/porta-plantas-individual-03.jpg",
-      "img/porta-plantas-individual/porta-plantas-individual-04.jpg",
-      "img/porta-plantas-individual/porta-plantas-individual-05.jpg"
+      "img/porta-plantas-individual/porta-plantas-individual-01.jpg?v=2",
+      "img/porta-plantas-individual/porta-plantas-individual-02.jpg?v=2",
+      "img/porta-plantas-individual/porta-plantas-individual-03.jpg?v=2",
+      "img/porta-plantas-individual/porta-plantas-individual-04.jpg?v=2",
+      "img/porta-plantas-individual/porta-plantas-individual-05.jpg?v=2"
     ],
     "colorImages": {
       "Azul": 3,
@@ -776,11 +776,11 @@ const PRODUCTS=[
     ],
     "uses": "Plantas, velas, flores.",
     "images": [
-      "img/porta-plantas-doble/porta-plantas-doble-01.jpg",
-      "img/porta-plantas-doble/porta-plantas-doble-02.jpg",
-      "img/porta-plantas-doble/porta-plantas-doble-03.jpg",
-      "img/porta-plantas-doble/porta-plantas-doble-04.jpg",
-      "img/porta-plantas-doble/porta-plantas-doble-05.jpg"
+      "img/porta-plantas-doble/porta-plantas-doble-01.jpg?v=2",
+      "img/porta-plantas-doble/porta-plantas-doble-02.jpg?v=2",
+      "img/porta-plantas-doble/porta-plantas-doble-03.jpg?v=2",
+      "img/porta-plantas-doble/porta-plantas-doble-04.jpg?v=2",
+      "img/porta-plantas-doble/porta-plantas-doble-05.jpg?v=2"
     ],
     "colorImages": {
       "Azul": 1,
@@ -803,11 +803,11 @@ const PRODUCTS=[
     ],
     "uses": "Plantas, velas, flores.",
     "images": [
-      "img/porta-plantas-triple/porta-plantas-triple-01.jpg",
-      "img/porta-plantas-triple/porta-plantas-triple-02.jpg",
-      "img/porta-plantas-triple/porta-plantas-triple-03.jpg",
-      "img/porta-plantas-triple/porta-plantas-triple-04.jpg",
-      "img/porta-plantas-triple/porta-plantas-triple-05.jpg"
+      "img/porta-plantas-triple/porta-plantas-triple-01.jpg?v=2",
+      "img/porta-plantas-triple/porta-plantas-triple-02.jpg?v=2",
+      "img/porta-plantas-triple/porta-plantas-triple-03.jpg?v=2",
+      "img/porta-plantas-triple/porta-plantas-triple-04.jpg?v=2",
+      "img/porta-plantas-triple/porta-plantas-triple-05.jpg?v=2"
     ],
     "colorImages": {
       "Gris": 4,
@@ -829,11 +829,11 @@ const PRODUCTS=[
     ],
     "uses": "Florero, champañera, hielera, porta matera.",
     "images": [
-      "img/porta-matera/porta-matera-01.jpg",
-      "img/porta-matera/porta-matera-02.jpg",
-      "img/porta-matera/porta-matera-03.jpg",
-      "img/porta-matera/porta-matera-04.jpg",
-      "img/porta-matera/porta-matera-05.jpg"
+      "img/porta-matera/porta-matera-01.jpg?v=2",
+      "img/porta-matera/porta-matera-02.jpg?v=2",
+      "img/porta-matera/porta-matera-03.jpg?v=2",
+      "img/porta-matera/porta-matera-04.jpg?v=2",
+      "img/porta-matera/porta-matera-05.jpg?v=2"
     ],
     "colorImages": {
       "Azul": 1,
@@ -856,11 +856,11 @@ const PRODUCTS=[
     ],
     "uses": "Pasabocas, muffins, galletas.",
     "images": [
-      "img/porta-pasabocas-doble/porta-pasabocas-doble-01.jpg",
-      "img/porta-pasabocas-doble/porta-pasabocas-doble-02.jpg",
-      "img/porta-pasabocas-doble/porta-pasabocas-doble-03.jpg",
-      "img/porta-pasabocas-doble/porta-pasabocas-doble-04.jpg",
-      "img/porta-pasabocas-doble/porta-pasabocas-doble-05.jpg"
+      "img/porta-pasabocas-doble/porta-pasabocas-doble-01.jpg?v=2",
+      "img/porta-pasabocas-doble/porta-pasabocas-doble-02.jpg?v=2",
+      "img/porta-pasabocas-doble/porta-pasabocas-doble-03.jpg?v=2",
+      "img/porta-pasabocas-doble/porta-pasabocas-doble-04.jpg?v=2",
+      "img/porta-pasabocas-doble/porta-pasabocas-doble-05.jpg?v=2"
     ],
     "colorImages": {
       "Azul rey": 3,
@@ -883,11 +883,11 @@ const PRODUCTS=[
     ],
     "uses": "Postre, quesos, panes, pasabocas.",
     "images": [
-      "img/plato-postre/plato-postre-01.jpg",
-      "img/plato-postre/plato-postre-02.jpg",
-      "img/plato-postre/plato-postre-03.jpg",
-      "img/plato-postre/plato-postre-04.jpg",
-      "img/plato-postre/plato-postre-05.jpg"
+      "img/plato-postre/plato-postre-01.jpg?v=2",
+      "img/plato-postre/plato-postre-02.jpg?v=2",
+      "img/plato-postre/plato-postre-03.jpg?v=2",
+      "img/plato-postre/plato-postre-04.jpg?v=2",
+      "img/plato-postre/plato-postre-05.jpg?v=2"
     ],
     "colorImages": {
       "Azul": 1,
@@ -910,11 +910,11 @@ const PRODUCTS=[
     ],
     "uses": "Ensalada, quesos, panes.",
     "images": [
-      "img/plato-ensalada/plato-ensalada-01.jpg",
-      "img/plato-ensalada/plato-ensalada-02.jpg",
-      "img/plato-ensalada/plato-ensalada-03.jpg",
-      "img/plato-ensalada/plato-ensalada-04.jpg",
-      "img/plato-ensalada/plato-ensalada-05.jpg"
+      "img/plato-ensalada/plato-ensalada-01.jpg?v=2",
+      "img/plato-ensalada/plato-ensalada-02.jpg?v=2",
+      "img/plato-ensalada/plato-ensalada-03.jpg?v=2",
+      "img/plato-ensalada/plato-ensalada-04.jpg?v=2",
+      "img/plato-ensalada/plato-ensalada-05.jpg?v=2"
     ],
     "colorImages": {
       "Azul": 2,
@@ -937,11 +937,11 @@ const PRODUCTS=[
     ],
     "uses": "Cena, pasabocas.",
     "images": [
-      "img/plato-cena/plato-cena-01.jpg",
-      "img/plato-cena/plato-cena-02.jpg",
-      "img/plato-cena/plato-cena-03.jpg",
-      "img/plato-cena/plato-cena-04.jpg",
-      "img/plato-cena/plato-cena-05.jpg"
+      "img/plato-cena/plato-cena-01.jpg?v=2",
+      "img/plato-cena/plato-cena-02.jpg?v=2",
+      "img/plato-cena/plato-cena-03.jpg?v=2",
+      "img/plato-cena/plato-cena-04.jpg?v=2",
+      "img/plato-cena/plato-cena-05.jpg?v=2"
     ],
     "colorImages": {
       "Azul": 0,
@@ -964,11 +964,11 @@ const PRODUCTS=[
     ],
     "uses": "Pasabocas, panes, cupcakes, tortas, galletas, tablas de quesos, pizza.",
     "images": [
-      "img/pedestal-repostero/pedestal-repostero-01.jpg",
-      "img/pedestal-repostero/pedestal-repostero-02.jpg",
-      "img/pedestal-repostero/pedestal-repostero-03.jpg",
-      "img/pedestal-repostero/pedestal-repostero-04.jpg",
-      "img/pedestal-repostero/pedestal-repostero-05.jpg"
+      "img/pedestal-repostero/pedestal-repostero-01.jpg?v=2",
+      "img/pedestal-repostero/pedestal-repostero-02.jpg?v=2",
+      "img/pedestal-repostero/pedestal-repostero-03.jpg?v=2",
+      "img/pedestal-repostero/pedestal-repostero-04.jpg?v=2",
+      "img/pedestal-repostero/pedestal-repostero-05.jpg?v=2"
     ],
     "colorImages": {
       "Amarillo": 1,
@@ -990,11 +990,11 @@ const PRODUCTS=[
     ],
     "uses": "Portavasos, jabonera, porta velas.",
     "images": [
-      "img/portavasos-cuadrados/portavasos-cuadrados-01.jpg",
-      "img/portavasos-cuadrados/portavasos-cuadrados-02.jpg",
-      "img/portavasos-cuadrados/portavasos-cuadrados-03.jpg",
-      "img/portavasos-cuadrados/portavasos-cuadrados-04.jpg",
-      "img/portavasos-cuadrados/portavasos-cuadrados-05.jpg"
+      "img/portavasos-cuadrados/portavasos-cuadrados-01.jpg?v=2",
+      "img/portavasos-cuadrados/portavasos-cuadrados-02.jpg?v=2",
+      "img/portavasos-cuadrados/portavasos-cuadrados-03.jpg?v=2",
+      "img/portavasos-cuadrados/portavasos-cuadrados-04.jpg?v=2",
+      "img/portavasos-cuadrados/portavasos-cuadrados-05.jpg?v=2"
     ],
     "colorImages": {
       "Azul": 3,
@@ -1017,10 +1017,10 @@ const PRODUCTS=[
     ],
     "uses": "Frutero, centro de mesa, objeto decorativo.",
     "images": [
-      "img/centro-mesa-conico/centro-mesa-conico-01.jpg",
-      "img/centro-mesa-conico/centro-mesa-conico-02.jpg",
-      "img/centro-mesa-conico/centro-mesa-conico-03.jpg",
-      "img/centro-mesa-conico/centro-mesa-conico-04.jpg"
+      "img/centro-mesa-conico/centro-mesa-conico-01.jpg?v=2",
+      "img/centro-mesa-conico/centro-mesa-conico-02.jpg?v=2",
+      "img/centro-mesa-conico/centro-mesa-conico-03.jpg?v=2",
+      "img/centro-mesa-conico/centro-mesa-conico-04.jpg?v=2"
     ],
     "colorImages": {
       "Azul": 2,
@@ -1046,12 +1046,12 @@ const PRODUCTS=[
     ],
     "uses": "Frutero, centro de mesa, objeto de diseño decorativo.",
     "images": [
-      "img/centro-mesa-marea/centro-mesa-marea-01.jpg",
-      "img/centro-mesa-marea/centro-mesa-marea-02.jpg",
-      "img/centro-mesa-marea/centro-mesa-marea-03.jpg",
-      "img/centro-mesa-marea/centro-mesa-marea-04.jpg",
-      "img/centro-mesa-marea/centro-mesa-marea-05.jpg",
-      "img/centro-mesa-marea/centro-mesa-marea-06.jpg"
+      "img/centro-mesa-marea/centro-mesa-marea-01.jpg?v=2",
+      "img/centro-mesa-marea/centro-mesa-marea-02.jpg?v=2",
+      "img/centro-mesa-marea/centro-mesa-marea-03.jpg?v=2",
+      "img/centro-mesa-marea/centro-mesa-marea-04.jpg?v=2",
+      "img/centro-mesa-marea/centro-mesa-marea-05.jpg?v=2",
+      "img/centro-mesa-marea/centro-mesa-marea-06.jpg?v=2"
     ],
     "colorImages": {
       "Azul": 3,
@@ -1077,11 +1077,11 @@ const PRODUCTS=[
     ],
     "uses": "Frutero, centro de mesa, objeto de diseño decorativo.",
     "images": [
-      "img/centro-mesa-folia/centro-mesa-folia-01.jpg",
-      "img/centro-mesa-folia/centro-mesa-folia-02.jpg",
-      "img/centro-mesa-folia/centro-mesa-folia-03.jpg",
-      "img/centro-mesa-folia/centro-mesa-folia-04.jpg",
-      "img/centro-mesa-folia/centro-mesa-folia-05.jpg"
+      "img/centro-mesa-folia/centro-mesa-folia-01.jpg?v=2",
+      "img/centro-mesa-folia/centro-mesa-folia-02.jpg?v=2",
+      "img/centro-mesa-folia/centro-mesa-folia-03.jpg?v=2",
+      "img/centro-mesa-folia/centro-mesa-folia-04.jpg?v=2",
+      "img/centro-mesa-folia/centro-mesa-folia-05.jpg?v=2"
     ],
     "colorImages": {
       "Azul": 1,
@@ -1104,10 +1104,10 @@ const PRODUCTS=[
     ],
     "uses": "Para servir, centro de mesa, pieza decorativa.",
     "images": [
-      "img/bandeja-vetas/bandeja-vetas-01.jpg",
-      "img/bandeja-vetas/bandeja-vetas-02.jpg",
-      "img/bandeja-vetas/bandeja-vetas-03.jpg",
-      "img/bandeja-vetas/bandeja-vetas-04.jpg"
+      "img/bandeja-vetas/bandeja-vetas-01.jpg?v=2",
+      "img/bandeja-vetas/bandeja-vetas-02.jpg?v=2",
+      "img/bandeja-vetas/bandeja-vetas-03.jpg?v=2",
+      "img/bandeja-vetas/bandeja-vetas-04.jpg?v=2"
     ],
     "colorImages": {
       "Transparente": 0,
@@ -1131,15 +1131,15 @@ const PRODUCTS=[
     ],
     "uses": "Para servir, centro de mesa, pieza decorativa.",
     "images": [
-      "img/bandeja-folia-hoja/bandeja-folia-hoja-01.jpg",
-      "img/bandeja-folia-hoja/bandeja-folia-hoja-02.jpg",
-      "img/bandeja-folia-hoja/bandeja-folia-hoja-03.jpg",
-      "img/bandeja-folia-hoja/bandeja-folia-hoja-04.jpg",
-      "img/bandeja-folia-hoja/bandeja-folia-hoja-05.jpg",
-      "img/bandeja-folia-hoja/bandeja-folia-hoja-06.jpg",
-      "img/bandeja-folia-hoja/bandeja-folia-hoja-07.jpg",
-      "img/bandeja-folia-hoja/bandeja-folia-hoja-08.jpg",
-      "img/bandeja-folia-hoja/bandeja-folia-hoja-09.jpg"
+      "img/bandeja-folia-hoja/bandeja-folia-hoja-01.jpg?v=2",
+      "img/bandeja-folia-hoja/bandeja-folia-hoja-02.jpg?v=2",
+      "img/bandeja-folia-hoja/bandeja-folia-hoja-03.jpg?v=2",
+      "img/bandeja-folia-hoja/bandeja-folia-hoja-04.jpg?v=2",
+      "img/bandeja-folia-hoja/bandeja-folia-hoja-05.jpg?v=2",
+      "img/bandeja-folia-hoja/bandeja-folia-hoja-06.jpg?v=2",
+      "img/bandeja-folia-hoja/bandeja-folia-hoja-07.jpg?v=2",
+      "img/bandeja-folia-hoja/bandeja-folia-hoja-08.jpg?v=2",
+      "img/bandeja-folia-hoja/bandeja-folia-hoja-09.jpg?v=2"
     ],
     "colorImages": {
       "Azul": 7,
@@ -1150,6 +1150,7 @@ const PRODUCTS=[
     }
   }
 ];
+
 
 
 

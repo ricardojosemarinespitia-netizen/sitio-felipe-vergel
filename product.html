@@ -95,11 +95,13 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tin
    imagen, titulo, precio y todo lo demas fuera de la vista. */
 .p-gallery{position:sticky;top:110px;min-width:0}
 @media(max-width:920px){.p-gallery{position:static}}
-/* 4/5, no 1/1: 158 de las 204 fotos del catalogo son verticales 2:3
-   (800x1200). En un marco cuadrado con object-fit:cover se les recortaba
-   un tercio del alto — piezas altas (floreros, lamparas, pedestales)
-   aparecian decapitadas. */
-.p-gallery-main{position:relative;aspect-ratio:4/5;background:var(--crema-2);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:14px;box-shadow:0 8px 30px -10px rgba(63,68,67,.15)}
+/* 2/3, no 1/1: 33 de las 42 fotos de portada del catalogo (79%) son
+   verticales 2:3 (800x1200), asi que este marco las encaja exactas y sin
+   franjas. En el marco cuadrado anterior, con object-fit:cover, se les
+   recortaba un tercio del alto y las piezas altas (floreros, lamparas,
+   pedestales) aparecian decapitadas.
+   ENCUADRE OFICIAL DEL CATALOGO: 2:3 vertical (1600x2400 px). */
+.p-gallery-main{position:relative;aspect-ratio:2/3;background:var(--crema-2);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:14px;box-shadow:0 8px 30px -10px rgba(63,68,67,.15)}
 /* contain, no cover: la foto principal es la que decide la compra, no
    puede recortar la pieza. El fondo crema del marco disimula el sobrante
    porque las fotos de producto ya vienen sobre fondo claro. */
@@ -382,7 +384,7 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tin
   </svg>
 </a>
 
-<script src="products.js?v=20260811a"></script>
+<script src="products.js?v=20260811b"></script>
 <script>
 const $=(s,c=document)=>c.querySelector(s);
 const $$=(s,c=document)=>[...c.querySelectorAll(s)];
