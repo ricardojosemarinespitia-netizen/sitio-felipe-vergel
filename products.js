@@ -132,7 +132,8 @@ const PRODUCTS=[
     "images": [
       "img/bandeja-maxi-rect-ondas/bandeja-maxi-rect-ondas-01.jpg?v=2",
       "img/bandeja-maxi-rect-ondas/bandeja-maxi-rect-ondas-02.jpg?v=2",
-      "img/bandeja-maxi-rect-ondas/bandeja-maxi-rect-ondas-03.jpg?v=2"
+      "img/bandeja-maxi-rect-ondas/bandeja-maxi-rect-ondas-03.jpg?v=2",
+      "img/bandeja-maxi-rect-ondas/bandeja-maxi-rect-ondas-06.jpg?v=2"
     ],
     "colorImages": {
       "Azul": 0,
