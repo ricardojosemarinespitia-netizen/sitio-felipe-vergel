@@ -524,19 +524,16 @@ const PRODUCTS=[
     ],
     "uses": "Florero, objeto decorativo.",
     "images": [
-      "img/florero-alto-irregular/florero-alto-irregular-01.jpg?v=3",
-      "img/florero-alto-irregular/florero-alto-irregular-02.jpg?v=3",
-      "img/florero-alto-irregular/florero-alto-irregular-03.jpg?v=3",
-      "img/florero-alto-irregular/florero-alto-irregular-04.jpg?v=3",
-      "img/florero-alto-irregular/florero-alto-irregular-05.jpg?v=3",
-      "img/florero-alto-irregular/florero-alto-irregular-06.jpg?v=3",
-      "img/florero-alto-irregular/florero-alto-irregular-07.jpg?v=3"
+      "img/florero-alto-irregular/florero-alto-irregular-01.jpg?v=4",
+      "img/florero-alto-irregular/florero-alto-irregular-02.jpg?v=4",
+      "img/florero-alto-irregular/florero-alto-irregular-03.jpg?v=4",
+      "img/florero-alto-irregular/florero-alto-irregular-04.jpg?v=4"
     ],
     "colorImages": {
-      "Verde": 1,
+      "Verde": 0,
+      "Transparente": 1,
       "Azul": 2,
-      "Gris": 3,
-      "Transparente": 4
+      "Gris": 3
     }
   },
   {
