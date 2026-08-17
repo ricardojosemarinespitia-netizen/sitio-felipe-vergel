@@ -516,26 +516,24 @@ const PRODUCTS=[
     "size": "24 cm alto × 20 cm diámetro sup. × 9 cm diámetro inf.",
     "materials": "Vidrio — vitrofusión",
     "colors": [
-      "Transparente",
       "Verde",
-      "Gris",
       "Azul",
-      "Cobre"
+      "Gris",
+      "Transparente"
     ],
     "uses": "Florero, objeto decorativo.",
     "images": [
-      "img/florero-alto-irregular/florero-alto-irregular-01.jpg?v=2",
-      "img/florero-alto-irregular/florero-alto-irregular-02.jpg?v=2",
-      "img/florero-alto-irregular/florero-alto-irregular-03.jpg?v=2",
-      "img/florero-alto-irregular/florero-alto-irregular-04.jpg?v=2",
-      "img/florero-alto-irregular/florero-alto-irregular-05.jpg?v=2"
+      "img/florero-alto-irregular/florero-alto-irregular-01.jpg?v=3",
+      "img/florero-alto-irregular/florero-alto-irregular-02.jpg?v=3",
+      "img/florero-alto-irregular/florero-alto-irregular-03.jpg?v=3",
+      "img/florero-alto-irregular/florero-alto-irregular-04.jpg?v=3",
+      "img/florero-alto-irregular/florero-alto-irregular-05.jpg?v=3"
     ],
     "colorImages": {
-      "Azul": 3,
-      "Cobre": 2,
-      "Gris": 0,
-      "Transparente": 1,
-      "Verde": 4
+      "Verde": 1,
+      "Azul": 2,
+      "Gris": 3,
+      "Transparente": 4
     }
   },
   {
