@@ -636,21 +636,23 @@ const PRODUCTS=[
     "materials": "Vidrio — vitrofusión",
     "colors": [
       "Verde",
+      "Gris",
       "Transparente",
-      "Rosa"
+      "Azul"
     ],
     "uses": "Florero, pieza decorativa.",
     "images": [
-      "img/vaso-florero/vaso-florero-01.jpg?v=2",
-      "img/vaso-florero/vaso-florero-02.jpg?v=2",
-      "img/vaso-florero/vaso-florero-03.jpg?v=2",
-      "img/vaso-florero/vaso-florero-04.jpg?v=2",
-      "img/vaso-florero/vaso-florero-05.jpg?v=2"
+      "img/vaso-florero/vaso-florero-01.jpg?v=3",
+      "img/vaso-florero/vaso-florero-02.jpg?v=3",
+      "img/vaso-florero/vaso-florero-03.jpg?v=3",
+      "img/vaso-florero/vaso-florero-04.jpg?v=3",
+      "img/vaso-florero/vaso-florero-05.jpg?v=3"
     ],
     "colorImages": {
-      "Rosa": 0,
-      "Transparente": 1,
-      "Verde": 3
+      "Verde": 1,
+      "Gris": 2,
+      "Transparente": 3,
+      "Azul": 4
     }
   },
   {
@@ -830,22 +832,24 @@ const PRODUCTS=[
     "size": "22 cm alto × 25 cm diámetro sup. × 15 cm diámetro inf.",
     "materials": "Vidrio — vitrofusión",
     "colors": [
-      "Azul",
       "Verde",
-      "Gris"
+      "Azul",
+      "Gris",
+      "Transparente"
     ],
     "uses": "Florero, champañera, hielera, porta matera.",
     "images": [
-      "img/porta-matera/porta-matera-01.jpg?v=2",
-      "img/porta-matera/porta-matera-02.jpg?v=2",
-      "img/porta-matera/porta-matera-03.jpg?v=2",
-      "img/porta-matera/porta-matera-04.jpg?v=2",
-      "img/porta-matera/porta-matera-05.jpg?v=2"
+      "img/porta-matera/porta-matera-01.jpg?v=3",
+      "img/porta-matera/porta-matera-02.jpg?v=3",
+      "img/porta-matera/porta-matera-03.jpg?v=3",
+      "img/porta-matera/porta-matera-04.jpg?v=3",
+      "img/porta-matera/porta-matera-05.jpg?v=3"
     ],
     "colorImages": {
+      "Verde": 0,
       "Azul": 1,
-      "Gris": 0,
-      "Verde": 3
+      "Gris": 2,
+      "Transparente": 3
     }
   },
   {
@@ -988,24 +992,26 @@ const PRODUCTS=[
     "sku": "PVS-001",
     "cat": "portavasos",
     "name": "Porta Vasos Vetas",
-    "price": 20000,
+    "price": 25000,
     "size": "11 × 11 cm",
     "materials": "Vidrio — vitrofusión",
     "colors": [
-      "Gris",
-      "Azul"
+      "Azul",
+      "Transparente",
+      "Gris"
     ],
     "uses": "Portavasos, jabonera, porta velas.",
     "images": [
-      "img/portavasos-cuadrados/portavasos-cuadrados-01.jpg?v=2",
-      "img/portavasos-cuadrados/portavasos-cuadrados-02.jpg?v=2",
-      "img/portavasos-cuadrados/portavasos-cuadrados-03.jpg?v=2",
-      "img/portavasos-cuadrados/portavasos-cuadrados-04.jpg?v=2",
-      "img/portavasos-cuadrados/portavasos-cuadrados-05.jpg?v=2"
+      "img/portavasos-cuadrados/portavasos-cuadrados-01.jpg?v=3",
+      "img/portavasos-cuadrados/portavasos-cuadrados-02.jpg?v=3",
+      "img/portavasos-cuadrados/portavasos-cuadrados-03.jpg?v=3",
+      "img/portavasos-cuadrados/portavasos-cuadrados-04.jpg?v=3",
+      "img/portavasos-cuadrados/portavasos-cuadrados-05.jpg?v=3"
     ],
     "colorImages": {
-      "Azul": 3,
-      "Gris": 2
+      "Azul": 1,
+      "Transparente": 2,
+      "Gris": 3
     }
   },
   {
