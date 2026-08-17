@@ -674,6 +674,17 @@ function renderSummary(){
 }
 renderSummary();
 
+// Meta Pixel: InitiateCheckout (solo si hay pedido válido y no venimos de vuelta de Wompi)
+if(typeof fbq==="function" && info && cart.length && !new URLSearchParams(location.search).get("id")){
+  fbq('track','InitiateCheckout',{
+    content_ids:cart.map(i=>i.sku||i.id),
+    content_type:'product',
+    num_items:cart.reduce((s,i)=>s+i.qty,0),
+    value:window._checkoutTotal||0,
+    currency:'COP'
+  });
+}
+
 // PAY
 $("#btnPay").onclick=async()=>{
   if(!info||!cart.length)return;
@@ -709,6 +720,17 @@ $("#btnPay").onclick=async()=>{
 
   if(paymentMethod==="whatsapp"){
     guardarPedido(pedido);
+    // Meta Pixel: Lead (intención de compra vía WhatsApp — no es venta confirmada,
+    // Felipe aún tiene que coordinar el pago manualmente)
+    if(typeof fbq==="function"){
+      fbq('track','Lead',{
+        content_ids:pedido.cart.map(i=>i.sku||i.id),
+        content_type:'product',
+        num_items:pedido.cart.reduce((s,i)=>s+i.qty,0),
+        value:pedido.total,
+        currency:'COP'
+      });
+    }
     // Avisar a Felipe y al cliente por correo. Sin esto, si el cliente no llegaba a
     // pulsar "Enviar" en WhatsApp, el pedido quedaba solo en el Excel y nadie se enteraba.
     enviarCorreos(pedido).catch(e=>console.error("enviarCorreos (WhatsApp):",e));
@@ -945,6 +967,16 @@ async function guardarPedido(order){
     if(status==="APPROVED"){
       $("#successView").style.display="block";
       $("#successRef").textContent="Referencia: "+(pedido?pedido.ref:(p.get("ref")||"—"));
+      // Meta Pixel: Purchase (solo pago ya aprobado por Wompi)
+      if(typeof fbq==="function" && pedido){
+        fbq('track','Purchase',{
+          content_ids:pedido.cart.map(i=>i.sku||i.id),
+          content_type:'product',
+          num_items:pedido.cart.reduce((s,i)=>s+i.qty,0),
+          value:pedido.total,
+          currency:'COP'
+        },{eventID:pedido.ref}); // eventID: evita conteo doble si el webhook también manda el evento server-side
+      }
     }else{
       // PENDING: mostrar pantalla de "en proceso". El registro y los correos
       // van de fondo (ver arriba) y si no alcanzan a terminar aqui, el

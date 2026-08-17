@@ -566,6 +566,16 @@ if(!product){
     else cart.push({key,id:product.id,sku:product.sku||"",name:product.name,color:curColor,qty,price:product.price,img:product.images[0]});
     saveCart(cart);
     showToast(`Agregado: ${qty}× ${product.name} (${curColor})`);
+    // Meta Pixel: AddToCart
+    if(typeof fbq==="function"){
+      fbq('track','AddToCart',{
+        content_ids:[product.sku||product.id],
+        content_type:'product',
+        content_name:product.name,
+        value:product.price*qty,
+        currency:'COP'
+      });
+    }
   }
   updateCartCount();
 
