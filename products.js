@@ -1122,7 +1122,8 @@ const PRODUCTS=[
       "img/bandeja-vetas/bandeja-vetas-03.jpg?v=3",
       "img/bandeja-vetas/bandeja-vetas-04.jpg?v=3",
       "img/bandeja-vetas/bandeja-vetas-05.jpg?v=3",
-      "img/bandeja-vetas/bandeja-vetas-06.jpg?v=3"
+      "img/bandeja-vetas/bandeja-vetas-06.jpg?v=3",
+      "img/bandeja-vetas/bandeja-vetas-07.jpg?v=3"
     ],
     "colorImages": {
       "Transparente": 0,
