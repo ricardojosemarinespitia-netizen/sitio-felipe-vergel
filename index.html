@@ -881,11 +881,11 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
   <div class="club-modal">
     <button class="club-close" id="clubClose" aria-label="Cerrar">×</button>
     <div class="club-photo" id="clubPhoto">
-      <img src="img/felipe/felipe-60.jpg" alt="" class="on" loading="lazy">
-      <img src="img/felipe/felipe-03.jpg" alt="" loading="lazy">
-      <img src="img/felipe/felipe-78.jpg" alt="" loading="lazy">
-      <img src="img/felipe/felipe-10.jpg" alt="" loading="lazy">
-      <img src="img/felipe/felipe-45.jpg" alt="" loading="lazy">
+      <picture><source srcset="img/felipe/felipe-60.webp" type="image/webp"><img src="img/felipe/felipe-60.jpg" alt="" class="on" loading="lazy"></picture>
+      <picture><source srcset="img/felipe/felipe-03.webp" type="image/webp"><img src="img/felipe/felipe-03.jpg" alt="" loading="lazy"></picture>
+      <picture><source srcset="img/felipe/felipe-78.webp" type="image/webp"><img src="img/felipe/felipe-78.jpg" alt="" loading="lazy"></picture>
+      <picture><source srcset="img/felipe/felipe-10.webp" type="image/webp"><img src="img/felipe/felipe-10.jpg" alt="" loading="lazy"></picture>
+      <picture><source srcset="img/felipe/felipe-45.webp" type="image/webp"><img src="img/felipe/felipe-45.jpg" alt="" loading="lazy"></picture>
       <div class="club-hero-txt">
         <span class="club-tag">Círculo Felipe Vergel</span>
         <h2 id="clubTitle">Un 15% en tu primera pieza</h2>
@@ -1425,7 +1425,9 @@ function guardarSesion(){try{sessionStorage.setItem("fv_sesion",JSON.stringify(f
 (function(){
   const c=FELIPE_IMGS.filter(x=>!x.includes("-60")&&!x.includes("-61"));
   // Lanzamiento: el hero siempre muestra la nueva pieza coleccionable (Lámpara Flor)
-  fvSesion.heroImg="img/lamparas/lampara-hero.jpg";
+  // WebP si el navegador lo soporta (peso ~55% menor); si no, cae al jpg de siempre.
+  const heroWebpOk=document.createElement("canvas").toDataURL("image/webp").indexOf("data:image/webp")===0;
+  fvSesion.heroImg=heroWebpOk?"img/lamparas/lampara-hero.webp":"img/lamparas/lampara-hero.jpg";
   if(!fvSesion.contactoImg)fvSesion.contactoImg=c[Math.floor(Math.random()*c.length)]||FELIPE_IMGS[1];
   document.getElementById("heroBg").style.backgroundImage=`url('${fvSesion.heroImg}')`;
   const cbg=document.getElementById("contactoBg");
