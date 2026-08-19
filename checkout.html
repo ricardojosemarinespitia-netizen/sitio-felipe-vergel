@@ -18,6 +18,20 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=887358797507942&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
+<!-- WEBP fallback: si el navegador soporta webp usa esa version de cada
+     foto de img/ (generada 1:1, ~55% menos peso); si no, cae al jpg/png
+     original sin tocar nada. Va antes que cualquier otro script porque
+     los que arman el catalogo/carrito lo necesitan de inmediato. -->
+<script>
+window.fvImg=(function(){
+  var ok=false;
+  try{ok=document.createElement('canvas').toDataURL('image/webp').indexOf('data:image/webp')===0}catch(e){}
+  return function(src){
+    if(!ok||!src)return src;
+    return src.replace(/\.(jpe?g|png)(\?|$)/i,'.webp$2');
+  };
+})();
+</script>
 <meta charset="utf-8">
 <!-- Politica de seguridad de contenido (CSP).
      GitHub Pages no permite cabeceras propias, asi que la CSP viaja como
@@ -247,6 +261,13 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tin
   .success-icon svg{width:32px;height:32px}
 }
 </style>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "y4nfsomya7");
+</script>
 </head>
 <body>
 
@@ -649,7 +670,7 @@ function renderSummary(){
   $("#sumCount").textContent=totalQty===1?"1 pieza":`${totalQty} piezas`;
   $("#sumItems").innerHTML=cart.map(i=>`
     <div class="summary-item">
-      <img src="${i.img}" alt="${i.name}" loading="lazy">
+      <img src="${fvImg(i.img)}" alt="${i.name}" loading="lazy">
       <div class="info">
         <h4>${i.name}</h4>
         <div class="meta">${i.color}<span class="sep">·</span>×${i.qty}</div>

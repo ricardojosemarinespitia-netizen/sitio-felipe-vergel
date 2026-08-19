@@ -18,6 +18,20 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=887358797507942&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
+<!-- WEBP fallback: si el navegador soporta webp usa esa version de cada
+     foto de img/ (generada 1:1, ~55% menos peso); si no, cae al jpg/png
+     original sin tocar nada. Va antes que cualquier otro script porque
+     los que arman el catalogo/carrito lo necesitan de inmediato. -->
+<script>
+window.fvImg=(function(){
+  var ok=false;
+  try{ok=document.createElement('canvas').toDataURL('image/webp').indexOf('data:image/webp')===0}catch(e){}
+  return function(src){
+    if(!ok||!src)return src;
+    return src.replace(/\.(jpe?g|png)(\?|$)/i,'.webp$2');
+  };
+})();
+</script>
 <meta charset="utf-8">
 <!-- Politica de seguridad de contenido (CSP).
      GitHub Pages no permite cabeceras propias, asi que la CSP viaja como
@@ -268,6 +282,13 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tin
 .back-float svg{width:20px;height:20px}
 @media(max-width:640px){.back-float{width:44px;height:44px;bottom:18px;left:18px}}
 </style>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "y4nfsomya7");
+</script>
 </head>
 <body>
 
@@ -476,7 +497,7 @@ if(!product){
   const imgColor={};
   for(const c in colorMap)if(imgColor[colorMap[c]]==null)imgColor[colorMap[c]]=c;
   function updateGallery(){
-    $("#mainImg").src=product.images[curImg];
+    $("#mainImg").src=fvImg(product.images[curImg]);
     $("#mainImg").alt=product.name+(imgColor[curImg]?" · "+imgColor[curImg]:" · imagen "+(curImg+1));
     $("#counter").textContent=`${curImg+1} / ${product.images.length}`;
     $$("#thumbs .p-thumb").forEach((t,i)=>t.classList.toggle("active",i===curImg));
@@ -487,7 +508,7 @@ if(!product){
     }
   }
   $("#thumbs").innerHTML=product.images.map((src,i)=>
-    `<div class="p-thumb${i===0?' active':''}" data-i="${i}"><img src="${src}" alt="${product.name} ${i+1}" loading="lazy"></div>`
+    `<div class="p-thumb${i===0?' active':''}" data-i="${i}"><img src="${fvImg(src)}" alt="${product.name} ${i+1}" loading="lazy"></div>`
   ).join("");
   $$("#thumbs .p-thumb").forEach(t=>t.onclick=()=>{curImg=+t.dataset.i;updateGallery()});
   $("#navPrev").onclick=()=>{curImg=(curImg-1+product.images.length)%product.images.length;updateGallery()};

@@ -18,6 +18,20 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=887358797507942&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
+<!-- WEBP fallback: si el navegador soporta webp usa esa version de cada
+     foto de img/ (generada 1:1, ~55% menos peso); si no, cae al jpg/png
+     original sin tocar nada. Va antes que cualquier otro script porque
+     los que arman el catalogo/carrito lo necesitan de inmediato. -->
+<script>
+window.fvImg=(function(){
+  var ok=false;
+  try{ok=document.createElement('canvas').toDataURL('image/webp').indexOf('data:image/webp')===0}catch(e){}
+  return function(src){
+    if(!ok||!src)return src;
+    return src.replace(/\.(jpe?g|png)(\?|$)/i,'.webp$2');
+  };
+})();
+</script>
 <meta charset="utf-8">
 <!-- Politica de seguridad de contenido (CSP).
      GitHub Pages no permite cabeceras propias, asi que la CSP viaja como
@@ -733,6 +747,13 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
   .club-photo{height:auto;min-height:210px}
 }
 </style>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "y4nfsomya7");
+</script>
 </head>
 <body>
 
@@ -1425,13 +1446,11 @@ function guardarSesion(){try{sessionStorage.setItem("fv_sesion",JSON.stringify(f
 (function(){
   const c=FELIPE_IMGS.filter(x=>!x.includes("-60")&&!x.includes("-61"));
   // Lanzamiento: el hero siempre muestra la nueva pieza coleccionable (Lámpara Flor)
-  // WebP si el navegador lo soporta (peso ~55% menor); si no, cae al jpg de siempre.
-  const heroWebpOk=document.createElement("canvas").toDataURL("image/webp").indexOf("data:image/webp")===0;
-  fvSesion.heroImg=heroWebpOk?"img/lamparas/lampara-hero.webp":"img/lamparas/lampara-hero.jpg";
+  fvSesion.heroImg="img/lamparas/lampara-hero.jpg";
   if(!fvSesion.contactoImg)fvSesion.contactoImg=c[Math.floor(Math.random()*c.length)]||FELIPE_IMGS[1];
-  document.getElementById("heroBg").style.backgroundImage=`url('${fvSesion.heroImg}')`;
+  document.getElementById("heroBg").style.backgroundImage=`url('${fvImg(fvSesion.heroImg)}')`;
   const cbg=document.getElementById("contactoBg");
-  if(cbg)cbg.style.backgroundImage=`url('${fvSesion.contactoImg}')`;
+  if(cbg)cbg.style.backgroundImage=`url('${fvImg(fvSesion.contactoImg)}')`;
   guardarSesion();
 })();
 
@@ -1442,7 +1461,7 @@ function guardarSesion(){try{sessionStorage.setItem("fv_sesion",JSON.stringify(f
     fvSesion.mosaic=[...FELIPE_IMGS].sort(()=>Math.random()-.5).slice(0,slots.length);
     guardarSesion();
   }
-  slots.forEach((el,i)=>{const img=new Image();img.src=fvSesion.mosaic[i]||FELIPE_IMGS[i];img.alt="Felipe Vergel";el.appendChild(img)});
+  slots.forEach((el,i)=>{const img=new Image();img.src=fvImg(fvSesion.mosaic[i]||FELIPE_IMGS[i]);img.alt="Felipe Vergel";el.appendChild(img)});
 })();
 
 // AGOTADO
@@ -1472,7 +1491,7 @@ function renderCircles(){
   for(const [id,name] of CATEGORIES){
     const sil=SILHOUETTES[id]||"";
     const n=PRODUCTS.filter(p=>p.cat===id).length;
-    html+=`<div class="cat-circle ${activeCat===id?'active':''}" data-cat="${id}"><div class="circle-img">${sil?`<img src="${sil}" alt="${name}">`:`<span style="display:flex;align-items:center;justify-content:center;height:100%;font-size:10px;color:var(--tinta-soft)">${name}</span>`}</div><div class="circle-label">${name}<span class="cat-count">${n} pieza${n!==1?"s":""}</span></div></div>`;
+    html+=`<div class="cat-circle ${activeCat===id?'active':''}" data-cat="${id}"><div class="circle-img">${sil?`<img src="${fvImg(sil)}" alt="${name}">`:`<span style="display:flex;align-items:center;justify-content:center;height:100%;font-size:10px;color:var(--tinta-soft)">${name}</span>`}</div><div class="circle-label">${name}<span class="cat-count">${n} pieza${n!==1?"s":""}</span></div></div>`;
   }
   circlesEl.innerHTML=html;
   // Activar animación de entrada (solo primera vez)
@@ -1517,8 +1536,8 @@ function renderGrid(){
     return `<article class="product-card" data-id="${p.id}">
       <div class="product-img">
         ${isSold?'<div class="product-sold-out"><span>Agotado</span></div>':''}
-        <img src="${p.images[0]}" alt="${p.name}" loading="lazy">
-        ${p.images[1]?`<img class="img-alt" src="${p.images[1]}" alt="" loading="lazy" aria-hidden="true">`:''}
+        <img src="${fvImg(p.images[0])}" alt="${p.name}" loading="lazy">
+        ${p.images[1]?`<img class="img-alt" src="${fvImg(p.images[1])}" alt="" loading="lazy" aria-hidden="true">`:''}
       </div>
       <div class="product-info">
         <h3>${p.name}</h3>
@@ -1580,7 +1599,7 @@ function renderNovedades(){
   novGrid.innerHTML=COLECCIONES.map(c=>{
     const n=nPiezas(c.cat);
     return `<article class="col-panel${c.novedad?' is-novedad':''}" data-cat="${c.cat}">
-    <img src="${c.img}" alt="${c.title}" loading="lazy" data-start="${c.start}" data-focus="${c.focus}" data-zoom="${c.zoom}">
+    <img src="${fvImg(c.img)}" alt="${c.title}" loading="lazy" data-start="${c.start}" data-focus="${c.focus}" data-zoom="${c.zoom}">
     <div class="col-overlay">
       <span class="col-eyebrow">${c.novedad?"Nueva pieza · Coleccionable":`Colección · ${n} pieza${n!==1?"s":""} única${n!==1?"s":""}`}</span>
       <h3>${c.title}</h3>
@@ -1667,8 +1686,8 @@ function openModal(id){
   const isSold=soldOut[current.id];
   $("#dName").textContent=current.name;
   $("#dPrice").textContent=isSold?'Agotado':fmt(current.price);
-  $("#gMain").src=current.images[0];$("#gMain").alt=current.name;
-  $("#gThumbs").innerHTML=current.images.map((im,i)=>`<img src="${im}" data-i="${i}" class="${i===0?'active':''}" alt="">`).join("");
+  $("#gMain").src=fvImg(current.images[0]);$("#gMain").alt=current.name;
+  $("#gThumbs").innerHTML=current.images.map((im,i)=>`<img src="${fvImg(im)}" data-i="${i}" class="${i===0?'active':''}" alt="">`).join("");
   $$("#gThumbs img").forEach(t=>t.onclick=()=>{curImg=+t.dataset.i;updateGallery()});
   $("#dColors").innerHTML=current.colors.map(c=>`<button class="color-pick ${c===curColor?'active':''}" data-c="${c}">${c}</button>`).join("");
   $$("#dColors .color-pick").forEach(b=>b.onclick=()=>{curColor=b.dataset.c;$$("#dColors .color-pick").forEach(x=>x.classList.toggle("active",x.dataset.c===curColor))});
@@ -1680,7 +1699,7 @@ function openModal(id){
   modal.classList.add("open");document.body.style.overflow="hidden";
 }
 function closeModal(){modal.classList.remove("open");document.body.style.overflow=""}
-function updateGallery(){$("#gMain").src=current.images[curImg];$$("#gThumbs img").forEach((t,i)=>t.classList.toggle("active",i===curImg))}
+function updateGallery(){$("#gMain").src=fvImg(current.images[curImg]);$$("#gThumbs img").forEach((t,i)=>t.classList.toggle("active",i===curImg))}
 $("#modalClose").onclick=closeModal;
 modal.onclick=e=>{if(e.target===modal)closeModal()};
 $("#gPrev").onclick=()=>{curImg=(curImg-1+current.images.length)%current.images.length;updateGallery()};
@@ -1722,7 +1741,7 @@ function addToCart(p,color,qty){const k=p.id+"::"+color;const ex=cart.find(i=>i.
 function renderCart(){
   const items=$("#cartItems");
   if(!cart.length){items.innerHTML=`<div class="cart-empty">Tu carrito está vacío.<br><br><small>Explora las piezas de autor.</small></div>`}
-  else{items.innerHTML=cart.map(i=>`<div class="cart-item"><img src="${i.img}" alt="${i.name}"><div class="info"><h4>${i.name}</h4><div class="color">${i.color}</div><div class="qty-line"><button data-a="minus" data-k="${i.key}">−</button><span>${i.qty}</span><button data-a="plus" data-k="${i.key}">+</button></div></div><div class="rm"><button data-a="rm" data-k="${i.key}">Quitar</button><span class="sub">${fmt(i.price*i.qty)}</span></div></div>`).join("");
+  else{items.innerHTML=cart.map(i=>`<div class="cart-item"><img src="${fvImg(i.img)}" alt="${i.name}"><div class="info"><h4>${i.name}</h4><div class="color">${i.color}</div><div class="qty-line"><button data-a="minus" data-k="${i.key}">−</button><span>${i.qty}</span><button data-a="plus" data-k="${i.key}">+</button></div></div><div class="rm"><button data-a="rm" data-k="${i.key}">Quitar</button><span class="sub">${fmt(i.price*i.qty)}</span></div></div>`).join("");
   $$("#cartItems button").forEach(b=>b.onclick=()=>{const it=cart.find(x=>x.key===b.dataset.k);if(!it)return;if(b.dataset.a==="plus")it.qty++;else if(b.dataset.a==="minus"){it.qty--;if(it.qty<=0)cart=cart.filter(x=>x.key!==it.key)}else if(b.dataset.a==="rm")cart=cart.filter(x=>x.key!==it.key);saveCart();renderCart()})}
   $("#cartTotal").textContent=fmt(cart.reduce((s,i)=>s+i.price*i.qty,0));
   $("#cartCount").textContent=cart.reduce((s,i)=>s+i.qty,0);
