@@ -527,6 +527,17 @@ try{
   if(raw)cart=JSON.parse(raw);
 }catch(e){cart=[]}
 
+// Meta Pixel: InitiateCheckout — llego a datos de envio con carrito valido
+if(typeof fbq==="function" && cart.length){
+  fbq('track','InitiateCheckout',{
+    content_ids:cart.map(i=>i.sku||i.id),
+    content_type:'product',
+    num_items:cart.reduce((s,i)=>s+i.qty,0),
+    value:cart.reduce((s,i)=>s+i.price*i.qty,0),
+    currency:'COP'
+  });
+}
+
 // Método de entrega por defecto
 let deliveryMethod="domicilio";
 

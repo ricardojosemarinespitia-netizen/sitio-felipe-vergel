@@ -695,9 +695,12 @@ function renderSummary(){
 }
 renderSummary();
 
-// Meta Pixel: InitiateCheckout (solo si hay pedido válido y no venimos de vuelta de Wompi)
+// Meta Pixel: AddPaymentInfo (solo si hay pedido válido y no venimos de vuelta de Wompi)
+// Antes era InitiateCheckout: se movio a customer-info.html (ahi es donde
+// realmente arranca el checkout). Aqui, con datos de envio ya confirmados
+// y a punto de pagar, el evento correcto es AddPaymentInfo.
 if(typeof fbq==="function" && info && cart.length && !new URLSearchParams(location.search).get("id")){
-  fbq('track','InitiateCheckout',{
+  fbq('track','AddPaymentInfo',{
     content_ids:cart.map(i=>i.sku||i.id),
     content_type:'product',
     num_items:cart.reduce((s,i)=>s+i.qty,0),
