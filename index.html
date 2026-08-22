@@ -582,27 +582,6 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
 .cookie-banner .ck-reject:hover{background:rgba(255,255,255,.1)}
 @media(max-width:640px){.cookie-banner{flex-direction:column;align-items:stretch;bottom:14px;padding:16px;font-size:var(--t-sm)}.cookie-banner .ck-actions{flex-direction:row}.cookie-banner button{flex:1}}
 
-/* AVISO NAVEGADOR EMBEBIDO — el redimensionado en vivo de la barra de
-   direcciones dentro de Instagram/Facebook (WebView) es un comportamiento
-   nativo del navegador in-app que el sitio no puede desactivar: causa el
-   "salto" al revertir de bajar a subir en el scroll. Unica salida real:
-   sugerir/forzar abrir en el navegador del telefono. Solo se muestra si
-   esNavegadorEmbebido() (ver JS) detecta el user-agent; se puede cerrar
-   y no vuelve a aparecer en esa sesion. Anclado arriba, lejos de
-   cookie-banner/back-top/wa-float (todos abajo) para no chocar. */
-.webview-hint{position:fixed;top:12px;left:12px;right:12px;z-index:150;max-width:480px;margin:0 auto;background:rgba(20,18,16,.97);color:#fff;padding:16px 40px 16px 18px;border-radius:var(--radius);box-shadow:0 10px 30px -8px rgba(0,0,0,.4);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-size:var(--t-md);font-weight:400;line-height:1.5;transform:translateY(-160%);transition:transform .4s cubic-bezier(.4,0,.2,1)}
-.webview-hint.show{transform:translateY(0)}
-.webview-hint strong{color:var(--crema-rosa);font-weight:700}
-.webview-hint .wh-actions{display:flex;gap:8px;margin-top:12px}
-.webview-hint .wh-open,.webview-hint .wh-copy{flex:1;font-weight:700;font-size:var(--t-sm);letter-spacing:.03em;text-align:center;text-decoration:none;padding:12px 10px;border-radius:2px;transition:background .2s,transform .2s;font-family:inherit;cursor:pointer}
-.webview-hint .wh-open{background:var(--cobre-dark);color:#fff;border:none}
-.webview-hint .wh-open:hover,.webview-hint .wh-open:active{background:var(--cobre);transform:translateY(-1px)}
-.webview-hint .wh-copy{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35)}
-.webview-hint .wh-copy:hover{background:rgba(255,255,255,.12)}
-.webview-hint .wh-copy.copied{background:var(--verde);border-color:var(--verde)}
-.webview-hint .wh-close{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:50%;background:none;border:none;color:#fff;font-size:20px;line-height:1;cursor:pointer;opacity:.7;display:flex;align-items:center;justify-content:center}
-.webview-hint .wh-close:hover{opacity:1;background:rgba(255,255,255,.12)}
-
 /* BOTÓN VOLVER ARRIBA */
 .back-top{position:fixed;bottom:26px;left:26px;z-index:90;width:48px;height:48px;border-radius:50%;background:rgba(87,41,50,.9);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;pointer-events:none;transition:all .35s cubic-bezier(.4,0,.2,1);box-shadow:0 4px 16px -4px rgba(87,41,50,.45);backdrop-filter:blur(8px);border:none}
 .back-top.show{opacity:1;pointer-events:auto}
@@ -782,11 +761,15 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
 // Salida del navegador embebido de Instagram/Facebook (WebView). El
 // redimensionado en vivo de su barra de direcciones al revertir el
 // scroll (bajar->subir) es un comportamiento nativo que el sitio no
-// puede desactivar; la unica salida real es sacar al usuario del
-// WebView. En Android se puede forzar via el esquema intent:// (abre
-// el navegador por defecto del telefono). En iOS Apple no expone
-// ninguna API para esto desde JS -> ahi solo queda el aviso manual
-// (banner .webview-hint, se activa mas abajo).
+// puede desactivar. En Android se puede intentar forzar via el esquema
+// intent:// (abre el navegador por defecto del telefono) -- sin aviso
+// visible: si funciona, funciona; si no, no se nota nada raro. En iOS
+// Apple no expone ninguna API para esto desde JS, y se investigo (agosto
+// 2026) que los trucos historicos (x-safari-https, googlechromes://)
+// estan confirmados muertos -- Instagram los bloquea en silencio. La
+// unica salida real ahi es el menu nativo ⋮/••• que la propia app
+// ofrece (fuera del control del sitio), asi que no se agrega ningun
+// intento ni aviso para iOS: no hay nada mas que hacer desde aca.
 (function(){
   var ua=navigator.userAgent||"";
   var esEmbebido=/Instagram|FBAN|FBAV|FB_IAB|FBIOS/i.test(ua);
@@ -986,16 +969,6 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
     </div>
     </div>
   </div>
-</div>
-
-<!-- Aviso navegador embebido (Instagram/Facebook) -->
-<div class="webview-hint" id="webviewHint" role="region" aria-label="Aviso navegador">
-  <div class="wh-text">Estás dentro de Instagram/Facebook. Para la mejor experiencia, toca <strong>⋮</strong> o <strong>•••</strong> arriba y elige <strong>Abrir en el navegador</strong>.</div>
-  <div class="wh-actions">
-    <a class="wh-open" id="whOpen" href="#" target="_blank" rel="noopener">Intentar ahora</a>
-    <button class="wh-copy" id="whCopy" type="button">Copiar link</button>
-  </div>
-  <button class="wh-close" id="whClose" aria-label="Cerrar aviso">×</button>
 </div>
 
 <!-- Banner de cookies -->
@@ -1531,72 +1504,6 @@ if(backTop)backTop.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
   };
   document.getElementById("ckAccept").onclick=()=>hide("accept");
   document.getElementById("ckReject").onclick=()=>hide("reject");
-})();
-
-// AVISO NAVEGADOR EMBEBIDO (mostrar solo dentro de Instagram/Facebook, y
-// solo si no se cerro ya en esta sesion). En Android el script del <head>
-// ya intenta sacar directo al navegador -> si este banner llega a
-// mostrarse en Android es porque ese redirect no disparo (navegador por
-// defecto no configurado, bloqueo puntual, etc.), asi que sirve tambien
-// de respaldo ahi, no solo para iOS.
-(function(){
-  const hint=document.getElementById("webviewHint");
-  if(!hint)return;
-  const ua=navigator.userAgent||"";
-  if(!/Instagram|FBAN|FBAV|FB_IAB|FBIOS/i.test(ua))return;
-  try{
-    if(sessionStorage.getItem("fv_webview_hint_closed"))return;
-  }catch(e){}
-  // target="_blank" en un link que el usuario TOCA (gesto real, no un
-  // redirect automatico por JS) a veces si logra que iOS lo abra afuera
-  // del WebView -- es el unico intento real que existe ahi, sin garantia,
-  // pero sin costo agregarlo. Se arma sin location.hash por consistencia
-  // con el intent:// de Android (mismo motivo: evitar un segundo "#").
-  const whOpen=document.getElementById("whOpen");
-  const urlLimpia=location.origin+location.pathname+location.search;
-  if(whOpen){
-    whOpen.href=urlLimpia;
-    whOpen.addEventListener("click",()=>{try{sessionStorage.setItem("fv_webview_hint_closed","1")}catch(e){}});
-  }
-  // Copiar link: en iOS no existe ninguna forma de forzar la salida del
-  // WebView (confirmado: ni el intent:// de Android ni el target="_blank"
-  // funcionan ahi). Esto es la unica accion que SI se completa siempre,
-  // sin depender de que la app anfitriona coopere -- el usuario pega el
-  // link el mismo en Safari si el menu de arriba (⋮/•••) no le aparece.
-  const whCopy=document.getElementById("whCopy");
-  if(whCopy){
-    whCopy.onclick=()=>{
-      const listo=()=>{
-        whCopy.textContent="¡Copiado!";
-        whCopy.classList.add("copied");
-        setTimeout(()=>{whCopy.textContent="Copiar link";whCopy.classList.remove("copied")},2500);
-      };
-      if(navigator.clipboard&&navigator.clipboard.writeText){
-        navigator.clipboard.writeText(urlLimpia).then(listo).catch(()=>copiarConFallback(urlLimpia,listo));
-      }else{
-        copiarConFallback(urlLimpia,listo);
-      }
-    };
-  }
-  function copiarConFallback(texto,onOk){
-    try{
-      const ta=document.createElement("textarea");
-      ta.value=texto;
-      ta.style.position="fixed";
-      ta.style.opacity="0";
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand("copy");
-      document.body.removeChild(ta);
-      onOk();
-    }catch(e){}
-  }
-  setTimeout(()=>hint.classList.add("show"),1500);
-  document.getElementById("whClose").onclick=()=>{
-    hint.classList.remove("show");
-    try{sessionStorage.setItem("fv_webview_hint_closed","1")}catch(e){}
-    setTimeout(()=>hint.remove(),500);
-  };
 })();
 
 // ESTADO DE SESIÓN: las imágenes de contexto y novedades se mantienen iguales
