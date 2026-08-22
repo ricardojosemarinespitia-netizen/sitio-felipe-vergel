@@ -164,7 +164,7 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tin
 .p-gallery-counter{z-index:6}
 @media(max-width:640px){
   .p-thumb{width:64px;height:64px;flex:0 0 64px}
-  .p-gallery-nav{width:42px;height:42px;font-size:var(--t-xl)}
+  .p-gallery-nav{width:44px;height:44px;font-size:var(--t-xl)}
   .p-gallery-nav.prev{left:12px}.p-gallery-nav.next{right:12px}
   .p-gallery-counter{bottom:12px;right:12px;font-size:var(--t-2xs);padding:5px 10px}
 }
@@ -496,8 +496,31 @@ if(!product){
   // índice de foto → color (inverso de colorMap) para sincronizar el selector
   const imgColor={};
   for(const c in colorMap)if(imgColor[colorMap[c]]==null)imgColor[colorMap[c]]=c;
+  // Precarga las fotos vecinas. Las miniaturas van con loading="lazy" y las
+  // que quedan fuera del carril visible NO se descargan: al llegar a ellas
+  // con la flecha, la foto (~400KB) recien empezaba a bajar. Y como
+  // updateGallery solo cambiaba el src, mientras tanto seguia en pantalla la
+  // foto ANTERIOR, identica: el usuario no veia nada y volvia a tocar (hasta
+  // 9 veces seguidas sobre la misma flecha, medido en Clarity).
+  function precargarVecinas(){
+    const n=product.images.length;
+    if(n<2)return;
+    [(curImg+1)%n,(curImg-1+n)%n].forEach(i=>{new Image().src=fvImg(product.images[i])});
+  }
   function updateGallery(){
-    $("#mainImg").src=fvImg(product.images[curImg]);
+    const mi=$("#mainImg");
+    const nueva=fvImg(product.images[curImg]);
+    // Feedback inmediato: si la foto aun no esta cacheada se atenua mientras
+    // baja, asi el toque siempre "responde" aunque la imagen tarde.
+    const sonda=new Image();
+    sonda.src=nueva;
+    if(sonda.complete){
+      mi.style.opacity="";
+    }else{
+      mi.style.opacity=".35";
+      sonda.onload=sonda.onerror=()=>{mi.style.opacity=""};
+    }
+    mi.src=nueva;
     $("#mainImg").alt=product.name+(imgColor[curImg]?" · "+imgColor[curImg]:" · imagen "+(curImg+1));
     $("#counter").textContent=`${curImg+1} / ${product.images.length}`;
     $$("#thumbs .p-thumb").forEach((t,i)=>t.classList.toggle("active",i===curImg));
@@ -506,6 +529,7 @@ if(!product){
       curColor=imgColor[curImg];
       marcarColor();
     }
+    precargarVecinas();
   }
   $("#thumbs").innerHTML=product.images.map((src,i)=>
     `<div class="p-thumb${i===0?' active':''}" data-i="${i}"><img src="${fvImg(src)}" alt="${product.name} ${i+1}" loading="lazy"></div>`

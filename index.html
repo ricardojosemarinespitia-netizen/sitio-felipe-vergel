@@ -429,7 +429,7 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
 .modal.open{display:flex}
 .modal-inner{background:var(--crema);border-radius:var(--radius-lg);max-width:1100px;width:100%;max-height:92vh;overflow-y:auto;display:grid;grid-template-columns:1.1fr 1fr;position:relative}
 @media(max-width:860px){.modal-inner{grid-template-columns:1fr;max-height:95vh}}
-@media(max-width:640px){.modal{padding:0}.modal-inner{border-radius:0;max-height:100vh;height:100vh}}
+@media(max-width:640px){.modal{padding:0}.modal-inner{border-radius:0}}
 .modal-close{position:absolute;top:18px;right:18px;z-index:5;width:40px;height:40px;border-radius:50%;background:var(--crema);color:var(--verde);font-size:var(--t-xl);border:1px solid var(--linea);display:flex;align-items:center;justify-content:center}
 .modal-close:hover{background:var(--verde);color:var(--crema)}
 /* min-width:0 obligatorio: sin esto, .gallery-thumbs (overflow-x:auto)
@@ -520,7 +520,7 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
 .club-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(22,15,10,.84) 0%,rgba(22,15,10,.32) 55%,rgba(22,15,10,.05) 100%);pointer-events:none;z-index:2}
 .club-hero-txt{position:absolute;bottom:0;left:0;right:0;padding:20px 26px 22px;z-index:3;text-align:left}
 @media(max-height:700px){.club-photo{height:230px}}
-.club-close{position:absolute;top:14px;right:14px;z-index:999;width:34px;height:34px;border-radius:50%;background:rgba(22,15,10,.35);color:#fff;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;font-size:var(--t-xl);transition:background .2s;pointer-events:auto;backdrop-filter:blur(4px)}
+.club-close{position:absolute;top:14px;right:14px;z-index:999;width:44px;height:44px;border-radius:50%;background:rgba(22,15,10,.35);color:#fff;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;font-size:var(--t-xl);transition:background .2s;pointer-events:auto;backdrop-filter:blur(4px)}
 .club-close:hover{background:rgba(22,15,10,.55)}
 .club-zone{background:var(--crema)}
 .club-content{padding:26px 32px 30px;text-align:center;position:relative}
@@ -534,7 +534,7 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
 .club-form button{padding:14px 24px;border-radius:2px;background:var(--verde);color:#fff;border:none;font-size:var(--t-xs);letter-spacing:.18em;text-transform:uppercase;font-weight:600;cursor:pointer;transition:all .25s}
 .club-form button:hover{background:var(--verde-dark);transform:translateY(-1px)}
 .club-form button:disabled{opacity:.6;cursor:wait}
-.club-google{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:13px 18px;border-radius:2px;background:#fff;color:#3c4043;border:1px solid var(--linea);font-family:inherit;font-size:var(--t-md);font-weight:500;cursor:pointer;margin-bottom:14px;transition:all .2s;box-shadow:0 2px 8px rgba(43,33,27,.08)}
+.club-google{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:44px;padding:13px 18px;border-radius:2px;background:#fff;color:#3c4043;border:1px solid var(--linea);font-family:inherit;font-size:var(--t-md);font-weight:500;cursor:pointer;margin-bottom:14px;transition:all .2s;box-shadow:0 2px 8px rgba(43,33,27,.08)}
 .club-google:hover{background:#f7f7f7;transform:translateY(-1px);box-shadow:0 4px 12px rgba(43,33,27,.14)}
 .club-google svg{flex-shrink:0}
 .club-divider{display:flex;align-items:center;gap:12px;margin:0 0 12px;color:var(--tinta-soft);font-size:var(--t-2xs);letter-spacing:.18em;text-transform:uppercase}
@@ -555,7 +555,7 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
   .club-hero-txt{padding:16px 20px 18px}
   .club-hero-txt h2{font-size:var(--t-2xl);line-height:1.1;margin:0 0 6px}
   .club-hero-txt p{font-size:var(--t-sm);line-height:1.5}
-  .club-google{padding:11px 16px;font-size:var(--t-md);margin-bottom:10px}
+  .club-google{min-height:44px;padding:11px 16px;font-size:var(--t-md);margin-bottom:10px}
   .club-divider{margin:0 0 10px;font-size:var(--t-2xs)}
   .club-form{gap:8px}
   .club-form input{padding:11px 16px;font-size:var(--t-md)}
@@ -581,6 +581,21 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
 .cookie-banner .ck-reject{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.3)}
 .cookie-banner .ck-reject:hover{background:rgba(255,255,255,.1)}
 @media(max-width:640px){.cookie-banner{flex-direction:column;align-items:stretch;bottom:14px;padding:16px;font-size:var(--t-sm)}.cookie-banner .ck-actions{flex-direction:row}.cookie-banner button{flex:1}}
+
+/* AVISO NAVEGADOR EMBEBIDO — el redimensionado en vivo de la barra de
+   direcciones dentro de Instagram/Facebook (WebView) es un comportamiento
+   nativo del navegador in-app que el sitio no puede desactivar: causa el
+   "salto" al revertir de bajar a subir en el scroll. Unica salida real:
+   sugerir/forzar abrir en el navegador del telefono. Solo se muestra si
+   esNavegadorEmbebido() (ver JS) detecta el user-agent; se puede cerrar
+   y no vuelve a aparecer en esa sesion. Anclado arriba, lejos de
+   cookie-banner/back-top/wa-float (todos abajo) para no chocar. */
+.webview-hint{position:fixed;top:12px;left:12px;right:12px;z-index:150;max-width:480px;margin:0 auto;background:rgba(20,18,16,.94);color:#fff;padding:14px 40px 14px 16px;border-radius:var(--radius);box-shadow:0 10px 30px -8px rgba(0,0,0,.4);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-size:var(--t-xs);font-weight:300;line-height:1.5;transform:translateY(-160%);transition:transform .4s cubic-bezier(.4,0,.2,1)}
+.webview-hint.show{transform:translateY(0)}
+.webview-hint strong{color:var(--crema-rosa);font-weight:600}
+.webview-hint .wh-open{display:inline-block;margin-top:8px;color:var(--crema-rosa);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+.webview-hint .wh-close{position:absolute;top:6px;right:6px;width:28px;height:28px;border-radius:50%;background:none;border:none;color:#fff;font-size:18px;line-height:1;cursor:pointer;opacity:.7;display:flex;align-items:center;justify-content:center}
+.webview-hint .wh-close:hover{opacity:1;background:rgba(255,255,255,.12)}
 
 /* BOTÓN VOLVER ARRIBA */
 .back-top{position:fixed;bottom:26px;left:26px;z-index:90;width:48px;height:48px;border-radius:50%;background:rgba(87,41,50,.9);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;pointer-events:none;transition:all .35s cubic-bezier(.4,0,.2,1);box-shadow:0 4px 16px -4px rgba(87,41,50,.45);backdrop-filter:blur(8px);border:none}
@@ -756,6 +771,35 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
 </script>
 </head>
 <body>
+
+<script>
+// Salida del navegador embebido de Instagram/Facebook (WebView). El
+// redimensionado en vivo de su barra de direcciones al revertir el
+// scroll (bajar->subir) es un comportamiento nativo que el sitio no
+// puede desactivar; la unica salida real es sacar al usuario del
+// WebView. En Android se puede forzar via el esquema intent:// (abre
+// el navegador por defecto del telefono). En iOS Apple no expone
+// ninguna API para esto desde JS -> ahi solo queda el aviso manual
+// (banner .webview-hint, se activa mas abajo).
+(function(){
+  var ua=navigator.userAgent||"";
+  var esEmbebido=/Instagram|FBAN|FBAV|FB_IAB|FBIOS/i.test(ua);
+  var esAndroid=/Android/i.test(ua);
+  if(esEmbebido&&esAndroid){
+    try{
+      if(!sessionStorage.getItem("fv_webview_redirect_tried")){
+        sessionStorage.setItem("fv_webview_redirect_tried","1");
+        // Sin protocolo y SIN hash: el esquema intent:// solo admite un
+        // "#" en toda la URI (el que marca el inicio de "#Intent;...;end").
+        // Si el link original ya traia uno (p.ej. "#top" del logo), un
+        // segundo # rompe el parseo en Android y el redirect no dispara.
+        var sinProtocolo=(location.origin+location.pathname+location.search).replace(/^https?:\/\//,"");
+        location.href="intent://"+sinProtocolo+"#Intent;scheme=https;action=android.intent.action.VIEW;end";
+      }
+    }catch(e){}
+  }
+})();
+</script>
 
 <nav class="nav" id="mainNav">
   <div class="container nav-inner">
@@ -936,6 +980,13 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
     </div>
     </div>
   </div>
+</div>
+
+<!-- Aviso navegador embebido (Instagram/Facebook) -->
+<div class="webview-hint" id="webviewHint" role="region" aria-label="Aviso navegador">
+  <div class="wh-text">Estás viendo esto dentro de Instagram/Facebook. Si notas que la página "salta" al hacer scroll, ábrela en tu navegador.</div>
+  <a class="wh-open" id="whOpen" href="#" target="_blank" rel="noopener">Abrir en el navegador →</a>
+  <button class="wh-close" id="whClose" aria-label="Cerrar aviso">×</button>
 </div>
 
 <!-- Banner de cookies -->
@@ -1194,16 +1245,38 @@ if(backTop)backTop.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
     if(sessionStorage.getItem("fv_club_seen"))_clubAutoShow=false;
   }catch(e){}
   if(_clubAutoShow){
-    setTimeout(()=>{
+    // Antes salia a los 8s fijos y hacia dos danos medidos en Clarity:
+    //  1) 8 de cada 9 sesiones moviles lo cerraban en <15s sin llenarlo; el
+    //     "x" era el elemento mas pulsado de la home (89 clics, 13,3%).
+    //  2) Se llevaba el LCP: su foto (347x210) aparecia a los 8s y pasaba a
+    //     ser el Largest Contentful Paint -> LCP "pobre" de 4,5s. El hero no
+    //     tenia la culpa; descarga en 20ms.
+    // Ahora espera a que la persona demuestre interes (40% de scroll). De
+    // paso el scroll cierra la ventana de medicion del LCP, asi que la foto
+    // del popup ya no puede volver a ganarlo. Respaldo a los 20s por si
+    // alguien lee sin bajar.
+    let _clubMostrado=false;
+    const mostrarClub=()=>{
+      if(_clubMostrado)return;
+      _clubMostrado=true;
       overlay.classList.add("show");
+      document.body.style.overflow="hidden";
       try{sessionStorage.setItem("fv_club_seen","1")}catch(e){}
-    },8000);
+      window.removeEventListener("scroll",alBajar);
+      clearTimeout(_clubRespaldo);
+    };
+    const alBajar=()=>{
+      const alto=document.documentElement.scrollHeight-window.innerHeight;
+      if(alto>0&&window.scrollY/alto>=0.4)mostrarClub();
+    };
+    const _clubRespaldo=setTimeout(mostrarClub,20000);
+    window.addEventListener("scroll",alBajar,{passive:true});
   }
-  const close=()=>overlay.classList.remove("show");
+  const close=()=>{overlay.classList.remove("show");document.body.style.overflow=""};
   // Badge del hero: abre el modal del Club a mano
   const badgeClub=document.getElementById("badgeClub");
   if(badgeClub){
-    const openClub=()=>overlay.classList.add("show");
+    const openClub=()=>{overlay.classList.add("show");document.body.style.overflow="hidden"};
     badgeClub.onclick=openClub;
     badgeClub.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openClub()}};
   }
@@ -1281,9 +1354,27 @@ if(backTop)backTop.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
   // NO usa redirect ni cookies de terceros → funciona en Safari, Brave, Chrome.
   // Solo requiere en Google Cloud Console → OAuth 2.0 → Orígenes JS autorizados:
   //   https://felipevergel.com
+  // Navegador embebido (el "in-app browser" de Instagram / Facebook).
+  // El 86% del trafico entra por ahi. Google BLOQUEA su propio OAuth dentro
+  // de WebViews por politica de seguridad: el popup no abre y solo deja el
+  // error "Java object is gone" (era el 65% de los errores JS del sitio).
+  // No hay forma de arreglarlo desde el sitio, asi que en esos navegadores
+  // se esconde el boton y se deja el registro por correo, que si funciona.
+  function esNavegadorEmbebido(){
+    const ua=navigator.userAgent||"";
+    return /Instagram|FBAN|FBAV|FB_IAB|FBIOS/i.test(ua);
+  }
+
   function setupGoogleSignIn(){
     const gBtn=document.getElementById("clubGoogle");
     if(!gBtn||!GOOGLE_CLIENT_ID)return;
+    if(esNavegadorEmbebido()){
+      gBtn.style.display="none";
+      // El separador decia "o con tu correo": sin boton arriba, sobra.
+      const div=document.querySelector(".club-divider");
+      if(div)div.style.display="none";
+      return;
+    }
 
     let _tokenClient=null;
     function ensureClient(){
@@ -1433,6 +1524,38 @@ if(backTop)backTop.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
   document.getElementById("ckReject").onclick=()=>hide("reject");
 })();
 
+// AVISO NAVEGADOR EMBEBIDO (mostrar solo dentro de Instagram/Facebook, y
+// solo si no se cerro ya en esta sesion). En Android el script del <head>
+// ya intenta sacar directo al navegador -> si este banner llega a
+// mostrarse en Android es porque ese redirect no disparo (navegador por
+// defecto no configurado, bloqueo puntual, etc.), asi que sirve tambien
+// de respaldo ahi, no solo para iOS.
+(function(){
+  const hint=document.getElementById("webviewHint");
+  if(!hint)return;
+  const ua=navigator.userAgent||"";
+  if(!/Instagram|FBAN|FBAV|FB_IAB|FBIOS/i.test(ua))return;
+  try{
+    if(sessionStorage.getItem("fv_webview_hint_closed"))return;
+  }catch(e){}
+  // target="_blank" en un link que el usuario TOCA (gesto real, no un
+  // redirect automatico por JS) a veces si logra que iOS lo abra afuera
+  // del WebView -- es el unico intento real que existe ahi, sin garantia,
+  // pero sin costo agregarlo. Se arma sin location.hash por consistencia
+  // con el intent:// de Android (mismo motivo: evitar un segundo "#").
+  const whOpen=document.getElementById("whOpen");
+  if(whOpen){
+    whOpen.href=location.origin+location.pathname+location.search;
+    whOpen.addEventListener("click",()=>{try{sessionStorage.setItem("fv_webview_hint_closed","1")}catch(e){}});
+  }
+  setTimeout(()=>hint.classList.add("show"),1500);
+  document.getElementById("whClose").onclick=()=>{
+    hint.classList.remove("show");
+    try{sessionStorage.setItem("fv_webview_hint_closed","1")}catch(e){}
+    setTimeout(()=>hint.remove(),500);
+  };
+})();
+
 // ESTADO DE SESIÓN: las imágenes de contexto y novedades se mantienen iguales
 // al navegar (atrás/adelante) y SOLO cambian al refrescar la página (F5).
 const _navType=(performance.getEntriesByType("navigation")[0]||{}).type;
@@ -1505,8 +1628,21 @@ function renderCircles(){
     if(hint)hint.classList.add("hidden");
     renderCircles();
     updateResultsBar(activeCat);
+    // Mientras la grilla se desvanece (300ms) y se le reemplaza el innerHTML
+    // (a los 200ms), deja de aceptar toques. Antes seguia clicable estando
+    // casi invisible: el dedo caia sobre una tarjeta que dejaba de existir a
+    // mitad del gesto (dead click) y la grilla nueva ya traia otro producto
+    // en esa posicion (rage click). Era el patron que marcaba Clarity.
+    // Se hace por estilo inline y no por CSS de la clase .visible: esa clase
+    // se agrega dentro de un requestAnimationFrame, y si el rAF no corre
+    // (pestana en segundo plano) la grilla quedaria muerta para siempre.
+    gridEl.style.pointerEvents="none";
     gridEl.classList.remove("visible");
-    setTimeout(()=>{renderGrid();requestAnimationFrame(()=>gridEl.classList.add("visible"))},200);
+    setTimeout(()=>{
+      renderGrid();
+      gridEl.style.pointerEvents="";
+      requestAnimationFrame(()=>gridEl.classList.add("visible"));
+    },200);
   });
 }
 
@@ -1902,7 +2038,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeModal();closeC
     if(me)me.value=em;
     if(mn&&no)mn.value=no;
     var ov=document.getElementById("clubOverlay");
-    if(ov)ov.classList.add("show");
+    if(ov){ov.classList.add("show");document.body.style.overflow="hidden"}
     var cf=document.getElementById("clubForm");
     if(cf){if(cf.requestSubmit)cf.requestSubmit();else cf.dispatchEvent(new Event("submit",{cancelable:true}));}
   });
