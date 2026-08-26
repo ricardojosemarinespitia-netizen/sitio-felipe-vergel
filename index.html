@@ -1270,9 +1270,9 @@ if(backTop)backTop.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
     };
     const alBajar=()=>{
       const alto=document.documentElement.scrollHeight-window.innerHeight;
-      if(alto>0&&window.scrollY/alto>=0.4)mostrarClub();
+      if(alto>0&&window.scrollY/alto>=0.6)mostrarClub();
     };
-    const _clubRespaldo=setTimeout(mostrarClub,20000);
+    const _clubRespaldo=setTimeout(mostrarClub,35000);
     window.addEventListener("scroll",alBajar,{passive:true});
   }
   const close=()=>{overlay.classList.remove("show");document.body.style.overflow=""};
