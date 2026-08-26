@@ -1032,5 +1032,26 @@ if(btnHome){
   });
 }
 </script>
+<script>
+// Meta Pixel · Contact en toda salida a WhatsApp.
+// El 100% de las ventas se cierran por WhatsApp y el checkout web lleva 0
+// ventas reales: sin esto la campana esta ciega. Delegado y en captura para
+// no depender del orden de los handlers; nunca llama a preventDefault, asi
+// que el enlace abre igual de rapido (y si el pixel esta bloqueado, tampoco
+// estorba). #btnWa queda fuera: tiene su propio evento con source wa_producto.
+document.addEventListener("click",function(e){
+  var a=e.target&&e.target.closest?e.target.closest('a[href*="wa.me/"]'):null;
+  if(!a||a.id==="btnWa"||typeof fbq!=="function")return;
+  try{
+    var p=window.FV_PIECE;
+    var d={
+      content_name:(p&&p.name)||document.title,
+      source:a.classList.contains("wa-float")?"wa_float":"wa_link"
+    };
+    if(p&&p.price){d.value=p.price;d.currency="COP"}
+    fbq('track','Contact',d);
+  }catch(err){}
+},true);
+</script>
 </body>
 </html>
