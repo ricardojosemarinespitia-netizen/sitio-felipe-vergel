@@ -189,7 +189,10 @@ input.error{border-color:#d32f2f;background:#fff5f5}
 .qty-ctrl button:hover{background:var(--crema-rosa)}
 .qty-ctrl button:disabled{opacity:.35;cursor:not-allowed}
 .qty-ctrl .qty-val{min-width:24px;text-align:center;font-size:var(--t-sm);font-weight:400;color:var(--tinta)}
-.item-remove{font-size:var(--t-2xs);letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-soft);font-weight:200;display:inline-flex;align-items:center;gap:4px;transition:color .15s}
+/* Antes casi invisible (gris claro, 200 de peso): con el precio arriba en
+   cobre y esto perdido debajo, a nadie le quedaba claro como sacar una
+   pieza. Mismo color del precio para que se note que es una accion real. */
+.item-remove{font-size:var(--t-2xs);letter-spacing:.06em;text-transform:uppercase;color:var(--cobre-dark);font-weight:700;display:inline-flex;align-items:center;gap:4px;transition:color .15s}
 .item-remove:hover{color:#b91c1c}
 .item-remove svg{width:11px;height:11px}
 .summary-empty{padding:50px 24px;text-align:center;color:var(--tinta-soft);font-size:var(--t-sm)}
@@ -638,7 +641,7 @@ function renderSummary(){
         <h4>${i.name}</h4>
         <div class="meta">${i.color}${i.sku?`<span class="sep">·</span>Ref. ${i.sku}`:""}</div>
         <div class="qty-ctrl" style="margin-top:8px">
-          <button type="button" onclick="cambiarCantidad(${idx},-1)" aria-label="Quitar uno"${i.qty<=1?" disabled":""}>−</button>
+          <button type="button" onclick="cambiarCantidad(${idx},-1)" aria-label="${i.qty<=1?"Quitar producto":"Quitar uno"}">−</button>
           <span class="qty-val">${i.qty}</span>
           <button type="button" onclick="cambiarCantidad(${idx},1)" aria-label="Agregar uno">+</button>
         </div>
@@ -674,11 +677,15 @@ function persistCart(){
   }catch(e){}
 }
 
-// +/- cantidad de un producto del resumen
+// +/- cantidad de un producto del resumen. El "-" en 1 quita la pieza
+// (antes quedaba deshabilitado ahi y la unica salida era el boton "Quitar",
+// casi invisible mas abajo — patron estandar de carrito).
 function cambiarCantidad(idx,delta){
   const item=cart[idx];
   if(!item)return;
-  item.qty=Math.max(1,(item.qty||1)+delta);
+  const nueva=(item.qty||1)+delta;
+  if(nueva<1){eliminarItem(idx);return}
+  item.qty=nueva;
   persistCart();
   renderSummary();
 }
