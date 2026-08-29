@@ -760,6 +760,41 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
      se salia de la foto. */
   .club-photo{height:auto;min-height:210px}
 }
+/* ------------------------------------------------------------
+   SCROLL EN CELULAR (WebView de Instagram) — fuera los blurs caros
+   ------------------------------------------------------------
+   Comparado con un sitio que dentro de Instagram desliza fino
+   (sarriahome.com, Shopify), la diferencia no era el WebView: era
+   cuanto trabajo de pintado le pedimos al telefono en cada frame.
+
+   backdrop-filter obliga al navegador a capturar lo que hay DETRAS
+   del elemento, desenfocarlo y componerlo. Sobre una barra fixed el
+   fondo cambia en cada frame del scroll, asi que se rehace entero
+   cada vez, y el costo sube con el radio: el nav estaba en blur(26px)
+   a lo ancho de la pantalla. En movil habia NUEVE regiones con blur
+   (nav, back-top, hero-cta y seis btn-descubrir) mas una capa con
+   mix-blend-mode animada sin parar.
+
+   Se cambian por fondos mas opacos: se ve practicamente igual y el
+   pintado pasa a ser trivial. En PC el blur se conserva: ahi sobra
+   maquina y el efecto es parte del diseno.
+   ------------------------------------------------------------ */
+@media(max-width:1024px){
+  /* La barra fija es el peor caso: siempre visible y siempre sobre
+     contenido que se mueve. Se sube la opacidad del fondo para
+     conservar la separacion que antes daba el desenfoque. */
+  .nav{backdrop-filter:none;-webkit-backdrop-filter:none;transition:background .4s,box-shadow .4s}
+  .nav.scrolled{background:rgba(250,244,237,.92);backdrop-filter:none;-webkit-backdrop-filter:none}
+  /* Tambien fija, y su fondo ya era casi opaco: el blur no aportaba. */
+  .back-top{background:rgba(87,41,50,.95);backdrop-filter:none;-webkit-backdrop-filter:none}
+  /* Seis de estos viajan con los paneles mientras se desliza. */
+  .btn-descubrir{background:rgba(22,17,12,.62);backdrop-filter:none;-webkit-backdrop-filter:none}
+  .hero-cta{background:rgba(22,17,12,.34);backdrop-filter:none;-webkit-backdrop-filter:none}
+  /* Se conserva el soft-light (es el tono calido del hero) pero se
+     detiene su animacion: una capa con mezcla animada se recompone
+     indefinidamente aunque no toques nada. */
+  .hero-light{animation:none}
+}
 </style>
 <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
