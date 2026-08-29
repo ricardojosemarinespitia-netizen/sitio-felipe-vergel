@@ -297,7 +297,6 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
 /* Blanco sobre --cobre daba 3.13:1; sobre --cobre-dark da 6.79:1. */
 .is-novedad .btn-descubrir{background:var(--cobre-dark);border-color:var(--cobre-dark)}
 .is-novedad:hover .btn-descubrir{background:var(--crema);color:var(--verde-dark);border-color:var(--crema)}
-.col-panel:hover .btn-descubrir{background:var(--crema);color:var(--verde-dark);border-color:var(--crema)}
 .col-panel[data-cat="lamparas"] img{object-position:50% 100%}
 @media(min-width:1025px){
   .col-panel[data-cat="lamparas"] img{object-position:50% 100%}
@@ -426,7 +425,6 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
   .product-grid.few{grid-template-columns:minmax(0,320px);gap:14px}}
 @media(max-width:380px){.product-grid{gap:10px}}
 .product-card{background:var(--crema);border-radius:var(--radius);overflow:hidden;transition:transform .4s,box-shadow .4s;cursor:pointer;border:1px solid transparent;position:relative}
-.product-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--linea)}
 .product-card:active{transform:scale(.98)}
 /* 2/3 en vez de 1/1: el 79% de las portadas del catalogo ya son verticales
    2:3, asi que encajan exactas. En marco cuadrado se les recortaba un
@@ -436,7 +434,6 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
 /* Fotos de la lámpara: encuadre bajo el techo para que el vidrio llene la foto, sin espacio vacío arriba */
 .product-img img[src*="lamparas/"],.p-gallery-main img[src*="lamparas/"],.p-thumb img[src*="lamparas/"]{object-position:50% 78%}
 .product-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
-.product-card:hover .product-img img{transform:scale(1.04)}
 /* .product-badge quedo sin markup: products.js no lo genera. */
 .product-sold-out{position:absolute;inset:0;background:rgba(26,35,34,.55);display:flex;align-items:center;justify-content:center;z-index:2}
 .product-sold-out span{background:var(--cobre-dark);color:#fff;padding:8px 20px;border-radius:var(--radius-sm);font-size:var(--t-2xs);letter-spacing:.15em;text-transform:uppercase;font-weight:700}
@@ -730,7 +727,6 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
 .catalogo{background:radial-gradient(1000px 480px at 82% -5%,rgba(243,207,179,.5),transparent 60%),radial-gradient(800px 460px at 0% 100%,rgba(198,110,78,.13),transparent 55%),var(--crema-2)}
 .cat-circle.active .circle-img{border-color:transparent;border-width:2px;box-shadow:0 0 0 4px var(--crema-2),0 0 0 6px var(--cobre),0 14px 30px -8px rgba(198,110,78,.45)}
 .product-img .img-alt{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity var(--d-3) var(--c-entrada)}
-.product-card:hover .img-alt{opacity:1}
 
 /* Aqui vivia el brillo de .nov-flag .tag-new con su @keyframes tagShimmer.
    Se fue con la cuadricula .nov-*. */
@@ -826,6 +822,25 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
 }
 @media(max-width:640px){
   .col-panel{height:calc(var(--vh-fijo,100svh)*.8)}
+}
+/* ------------------------------------------------------------
+   HOVER SOLO DONDE HAY MOUSE
+   ------------------------------------------------------------
+   En iOS y en los WebView (Instagram) un elemento con estilos :hover
+   se come el PRIMER toque para simular ese hover, y el click no
+   dispara: habia que tocar dos veces para abrir una pieza. Estando en
+   el catalogo, eso es plata.
+   Encerradas en (hover:hover) directamente no existen en un telefono,
+   asi que el primer toque abre. La segunda foto en movil no se pierde:
+   la muestra el manejador de touchstart, que ademas se cancela si el
+   dedo se desplaza (era un scroll, no un toque).
+   :active se conserva: ese si funciona bien al tocar y da respuesta.
+   ------------------------------------------------------------ */
+@media(hover:hover){
+.col-panel:hover .btn-descubrir{background:var(--crema);color:var(--verde-dark);border-color:var(--crema)}
+.product-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--linea)}
+.product-card:hover .product-img img{transform:scale(1.04)}
+.product-card:hover .img-alt{opacity:1}
 }
 </style>
 <script type="text/javascript">
