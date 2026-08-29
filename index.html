@@ -424,7 +424,7 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
 @media(max-width:768px){.product-grid{grid-template-columns:repeat(2,1fr);gap:14px}
   .product-grid.few{grid-template-columns:minmax(0,320px);gap:14px}}
 @media(max-width:380px){.product-grid{gap:10px}}
-.product-card{background:var(--crema);border-radius:var(--radius);overflow:hidden;transition:transform .4s,box-shadow .4s;cursor:pointer;border:1px solid transparent;position:relative}
+.product-card{display:block;text-decoration:none;color:inherit;background:var(--crema);border-radius:var(--radius);overflow:hidden;transition:transform .4s,box-shadow .4s;cursor:pointer;border:1px solid transparent;position:relative}
 .product-card:active{transform:scale(.98)}
 /* 2/3 en vez de 1/1: el 79% de las portadas del catalogo ya son verticales
    2:3, asi que encajan exactas. En marco cuadrado se les recortaba un
@@ -831,9 +831,10 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
    dispara: habia que tocar dos veces para abrir una pieza. Estando en
    el catalogo, eso es plata.
    Encerradas en (hover:hover) directamente no existen en un telefono,
-   asi que el primer toque abre. La segunda foto en movil no se pierde:
-   la muestra el manejador de touchstart, que ademas se cancela si el
-   dedo se desplaza (era un scroll, no un toque).
+   asi que no hay hover que simular. En movil se renuncia a ver la segunda
+   foto desde el catalogo: mostrarla al tocar producia el mismo fallo que
+   el hover (revelar contenido con el primer toque se come el click). Las
+   demas fotos de la pieza estan en su pagina, a un toque de distancia.
    :active se conserva: ese si funciona bien al tocar y da respuesta.
    ------------------------------------------------------------ */
 @media(hover:hover){
@@ -1369,9 +1370,9 @@ if(backTop)backTop.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
     window.addEventListener("resize",medirAlto,{passive:true});
     window.addEventListener("load",medirAlto);
     const alBajar=()=>{
-      if(_altoScroll>0&&window.scrollY/_altoScroll>=0.6)mostrarClub();
+      if(_altoScroll>0&&window.scrollY/_altoScroll>=0.8)mostrarClub();
     };
-    const _clubRespaldo=setTimeout(mostrarClub,35000);
+    const _clubRespaldo=setTimeout(mostrarClub,75000);
     window.addEventListener("scroll",alBajar,{passive:true});
   }
   const close=()=>{overlay.classList.remove("show");document.body.style.overflow=""};
@@ -1739,7 +1740,7 @@ function renderGrid(){
   gridEl.classList.toggle("few",list.length<=2);
   gridEl.innerHTML=list.map(p=>{
     const isSold=soldOut[p.id];
-    return `<article class="product-card" data-id="${p.id}">
+    return `<a class="product-card" href="product.html?id=${encodeURIComponent(p.id)}" data-id="${p.id}">
       <div class="product-img">
         ${isSold?'<div class="product-sold-out"><span>Agotado</span></div>':''}
         <img src="${fvImg(p.images[0])}" alt="${p.name}" loading="lazy">
@@ -1752,13 +1753,18 @@ function renderGrid(){
         <div class="view">${isSold?'Ver pieza →':'Ver detalles →'}</div>
       </div>
       ${isAdmin?`<button style="position:absolute;top:10px;right:10px;z-index:3;padding:6px 12px;border-radius:2px;background:${isSold?'#25d366':'#e74c3c'};color:#fff;font-size:9px;letter-spacing:.08em;text-transform:uppercase;font-weight:700" data-toggle="${p.id}">${isSold?'Habilitar':'Agotar'}</button>`:''}
-    </article>`}).join("");
-  $$(".product-card").forEach(c=>c.onclick=()=>openProductPage(c.dataset.id));
-  $$("[data-toggle]").forEach(b=>{b.onclick=e=>{e.stopPropagation();const pid=b.dataset.toggle;if(soldOut[pid])delete soldOut[pid];else soldOut[pid]=true;saveSoldOut();renderGrid()}});
+    </a>`}).join("");
+  // La tarjeta es un enlace de verdad: el navegador la abre con el PRIMER
+  // toque, sin depender de JS. Esto solo deja una copia de la pieza por si
+  // products.js no carga en el destino. Sin preventDefault: navega el href.
+  $$(".product-card").forEach(c=>c.addEventListener("click",()=>guardarPiezaParaDestino(c.dataset.id)));
+  $$("[data-toggle]").forEach(b=>{b.onclick=e=>{e.preventDefault();e.stopPropagation();const pid=b.dataset.toggle;if(soldOut[pid])delete soldOut[pid];else soldOut[pid]=true;saveSoldOut();renderGrid()}});
 }
 
-// Navega al producto en la misma pestaña (tipo Zorro y Jaguar)
-function openProductPage(id){
+// Guarda una copia de la pieza para product.html por si alli products.js no
+// alcanza a cargar. La navegacion NO se hace aqui: la tarjeta es un <a> y la
+// resuelve el navegador solo, con el primer toque.
+function guardarPiezaParaDestino(id){
   const p=PRODUCTS.find(x=>x.id===id);
   if(!p)return;
   try{
@@ -1768,8 +1774,6 @@ function openProductPage(id){
     // Guardar versión fresca
     localStorage.setItem("fv_view_product_"+id,JSON.stringify(p));
   }catch(e){}
-  // Cache-bust para forzar recarga de product.html
-  window.location.href="product.html?id="+encodeURIComponent(id)+"&t="+Date.now();
 }
 autoSelectCat();
 
@@ -2094,42 +2098,6 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeModal();closeC
   els.forEach(el=>{el.classList.add("reveal");io.observe(el)});
 })();
 
-// CAMBIO DE FOTO EN MÓVIL — toque roza el producto → segunda imagen aparece
-// Aplica a catálogo (.product-card) y novedades (.nov-card)
-(function(){
-  // Solo activa en dispositivos táctiles para no interferir con el hover de escritorio
-  if(!window.matchMedia("(hover:none)").matches) return;
-  var _cardTocada=null, _y0=0, _seMovio=false;
-  function _revertir(card){
-    var alt = card && card.querySelector(".img-alt");
-    if(alt) alt.style.opacity = "";
-  }
-  document.addEventListener("touchstart", function(e){
-    var card = e.target.closest(".product-card,.nov-card");
-    if(!card) return;
-    _cardTocada = card; _seMovio = false; _y0 = e.touches[0].clientY;
-    var alt = card.querySelector(".img-alt");
-    if(alt) alt.style.opacity = "1";
-  }, {passive:true});
-  // Si el dedo se desplaza no era un toque, era un scroll: se deshace de
-  // inmediato. Sin esto, deslizar con el dedo encima del catalogo cambiaba
-  // las fotos solas y parecia que la pagina se trabara justo al pasar por ahi.
-  document.addEventListener("touchmove", function(e){
-    if(!_cardTocada || _seMovio) return;
-    if(Math.abs(e.touches[0].clientY - _y0) > 10){
-      _seMovio = true;
-      _revertir(_cardTocada);
-      _cardTocada = null;
-    }
-  }, {passive:true});
-  document.addEventListener("touchend", function(){
-    var card = _cardTocada;
-    _cardTocada = null;
-    if(!card || _seMovio) return;
-    // Pequeño delay para que el usuario alcance a ver la segunda foto
-    setTimeout(function(){ _revertir(card); }, 600);
-  }, {passive:true});
-})();
 </script>
 <script>
 // Círculo inline: reutiliza el flujo completo del modal del Club
