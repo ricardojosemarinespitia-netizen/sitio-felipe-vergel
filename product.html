@@ -48,7 +48,13 @@ window.fvImg=(function(){
   gtag('config', 'G-E2SG3MESQW');
 </script>
 <title>Pieza · Felipe Vergel Arte en Vidrio</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Sin viewport-fit=cover A PROPOSITO. Extiende el layout por debajo de
+     las barras del navegador; dentro del WebView de Instagram, cuando la
+     barra reaparece al invertir la direccion del scroll, el viewport cambia
+     y la pagina pega el salto. Solo se justifica si el CSS usa
+     env(safe-area-inset-*) para compensar, y aqui no se usa en ninguna
+     pagina (verificado por grep: 0 apariciones). -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="format-detection" content="telephone=no">
 <meta name="theme-color" content="#FAF4ED">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">

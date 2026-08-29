@@ -51,7 +51,13 @@ window.fvImg=(function(){
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <title>Felipe Vergel · Arte en Vidrio</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Sin viewport-fit=cover A PROPOSITO. Extiende el layout por debajo de
+     las barras del navegador; dentro del WebView de Instagram, cuando la
+     barra reaparece al invertir la direccion del scroll, el viewport cambia
+     y la pagina pega el salto. Solo se justifica si el CSS usa
+     env(safe-area-inset-*) para compensar, y aqui no se usa en ninguna
+     pagina (verificado por grep: 0 apariciones). -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="format-detection" content="telephone=no">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="description" content="Piezas únicas en vidrio del artista plástico Felipe Vergel Arte en Vidrio. Vitrofusión artesanal. Artista Revelación Nacional FAREX 2025. Floridablanca, Colombia.">
@@ -1162,11 +1168,23 @@ document.getElementById("year").textContent=new Date().getFullYear();
 const nav=document.getElementById("mainNav");
 const logoImg=document.getElementById("navLogoImg");
 const backTop=document.getElementById("backTop");
-function updateNav(){
-  if(window.scrollY>60){nav.classList.add("scrolled")}
-  else{nav.classList.remove("scrolled")}
-  if(backTop)backTop.classList.toggle("show",window.scrollY>600);
+// Un trabajo por FRAME, no por evento: el scroll dispara hasta 120 veces
+// por segundo y estas clases solo se pueden ver una vez por frame. Ademas
+// se comprueba antes de tocarlas, porque add/remove invalida el estilo
+// aunque el valor no cambie — y esa invalidacion era la que obligaba al
+// listener del Club a recalcular el layout entero (ver alBajar).
+let _navPendiente=false;
+function pintarNav(){
+  _navPendiente=false;
+  const y=window.scrollY;
+  const s=y>60;
+  if(s!==nav.classList.contains("scrolled"))nav.classList.toggle("scrolled",s);
+  if(backTop){
+    const v=y>600;
+    if(v!==backTop.classList.contains("show"))backTop.classList.toggle("show",v);
+  }
 }
+function updateNav(){if(!_navPendiente){_navPendiente=true;requestAnimationFrame(pintarNav)}}
 window.addEventListener("scroll",updateNav,{passive:true});
 updateNav();
 if(backTop)backTop.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
@@ -1303,9 +1321,21 @@ if(backTop)backTop.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
       window.removeEventListener("scroll",alBajar);
       clearTimeout(_clubRespaldo);
     };
+    // El alto se cachea. Leer scrollHeight en CADA evento de scroll, justo
+    // despues de que updateNav toco una clase, obligaba al navegador a
+    // recalcular el layout del documento completo (11.782 px) de forma
+    // sincrona: medido, 0,47 ms por evento en PC, y en celular dentro del
+    // WebView de Instagram varias veces mas. Eso trababa el scroll en toda
+    // la pagina, con fotos o sin ellas. Para disparar un popup al 60% no
+    // hace falta esa precision: basta remedir al cambiar el tamano y
+    // cuando termina de cargar todo.
+    let _altoScroll=0;
+    const medirAlto=()=>{_altoScroll=document.documentElement.scrollHeight-window.innerHeight};
+    medirAlto();
+    window.addEventListener("resize",medirAlto,{passive:true});
+    window.addEventListener("load",medirAlto);
     const alBajar=()=>{
-      const alto=document.documentElement.scrollHeight-window.innerHeight;
-      if(alto>0&&window.scrollY/alto>=0.6)mostrarClub();
+      if(_altoScroll>0&&window.scrollY/_altoScroll>=0.6)mostrarClub();
     };
     const _clubRespaldo=setTimeout(mostrarClub,35000);
     window.addEventListener("scroll",alBajar,{passive:true});
@@ -2084,18 +2114,35 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeModal();closeC
 (function(){
   // Solo activa en dispositivos táctiles para no interferir con el hover de escritorio
   if(!window.matchMedia("(hover:none)").matches) return;
+  var _cardTocada=null, _y0=0, _seMovio=false;
+  function _revertir(card){
+    var alt = card && card.querySelector(".img-alt");
+    if(alt) alt.style.opacity = "";
+  }
   document.addEventListener("touchstart", function(e){
     var card = e.target.closest(".product-card,.nov-card");
     if(!card) return;
+    _cardTocada = card; _seMovio = false; _y0 = e.touches[0].clientY;
     var alt = card.querySelector(".img-alt");
     if(alt) alt.style.opacity = "1";
   }, {passive:true});
-  document.addEventListener("touchend", function(e){
-    var card = e.target.closest(".product-card,.nov-card");
-    if(!card) return;
+  // Si el dedo se desplaza no era un toque, era un scroll: se deshace de
+  // inmediato. Sin esto, deslizar con el dedo encima del catalogo cambiaba
+  // las fotos solas y parecia que la pagina se trabara justo al pasar por ahi.
+  document.addEventListener("touchmove", function(e){
+    if(!_cardTocada || _seMovio) return;
+    if(Math.abs(e.touches[0].clientY - _y0) > 10){
+      _seMovio = true;
+      _revertir(_cardTocada);
+      _cardTocada = null;
+    }
+  }, {passive:true});
+  document.addEventListener("touchend", function(){
+    var card = _cardTocada;
+    _cardTocada = null;
+    if(!card || _seMovio) return;
     // Pequeño delay para que el usuario alcance a ver la segunda foto
-    var alt = card.querySelector(".img-alt");
-    if(alt) setTimeout(function(){ alt.style.opacity = ""; }, 600);
+    setTimeout(function(){ _revertir(card); }, 600);
   }, {passive:true});
 })();
 </script>
