@@ -58,6 +58,28 @@ window.fvImg=(function(){
      env(safe-area-inset-*) para compensar, y aqui no se usa en ninguna
      pagina (verificado por grep: 0 apariciones). -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+/* Alto de viewport CONGELADO — arreglo del salto dentro de Instagram.
+   La barra del navegador integrado aparece y desaparece al deslizar (sobre
+   todo al invertir la direccion). El hero y los seis paneles de coleccion
+   estaban medidos en unidades de viewport, asi que cada aparicion de la
+   barra volvia a calcular SIETE secciones a la vez. Medido con la barra
+   simulada (72 px): el documento cambiaba 417 px y el contenido saltaba
+   245 px. La misma prueba en sarriahome.com, que dentro de Instagram no
+   salta, da 6 px — ellos no miden nada grande en unidades de viewport.
+   Se fija una vez y solo se vuelve a medir si cambia el ANCHO (rotacion o
+   ventana). Nunca por el alto: eso es justo lo que mueve la barra, y de
+   paso tampoco reacciona al teclado cuando se abre en un campo. */
+(function(){
+  var d=document.documentElement, ancho=window.innerWidth;
+  function fijar(){d.style.setProperty("--vh-fijo",window.innerHeight+"px")}
+  fijar();
+  window.addEventListener("resize",function(){
+    if(window.innerWidth!==ancho){ancho=window.innerWidth;fijar()}
+  },{passive:true});
+  window.addEventListener("orientationchange",function(){setTimeout(fijar,250)});
+})();
+</script>
 <meta name="format-detection" content="telephone=no">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="description" content="Piezas únicas en vidrio del artista plástico Felipe Vergel Arte en Vidrio. Vitrofusión artesanal. Artista Revelación Nacional FAREX 2025. Floridablanca, Colombia.">
@@ -800,6 +822,17 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
      detiene su animacion: una capa con mezcla animada se recompone
      indefinidamente aunque no toques nada. */
   .hero-light{animation:none}
+}
+/* Las secciones altas dejan de depender del viewport vivo: usan el alto
+   congelado por el script de <head>. Asi la barra de Instagram puede
+   aparecer y desaparecer sin recalcular el hero ni los seis paneles.
+   El fallback mantiene el comportamiento anterior si el script no corre. */
+@media(max-width:1024px){
+  .hero{min-height:var(--vh-fijo,100svh)}
+  .col-panel{height:calc(var(--vh-fijo,100svh)*.92)}
+}
+@media(max-width:640px){
+  .col-panel{height:calc(var(--vh-fijo,100svh)*.8)}
 }
 </style>
 <script type="text/javascript">
