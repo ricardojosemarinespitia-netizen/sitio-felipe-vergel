@@ -1814,23 +1814,47 @@ function initFotoFocus(){
         img.style.transform="scale("+(1+zoomMax*0.6*e).toFixed(3)+")";
         return;
       }
-      // Móvil: viaje de encuadre + zoom
+      // Movil: viaje de encuadre + zoom.
+      // El viaje va por transform y NO por object-position. object-position
+      // no lo compone la GPU: cambiarlo obliga a re-rasterizar la foto
+      // entera (de 1 a 3,8 MP aqui) en CADA frame del scroll, y eso trababa
+      // el deslizamiento en el WebView de Instagram (el .col-panel ya tiene
+      // will-change:transform, asi que la capa estaba promovida y se
+      // invalidaba sola). El resultado visual es el mismo: se fija el
+      // encuadre inicial una sola vez y el viaje se hace con translate.
       const [sx,sy]=parse(img.dataset.start||"50 50");
       const [fx,fy]=parse(img.dataset.focus);
+      if(!img.dataset.opFijo){
+        img.style.objectPosition=sx+"% "+sy+"%";
+        img.dataset.opFijo="1";
+      }
+      // Equivalencia en px: object-position corre la foto sobre su desborde,
+      // que es lo que sobra despues del object-fit:cover.
+      let dx=0,dy=0;
+      const nw=img.naturalWidth,nh=img.naturalHeight;
+      if(nw&&nh){
+        const cw=img.clientWidth,ch=img.clientHeight;
+        const cover=Math.max(cw/nw,ch/nh);
+        dx=-((fx-sx)*e/100)*Math.max(0,nw*cover-cw);
+        dy=-((fy-sy)*e/100)*Math.max(0,nh*cover-ch);
+      }
       img.style.transition="none";
       img.style.transformOrigin="50% 50%";
-      img.style.objectPosition=(sx+(fx-sx)*e)+"% "+(sy+(fy-sy)*e)+"%";
-      img.style.transform="scale("+(1+zoomMax*e).toFixed(3)+")";
+      // scale ANTES que translate: asi el desplazamiento queda escalado
+      // igual que lo estaba dentro de la caja con object-position.
+      img.style.transform="scale("+(1+zoomMax*e).toFixed(3)+") translate("+dx.toFixed(2)+"px,"+dy.toFixed(2)+"px)";
     });
   }
   function onScroll(){if(!ticking){ticking=true;requestAnimationFrame(frame);}}
   mq.addEventListener("change",()=>{
-    imgs.forEach(img=>{img.style.transition="";img.style.objectPosition="";img.style.transform="";img.style.transformOrigin="";});
+    imgs.forEach(img=>{img.style.transition="";img.style.objectPosition="";img.style.transform="";img.style.transformOrigin="";delete img.dataset.opFijo;});
     cacheOrigins();
     onScroll();
   });
   window.addEventListener("scroll",onScroll,{passive:true});
   window.addEventListener("resize",onScroll);
+  // Al cargar una foto cambian naturalWidth/Height: recalcular el encuadre.
+  imgs.forEach(img=>{if(!img.complete)img.addEventListener("load",onScroll,{once:true})});
   onScroll();
 }
 renderNovedades();
