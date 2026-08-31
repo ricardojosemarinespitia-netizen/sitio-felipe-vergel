@@ -716,6 +716,52 @@ if(typeof fbq==="function" && info && cart.length && !new URLSearchParams(locati
 }
 
 // PAY
+// Guarda el pedido pendiente en el servidor. ANTES era fire-and-forget y se
+// perdia: al salir hacia Wompi el navegador cancela las peticiones en vuelo, y
+// en el navegador embebido de Instagram window.open REEMPLAZA la pagina, asi
+// que se perdia casi siempre. Sintoma: el pedido quedaba con _serverPriced
+// (lo escribe wompi-sign desde el servidor) pero sin nombre, correo ni carrito,
+// el webhook no encontraba pedido pendiente y no salia ni registro ni correos.
+// Caso real: FV-1788187888658-JG258, 31-ago-2026, pago aprobado y sin registrar.
+//
+// Tres defensas, de mas a menos fiable:
+//  1. keepalive: la peticion sobrevive a que la pagina se vaya.
+//  2. text/plain en vez de application/json: evita el preflight OPTIONS y deja
+//     un solo viaje. save-pending no mira el Content-Type (parsea con
+//     req.json()). Ese preflight ya habia roto este mismo flujo el 27-jul-2026.
+//  3. sendBeacon como ultimo recurso: el navegador lo entrega aunque la pagina
+//     ya se este cerrando.
+// Devuelve true/false y NUNCA lanza: quien llama decide, y un fallo aqui no
+// puede tumbar el pago.
+async function guardarPendiente(pedido,intentos){
+  intentos=intentos||2;
+  const cuerpo=JSON.stringify(pedido);
+  for(let i=1;i<=intentos;i++){
+    try{
+      const res=await fetch(SAVE_PENDING_URL,{
+        method:"POST",
+        headers:{"Content-Type":"text/plain;charset=UTF-8"},
+        body:cuerpo,
+        keepalive:true
+      });
+      if(res.ok)return true;
+      console.error("save-pending respondio "+res.status+" (intento "+i+"/"+intentos+")");
+    }catch(e){
+      console.error("save-pending fallo (intento "+i+"/"+intentos+"):",e);
+    }
+  }
+  try{
+    if(navigator.sendBeacon&&navigator.sendBeacon(SAVE_PENDING_URL,new Blob([cuerpo],{type:"text/plain;charset=UTF-8"}))){
+      console.warn("save-pending: entregado por sendBeacon tras fallar "+intentos+" intentos");
+      return true;
+    }
+  }catch(e){}
+  // Que no pase en silencio: queda marcado para poder rastrearlo.
+  console.error("save-pending: NO se pudo guardar el pedido",pedido&&pedido.ref);
+  try{localStorage.setItem("fv_pedido_sin_registrar",(pedido&&pedido.ref)||"1")}catch(e){}
+  return false;
+}
+const SAVE_PENDING_URL="https://exquisite-pasca-848b8b.netlify.app/.netlify/functions/save-pending";
 $("#btnPay").onclick=async()=>{
   if(!info||!cart.length)return;
   $("#btnPay").disabled=true;
@@ -745,7 +791,7 @@ $("#btnPay").onclick=async()=>{
   // registrarlo y enviar correos AUNQUE el cliente no dé "Volver al comercio".
   // Fire-and-forget: si la función no está desplegada, no afecta el flujo normal.
   if(paymentMethod==="pse"){
-    try{fetch("https://exquisite-pasca-848b8b.netlify.app/.netlify/functions/save-pending",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(pedido)})}catch(e){}
+    await guardarPendiente(pedido);
   }
 
   if(paymentMethod==="whatsapp"){
@@ -774,6 +820,10 @@ $("#btnPay").onclick=async()=>{
     // PSE - Wompi (con firma de integridad SHA256 requerida por Wompi)
     // Abrimos la ventana ANTES del await para que Safari no la bloquee como popup
     const wompiWin=window.open("","_blank");
+    // Si el guardado falla, guardarPendiente ya lo deja avisado en consola y
+    // marcado en localStorage. NO se bloquea el pago: perder la venta seria
+    // peor que perder el registro, que aun se rescata desde el panel de Wompi
+    // con la referencia.
     let amountCents=String(total*100);
     let signature=null;
     // ---- CAMINO SEGURO: el servidor recalcula el monto y lo firma ----
@@ -814,7 +864,7 @@ $("#btnPay").onclick=async()=>{
             pedido.total=totalSrv;
             try{$("#sumTotal").textContent=fmt(totalSrv)}catch(e){}
             try{localStorage.setItem("fv_pending_order",JSON.stringify(pedido))}catch(e){}
-            try{fetch("https://exquisite-pasca-848b8b.netlify.app/.netlify/functions/save-pending",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(pedido)})}catch(e){}
+            await guardarPendiente(pedido);
           }
         }
       }
@@ -990,7 +1040,7 @@ async function guardarPedido(order){
         .then(r=>r.forEach((x,i)=>{ if(x.status==="rejected") console.error(i===0?"guardarPedido:":"enviarCorreos:", x.reason); }));
       // Avisar al servidor que este pedido YA se procesó aquí, para que el webhook
       // de Wompi no lo registre/envíe por segunda vez.
-      try{fetch("https://exquisite-pasca-848b8b.netlify.app/.netlify/functions/save-pending",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...pedido,_status:"done"})})}catch(e){}
+      guardarPendiente({...pedido,_status:"done"});
       if(window.FVPerfil) window.FVPerfil.addOrder({ref:pedido.ref,fecha:new Date().toISOString(),items:pedido.cart.map(i=>({name:i.name,qty:i.qty,price:i.price})),total:pedido.total,metodo:"Wompi PSE",estado:status==="APPROVED"?"APROBADO":"PENDIENTE"});
     }
     $("#waitingView").style.display="none";
