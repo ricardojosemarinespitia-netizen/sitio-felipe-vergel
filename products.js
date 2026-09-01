@@ -513,7 +513,7 @@ const PRODUCTS=[
     "sku": "FLO-002",
     "cat": "floreros",
     "name": "Florero Alto Irregular",
-    "price": 300000,
+    "price": 295000,
     "size": "24 cm alto × 20 cm diámetro sup. × 9 cm diámetro inf.",
     "materials": "Vidrio — vitrofusión",
     "colors": [
@@ -541,7 +541,7 @@ const PRODUCTS=[
     "sku": "FLO-003",
     "cat": "floreros",
     "name": "Florero Ondas",
-    "price": 310000,
+    "price": 305000,
     "size": "26 cm alto × 25 cm diámetro sup. × 9 cm diámetro inf.",
     "materials": "Vidrio — vitrofusión",
     "colors": [
@@ -826,7 +826,7 @@ const PRODUCTS=[
     "sku": "PPN-004",
     "cat": "porta-plantas",
     "name": "Porta Matera Versátil",
-    "price": 250000,
+    "price": 295000,
     "size": "22 cm alto × 25 cm diámetro sup. × 15 cm diámetro inf.",
     "materials": "Vidrio — vitrofusión",
     "colors": [
