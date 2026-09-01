@@ -663,19 +663,27 @@ const PRODUCTS=[
     "materials": "Vidrio — vitrofusión",
     "colors": [
       "Transparente",
-      "Gris"
+      "Gris",
+      "Dorado",
+      "Verde agua",
+      "Azul"
     ],
     "uses": "Flores, hojas, espigas.",
     "images": [
-      "img/solitario-circular/solitario-circular-01.jpg?v=2",
-      "img/solitario-circular/solitario-circular-02.jpg?v=2",
-      "img/solitario-circular/solitario-circular-03.jpg?v=2",
-      "img/solitario-circular/solitario-circular-04.jpg?v=2",
-      "img/solitario-circular/solitario-circular-05.jpg?v=2"
+      "img/solitario-circular/solitario-circular-01.jpg?v=3",
+      "img/solitario-circular/solitario-circular-02.jpg?v=3",
+      "img/solitario-circular/solitario-circular-03.jpg?v=3",
+      "img/solitario-circular/solitario-circular-04.jpg?v=3",
+      "img/solitario-circular/solitario-circular-05.jpg?v=3",
+      "img/solitario-circular/solitario-circular-06.jpg?v=3",
+      "img/solitario-circular/solitario-circular-07.jpg?v=3"
     ],
     "colorImages": {
-      "Gris": 1,
-      "Transparente": 4
+      "Transparente": 2,
+      "Gris": 3,
+      "Dorado": 4,
+      "Verde agua": 5,
+      "Azul": 6
     }
   },
   {
@@ -688,19 +696,31 @@ const PRODUCTS=[
     "materials": "Vidrio — vitrofusión",
     "colors": [
       "Azul",
-      "Verde"
+      "Verde",
+      "Amarillo",
+      "Gris",
+      "Transparente",
+      "Rosado"
     ],
     "uses": "Flores, hojas, espigas.",
     "images": [
-      "img/solitario-guitarra/solitario-guitarra-01.jpg?v=2",
-      "img/solitario-guitarra/solitario-guitarra-02.jpg?v=2",
-      "img/solitario-guitarra/solitario-guitarra-03.jpg?v=2",
-      "img/solitario-guitarra/solitario-guitarra-04.jpg?v=2",
-      "img/solitario-guitarra/solitario-guitarra-05.jpg?v=2"
+      "img/solitario-guitarra/solitario-guitarra-01.jpg?v=3",
+      "img/solitario-guitarra/solitario-guitarra-02.jpg?v=3",
+      "img/solitario-guitarra/solitario-guitarra-03.jpg?v=3",
+      "img/solitario-guitarra/solitario-guitarra-04.jpg?v=3",
+      "img/solitario-guitarra/solitario-guitarra-05.jpg?v=3",
+      "img/solitario-guitarra/solitario-guitarra-06.jpg?v=3",
+      "img/solitario-guitarra/solitario-guitarra-07.jpg?v=3",
+      "img/solitario-guitarra/solitario-guitarra-08.jpg?v=3",
+      "img/solitario-guitarra/solitario-guitarra-09.jpg?v=3"
     ],
     "colorImages": {
       "Azul": 2,
-      "Verde": 3
+      "Verde": 3,
+      "Amarillo": 5,
+      "Gris": 6,
+      "Transparente": 7,
+      "Rosado": 8
     }
   },
   {
