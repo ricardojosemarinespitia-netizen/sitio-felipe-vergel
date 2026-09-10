@@ -601,7 +601,7 @@ const PRODUCTS=[
     "sku": "FLO-005",
     "cat": "floreros",
     "name": "Mini Florero",
-    "price": 58000,
+    "price": 69000,
     "size": "12 cm alto × 10 cm diámetro sup. (aprox)",
     "materials": "Vidrio — vitrofusión",
     "colors": [
