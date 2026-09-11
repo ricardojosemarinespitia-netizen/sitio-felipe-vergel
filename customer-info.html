@@ -72,13 +72,14 @@ window.fvImg=(function(){
      ningun font-family del sitio, y repetia display=swap tres veces. -->
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Jost:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
 <script src="perfil.js" defer></script>
-<link rel="stylesheet" href="tokens.css?v=1">
+<link rel="stylesheet" href="tokens.css?v=2">
 <style>
 /* overscroll-behavior-y: evita que el navegador integrado de Instagram/Facebook
    se robe el swipe vertical para su propio gesto de "pull" (mismo arreglo que
    index.html). */
 html{overscroll-behavior-y:contain}
-body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tinta);background:var(--crema);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;-webkit-tap-highlight-color:transparent;overscroll-behavior-y:contain}
+body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tinta);background:var(--crema);line-height:1.65;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;font-kerning:normal;min-height:100vh;-webkit-tap-highlight-color:transparent;overscroll-behavior-y:contain}
+h1,h2,h3{font-feature-settings:"kern","liga","dlig"}
 /* 16px LITERAL, no un token: por debajo de 16px iOS hace zoom automatico al
    enfocar el campo y descuadra el formulario. Es la unica excepcion
    justificada a la escala en todo el sitio. */
@@ -91,22 +92,23 @@ input,select,textarea{font-family:inherit;font-size:16px}
 @media(max-width:640px){.ci-header{padding:14px 0}.ci-header-inner{padding:0 16px}.ci-logo img{height:36px}.ci-back{padding:7px 12px;font-size:var(--t-2xs)}.ci-back svg{width:12px;height:12px}}
 .ci-logo{display:flex;align-items:center;min-height:44px;gap:12px}
 .ci-logo img{height:42px;width:auto}
-.ci-back{display:inline-flex;align-items:center;gap:8px;font-size:var(--t-sm);letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-soft);font-weight:200;padding:8px 14px;border-radius:2px;transition:all .25s;border:1px solid transparent}
+.ci-back{display:inline-flex;align-items:center;gap:8px;font-size:var(--t-xs);letter-spacing:var(--track-ui);text-transform:uppercase;color:var(--tinta-soft);font-weight:400;padding:8px 14px;border-radius:2px;transition:background var(--d-3) var(--c-autor),color var(--d-3) var(--c-autor),border-color var(--d-3) var(--c-autor);border:1px solid transparent;min-height:44px}
 .ci-back:hover{background:var(--crema-2);color:var(--verde);border-color:var(--linea)}
-.ci-back svg{width:14px;height:14px}
+.ci-back svg{width:14px;height:14px;transition:transform var(--d-3) var(--c-autor)}
+.ci-back:hover svg{transform:translateX(-3px)}
 
 /* BREADCRUMBS */
 .ci-steps{background:var(--crema-2);padding:18px 0;border-bottom:1px solid var(--linea)}
-.ci-steps-inner{max-width:1180px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:center;gap:24px;font-size:var(--t-xs);letter-spacing:.18em;text-transform:uppercase;font-weight:400;color:var(--tinta-soft)}
+.ci-steps-inner{max-width:1180px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:center;gap:24px;font-size:var(--t-2xs);letter-spacing:var(--track-label);text-transform:uppercase;font-weight:400;color:var(--tinta-soft)}
 /* El paso inactivo se atenuaba con opacity:.5, lo que dejaba el texto en
    2.06:1 sobre --crema-2. Ni siquiera opacity:.9 llega a AA (4.30:1). La
    atenuacion pasa a ser de color y peso, no de opacidad: inactivo
    --tinta-soft 5.29:1, hecho --cobre-dark 5.33:1, activo --verde 4.80:1.
    Los tres pasan AA y siguen distinguiendose entre si. */
 .ci-step{display:flex;align-items:center;gap:8px;color:var(--tinta-soft);font-weight:400}
-.ci-step.active{color:var(--verde);font-weight:700}
+.ci-step.active{color:var(--verde);font-weight:600}
 .ci-step.done{color:var(--cobre-dark)}
-.ci-step-num{width:24px;height:24px;border-radius:50%;background:var(--linea);color:var(--tinta-soft);display:inline-flex;align-items:center;justify-content:center;font-size:var(--t-xs);font-weight:700}
+.ci-step-num{width:24px;height:24px;border-radius:50%;background:var(--linea);color:var(--tinta-soft);display:inline-flex;align-items:center;justify-content:center;font-size:var(--t-2xs);font-weight:500;letter-spacing:0}
 .ci-step.active .ci-step-num{background:var(--verde);color:#fff}
 .ci-step.done .ci-step-num{background:var(--cobre-dark);color:#fff}
 .ci-step-sep{width:32px;height:1px;background:var(--linea)}
@@ -117,24 +119,24 @@ input,select,textarea{font-family:inherit;font-size:16px}
 @media(max-width:920px){.ci-wrap{grid-template-columns:1fr;gap:32px;padding:32px 24px 60px}}
 @media(max-width:640px){.ci-wrap{padding:24px 16px 60px;gap:22px}.ci-title{font-size:var(--t-2xl)}.ci-sub{margin-bottom:24px;font-size:var(--t-sm)}}
 
-.ci-title{margin:0 0 8px;font-size:var(--t-3xl);color:var(--verde-dark);font-weight:700;letter-spacing:-.02em}
-.ci-title .acc{color:var(--cobre-dark);font-family:'Cormorant Garamond',serif;font-weight:400;font-style:italic}
-.ci-sub{color:var(--tinta-soft);font-size:var(--t-md);margin:0 0 36px;font-weight:200}
+.ci-title{margin:0 0 10px;font-family:'Cormorant Garamond',serif;font-size:var(--t-4xl);color:var(--verde-dark);font-weight:500;letter-spacing:.005em;line-height:1.06;font-feature-settings:"kern","liga","dlig";text-wrap:balance}
+.ci-title .acc{color:var(--cobre-dark);font-weight:400;font-style:italic}
+.ci-sub{color:var(--tinta-soft);font-size:var(--t-md);margin:0 0 36px;font-weight:300;line-height:1.7}
 
 /* FORM */
 .ci-form{display:flex;flex-direction:column;gap:32px}
-.ci-section{background:#fff;padding:32px;border-radius:var(--radius-lg);border:1px solid var(--linea);box-shadow:0 2px 12px -4px rgba(63,68,67,.04)}
-.ci-section h3{margin:0 0 4px;font-size:var(--t-lg);color:var(--verde-dark);font-weight:700;letter-spacing:-.01em}
-.ci-section .ci-section-sub{font-size:var(--t-sm);color:var(--tinta-soft);margin:0 0 22px;font-weight:200}
+.ci-section{background:#fff;padding:32px;border-radius:var(--radius-lg);border:1px solid var(--linea);box-shadow:var(--shadow-sm)}
+.ci-section h3{margin:0 0 4px;font-family:'Cormorant Garamond',serif;font-size:var(--t-2xl);color:var(--verde-dark);font-weight:500;letter-spacing:.005em;line-height:1.15}
+.ci-section .ci-section-sub{font-size:var(--t-sm);color:var(--tinta-soft);margin:0 0 22px;font-weight:300}
 @media(max-width:640px){.ci-section{padding:22px 18px;border-radius:var(--radius)}.ci-section h3{font-size:var(--t-lg)}.ci-section .ci-section-sub{margin-bottom:18px;font-size:var(--t-xs)}}
 @media(max-width:640px){.ci-form{gap:20px}}
 
-label{display:block;font-size:var(--t-xs);letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-soft);margin-bottom:8px;font-weight:400}
+label{display:block;font-size:var(--t-2xs);letter-spacing:var(--track-label);text-transform:uppercase;color:var(--tinta-soft);margin-bottom:8px;font-weight:400}
 /* max(16px, …): por debajo de 16px iOS hace zoom automatico al enfocar el campo
    y descoloca el formulario. --t-lg baja a ~15px en moviles estrechos, asi que
    el max() conserva la escala en escritorio (16,5px) y garantiza el minimo. */
-input[type="text"],input[type="email"],input[type="tel"],select{width:100%;padding:14px 16px;border:1px solid var(--linea);border-radius:var(--radius-sm);font-family:inherit;font-size:max(16px, var(--t-lg));color:var(--tinta);background:var(--crema);transition:all .2s;font-weight:200;min-height:48px}
-input:focus,select:focus{outline:none;border-color:var(--cobre);background:#fff;box-shadow:0 0 0 4px rgba(198,110,78,.1)}
+input[type="text"],input[type="email"],input[type="tel"],select{width:100%;padding:14px 16px;border:1px solid var(--linea);border-radius:var(--radius-sm);font-family:inherit;font-size:max(16px, var(--t-lg));color:var(--tinta);background:var(--crema);transition:border-color var(--d-2) var(--c-autor),background var(--d-2) var(--c-autor),box-shadow var(--d-2) var(--c-autor);font-weight:300;min-height:48px}
+input:focus,select:focus{outline:none;border-color:var(--cobre-dark);background:#fff;box-shadow:0 0 0 3px rgba(138,74,43,.10)}
 @media(max-width:640px){
   input[type="text"],input[type="email"],input[type="tel"],select{font-size:max(16px, var(--t-lg));padding:13px 14px}
 }
@@ -155,31 +157,31 @@ input.error{border-color:#d32f2f;background:#fff5f5}
 /* DELIVERY OPTIONS */
 .delivery-opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media(max-width:560px){.delivery-opts{grid-template-columns:1fr}}
-.delivery-opt{padding:18px;border:2px solid var(--linea);border-radius:var(--radius-sm);cursor:pointer;transition:all .25s;background:var(--crema);display:flex;flex-direction:column;gap:6px}
-.delivery-opt:hover{border-color:var(--cobre-dark)}
-.delivery-opt.active{border-color:var(--cobre);background:rgba(243,207,179,.18);box-shadow:0 0 0 4px rgba(198,110,78,.08)}
-.delivery-opt .opt-title{font-size:var(--t-md);font-weight:700;color:var(--verde-dark)}
-.delivery-opt .opt-desc{font-size:var(--t-xs);color:var(--tinta-soft);font-weight:200}
+.delivery-opt{padding:18px;border:1px solid var(--linea);border-radius:var(--radius);cursor:pointer;transition:border-color var(--d-3) var(--c-autor),background var(--d-3) var(--c-autor),box-shadow var(--d-3) var(--c-autor),transform var(--d-3) var(--c-autor);background:var(--crema);display:flex;flex-direction:column;gap:6px}
+.delivery-opt:hover{border-color:var(--cobre-dark);transform:translateY(-1px);box-shadow:var(--shadow-sm)}
+.delivery-opt.active{border-color:var(--cobre);background:rgba(243,207,179,.18);box-shadow:0 0 0 1px var(--cobre),var(--shadow-sm)}
+.delivery-opt .opt-title{font-size:var(--t-md);font-weight:500;color:var(--verde-dark);letter-spacing:.01em}
+.delivery-opt .opt-desc{font-size:var(--t-xs);color:var(--tinta-soft);font-weight:300;line-height:1.5}
 .delivery-opt.active .opt-title{color:var(--cobre-dark)}
 
 /* ACTIONS */
 .ci-actions{display:flex;flex-direction:column;gap:10px;margin-top:8px}
-.btn{width:100%;padding:16px 24px;border-radius:2px;font-size:var(--t-xs);letter-spacing:.16em;text-transform:uppercase;font-weight:700;cursor:pointer;transition:all .25s;border:none;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px}
-@media(max-width:640px){.btn{padding:15px 20px;font-size:var(--t-2xs);letter-spacing:.14em}}
-.btn-primary{background:var(--verde);color:#fff;box-shadow:0 4px 16px -4px rgba(192,76,54,.4)}
-.btn-primary:hover{background:var(--verde-dark);transform:translateY(-2px);box-shadow:0 8px 24px -6px rgba(192,76,54,.5)}
+.btn{width:100%;padding:16px 24px;border-radius:2px;font-size:var(--t-xs);letter-spacing:var(--track-ui);text-transform:uppercase;font-weight:500;cursor:pointer;transition:background var(--d-3) var(--c-autor),color var(--d-3) var(--c-autor),transform var(--d-3) var(--c-autor),box-shadow var(--d-3) var(--c-autor),border-color var(--d-3) var(--c-autor);border:none;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px}
+@media(max-width:640px){.btn{padding:15px 20px;font-size:var(--t-2xs);letter-spacing:.16em}}
+.btn-primary{background:var(--verde);color:#fff;box-shadow:var(--shadow-cta)}
+.btn-primary:hover{background:var(--verde-dark);transform:translateY(-1px);box-shadow:0 14px 32px -14px rgba(43,33,27,.5)}
 .btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none}
 .btn-secondary{background:transparent;color:var(--tinta-soft);border:1px solid var(--linea)}
 .btn-secondary:hover{background:var(--crema-2);color:var(--verde)}
 .btn svg{width:16px;height:16px}
 
 /* SUMMARY */
-.summary{position:sticky;top:104px;background:#fff;border:1px solid var(--linea);border-radius:var(--radius-lg);overflow:hidden;box-shadow:0 4px 20px -8px rgba(63,68,67,.08)}
+.summary{position:sticky;top:104px;background:#fff;border:1px solid var(--linea);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-sm)}
 @media(max-width:920px){.summary{position:static;order:-1}}
 @media(max-width:640px){.summary{border-radius:var(--radius)}.summary-head{padding:18px 20px}.summary-item{padding:12px 20px;gap:12px}.summary-item img{width:54px;height:54px}.summary-totals{padding:16px 20px}}
 .summary-head{padding:22px 24px;border-bottom:1px solid var(--linea);background:var(--crema-2)}
-.summary-head h3{margin:0;font-size:var(--t-md);color:var(--verde-dark);font-weight:700;letter-spacing:.02em}
-.summary-head .count{font-size:var(--t-xs);color:var(--tinta-soft);font-weight:200;margin-top:2px;letter-spacing:.05em}
+.summary-head h3{margin:0;font-family:'Cormorant Garamond',serif;font-size:var(--t-2xl);color:var(--verde-dark);font-weight:500;letter-spacing:.005em;line-height:1.15}
+.summary-head .count{font-size:var(--t-2xs);color:var(--tinta-soft);font-weight:400;margin-top:4px;letter-spacing:var(--track-label);text-transform:uppercase}
 .summary-items{max-height:380px;overflow-y:auto;padding:8px 0}
 .summary-items::-webkit-scrollbar{width:6px}
 .summary-items::-webkit-scrollbar-thumb{background:var(--linea);border-radius:6px}
@@ -227,11 +229,21 @@ input.error{border-color:#d32f2f;background:#fff5f5}
 @keyframes wapulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.5)}70%{box-shadow:0 0 0 18px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
 @media(max-width:640px){.wa-float{width:52px;height:52px;bottom:18px;right:18px}.wa-float svg{width:26px;height:26px}}
 
-/* BOTÓN VOLVER (página anterior) */
-.back-float{position:fixed;bottom:26px;left:26px;z-index:90;width:48px;height:48px;border-radius:50%;background:rgba(87,41,50,.9);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .35s cubic-bezier(.4,0,.2,1);box-shadow:0 4px 16px -4px rgba(87,41,50,.45);backdrop-filter:blur(8px);border:none}
-.back-float:hover{background:var(--verde-dark);transform:translateY(-3px)}
-.back-float svg{width:20px;height:20px}
-@media(max-width:640px){.back-float{width:44px;height:44px;bottom:18px;left:18px}}
+/* BOTÓN LLAMAR AHORA — píldora apilada justo encima de WhatsApp (mismo eje derecho) */
+.call-float{position:fixed;bottom:96px;right:26px;z-index:90;height:48px;padding:0 20px 0 16px;border-radius:999px;background:rgba(87,41,50,.92);color:#fff;display:inline-flex;align-items:center;gap:10px;font-size:var(--t-2xs);letter-spacing:.16em;text-transform:uppercase;font-weight:500;line-height:1;white-space:nowrap;text-decoration:none;cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 4px 16px -4px rgba(87,41,50,.45),0 1px 3px rgba(0,0,0,.1),inset 0 0 0 1px rgba(255,255,255,.12);transition:transform .35s cubic-bezier(.4,0,.2,1),background .35s cubic-bezier(.4,0,.2,1),box-shadow .35s cubic-bezier(.4,0,.2,1)}
+.call-float:hover{background:var(--verde-dark);transform:translateY(-3px);box-shadow:0 10px 24px -6px rgba(43,33,27,.5),0 2px 6px rgba(0,0,0,.12),inset 0 0 0 1px rgba(255,255,255,.14)}
+.call-float:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.call-float svg{width:18px;height:18px;stroke-width:1.7;flex:none;transition:transform .35s cubic-bezier(.4,0,.2,1)}
+.call-float:hover svg{transform:rotate(-12deg)}
+@media(max-width:640px){.call-float{height:44px;padding:0 16px 0 14px;bottom:82px;right:18px;gap:8px;letter-spacing:.12em}}
+
+/* BOTÓN VOLVER (página anterior) — píldora ícono + "Regresar" (mismo lenguaje que .p-back) */
+.back-float{position:fixed;bottom:26px;left:26px;z-index:90;height:48px;padding:0 20px 0 16px;border-radius:999px;background:rgba(87,41,50,.92);color:#fff;display:inline-flex;align-items:center;gap:10px;font-family:inherit;font-size:var(--t-2xs);letter-spacing:.16em;text-transform:uppercase;font-weight:500;line-height:1;white-space:nowrap;cursor:pointer;border:none;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 4px 16px -4px rgba(87,41,50,.45),0 1px 3px rgba(0,0,0,.1),inset 0 0 0 1px rgba(255,255,255,.12);transition:transform .35s cubic-bezier(.4,0,.2,1),background .35s cubic-bezier(.4,0,.2,1),box-shadow .35s cubic-bezier(.4,0,.2,1)}
+.back-float:hover{background:var(--verde-dark);transform:translateY(-3px);box-shadow:0 10px 24px -6px rgba(43,33,27,.5),0 2px 6px rgba(0,0,0,.12),inset 0 0 0 1px rgba(255,255,255,.14)}
+.back-float:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.back-float svg{width:18px;height:18px;flex:none;transition:transform .35s cubic-bezier(.4,0,.2,1)}
+.back-float:hover svg{transform:translateX(-3px)}
+@media(max-width:640px){.back-float{height:44px;padding:0 16px 0 14px;bottom:18px;left:18px;gap:8px;letter-spacing:.12em}}
 
 /* ============================================================
    MOVIL + ACCESIBILIDAD — bloque autoritativo (va AL FINAL a proposito)
@@ -511,9 +523,16 @@ input.error{border-color:#d32f2f;background:#fff5f5}
 </footer>
 
 <!-- Botón volver a la página anterior -->
-<button class="back-float" onclick="history.back()" aria-label="Volver a la página anterior">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+<button class="back-float" onclick="history.back()" aria-label="Regresar a la página anterior">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+  <span>Regresar</span>
 </button>
+
+<!-- Botón flotante Llamar ahora (apilado encima de WhatsApp) -->
+<a href="tel:+573116214726" class="call-float" aria-label="Llamar ahora al +57 311 621 4726">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+  <span>Llamar ahora</span>
+</a>
 
 <!-- Botón flotante WhatsApp -->
 <a href="https://wa.me/573116214726?text=Hola%20Felipe!%20Tengo%20una%20pregunta%20sobre%20mi%20pedido." target="_blank" rel="noopener" class="wa-float" aria-label="Escribir por WhatsApp">

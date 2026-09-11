@@ -57,6 +57,19 @@
      Tenida con el color de la escena, nunca gris. La variante fria
      rgba(63,68,67,.18) venia de la paleta fosil y ensuciaba el crema.      */
   --shadow:0 10px 40px -10px rgba(43,33,27,.16);
+  /* Tres niveles mas, todos tenidos con la tinta de la escena y con
+     desenfoque largo: una sombra "cara" es difusa y de baja opacidad,
+     nunca un borde gris pegado a la tarjeta. */
+  --shadow-sm:0 1px 2px rgba(43,33,27,.04),0 6px 18px -8px rgba(43,33,27,.10);
+  --shadow-lg:0 2px 4px rgba(43,33,27,.04),0 24px 60px -20px rgba(43,33,27,.22);
+  --shadow-cta:0 8px 24px -10px rgba(156,74,47,.45);
+
+  /* --- TRACKING ------------------------------------------------------------
+     Las versalitas del sitio usaban 9 valores distintos de letter-spacing
+     (.05 .06 .08 .1 .12 .14 .16 .18 .28). Tres pasos bastan:               */
+  --track-ui:.18em;       /* botones, nav, migas                             */
+  --track-label:.22em;    /* etiquetas de campo, specs                       */
+  --track-eyebrow:.34em;  /* eyebrows editoriales                            */
 
   /* --- ESCALA TIPOGRAFICA --------------------------------------------------
      9 pasos fluidos. Antes habia 28 tamanos distintos en el sitio, con
@@ -96,6 +109,9 @@
   --c-suave:cubic-bezier(.4,0,.2,1);       /* estandar bidireccional        */
   --c-expresiva:cubic-bezier(.2,.65,.2,1); /* revelados con caracter        */
   --c-fisica:cubic-bezier(.34,1.4,.64,1);  /* rebote corto, solo micro-UI   */
+  --c-autor:cubic-bezier(.2,.7,.3,1);      /* curva de la casa: arranca
+                                              decidida y aterriza muy lenta.
+                                              Hovers de tarjeta/boton/logo  */
 }
 
 /* ============================================================================
@@ -144,4 +160,40 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;
   }
   .reveal{opacity:1!important;transform:none!important}
   .cat-circle{opacity:1!important}
+}
+
+/* ============================================================================
+   LOGO — entrada y hover compartidos por las 4 cabeceras
+   (.nav-logo index · .p-logo product · .co-logo checkout · .ci-logo
+   customer-info) y por la marca del footer (.fvf-brand).
+   Entrada: un solo fundido con leve descenso y escala .97 -> 1, 600ms con la
+   curva de autor. Sin rebote ni bucle: debe sentirse como una firma que se
+   asienta, no como un splash. `both` conserva el estado final y con
+   prefers-reduced-motion la duracion cae a .01ms (arriba), asi que el logo
+   simplemente aparece.
+   Hover: escala 1.03 + opacidad plena. Solo transform/opacity: compositor.
+   ========================================================================= */
+@keyframes fvLogoIn{
+  from{opacity:0;transform:translateY(-4px) scale(.97)}
+  to{opacity:1;transform:none}
+}
+.nav-logo img,.p-logo img,.co-logo img,.ci-logo img{
+  animation:fvLogoIn var(--d-4) var(--c-autor) .08s both;
+  transform-origin:left center;
+  transition:transform var(--d-3) var(--c-autor),opacity var(--d-3) var(--c-autor),filter var(--d-3) var(--c-autor);
+  will-change:transform;
+}
+@media(hover:hover){
+  .nav-logo:hover img,.p-logo:hover img,.co-logo:hover img,.ci-logo:hover img{
+    transform:scale(1.03);opacity:1;
+  }
+}
+.nav-logo:active img,.p-logo:active img,.co-logo:active img,.ci-logo:active img{transform:scale(.99)}
+
+/* Footer: la marca entra cuando el footer llega a la vista. Con soporte de
+   animaciones scroll-driven se ata al viewport; sin soporte, entra al cargar
+   (esta bajo el pliegue, asi que en la practica ya esta asentada). */
+.fvf-brand img{animation:fvLogoIn var(--d-5) var(--c-autor) both;transform-origin:left center}
+@supports(animation-timeline:view()){
+  .fvf-brand img{animation-timeline:view();animation-range:entry 0% entry 70%}
 }

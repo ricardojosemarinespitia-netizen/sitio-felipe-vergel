@@ -162,7 +162,7 @@ window.fvImg=(function(){
 <script src="perfil.js" defer></script>
 <!-- Sistema de diseno: paleta, escala tipografica, espacio, radios, foco.
      Una sola fuente de verdad para los 4 HTML (antes: 4 :root divergentes). -->
-<link rel="stylesheet" href="tokens.css?v=1">
+<link rel="stylesheet" href="tokens.css?v=2">
 <style>
 /* overscroll-behavior-y: dentro del navegador integrado de Instagram/Facebook,
    el gesto de swipe vertical se lo roba su propia capa de "pull" (para cerrar
@@ -170,9 +170,13 @@ window.fvImg=(function(){
    y el resultado se siente como si la página "saltara" a otra parte. contain
    evita que el gesto se propague fuera del documento. */
 html{scroll-behavior:smooth;overscroll-behavior-y:contain}
-body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tinta);background:var(--crema);line-height:1.6;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;overscroll-behavior-y:contain}
+body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tinta);background:var(--crema);line-height:1.65;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;font-kerning:normal;-webkit-tap-highlight-color:transparent;overscroll-behavior-y:contain}
 .h-serif{font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic}
-.h-display{font-family:'Cormorant Garamond',serif;font-weight:500;letter-spacing:.015em;line-height:1.06}
+.h-display{font-family:'Cormorant Garamond',serif;font-weight:500;letter-spacing:.01em;line-height:1.06;font-feature-settings:"kern","liga","dlig"}
+/* Ligaduras discrecionales solo en la serif: en Cormorant convierten "ct",
+   "st" y "Th" en trazos unidos, el detalle tipografico que distingue una
+   cabecera editorial de un titulo de plantilla. */
+h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wrap:balance}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .container{max-width:1280px;margin:0 auto;padding:0 28px}
 @media(max-width:640px){.container{padding:0 18px}}
@@ -186,16 +190,20 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
    logo empujaba el carrito fuera de la pantalla. */
 .nav-inner{display:flex;align-items:center;justify-content:space-between;min-height:70px;gap:12px}
 .nav-logo{display:flex;align-items:center;min-height:44px;gap:10px;min-width:0;flex-shrink:1}  /* era 34px de alto en movil */
-.nav-logo img{height:38px;width:auto;max-width:100%;transition:filter .3s,opacity .3s}
+.nav-logo img{height:38px;width:auto;max-width:100%;transition:filter var(--d-3) var(--c-autor),opacity var(--d-3) var(--c-autor),transform var(--d-3) var(--c-autor)}
 .nav:not(.scrolled) .nav-logo img{filter:brightness(0) invert(1) drop-shadow(0 2px 6px rgba(0,0,0,.3));opacity:.95}
 /* .nav-logo-text (4 reglas): el logo es solo imagen desde hace tiempo. */
-.nav-links{display:flex;gap:36px;font-size:var(--t-xs);font-weight:400;letter-spacing:.14em;text-transform:uppercase}
-.nav-links a{color:var(--tinta);transition:color .3s}
+.nav-links{display:flex;gap:40px;font-size:var(--t-xs);font-weight:400;letter-spacing:var(--track-ui);text-transform:uppercase}
+.nav-links a{position:relative;color:var(--tinta);transition:color var(--d-3) var(--c-autor);padding:6px 0}
+/* Subrayado que crece desde el centro: la firma discreta de los enlaces de
+   una maison. Solo transform: compositor. */
+.nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:currentColor;transform:scaleX(0);transform-origin:center;transition:transform var(--d-3) var(--c-autor);opacity:.7}
+.nav-links a:hover::after{transform:scaleX(1)}
 .nav:not(.scrolled) .nav-links a{color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.4)}
 .nav-links a:hover{color:var(--cobre-dark)}  /* sobre nav clara: 2.71:1 -> 5.88:1 */
 .nav:not(.scrolled) .nav-links a:hover{color:var(--crema-rosa)}
-.nav-cart{position:relative;display:flex;align-items:center;min-height:44px;gap:8px;flex-shrink:0;white-space:nowrap;padding:10px 16px;border-radius:var(--radius-sm);background:var(--verde);color:var(--crema);font-size:var(--t-xs);letter-spacing:.08em;text-transform:uppercase;transition:background .2s;box-shadow:0 2px 12px -2px rgba(192,76,54,.3)}
-.nav-cart:hover{background:var(--verde-dark)}
+.nav-cart{position:relative;display:flex;align-items:center;min-height:44px;gap:8px;flex-shrink:0;white-space:nowrap;padding:10px 18px;border-radius:var(--radius-sm);background:var(--verde);color:var(--crema);font-size:var(--t-xs);font-weight:500;letter-spacing:var(--track-ui);text-transform:uppercase;transition:background var(--d-3) var(--c-autor),box-shadow var(--d-3) var(--c-autor),transform var(--d-3) var(--c-autor);box-shadow:var(--shadow-cta)}
+.nav-cart:hover{background:var(--verde-dark);transform:translateY(-1px);box-shadow:0 12px 28px -12px rgba(43,33,27,.45)}
 .cart-count{background:var(--crema-rosa);color:var(--verde-dark);min-width:18px;height:18px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;font-size:var(--t-2xs);font-weight:700;padding:0 6px}
 .nav-burger{display:none;background:none;border:none;font-size:var(--t-2xl);color:var(--verde);transition:color .3s;width:44px;height:44px;align-items:center;justify-content:center;border-radius:2px}
 .nav:not(.scrolled) .nav-burger{color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.4)}
@@ -203,6 +211,7 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
   .nav-links{display:none}
   .nav-links.open{display:flex;flex-direction:column;gap:0;position:absolute;top:70px;left:0;right:0;background:rgba(250,244,237,.98);backdrop-filter:blur(20px);padding:14px 22px 22px;box-shadow:0 8px 24px -8px rgba(63,68,67,.15);max-height:calc(100vh - 70px);overflow-y:auto}
   .nav-links.open a{padding:16px 4px;border-bottom:1px solid var(--linea);color:var(--tinta)!important;font-size:var(--t-md);text-shadow:none!important}
+  .nav-links.open a::after{display:none}
   .nav-links.open a:last-child{border-bottom:none}
   .nav-burger{display:flex}
   .nav-cart span.label{display:none}
@@ -231,7 +240,8 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
 .hero h1 .sub{display:block;font-family:'Jost';font-weight:200;font-size:var(--t-xl);letter-spacing:.08em;margin-top:8px;color:rgba(255,255,255,.7)}
 .hero-tagline{font-family:'Cormorant Garamond',serif;font-weight:400;font-style:italic;font-size:var(--t-2xl);color:var(--cobre);margin:14px 0 0;line-height:1.4;letter-spacing:.01em}
 .hero p{font-size:var(--t-lg);max-width:500px;color:rgba(255,255,255,.78);margin:0 0 36px;font-weight:200;line-height:1.8}
-.hero-cta{display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:17px 42px;border:1px solid rgba(255,255,255,.75);border-radius:2px;background:rgba(22,17,12,.18);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);color:#fff;font-size:var(--t-xs);letter-spacing:.28em;text-transform:uppercase;font-weight:500;transition:all .3s;min-height:52px}
+.hero-cta{display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:17px 44px;border:1px solid rgba(255,255,255,.75);border-radius:2px;background:rgba(22,17,12,.18);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);color:#fff;font-size:var(--t-xs);letter-spacing:.3em;text-transform:uppercase;font-weight:500;transition:background var(--d-3) var(--c-autor),color var(--d-3) var(--c-autor),border-color var(--d-3) var(--c-autor),transform var(--d-3) var(--c-autor),box-shadow var(--d-3) var(--c-autor);min-height:52px}
+.hero-cta:hover{transform:translateY(-1px);box-shadow:0 16px 40px -16px rgba(0,0,0,.5)}
 .hero-cta:hover{background:var(--crema);color:var(--verde-dark);border-color:var(--crema)}
 .hero-cta svg{width:16px;height:16px}
 .hero-scroll{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.45);font-size:var(--t-2xs);letter-spacing:.25em;text-transform:uppercase;z-index:1}
@@ -246,10 +256,10 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
 .sobre-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
 @media(max-width:900px){.sobre-grid{grid-template-columns:1fr;gap:40px}}
 @media(max-width:640px){.sobre{padding:60px 0}.sobre-grid{gap:30px}}
-.sobre-text .eyebrow{color:var(--cobre-dark);font-size:var(--t-xs);letter-spacing:.28em;text-transform:uppercase;font-weight:200;display:block;margin-bottom:16px}
+.sobre-text .eyebrow{color:var(--cobre-dark);font-size:var(--t-xs);letter-spacing:var(--track-eyebrow);text-transform:uppercase;font-weight:400;display:block;margin-bottom:18px}
 .sobre-text h2{font-size:var(--t-3xl);margin:0 0 18px;color:var(--verde-dark)}
 .sobre-text h2 .acc{color:var(--cobre-dark);display:block}
-.sobre-text p{color:var(--tinta-soft);font-size:var(--t-md);margin:0 0 13px;max-width:520px;line-height:1.7;font-weight:200}
+.sobre-text p{color:var(--tinta-soft);font-size:var(--t-md);margin:0 0 14px;max-width:520px;line-height:1.8;font-weight:300;text-wrap:pretty}
 .farex-badge{display:block;background:none;border:none;padding:0;color:var(--cobre-dark);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:var(--t-lg);letter-spacing:.03em;text-transform:none;font-weight:500;margin:0 0 20px}
 .sobre-mosaic{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;align-items:start}
 .sobre-mosaic .m{overflow:hidden;background:#eee;box-shadow:var(--shadow)}
@@ -267,10 +277,10 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
    .nov-flag, .tag-new, .nov-body, .nov-price* ni .nov-btn aparecen en
    ningun HTML ni en products.js/perfil.js. Borrado. */
 .nov-head{text-align:center;margin-bottom:var(--e-7)}
-.nov-head .eyebrow{color:var(--cobre-dark);font-size:var(--t-xs);letter-spacing:.28em;text-transform:uppercase;font-weight:400;display:block;margin-bottom:var(--e-4)}
+.nov-head .eyebrow{color:var(--cobre-dark);font-size:var(--t-xs);letter-spacing:var(--track-eyebrow);text-transform:uppercase;font-weight:400;display:block;margin-bottom:var(--e-4)}
 .nov-head h2{font-size:var(--t-3xl);margin:0 0 14px;color:var(--verde-dark)}
 .nov-head h2 .acc{color:var(--cobre-dark);font-family:'Cormorant Garamond',serif;font-weight:400;font-style:italic}
-.nov-head p{color:var(--tinta-soft);max-width:540px;margin:0 auto;font-size:var(--t-md);font-weight:200;line-height:1.8}
+.nov-head p{color:var(--tinta-soft);max-width:540px;margin:0 auto;font-size:var(--t-md);font-weight:300;line-height:1.8;text-wrap:pretty}
 /* (Se quito `@media(max-width:640px){.nov-head{margin-bottom:var(--e-5)}}`:
    estaba muerta. El unico .nov-head del markup vive dentro de
    .colecciones, y `.colecciones .nov-head` gana por especificidad. El
@@ -320,7 +330,7 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
 
 /* CÍRCULO: banda de suscripción inline */
 .circulo-band{padding:96px 0;background:var(--crema-2);text-align:center;border-top:1px solid var(--linea);border-bottom:1px solid var(--linea)}
-.circulo-band .eyebrow{color:var(--cobre-dark);font-size:var(--t-xs);letter-spacing:.3em;text-transform:uppercase;font-weight:400;display:block;margin-bottom:16px}
+.circulo-band .eyebrow{color:var(--cobre-dark);font-size:var(--t-xs);letter-spacing:var(--track-eyebrow);text-transform:uppercase;font-weight:400;display:block;margin-bottom:16px}
 .circulo-band h2{font-size:var(--t-3xl);margin:0 0 14px;color:var(--verde-dark)}
 .circulo-band h2 .acc{color:var(--cobre-dark);font-family:'Cormorant Garamond',serif;font-weight:400;font-style:italic}
 .circulo-sub{color:var(--tinta-soft);max-width:520px;margin:0 auto 34px;font-size:var(--t-md);font-weight:200;line-height:1.8}
@@ -368,7 +378,7 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
 @media(max-width:640px){.catalogo{padding-left:0;padding-right:0}}
 .cat-head{text-align:center;margin-bottom:50px}
 @media(max-width:640px){.cat-head{margin-bottom:34px}}
-.cat-head .eyebrow{color:var(--cobre-dark);font-size:var(--t-xs);letter-spacing:.28em;text-transform:uppercase;font-weight:200;display:block;margin-bottom:18px}
+.cat-head .eyebrow{color:var(--cobre-dark);font-size:var(--t-xs);letter-spacing:var(--track-eyebrow);text-transform:uppercase;font-weight:400;display:block;margin-bottom:18px}
 .cat-head h2{font-size:var(--t-3xl);margin:0 0 14px;color:var(--verde-dark)}
 .cat-head h2 .acc{color:var(--cobre-dark);font-family:'Cormorant Garamond',serif;font-weight:400;font-style:italic}
 .cat-head p{color:var(--tinta-soft);max-width:500px;margin:0 auto;font-size:var(--t-md);font-weight:200;line-height:1.85}
@@ -404,15 +414,15 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
 
 /* CIRCULAR SILHOUETTE CATEGORY SELECTOR */
 .cat-circles{display:flex;flex-wrap:wrap;gap:28px;justify-content:center;margin-bottom:40px;padding:20px 0}
-.cat-circle{display:flex;flex-direction:column;align-items:center;gap:12px;cursor:pointer;transition:transform .28s ease}
-.cat-circle:hover{transform:translateY(-5px)}
-.cat-circle:hover .circle-img{border-color:var(--cobre-dark);box-shadow:0 8px 28px -6px rgba(198,110,78,.35)}
-.cat-circle .circle-img{width:120px;height:120px;border-radius:50%;overflow:hidden;border:2px solid var(--linea);transition:border-color .28s,box-shadow .28s;background:var(--crema-2)}
-.cat-circle .circle-img img{width:100%;height:100%;object-fit:cover;transition:transform .38s ease}
-.cat-circle:hover .circle-img img{transform:scale(1.08)}
+.cat-circle{display:flex;flex-direction:column;align-items:center;gap:12px;cursor:pointer;transition:transform var(--d-3) var(--c-autor)}
+.cat-circle:hover{transform:translateY(-4px)}
+.cat-circle:hover .circle-img{border-color:var(--cobre-dark);box-shadow:0 14px 32px -12px rgba(138,74,43,.35)}
+.cat-circle .circle-img{width:120px;height:120px;border-radius:50%;overflow:hidden;border:2px solid var(--linea);transition:border-color var(--d-3) var(--c-autor),box-shadow var(--d-3) var(--c-autor);background:var(--crema-2)}
+.cat-circle .circle-img img{width:100%;height:100%;object-fit:cover;transition:transform var(--d-4) var(--c-autor)}
+.cat-circle:hover .circle-img img{transform:scale(1.06)}
 .cat-circle.active .circle-img{border-color:var(--cobre);border-width:3px;box-shadow:0 8px 28px -6px rgba(198,110,78,.5)}
-.cat-circle .circle-label{font-size:var(--t-2xs);letter-spacing:.14em;text-transform:uppercase;color:var(--tinta-soft);font-weight:200;text-align:center;max-width:100px;line-height:1.4;transition:color .2s}
-.cat-circle.active .circle-label{color:var(--cobre-dark);font-weight:700}
+.cat-circle .circle-label{font-size:var(--t-2xs);letter-spacing:var(--track-ui);text-transform:uppercase;color:var(--tinta-soft);font-weight:400;text-align:center;max-width:100px;line-height:1.4;transition:color var(--d-2) var(--c-autor)}
+.cat-circle.active .circle-label{color:var(--cobre-dark);font-weight:600}
 .product-grid{opacity:0;transition:opacity .3s ease}
 .product-grid.visible{opacity:1}
 @media(max-width:900px){.cat-circle .circle-img{width:88px;height:88px}.cat-circles{gap:18px}}
@@ -424,8 +434,9 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
 @media(max-width:768px){.product-grid{grid-template-columns:repeat(2,1fr);gap:14px}
   .product-grid.few{grid-template-columns:minmax(0,320px);gap:14px}}
 @media(max-width:380px){.product-grid{gap:10px}}
-.product-card{display:block;text-decoration:none;color:inherit;background:var(--crema);border-radius:var(--radius);overflow:hidden;transition:transform .4s,box-shadow .4s;cursor:pointer;border:1px solid transparent;position:relative}
-.product-card:active{transform:scale(.98)}
+.product-card{display:block;text-decoration:none;color:inherit;background:var(--crema);border-radius:var(--radius);overflow:hidden;transition:transform var(--d-4) var(--c-autor),box-shadow var(--d-4) var(--c-autor),border-color var(--d-4) var(--c-autor);cursor:pointer;border:1px solid transparent;position:relative;box-shadow:0 0 0 rgba(43,33,27,0)}
+.product-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:var(--linea)}
+.product-card:active{transform:translateY(-2px) scale(.995)}
 /* 2/3 en vez de 1/1: el 79% de las portadas del catalogo ya son verticales
    2:3, asi que encajan exactas. En marco cuadrado se les recortaba un
    tercio y las piezas altas salian cortadas.
@@ -433,19 +444,25 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
 .product-img{position:relative;aspect-ratio:2/3;background:var(--crema-2);overflow:hidden}
 /* Fotos de la lámpara: encuadre bajo el techo para que el vidrio llene la foto, sin espacio vacío arriba */
 .product-img img[src*="lamparas/"],.p-gallery-main img[src*="lamparas/"],.p-thumb img[src*="lamparas/"]{object-position:50% 78%}
-.product-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.product-img img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--c-autor)}
+.product-card:hover .product-img img{transform:scale(1.035)}
 /* .product-badge quedo sin markup: products.js no lo genera. */
 .product-sold-out{position:absolute;inset:0;background:rgba(26,35,34,.55);display:flex;align-items:center;justify-content:center;z-index:2}
 .product-sold-out span{background:var(--cobre-dark);color:#fff;padding:8px 20px;border-radius:var(--radius-sm);font-size:var(--t-2xs);letter-spacing:.15em;text-transform:uppercase;font-weight:700}
-.product-info{padding:18px 20px 22px}
-.product-info h3{font-size:var(--t-md);font-weight:200;margin:0 0 5px;color:var(--verde-dark)}
+.product-info{padding:20px 22px 24px}
+/* Titulo de pieza en la serif: es lo que convierte una ficha de tienda en
+   una cartela de galeria. Precio en peso medio con tracking abierto: el
+   700 gritaba; el lujo no subraya el precio, lo deja leer. */
+.product-info h3{font-family:'Cormorant Garamond',serif;font-size:var(--t-xl);font-weight:500;letter-spacing:.01em;line-height:1.2;margin:0 0 6px;color:var(--verde-dark);text-wrap:balance}
 .product-info .price-row{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
-.product-info .price{color:var(--cobre-dark);font-size:var(--t-lg);font-weight:700}
+.product-info .price{color:var(--cobre-dark);font-size:var(--t-md);font-weight:500;letter-spacing:.04em;font-variant-numeric:tabular-nums}
 /* .price-old y .price-off se fueron con precioAnterior(): el precio tachado
    ficticio esta desactivado a proposito y no debe volver. */
 /* Antes --verde-soft #B96A4B = 3.48:1 sobre crema, a 10px. Ahora
    --cobre-dark = 5.88:1. */
-.product-info .view{display:inline-block;margin-top:8px;font-size:var(--t-2xs);letter-spacing:.14em;text-transform:uppercase;color:var(--cobre-dark);font-weight:400}
+.product-info .view{position:relative;display:inline-block;margin-top:10px;padding-bottom:3px;font-size:var(--t-2xs);letter-spacing:var(--track-label);text-transform:uppercase;color:var(--cobre-dark);font-weight:500}
+.product-info .view::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:currentColor;opacity:.5;transform:scaleX(.35);transform-origin:left;transition:transform var(--d-4) var(--c-autor),opacity var(--d-4) var(--c-autor)}
+.product-card:hover .product-info .view::after{transform:scaleX(1);opacity:.9}
 @media(max-width:768px){.product-info{padding:12px 14px 16px}.product-info h3{line-height:1.35}.product-info .view{margin-top:6px}}
 @media(max-width:380px){.product-info{padding:10px 12px 14px}}
 
@@ -488,8 +505,8 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
 .qty button{padding:10px 16px;color:var(--verde);font-size:var(--t-xl);background:var(--crema)}
 .qty button:hover{background:var(--crema-2)}
 .qty span{padding:0 14px;min-width:24px;text-align:center;font-weight:700}
-.add-cart{width:100%;padding:15px;margin-top:10px;background:var(--verde);color:var(--crema);font-size:var(--t-xs);letter-spacing:.14em;text-transform:uppercase;font-weight:700;border-radius:2px;transition:background .2s;min-height:48px}
-.add-cart:hover{background:var(--verde-dark)}
+.add-cart{width:100%;padding:15px;margin-top:10px;background:var(--verde);color:var(--crema);font-size:var(--t-xs);letter-spacing:var(--track-ui);text-transform:uppercase;font-weight:500;border-radius:2px;transition:background var(--d-3) var(--c-autor),box-shadow var(--d-3) var(--c-autor),transform var(--d-3) var(--c-autor);min-height:48px;box-shadow:var(--shadow-cta)}
+.add-cart:hover{background:var(--verde-dark);transform:translateY(-1px)}
 .add-cart:disabled{opacity:.5;cursor:not-allowed}
 @media(max-width:640px){.qty button{padding:12px 18px;min-width:44px;min-height:44px}.color-pick{padding:8px 14px;min-height:36px}}
 
@@ -499,14 +516,14 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
 .cart-overlay{position:fixed;inset:0;background:rgba(26,35,34,.5);z-index:250;opacity:0;pointer-events:none;transition:opacity .3s}
 .cart-overlay.open{opacity:1;pointer-events:auto}
 .cart-head{padding:24px 28px;border-bottom:1px solid var(--linea);display:flex;align-items:center;justify-content:space-between}
-.cart-head h3{margin:0;font-size:var(--t-lg);color:var(--verde-dark);font-weight:200;letter-spacing:.02em}
+.cart-head h3{margin:0;font-family:'Cormorant Garamond',serif;font-size:var(--t-2xl);color:var(--verde-dark);font-weight:500;letter-spacing:.01em}
 .cart-close{display:flex;align-items:center;justify-content:center;width:44px;height:44px;margin-right:-10px;font-size:var(--t-2xl);color:var(--verde)}
 .cart-items{flex:1;overflow-y:auto;padding:20px 28px}
 .cart-empty{text-align:center;padding:80px 20px;color:var(--tinta-soft)}
 .cart-item{display:grid;grid-template-columns:70px 1fr auto;gap:14px;padding:16px 0;border-bottom:1px solid var(--linea)}
 .cart-item img{width:70px;height:70px;object-fit:cover;border-radius:var(--radius-sm);background:#eee}
-.cart-item .info h4{font-size:var(--t-sm);margin:0 0 4px;color:var(--verde-dark);font-weight:200}
-.cart-item .info .color{font-size:var(--t-2xs);color:var(--tinta-soft);text-transform:uppercase;letter-spacing:.08em}
+.cart-item .info h4{font-family:'Cormorant Garamond',serif;font-size:var(--t-lg);margin:0 0 4px;color:var(--verde-dark);font-weight:500;line-height:1.2}
+.cart-item .info .color{font-size:var(--t-2xs);color:var(--tinta-soft);text-transform:uppercase;letter-spacing:var(--track-label)}
 .cart-item .info .qty-line{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:var(--t-sm)}
 .cart-item .info .qty-line button{padding:2px 8px;border:1px solid var(--linea);border-radius:8px;color:var(--verde)}
 .cart-item .rm{color:var(--tinta-soft);font-size:var(--t-2xs);text-align:right;align-self:start}
@@ -514,12 +531,12 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
 .cart-item .rm .sub{display:block;margin-top:14px;color:var(--cobre-dark);font-weight:700;text-align:right;font-size:var(--t-sm)}
 .cart-foot{padding:20px 28px;border-top:1px solid var(--linea);background:var(--crema-2)}
 .cart-foot .total{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px}
-.cart-foot .total span:first-child{font-size:var(--t-xs);letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-soft);font-weight:200}
-.cart-foot .total span:last-child{font-size:var(--t-xl);font-weight:700;color:var(--verde-dark)}
+.cart-foot .total span:first-child{font-size:var(--t-xs);letter-spacing:var(--track-label);text-transform:uppercase;color:var(--tinta-soft);font-weight:400}
+.cart-foot .total span:last-child{font-size:var(--t-xl);font-weight:500;letter-spacing:.02em;color:var(--verde-dark);font-variant-numeric:tabular-nums}
 .cart-foot .sm{font-size:var(--t-2xs);color:var(--tinta-soft);margin-bottom:12px;line-height:1.5}
-.btn-pay{width:100%;padding:14px;border-radius:2px;background:var(--verde);color:var(--crema);font-size:var(--t-xs);letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:10px;transition:background .2s;min-height:48px}
-.btn-pay:hover{background:var(--verde-dark)}
-.btn-wa{width:100%;padding:14px;border-radius:2px;background:#25d366;color:#fff;font-size:var(--t-xs);letter-spacing:.12em;text-transform:uppercase;font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px;min-height:48px}
+.btn-pay{width:100%;padding:14px;border-radius:2px;background:var(--verde);color:var(--crema);font-size:var(--t-xs);letter-spacing:var(--track-ui);text-transform:uppercase;font-weight:500;margin-bottom:10px;transition:background var(--d-3) var(--c-autor),transform var(--d-3) var(--c-autor);min-height:48px;box-shadow:var(--shadow-cta)}
+.btn-pay:hover{background:var(--verde-dark);transform:translateY(-1px)}
+.btn-wa{width:100%;padding:14px;border-radius:2px;background:#25d366;color:#fff;font-size:var(--t-xs);letter-spacing:var(--track-ui);text-transform:uppercase;font-weight:500;display:flex;align-items:center;justify-content:center;gap:10px;min-height:48px;transition:background var(--d-3) var(--c-autor)}
 .btn-wa:hover{background:#1fb655}
 @media(max-width:640px){.cart-head{padding:18px 22px}.cart-items{padding:16px 22px}.cart-foot{padding:18px 22px}.cart-item{grid-template-columns:60px 1fr auto;gap:12px}.cart-item img{width:60px;height:60px}}
 
@@ -629,6 +646,14 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
 @keyframes wapulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.5)}70%{box-shadow:0 0 0 18px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
 @media(max-width:640px){.wa-float{width:52px;height:52px;bottom:18px;right:18px}.wa-float svg{width:26px;height:26px}}
 
+/* BOTÓN LLAMAR AHORA — píldora apilada justo encima de WhatsApp (mismo eje derecho) */
+.call-float{position:fixed;bottom:96px;right:26px;z-index:90;height:48px;padding:0 20px 0 16px;border-radius:999px;background:rgba(87,41,50,.92);color:#fff;display:inline-flex;align-items:center;gap:10px;font-size:var(--t-2xs);letter-spacing:.16em;text-transform:uppercase;font-weight:500;line-height:1;white-space:nowrap;text-decoration:none;cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 4px 16px -4px rgba(87,41,50,.45),0 1px 3px rgba(0,0,0,.1),inset 0 0 0 1px rgba(255,255,255,.12);transition:transform .35s cubic-bezier(.4,0,.2,1),background .35s cubic-bezier(.4,0,.2,1),box-shadow .35s cubic-bezier(.4,0,.2,1)}
+.call-float:hover{background:var(--verde-dark);transform:translateY(-3px);box-shadow:0 10px 24px -6px rgba(43,33,27,.5),0 2px 6px rgba(0,0,0,.12),inset 0 0 0 1px rgba(255,255,255,.14)}
+.call-float:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.call-float svg{width:18px;height:18px;stroke-width:1.7;flex:none;transition:transform .35s cubic-bezier(.4,0,.2,1)}
+.call-float:hover svg{transform:rotate(-12deg)}
+@media(max-width:640px){.call-float{height:44px;padding:0 16px 0 14px;bottom:82px;right:18px;gap:8px;letter-spacing:.12em}}
+
 /* ORDER MODAL */
 .order-modal{position:fixed;inset:0;z-index:400;background:rgba(26,35,34,.7);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:20px}
 .order-modal.open{display:flex}
@@ -716,7 +741,8 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
    diseno, por eso no se hace en esta pasada. */
 
 /* Ornamento bajo los eyebrows centrados */
-.nov-head .eyebrow::after{content:"";display:block;width:38px;height:1px;background:currentColor;opacity:.45;margin:12px auto 0}
+.nov-head .eyebrow::after,.cat-head .eyebrow::after,.circulo-band .eyebrow::after{content:"";display:block;width:32px;height:1px;background:currentColor;opacity:.4;margin:14px auto 0}
+.sobre-text .eyebrow::after{content:"";display:block;width:32px;height:1px;background:currentColor;opacity:.4;margin:14px 0 0}
 
 /* Botones con barrido de luz — una regla, N componentes */
 .hero-cta,.add-cart,.btn-pay{position:relative;overflow:hidden}
@@ -838,9 +864,9 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
    :active se conserva: ese si funciona bien al tocar y da respuesta.
    ------------------------------------------------------------ */
 @media(hover:hover){
-.col-panel:hover .btn-descubrir{background:var(--crema);color:var(--verde-dark);border-color:var(--crema)}
-.product-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--linea)}
-.product-card:hover .product-img img{transform:scale(1.04)}
+.col-panel:hover .btn-descubrir{background:var(--crema);color:var(--verde-dark);border-color:var(--crema)}
+.product-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--linea)}
+.product-card:hover .product-img img{transform:scale(1.04)}
 .product-card:hover .img-alt{opacity:1}
 }
 </style>
@@ -1083,6 +1109,12 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tin
 <button class="back-top" id="backTop" aria-label="Volver arriba">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
 </button>
+
+<!-- Botón flotante Llamar ahora (apilado encima de WhatsApp) -->
+<a href="tel:+573116214726" class="call-float" aria-label="Llamar ahora al +57 311 621 4726">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+  <span>Llamar ahora</span>
+</a>
 
 <!-- Botón flotante WhatsApp -->
 <a href="https://wa.me/573116214726?text=Hola%20Felipe!%20Me%20interesa%20una%20pieza%20en%20vidrio." target="_blank" rel="noopener" class="wa-float" aria-label="Escribir por WhatsApp">

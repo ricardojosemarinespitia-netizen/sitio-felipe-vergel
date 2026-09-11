@@ -72,14 +72,15 @@ window.fvImg=(function(){
      font-family del sitio, y repetia display=swap tres veces. -->
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Jost:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
 <script src="perfil.js" defer></script>
-<link rel="stylesheet" href="tokens.css?v=1">
+<link rel="stylesheet" href="tokens.css?v=2">
 <style>
 /* overscroll-behavior-y: evita que el navegador integrado de Instagram/Facebook
    se robe el swipe vertical para su propio gesto de "pull" (mismo arreglo que
    index.html). */
 html{overscroll-behavior-y:contain}
-body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tinta);background:var(--crema);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;-webkit-tap-highlight-color:transparent;overscroll-behavior-y:contain}
+body{font-family:'Jost',-apple-system,sans-serif;font-weight:300;color:var(--tinta);background:var(--crema);line-height:1.65;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;font-kerning:normal;min-height:100vh;-webkit-tap-highlight-color:transparent;overscroll-behavior-y:contain}
 .h-serif{font-family:'Cormorant Garamond',serif;font-weight:400;font-style:italic}
+h1,h2,h3,.h-serif{font-feature-settings:"kern","liga","dlig";text-wrap:balance}
 
 /* HEADER */
 .p-header{background:rgba(250,244,237,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--linea);padding:18px 0;position:sticky;top:0;z-index:50}
@@ -91,11 +92,12 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tin
 .p-logo{display:flex;align-items:center;min-height:44px;gap:12px;flex-shrink:1;min-width:0}
 .p-logo img{height:44px;width:auto;max-width:100%}
 .p-actions{display:flex;align-items:center;gap:10px;min-width:0;flex-shrink:0}
-.p-back{display:inline-flex;align-items:center;gap:8px;font-size:var(--t-sm);letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-soft);font-weight:200;padding:9px 16px;border-radius:2px;transition:all .25s;border:1px solid transparent;min-height:44px}
+.p-back{display:inline-flex;align-items:center;gap:8px;font-size:var(--t-xs);letter-spacing:var(--track-ui);text-transform:uppercase;color:var(--tinta-soft);font-weight:400;padding:9px 16px;border-radius:2px;transition:background var(--d-3) var(--c-autor),color var(--d-3) var(--c-autor),border-color var(--d-3) var(--c-autor);border:1px solid transparent;min-height:44px}
 .p-back:hover{background:var(--crema-2);color:var(--verde);border-color:var(--linea)}
-.p-back svg{width:14px;height:14px}
-.p-cart-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:2px;background:var(--verde);color:#fff;font-size:var(--t-xs);letter-spacing:.1em;text-transform:uppercase;font-weight:700;transition:all .25s;min-height:44px}
-.p-cart-btn:hover{background:var(--verde-dark)}
+.p-back svg{width:14px;height:14px;transition:transform var(--d-3) var(--c-autor)}
+.p-back:hover svg{transform:translateX(-3px)}
+.p-cart-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:2px;background:var(--verde);color:#fff;font-size:var(--t-xs);letter-spacing:var(--track-ui);text-transform:uppercase;font-weight:500;transition:background var(--d-3) var(--c-autor),box-shadow var(--d-3) var(--c-autor),transform var(--d-3) var(--c-autor);min-height:44px;box-shadow:var(--shadow-cta)}
+.p-cart-btn:hover{background:var(--verde-dark);transform:translateY(-1px)}
 .p-cart-btn svg{width:14px;height:14px}
 .p-cart-count{display:inline-flex;align-items:center;justify-content:center;background:var(--crema-rosa);color:var(--verde-dark);min-width:18px;height:18px;border-radius:9px;font-size:var(--t-2xs);font-weight:700;padding:0 6px}
 @media(max-width:640px){
@@ -109,14 +111,14 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tin
 }
 
 /* BREADCRUMB */
-.p-crumb{max-width:1280px;margin:0 auto;padding:18px 32px 0;font-size:var(--t-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--tinta-soft);font-weight:200}
+.p-crumb{max-width:1280px;margin:0 auto;padding:18px 32px 0;font-size:var(--t-2xs);letter-spacing:var(--track-ui);text-transform:uppercase;color:var(--tinta-soft);font-weight:400}
 /* Los enlaces de miga median 15px de alto. Un inline-block con padding
    vertical los lleva a 27px: cumple el minimo AA de WCAG 2.5.8 (24px).
    Los 44px de 2.5.5 (AAA) obligarian a romper la linea de la miga. */
 .p-crumb a{display:inline-block;padding:6px 0;color:var(--tinta-soft);transition:color var(--d-2)}
 .p-crumb a:hover{color:var(--verde)}
 .p-crumb .sep{margin:0 10px;opacity:.4}
-.p-crumb .current{color:var(--cobre-dark);font-weight:400}
+.p-crumb .current{color:var(--cobre-dark);font-weight:500}
 
 /* MAIN GRID */
 .p-wrap{max-width:1280px;margin:0 auto;padding:30px 32px 80px;display:grid;grid-template-columns:1.15fr 1fr;gap:60px;align-items:start}
@@ -138,22 +140,22 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tin
    recortaba un tercio del alto y las piezas altas (floreros, lamparas,
    pedestales) aparecian decapitadas.
    ENCUADRE OFICIAL DEL CATALOGO: 2:3 vertical (1600x2400 px). */
-.p-gallery-main{position:relative;aspect-ratio:2/3;background:var(--crema-2);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:14px;box-shadow:0 8px 30px -10px rgba(63,68,67,.15)}
+.p-gallery-main{position:relative;aspect-ratio:2/3;background:var(--crema-2);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:14px;box-shadow:var(--shadow-sm)}
 /* contain, no cover: la foto principal es la que decide la compra, no
    puede recortar la pieza. El fondo crema del marco disimula el sobrante
    porque las fotos de producto ya vienen sobre fondo claro. */
 .p-gallery-main img{width:100%;height:100%;object-fit:contain;transition:opacity .35s}
 /* Fotos de la lámpara: encuadre bajo el techo para que el vidrio llene la foto */
 .p-gallery-main img[src*="lamparas/"],.p-thumb img[src*="lamparas/"]{object-position:50% 78%}
-.p-gallery-nav{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;background:rgba(250,244,237,.95);color:var(--verde);display:flex;align-items:center;justify-content:center;font-size:var(--t-xl);backdrop-filter:blur(8px);transition:all .25s;box-shadow:0 4px 12px -4px rgba(63,68,67,.2)}
-.p-gallery-nav:hover{background:#fff;transform:translateY(-50%) scale(1.08)}
+.p-gallery-nav{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;background:rgba(250,244,237,.92);color:var(--verde);display:flex;align-items:center;justify-content:center;font-size:var(--t-xl);backdrop-filter:blur(8px);transition:background var(--d-3) var(--c-autor),transform var(--d-3) var(--c-autor),box-shadow var(--d-3) var(--c-autor);box-shadow:var(--shadow-sm)}
+.p-gallery-nav:hover{background:#fff;transform:translateY(-50%) scale(1.06);box-shadow:var(--shadow)}
 .p-gallery-nav.prev{left:18px}
 .p-gallery-nav.next{right:18px}
-.p-gallery-counter{position:absolute;bottom:18px;right:18px;background:rgba(63,68,67,.65);color:#fff;padding:6px 12px;border-radius:2px;font-size:var(--t-xs);letter-spacing:.08em;font-weight:400;backdrop-filter:blur(4px)}
+.p-gallery-counter{position:absolute;bottom:18px;right:18px;background:rgba(43,33,27,.6);color:#fff;padding:6px 12px;border-radius:2px;font-size:var(--t-2xs);letter-spacing:var(--track-ui);font-weight:400;backdrop-filter:blur(6px);font-variant-numeric:tabular-nums}
 .p-thumbs{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px}
 .p-thumbs::-webkit-scrollbar{height:6px}
 .p-thumbs::-webkit-scrollbar-thumb{background:var(--linea);border-radius:6px}
-.p-thumb{width:84px;height:84px;flex:0 0 84px;border-radius:var(--radius-sm);overflow:hidden;cursor:pointer;border:2px solid transparent;opacity:.6;transition:all .25s;background:var(--crema-2)}
+.p-thumb{width:84px;height:84px;flex:0 0 84px;border-radius:var(--radius-sm);overflow:hidden;cursor:pointer;border:2px solid transparent;opacity:.6;transition:opacity var(--d-3) var(--c-autor),border-color var(--d-3) var(--c-autor),transform var(--d-3) var(--c-autor);background:var(--crema-2)}
 .p-thumb img{width:100%;height:100%;object-fit:cover}
 .p-thumb:hover{opacity:1}
 .p-thumb.active{opacity:1;border-color:var(--cobre);transform:translateY(-2px)}
@@ -177,11 +179,14 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tin
 
 /* DETAILS */
 .p-details{padding:8px 0;min-width:0}
-.p-eyebrow{display:inline-block;font-size:var(--t-2xs);letter-spacing:.28em;text-transform:uppercase;color:var(--cobre-dark);font-weight:700;margin-bottom:14px;padding:6px 12px;background:rgba(243,207,179,.3);border-radius:2px}
-.p-name{font-size:var(--t-3xl);margin:0 0 10px;color:var(--verde-dark);font-weight:700;letter-spacing:-.02em;line-height:1.15}
-.p-subtitle{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:var(--t-lg);color:var(--tinta-soft);margin-bottom:20px;font-weight:400}
+/* Eyebrow sin caja de color: una etiqueta de coleccion en una galeria es
+   texto en versalitas con aire, no un chip. */
+.p-eyebrow{display:inline-block;font-size:var(--t-2xs);letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--cobre-dark);font-weight:500;margin-bottom:16px;padding:0 0 8px;border-bottom:1px solid rgba(138,74,43,.28)}
+/* Nombre de la pieza en la serif de la casa, sin negrita apretada. */
+.p-name{font-family:'Cormorant Garamond',serif;font-size:var(--t-4xl);margin:0 0 10px;color:var(--verde-dark);font-weight:500;letter-spacing:.005em;line-height:1.06}
+.p-subtitle{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:var(--t-xl);color:var(--tinta-soft);margin-bottom:22px;font-weight:400;line-height:1.4}
 .p-price-wrap{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:18px 0 10px}
-.p-price{font-size:var(--t-2xl);color:var(--cobre-dark);font-weight:700;letter-spacing:-.01em}
+.p-price{font-size:var(--t-2xl);color:var(--cobre-dark);font-weight:400;letter-spacing:.03em;font-variant-numeric:tabular-nums}
 /* .p-price-old / .p-price-off / .p-price-save se fueron con precioAnterior():
    el precio tachado ficticio esta desactivado a proposito y no debe volver
    (Ley 1480: anunciar descuento sobre un precio de referencia que nunca
@@ -189,20 +194,20 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tin
 .p-divider{height:1px;background:var(--linea);margin:24px 0}
 
 .p-group{margin-bottom:24px}
-.p-group label{display:block;font-size:var(--t-xs);letter-spacing:.18em;text-transform:uppercase;color:var(--tinta-soft);margin-bottom:12px;font-weight:400}
+.p-group label{display:block;font-size:var(--t-2xs);letter-spacing:var(--track-label);text-transform:uppercase;color:var(--tinta-soft);margin-bottom:12px;font-weight:400}
 .color-picks{display:flex;flex-wrap:wrap;gap:8px}
-.color-pick{padding:9px 16px;border:1.5px solid var(--linea);border-radius:2px;font-size:var(--t-sm);color:var(--verde-dark);background:#fff;transition:all .2s;font-weight:200;cursor:pointer}
+.color-pick{padding:9px 16px;border:1px solid var(--linea);border-radius:2px;font-size:var(--t-sm);color:var(--verde-dark);background:#fff;transition:border-color var(--d-2) var(--c-autor),color var(--d-2) var(--c-autor),background var(--d-2) var(--c-autor),box-shadow var(--d-2) var(--c-autor);font-weight:300;cursor:pointer}
 .color-pick:hover{border-color:var(--cobre-dark);color:var(--cobre-dark)}
-.color-pick.active{background:var(--verde);color:#fff;border-color:var(--verde);font-weight:400}
+.color-pick.active{background:var(--verde);color:#fff;border-color:var(--verde);font-weight:400;box-shadow:var(--shadow-sm)}
 
 .qty-row{display:flex;align-items:center;gap:16px}
-.qty{display:inline-flex;align-items:center;border:1.5px solid var(--linea);border-radius:2px;overflow:hidden;background:#fff}
-.qty button{padding:12px 18px;color:var(--verde);font-size:var(--t-xl);background:#fff;transition:background .2s;font-weight:400}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--linea);border-radius:2px;overflow:hidden;background:#fff}
+.qty button{padding:12px 18px;color:var(--verde);font-size:var(--t-xl);background:#fff;transition:background var(--d-2) var(--c-autor);font-weight:300}
 .qty button:hover{background:var(--crema-2)}
-.qty span{padding:0 18px;min-width:32px;text-align:center;font-weight:700;font-size:var(--t-md);color:var(--verde-dark)}
+.qty span{padding:0 18px;min-width:32px;text-align:center;font-weight:500;font-size:var(--t-md);color:var(--verde-dark);font-variant-numeric:tabular-nums}
 
 .p-actions-buy{display:flex;flex-direction:column;gap:10px;margin-top:8px}
-.btn{width:100%;padding:18px 28px;border-radius:2px;font-size:var(--t-sm);letter-spacing:.16em;text-transform:uppercase;font-weight:700;cursor:pointer;transition:all .25s;border:none;display:inline-flex;align-items:center;justify-content:center;gap:10px}
+.btn{width:100%;padding:18px 28px;border-radius:2px;font-size:var(--t-xs);letter-spacing:var(--track-ui);text-transform:uppercase;font-weight:500;cursor:pointer;transition:background var(--d-3) var(--c-autor),transform var(--d-3) var(--c-autor),box-shadow var(--d-3) var(--c-autor);border:none;display:inline-flex;align-items:center;justify-content:center;gap:10px}
 /* Jerarquia de compra. El 100% de las ventas se cierran por WhatsApp y el
    checkout web lleva 0 ventas reales, asi que WhatsApp manda: primario en
    verde con el logo (reconocible al instante), carrito de contorno y
@@ -211,8 +216,8 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tin
    da 1,98:1 de contraste (WCAG AA pide 4,5:1). Este tono cumple 5,3:1 y se
    sigue leyendo como WhatsApp, mas aun junto al logo. El .wa-float conserva
    el #25d366 exacto: es un icono, no texto. */
-.btn-wa{background:#0e7c3a;color:#fff;text-decoration:none;box-shadow:0 4px 16px -4px rgba(14,124,58,.45)}
-.btn-wa:hover{background:#0a6b30;transform:translateY(-2px);box-shadow:0 8px 24px -6px rgba(14,124,58,.5)}
+.btn-wa{background:#0e7c3a;color:#fff;text-decoration:none;box-shadow:var(--shadow-cta)}
+.btn-wa:hover{background:#0a6b30;transform:translateY(-1px);box-shadow:0 14px 32px -14px rgba(14,124,58,.5)}
 .btn-wa svg{width:20px;height:20px}
 .btn-add{background:#fff;color:var(--verde-dark);border:1px solid var(--verde);box-shadow:none}
 .btn-add:hover{background:var(--crema-2);border-color:var(--verde-dark)}
@@ -222,19 +227,27 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tin
 .btn svg{width:16px;height:16px}
 
 /* SPECS */
-.p-specs{background:#fff;border:1px solid var(--linea);border-radius:var(--radius-lg);padding:24px 28px;margin-top:32px}
-.p-specs h4{margin:0 0 18px;font-size:var(--t-sm);letter-spacing:.2em;text-transform:uppercase;color:var(--verde-dark);font-weight:700}
+.p-specs{background:#fff;border:1px solid var(--linea);border-radius:var(--radius-lg);padding:26px 30px;margin-top:32px;box-shadow:var(--shadow-sm)}
+.p-specs h4{margin:0 0 18px;font-size:var(--t-2xs);letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--verde-dark);font-weight:500;display:flex;align-items:center;gap:14px}
+.p-specs h4::after{content:"";flex:1;height:1px;background:var(--linea)}
 .p-specs dl{margin:0;display:grid;grid-template-columns:120px 1fr;gap:14px 20px;font-size:var(--t-md)}
-.p-specs dt{color:var(--tinta-soft);font-weight:400;text-transform:uppercase;font-size:var(--t-2xs);letter-spacing:.12em;padding-top:2px}
-.p-specs dd{margin:0;color:var(--tinta);font-weight:200}
+.p-specs dt{color:var(--tinta-soft);font-weight:400;text-transform:uppercase;font-size:var(--t-2xs);letter-spacing:var(--track-label);padding-top:3px}
+.p-specs dd{margin:0;color:var(--tinta);font-weight:300;line-height:1.6}
 @media(max-width:560px){.p-specs dl{grid-template-columns:1fr;gap:6px 0}.p-specs dt{margin-top:10px}}
 
 /* INFO BLOCKS */
-.p-info-blocks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+/* Antes: cajas crema rellenas con icono suelto y titulo en negrita. Ahora:
+   superficie blanca con borde fino, icono en medallon circular (el motivo
+   de la marca), titulo en versalitas abiertas y cuerpo en gris calido. El
+   hover sube apenas la tarjeta y tine el borde de cobre. */
+.p-info-blocks{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
 @media(max-width:560px){.p-info-blocks{grid-template-columns:1fr}}
-.p-info-block{display:flex;align-items:flex-start;gap:12px;padding:16px;background:var(--crema-2);border-radius:var(--radius-sm);font-size:var(--t-sm);color:var(--tinta);font-weight:200;line-height:1.5}
-.p-info-block svg{width:20px;height:20px;flex-shrink:0;color:var(--cobre-dark);margin-top:2px}
-.p-info-block strong{display:block;font-weight:700;color:var(--verde-dark);margin-bottom:2px;font-size:var(--t-xs);letter-spacing:.06em;text-transform:uppercase}
+.p-info-block{display:flex;align-items:flex-start;gap:14px;padding:18px 18px 18px 16px;background:#fff;border:1px solid var(--linea);border-radius:var(--radius);font-size:var(--t-sm);color:var(--tinta-soft);font-weight:300;line-height:1.55;transition:border-color var(--d-3) var(--c-autor),box-shadow var(--d-3) var(--c-autor),transform var(--d-3) var(--c-autor)}
+@media(hover:hover){.p-info-block:hover{border-color:rgba(138,74,43,.35);box-shadow:var(--shadow-sm);transform:translateY(-2px)}}
+.p-info-block svg{width:18px;height:18px;flex-shrink:0;color:var(--cobre-dark);margin-top:0;box-sizing:content-box;padding:9px;border-radius:50%;background:var(--crema-2);border:1px solid rgba(138,74,43,.14);stroke-width:1.5;transition:background var(--d-3) var(--c-autor),color var(--d-3) var(--c-autor)}
+@media(hover:hover){.p-info-block:hover svg{background:var(--cobre-dark);color:#fff}}
+.p-info-block strong{display:block;font-weight:500;color:var(--verde-dark);margin:6px 0 4px;font-size:var(--t-2xs);letter-spacing:var(--track-label);text-transform:uppercase}
+.p-info-block b{font-weight:500;color:var(--tinta)}
 
 /* ============================================================
    MOVIL — espaciado compacto
@@ -246,9 +259,9 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tin
    Si se agregan reglas nuevas de .p-* , van ANTES de este bloque.
    ============================================================ */
 @media(max-width:640px){
-  .p-name{font-size:var(--t-2xl);line-height:1.18;margin:0 0 6px}
-  .p-subtitle{font-size:var(--t-md);margin-bottom:10px}
-  .p-eyebrow{font-size:var(--t-2xs);letter-spacing:.22em;padding:5px 10px;margin-bottom:10px}
+  .p-name{font-size:var(--t-3xl);line-height:1.1;margin:0 0 6px}
+  .p-subtitle{font-size:var(--t-lg);margin-bottom:12px}
+  .p-eyebrow{font-size:var(--t-2xs);letter-spacing:.26em;padding:0 0 6px;margin-bottom:12px}
   .p-price-wrap{margin:10px 0 6px}
   .p-price{font-size:var(--t-2xl)}
   .p-divider{margin:14px 0}
@@ -264,8 +277,9 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tin
   .p-specs dl{gap:10px 16px}
   .p-specs dt{font-size:var(--t-2xs)}
   .p-specs dd{font-size:var(--t-sm)}
-  .p-info-blocks{margin-top:12px;gap:10px}
-  .p-info-block{padding:13px}
+  .p-info-blocks{margin-top:14px;gap:10px}
+  .p-info-block{padding:14px 14px 14px 12px;gap:12px}
+  .p-info-block svg{width:16px;height:16px;padding:8px}
   .p-details{padding:0}
 }
 
@@ -283,7 +297,7 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tin
 .p-error a:hover{background:var(--verde-dark)}
 
 /* FOOTER */
-.p-footer{text-align:center;padding:30px 20px;font-size:var(--t-xs);color:var(--tinta-soft);font-weight:200;letter-spacing:.05em;border-top:1px solid var(--linea);background:var(--crema-2)}
+.p-footer{text-align:center;padding:32px 20px;font-size:var(--t-2xs);color:var(--tinta-soft);font-weight:400;letter-spacing:var(--track-ui);text-transform:uppercase;border-top:1px solid var(--linea);background:var(--crema-2)}
 
 /* FLOATING WhatsApp BUTTON */
 .wa-float{position:fixed;bottom:26px;right:26px;z-index:90;width:56px;height:56px;border-radius:50%;background:#25d366;color:#fff;box-shadow:0 4px 18px -4px rgba(37,211,102,.45),0 2px 6px rgba(0,0,0,.12);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);text-decoration:none}
@@ -293,11 +307,21 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tin
 @keyframes wapulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.5)}70%{box-shadow:0 0 0 18px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
 @media(max-width:640px){.wa-float{width:52px;height:52px;bottom:18px;right:18px}.wa-float svg{width:26px;height:26px}}
 
-/* BOTÓN VOLVER (página anterior) */
-.back-float{position:fixed;bottom:26px;left:26px;z-index:90;width:48px;height:48px;border-radius:50%;background:rgba(87,41,50,.9);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .35s cubic-bezier(.4,0,.2,1);box-shadow:0 4px 16px -4px rgba(87,41,50,.45);backdrop-filter:blur(8px);border:none}
-.back-float:hover{background:var(--verde-dark);transform:translateY(-3px)}
-.back-float svg{width:20px;height:20px}
-@media(max-width:640px){.back-float{width:44px;height:44px;bottom:18px;left:18px}}
+/* BOTÓN LLAMAR AHORA — píldora apilada justo encima de WhatsApp (mismo eje derecho) */
+.call-float{position:fixed;bottom:96px;right:26px;z-index:90;height:48px;padding:0 20px 0 16px;border-radius:999px;background:rgba(87,41,50,.92);color:#fff;display:inline-flex;align-items:center;gap:10px;font-size:var(--t-2xs);letter-spacing:.16em;text-transform:uppercase;font-weight:500;line-height:1;white-space:nowrap;text-decoration:none;cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 4px 16px -4px rgba(87,41,50,.45),0 1px 3px rgba(0,0,0,.1),inset 0 0 0 1px rgba(255,255,255,.12);transition:transform .35s cubic-bezier(.4,0,.2,1),background .35s cubic-bezier(.4,0,.2,1),box-shadow .35s cubic-bezier(.4,0,.2,1)}
+.call-float:hover{background:var(--verde-dark);transform:translateY(-3px);box-shadow:0 10px 24px -6px rgba(43,33,27,.5),0 2px 6px rgba(0,0,0,.12),inset 0 0 0 1px rgba(255,255,255,.14)}
+.call-float:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.call-float svg{width:18px;height:18px;stroke-width:1.7;flex:none;transition:transform .35s cubic-bezier(.4,0,.2,1)}
+.call-float:hover svg{transform:rotate(-12deg)}
+@media(max-width:640px){.call-float{height:44px;padding:0 16px 0 14px;bottom:82px;right:18px;gap:8px;letter-spacing:.12em}}
+
+/* BOTÓN VOLVER (página anterior) — píldora ícono + "Regresar" (mismo lenguaje que .p-back) */
+.back-float{position:fixed;bottom:26px;left:26px;z-index:90;height:48px;padding:0 20px 0 16px;border-radius:999px;background:rgba(87,41,50,.92);color:#fff;display:inline-flex;align-items:center;gap:10px;font-family:inherit;font-size:var(--t-2xs);letter-spacing:.16em;text-transform:uppercase;font-weight:500;line-height:1;white-space:nowrap;cursor:pointer;border:none;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 4px 16px -4px rgba(87,41,50,.45),0 1px 3px rgba(0,0,0,.1),inset 0 0 0 1px rgba(255,255,255,.12);transition:transform .35s cubic-bezier(.4,0,.2,1),background .35s cubic-bezier(.4,0,.2,1),box-shadow .35s cubic-bezier(.4,0,.2,1)}
+.back-float:hover{background:var(--verde-dark);transform:translateY(-3px);box-shadow:0 10px 24px -6px rgba(43,33,27,.5),0 2px 6px rgba(0,0,0,.12),inset 0 0 0 1px rgba(255,255,255,.14)}
+.back-float:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.back-float svg{width:18px;height:18px;flex:none;transition:transform .35s cubic-bezier(.4,0,.2,1)}
+.back-float:hover svg{transform:translateX(-3px)}
+@media(max-width:640px){.back-float{height:44px;padding:0 16px 0 14px;bottom:18px;left:18px;gap:8px;letter-spacing:.12em}}
 </style>
 <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
@@ -416,7 +440,7 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tin
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
         <div><strong>Atención directa</strong>Coordinamos contigo por WhatsApp.</div>
       </div>
-      <div class="p-info-block" style="grid-column:1/-1;background:rgba(243,207,179,.25)">
+      <div class="p-info-block" style="grid-column:1/-1;background:rgba(243,207,179,.18);border-color:rgba(138,74,43,.22)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         <div><strong>Tiempo de entrega</strong>Cada pieza se elabora a mano. El envío se realiza en <b>8 días hábiles</b> tras confirmar tu compra.</div>
       </div>
@@ -435,9 +459,16 @@ body{font-family:'Jost',-apple-system,sans-serif;font-weight:200;color:var(--tin
 </footer>
 
 <!-- Botón volver a la página anterior -->
-<button class="back-float" onclick="history.back()" aria-label="Volver a la página anterior">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+<button class="back-float" onclick="history.back()" aria-label="Regresar a la página anterior">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+  <span>Regresar</span>
 </button>
+
+<!-- Botón flotante Llamar ahora (apilado encima de WhatsApp) -->
+<a href="tel:+573116214726" class="call-float" aria-label="Llamar ahora al +57 311 621 4726">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+  <span>Llamar ahora</span>
+</a>
 
 <!-- Botón flotante WhatsApp -->
 <a href="https://wa.me/573116214726?text=Hola%20Felipe!%20Me%20interesa%20una%20pieza%20en%20vidrio." target="_blank" rel="noopener" class="wa-float" aria-label="Escribir por WhatsApp">
