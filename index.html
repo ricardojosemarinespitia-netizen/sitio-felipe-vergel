@@ -224,31 +224,80 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
   .nav-cart{padding:8px 12px;gap:6px}
 }
 
-/* HERO */
-.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;background:#1a1f1e}
-.hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.95;filter:none}
-.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,18,16,.35) 0%,rgba(20,18,16,.55) 60%,rgba(20,18,16,.75) 100%)}
-.hero-inner{position:relative;z-index:1;color:#fff;width:100%;max-width:none;display:flex;flex-direction:column;align-items:center;padding-bottom:64px}
-/* .hero-eyebrow quedo sin markup: el hero usa .hero-drop. */
-.hero-drop{display:inline-block;font-size:var(--t-xs);letter-spacing:.4em;text-transform:uppercase;color:var(--crema-rosa);font-weight:400;margin-bottom:12px;text-shadow:0 2px 18px rgba(0,0,0,.5)}
-.hero-lead{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:var(--t-4xl);line-height:1;color:#fff;margin:0 0 20px;letter-spacing:.01em;text-shadow:0 2px 30px rgba(0,0,0,.4)}
-.hero-actions{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;align-items:center}
-.hero-cta.ghost{background:transparent;border-color:rgba(255,255,255,.5)}
-.hero-cta.ghost:hover{background:rgba(255,255,255,.12);border-color:#fff;color:#fff}
-@media(max-width:640px){.hero-drop{letter-spacing:.3em}.hero-actions{gap:12px;flex-direction:column;width:100%;max-width:320px}.hero-actions .hero-cta{width:100%}}
-.hero h1{font-size:var(--t-4xl);margin:0 0 10px;color:#fff;line-height:1.04}
-.hero h1 .sub{display:block;font-family:'Jost';font-weight:200;font-size:var(--t-xl);letter-spacing:.08em;margin-top:8px;color:rgba(255,255,255,.7)}
-.hero-tagline{font-family:'Cormorant Garamond',serif;font-weight:400;font-style:italic;font-size:var(--t-2xl);color:var(--cobre);margin:14px 0 0;line-height:1.4;letter-spacing:.01em}
-.hero p{font-size:var(--t-lg);max-width:500px;color:rgba(255,255,255,.78);margin:0 0 36px;font-weight:200;line-height:1.8}
-.hero-cta{display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:17px 44px;border:1px solid rgba(255,255,255,.75);border-radius:2px;background:rgba(22,17,12,.18);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);color:#fff;font-size:var(--t-xs);letter-spacing:.3em;text-transform:uppercase;font-weight:500;transition:background var(--d-3) var(--c-autor),color var(--d-3) var(--c-autor),border-color var(--d-3) var(--c-autor),transform var(--d-3) var(--c-autor),box-shadow var(--d-3) var(--c-autor);min-height:52px}
-.hero-cta:hover{transform:translateY(-1px);box-shadow:0 16px 40px -16px rgba(0,0,0,.5)}
-.hero-cta:hover{background:var(--crema);color:var(--verde-dark);border-color:var(--crema)}
-.hero-cta svg{width:16px;height:16px}
-.hero-scroll{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.45);font-size:var(--t-2xs);letter-spacing:.25em;text-transform:uppercase;z-index:1}
+/* HERO — "una pieza, cuatro vidrios"
+   Antes: foto de ambiente oscura a pantalla completa (lamparas). Ahora la
+   pieza protagonista (Centro de Mesa Folia) viene en fotos de ESTUDIO sobre
+   blanco, que a `background-size:cover` se verian como un recorte pegado.
+   Solucion: hero claro, editorial, en dos columnas. La foto va con
+   `mix-blend-mode:multiply`: el blanco del estudio se vuelve transparente y
+   el vidrio parece posarse sobre el crema del sitio, como vidrio real que
+   deja pasar el fondo. Las 4 fotos (una por color) se apilan y se funden
+   en un ciclo de 24s: la misma pieza en cuatro vidrios, que es exactamente
+   lo que es la vitrofusion. Todo en opacity/transform, sin JS. */
+/* OJO con los stacking contexts: mix-blend-mode solo funde con el fondo
+   de su contexto de apilamiento mas cercano. Si .hero-inner llevara
+   z-index, o .hero-pieza un transform, el multiply veria un fondo
+   transparente y la foto saldria con su rectangulo blanco. Por eso el
+   unico contexto es .hero (isolation) y la luz va a z-index:-1 dentro. */
+.hero{position:relative;isolation:isolate;min-height:100vh;min-height:100svh;display:flex;align-items:center;overflow:hidden;background:var(--crema);color:var(--tinta)}
+.hero-luz{position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(760px 520px at 82% 30%,rgba(231,207,180,.75),transparent 65%),radial-gradient(520px 420px at 8% 92%,rgba(198,110,78,.14),transparent 60%)}
+.hero-inner{position:relative;width:100%;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,72px);align-items:center;padding-top:112px;padding-bottom:88px}
+.hero-txt{display:flex;flex-direction:column;align-items:flex-start}
+.hero-drop{display:inline-block;font-size:var(--t-xs);letter-spacing:.4em;text-transform:uppercase;color:var(--cobre-dark);font-weight:400;margin-bottom:var(--e-4)}
+.hero-lead{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:var(--t-5xl);line-height:.9;color:var(--verde-dark);margin:0 0 var(--e-4) -0.04em;letter-spacing:-.015em;text-wrap:balance}
+.hero-tagline{font-family:'Cormorant Garamond',serif;font-weight:400;font-style:italic;font-size:var(--t-2xl);color:var(--cobre-dark);margin:0 0 var(--e-4);line-height:1.3;letter-spacing:.01em;text-wrap:balance}
+.hero-desc{font-size:var(--t-lg);max-width:42ch;color:var(--tinta-soft);margin:0 0 var(--e-6);font-weight:300;line-height:1.7;text-wrap:pretty}
+.hero-actions{display:flex;flex-wrap:wrap;gap:var(--e-4);align-items:center}
+.hero-cta{display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:17px 40px;border:1px solid var(--verde);border-radius:var(--radius-sm);background:var(--verde);color:var(--crema);font-size:var(--t-xs);letter-spacing:.28em;text-transform:uppercase;font-weight:500;transition:background var(--d-2) var(--c-suave),color var(--d-2) var(--c-suave),border-color var(--d-2) var(--c-suave),transform var(--d-1) var(--c-suave);min-height:52px}
+.hero-cta:hover{background:var(--verde-dark);border-color:var(--verde-dark);color:var(--crema)}
+.hero-cta:active{transform:scale(.97)}
+.hero-cta.ghost{background:transparent;color:var(--tinta);border-color:var(--verde-dark)}
+.hero-cta.ghost:hover{background:var(--verde-dark);color:var(--crema)}
+.hero-meta{display:flex;flex-wrap:wrap;gap:var(--e-2) var(--e-4);margin-top:var(--e-6);font-size:var(--t-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--tinta-soft);font-weight:400}
+.hero-meta span+span::before{content:"·";margin-right:var(--e-4);color:var(--cobre)}
+/* Columna de la pieza. Las fotos son 2:3 con el tazon en la franja central
+   (38-62% del alto). El marco 4:3 con object-fit:cover muestra justo el
+   25-75% de la foto: el tazon entero, sin el aire blanco de arriba y abajo. */
+.hero-pieza{position:relative;aspect-ratio:4/3}
+.hero-pieza img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 52%;mix-blend-mode:multiply;z-index:1;opacity:0;animation:folia-ciclo 24s linear infinite,folia-flota 9s ease-in-out infinite alternate}
+/* Sombra tenida: la pieza "flota" pero pesa. El multiply de la foto encima
+   oscurece el vidrio justo donde toca la sombra, y lo asienta. */
+.hero-pieza::after{content:"";position:absolute;left:10%;right:10%;top:64%;height:18%;z-index:0;background:radial-gradient(50% 50% at 50% 50%,rgba(43,33,27,.26),transparent 70%)}
+/* El nth-child va en el <picture>, no en el <img> (hijo unico). */
+.hero-pieza picture:nth-child(2) img{animation-delay:-18s,0s}
+.hero-pieza picture:nth-child(3) img{animation-delay:-12s,0s}
+.hero-pieza picture:nth-child(4) img{animation-delay:-6s,0s}
+/* Leyenda de colores sincronizada con el ciclo (mismos delays). */
+.hero-colores{list-style:none;margin:var(--e-5) 0 0;padding:0;display:flex;flex-wrap:wrap;gap:var(--e-3) var(--e-5);justify-content:center;font-size:var(--t-2xs);letter-spacing:.18em;text-transform:uppercase;color:var(--tinta-soft)}
+.hero-colores li{display:flex;align-items:center;gap:var(--e-2);opacity:.45;animation:folia-etiqueta 24s linear infinite}
+.hero-colores li:nth-child(2){animation-delay:-18s}
+.hero-colores li:nth-child(3){animation-delay:-12s}
+.hero-colores li:nth-child(4){animation-delay:-6s}
+.hero-colores i{width:10px;height:10px;border-radius:var(--radius-full);border:1px solid rgba(43,33,27,.25);background:var(--muestra)}
+.hero-scroll{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);color:var(--tinta-soft);font-size:var(--t-2xs);letter-spacing:.25em;text-transform:uppercase;z-index:1}
+/* El nav arranca blanco sobre foto oscura (.nav:not(.scrolled)). Sobre el
+   hero claro ese blanco desaparece: mientras no haya scroll, va en tinta. */
+body.hero-claro .nav:not(.scrolled){background:linear-gradient(180deg,rgba(244,238,227,.9),rgba(244,238,227,0))}
+body.hero-claro .nav:not(.scrolled) .nav-logo img{filter:none;opacity:1}
+body.hero-claro .nav:not(.scrolled) .nav-links a,body.hero-claro .nav:not(.scrolled) .nav-burger{color:var(--tinta);text-shadow:none}
+body.hero-claro .nav:not(.scrolled) .nav-links a:hover{color:var(--cobre-dark)}
+@media(max-width:900px){
+  /* La pieza primero: es la tesis del hero y tiene que verse sin bajar. */
+  .hero-inner{grid-template-columns:1fr;gap:var(--e-4);padding-top:84px;padding-bottom:80px}
+  .hero-visual{order:-1}
+  .hero-pieza{aspect-ratio:5/4;max-height:38svh;width:100%;max-width:520px;margin:0 auto}
+  .hero-colores{margin-top:var(--e-3)}
+  .hero-lead{margin-bottom:var(--e-3)}
+  .hero-desc{margin-bottom:var(--e-5)}
+  .hero-meta{margin-top:var(--e-5)}
+}
 @media(max-width:640px){
-  .hero-inner{padding-bottom:96px}
-  .hero-cta{padding:15px 32px;font-size:var(--t-2xs);letter-spacing:.22em}
-  .hero-scroll{bottom:18px;font-size:var(--t-2xs)}
+  .hero-drop{letter-spacing:.3em}
+  .hero-actions{gap:12px;flex-direction:column;width:100%;max-width:340px}
+  .hero-actions .hero-cta{width:100%}
+  .hero-cta{padding:15px 28px;font-size:var(--t-2xs);letter-spacing:.22em}
+  .hero-colores{gap:var(--e-2) var(--e-4)}
+  .hero-scroll{bottom:16px}
 }
 
 /* SOBRE */
@@ -700,19 +749,31 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
 .reveal.in{opacity:1;transform:none}
 
 /* HERO — la luz viva */
-.hero-bg{animation:kenburns 24s ease-in-out infinite alternate;will-change:transform}
-@keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.08)}}
-.hero-light{position:absolute;inset:0;z-index:0;pointer-events:none;mix-blend-mode:soft-light;opacity:.9;background:radial-gradient(620px 420px at 78% 18%,rgba(243,207,179,.9),transparent 65%),radial-gradient(520px 380px at 12% 85%,rgba(198,110,78,.6),transparent 60%);animation:lightDrift 16s ease-in-out infinite alternate}
+.hero-luz{animation:lightDrift 16s ease-in-out infinite alternate}
 @keyframes lightDrift{from{transform:translate3d(-2%,0,0) scale(1)}to{transform:translate3d(3%,-2%,0) scale(1.06)}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
-.hero h1{animation:fadeUp .9s .3s both}
+.hero-drop{animation:fadeUp .9s .15s both}
+.hero-lead{animation:fadeUp .9s .3s both}
 .hero-tagline{animation:fadeUp .9s .5s both}
-.hero-inner>p{animation:fadeUp .9s .68s both}
-.hero-cta{animation:fadeUp .9s .85s both}
+.hero-desc{animation:fadeUp .9s .68s both}
+.hero-actions,.hero-meta{animation:fadeUp .9s .85s both}
+/* .hero-visual NO se anima: una animacion de opacity/transform sobre el
+   ancestro crea stacking context (aun terminada con fill) y rompe el
+   multiply de las fotos (reaparece el rectangulo blanco del estudio). */
+.hero-colores{animation:fadeUp .9s 1s both}
+/* Ciclo de los cuatro vidrios: cada foto visible un cuarto del ciclo con
+   fundido de ~1s. Los delays negativos (nth-child) los reparten. */
+@keyframes folia-ciclo{0%,21%{opacity:1}25%,96%{opacity:0}100%{opacity:1}}
+@keyframes folia-etiqueta{0%,21%{opacity:1;color:var(--tinta)}25%,96%{opacity:.45;color:var(--tinta-soft)}100%{opacity:1;color:var(--tinta)}}
+@keyframes folia-flota{from{transform:translateY(-5px)}to{transform:translateY(6px)}}
+/* Fuera del viewport el ciclo se pausa: bateria. */
+.hero.dormido .hero-pieza img,.hero.dormido .hero-colores li,.hero.dormido .hero-luz{animation-play-state:paused}
 /* Aqui vivian .hero-badges y .badge-club (etiquetas de 8.5-9.5px bajo el
    titular del hero). Sin markup. Borrado. */
 @supports(-webkit-background-clip:text){
-  .hero-tagline{background:linear-gradient(100deg,var(--cobre) 18%,var(--crema-rosa) 42%,#fff8f0 50%,var(--crema-rosa) 58%,var(--cobre) 82%);background-size:230% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:fadeUp .9s .5s both,taglineLight 8s 1.8s ease-in-out infinite}
+  /* Barrido de luz sobre el tagline: los tres tonos dan AA sobre crema
+     (--cobre-dark 5.88, --verde 5.30), asi ningun instante cae bajo 4.5. */
+  .hero-tagline{background:linear-gradient(100deg,var(--cobre-dark) 18%,var(--verde) 42%,var(--cobre-dark) 82%);background-size:230% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:fadeUp .9s .5s both,taglineLight 8s 1.8s ease-in-out infinite}
 }
 @keyframes taglineLight{0%,100%{background-position:115% 0}45%,55%{background-position:-15% 0}}
 .hero-scroll{animation:scrollFloat 2.6s ease-in-out infinite}
@@ -762,7 +823,12 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
    Aqui solo quedan los elementos del hero que ARRANCAN invisibles por
    animacion (fadeUp con `both`): sin esto se quedarian en opacity:0. */
 @media(prefers-reduced-motion:reduce){
-  .hero h1,.hero-tagline,.hero-inner>p,.hero-cta{opacity:1!important;transform:none!important}
+  .hero-drop,.hero-lead,.hero-tagline,.hero-desc,.hero-actions,.hero-meta,.hero-colores{opacity:1!important;transform:none!important}
+  /* Sin movimiento no hay ciclo: se queda la primera foto (transparente). */
+  .hero-pieza img{animation:none!important}
+  .hero-pieza picture:first-child img{opacity:1!important}
+  .hero-colores li{animation:none!important}
+  .hero-colores li:first-child{opacity:1!important}
 }
 
 /* ============================================================
@@ -791,11 +857,10 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
 @media(max-width:640px){
   /* Interlineado: 1.8 con texto de 13-14px deja los renglones muy
      separados y alarga cada bloque en celular. */
-  .hero p,.nov-head p,.circulo-sub,.fvf-brand p,.cat-head p{line-height:1.62}
+  .hero-desc,.nov-head p,.circulo-sub,.fvf-brand p,.cat-head p{line-height:1.62}
   .colecciones .nov-head{margin-bottom:28px}
   .cat-circles{padding:6px 0}
   .cart-empty{padding:48px 20px}
-  .hero-inner{padding-bottom:68px}
   .order-form{padding:24px 20px}
   /* width:100% + nowrap no puede encoger: el texto desbordaba el form. */
   .circulo-btn{white-space:normal}
@@ -936,17 +1001,35 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
 </nav>
 
 <section class="hero" id="top">
-  <div class="hero-bg" id="heroBg"></div>
-  <div class="hero-light" aria-hidden="true"></div>
+  <div class="hero-luz" aria-hidden="true"></div>
   <div class="container hero-inner">
-    <h1 class="sr-only">Felipe Vergel · Arte en Vidrio · Vitrofusión artesanal en Floridablanca, Colombia</h1>
-    <span class="hero-drop">Nueva pieza · Edición coleccionable</span>
-    <p class="hero-lead">Lámpara Caribe</p>
-    <div class="hero-actions">
-      <a href="#novedades" class="hero-cta">Descubrir la pieza</a>
-      <a href="#catalogo" class="hero-cta ghost">Descubrir piezas completas</a>
+    <div class="hero-txt">
+      <h1 class="sr-only">Felipe Vergel · Arte en Vidrio · Vitrofusión artesanal en Floridablanca, Colombia</h1>
+      <span class="hero-drop">Nueva pieza · Centro de mesa</span>
+      <p class="hero-lead">Folia</p>
+      <p class="hero-tagline">Un follaje de vidrio que la luz atraviesa</p>
+      <p class="hero-desc">Hojas y mosaico fundidos a mano en una sola pieza de 48 cm. El mismo molde, cuatro vidrios: transparente, azul, verde agua y gris.</p>
+      <div class="hero-actions">
+        <a href="product.html?id=centro-mesa-folia" class="hero-cta">Ver la pieza</a>
+        <a href="#catalogo" class="hero-cta ghost">Explorar el catálogo</a>
+      </div>
+      <div class="hero-meta"><span>Ø 48 cm</span><span>Vitrofusión</span><span>$350.000 COP</span></div>
     </div>
-    <p class="hero-tagline" style="color:#fff;font-family:'Cormorant Garamond',serif;font-size:var(--t-2xl);font-weight:400;font-style:italic;margin-top:14px;margin-bottom:0;letter-spacing:.02em;opacity:.95">Luz que florece en vidrio</p>
+    <div class="hero-visual">
+      <div class="hero-pieza">
+        <!-- Orden = colorImages de products.js: 01 Transparente, 02 Azul, 03 Verde agua, 04 Gris -->
+        <picture><source type="image/webp" srcset="img/centro-mesa-folia/centro-mesa-folia-01.webp"><img src="img/centro-mesa-folia/centro-mesa-folia-01.jpg" width="1600" height="2400" alt="Centro de Mesa Folia en vidrio transparente: tazón de 48 cm con hojas y mosaico fundidos" fetchpriority="high" decoding="async"></picture>
+        <picture><source type="image/webp" srcset="img/centro-mesa-folia/centro-mesa-folia-02.webp"><img src="img/centro-mesa-folia/centro-mesa-folia-02.jpg" width="1600" height="2400" alt="" decoding="async"></picture>
+        <picture><source type="image/webp" srcset="img/centro-mesa-folia/centro-mesa-folia-03.webp"><img src="img/centro-mesa-folia/centro-mesa-folia-03.jpg" width="1600" height="2400" alt="" decoding="async"></picture>
+        <picture><source type="image/webp" srcset="img/centro-mesa-folia/centro-mesa-folia-04.webp"><img src="img/centro-mesa-folia/centro-mesa-folia-04.jpg" width="1600" height="2400" alt="" decoding="async"></picture>
+      </div>
+      <ul class="hero-colores" aria-label="Colores disponibles">
+        <li><i style="--muestra:#eef1ee" aria-hidden="true"></i>Transparente</li>
+        <li><i style="--muestra:#4f6fd0" aria-hidden="true"></i>Azul</li>
+        <li><i style="--muestra:#8fcbb6" aria-hidden="true"></i>Verde agua</li>
+        <li><i style="--muestra:#8d8d8d" aria-hidden="true"></i>Gris</li>
+      </ul>
+    </div>
   </div>
   <div class="hero-scroll">↓ Desliza</div>
 </section>
@@ -1668,16 +1751,24 @@ if(_navType!=="reload"){
 }
 function guardarSesion(){try{sessionStorage.setItem("fv_sesion",JSON.stringify(fvSesion))}catch(e){}}
 
-// HERO + CONTACT BG
+// CONTACT BG (el hero ya no toma foto por JS: las 4 fotos del Centro de Mesa
+// Folia van en el HTML como <picture> y el ciclo de colores es CSS puro)
 (function(){
   const c=FELIPE_IMGS.filter(x=>!x.includes("-60")&&!x.includes("-61"));
-  // Lanzamiento: el hero siempre muestra la nueva pieza coleccionable (Lámpara Flor)
-  fvSesion.heroImg="img/lamparas/lampara-hero.jpg";
+  delete fvSesion.heroImg;
   if(!fvSesion.contactoImg)fvSesion.contactoImg=c[Math.floor(Math.random()*c.length)]||FELIPE_IMGS[1];
-  document.getElementById("heroBg").style.backgroundImage=`url('${fvImg(fvSesion.heroImg)}')`;
   const cbg=document.getElementById("contactoBg");
   if(cbg)cbg.style.backgroundImage=`url('${fvImg(fvSesion.contactoImg)}')`;
   guardarSesion();
+})();
+
+// HERO: nav en tinta mientras esta sobre el hero claro, y ciclo de colores
+// pausado cuando el hero sale del viewport.
+(function(){
+  document.body.classList.add("hero-claro");
+  const hero=document.querySelector(".hero");
+  if(!hero||!("IntersectionObserver" in window))return;
+  new IntersectionObserver(([e])=>hero.classList.toggle("dormido",!e.isIntersecting),{threshold:0}).observe(hero);
 })();
 
 // SOBRE MOSAIC
