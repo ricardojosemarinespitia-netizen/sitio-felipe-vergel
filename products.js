@@ -1178,7 +1178,7 @@ const PRODUCTS=[
       "img/centro-mesa-marea/centro-mesa-marea-04.jpg?v=2",
       "img/centro-mesa-marea/centro-mesa-marea-05.jpg?v=2",
       "img/centro-mesa-marea/centro-mesa-marea-06.jpg?v=2",
-      "img/centro-mesa-marea/centro-mesa-marea-07.jpg?v=1"
+      "img/centro-mesa-marea/centro-mesa-marea-07.jpg?v=2"
     ],
     "colorImages": {
       "Azul": 3,
