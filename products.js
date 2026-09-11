@@ -664,7 +664,7 @@ const PRODUCTS=[
     "colors": [
       "Transparente",
       "Gris",
-      "Dorado",
+      "Amarillo",
       "Verde agua",
       "Azul"
     ],
@@ -681,7 +681,7 @@ const PRODUCTS=[
     "colorImages": {
       "Transparente": 2,
       "Gris": 3,
-      "Dorado": 4,
+      "Amarillo": 4,
       "Verde agua": 5,
       "Azul": 6
     }
