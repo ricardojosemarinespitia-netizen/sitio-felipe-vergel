@@ -646,11 +646,11 @@ const PRODUCTS=[
       "Verde",
       "Transparente",
       "Gris",
-      "Verde manzana"
+      "Azul"
     ],
     "uses": "Flores, hojas, mini plantas.",
     "images": [
-      "img/mini-florero/mini-florero-01.jpg?v=2",
+      "img/mini-florero/mini-florero-01.jpg?v=3",
       "img/mini-florero/mini-florero-02.jpg?v=2",
       "img/mini-florero/mini-florero-03.jpg?v=2",
       "img/mini-florero/mini-florero-04.jpg?v=2"
@@ -659,7 +659,35 @@ const PRODUCTS=[
       "Gris": 1,
       "Transparente": 3,
       "Verde": 2,
-      "Verde manzana": 0
+      "Azul": 0
+    }
+  },
+  {
+    "id": "micro-vaso",
+    "sku": "FLO-009",
+    "cat": "floreros",
+    "name": "Micro Vaso",
+    "price": 52000,
+    "size": "8 cm alto × 14 cm diámetro sup. × 6 cm diámetro inf. (aprox)",
+    "materials": "Vidrio — vitrofusión",
+    "colors": [
+      "Verde",
+      "Gris",
+      "Azul",
+      "Transparente"
+    ],
+    "uses": "Flores, hojas, mini plantas, velas flotantes.",
+    "images": [
+      "img/micro-vaso/micro-vaso-01.jpg?v=1",
+      "img/micro-vaso/micro-vaso-02.jpg?v=1",
+      "img/micro-vaso/micro-vaso-03.jpg?v=1",
+      "img/micro-vaso/micro-vaso-04.jpg?v=1"
+    ],
+    "colorImages": {
+      "Verde": 0,
+      "Gris": 1,
+      "Azul": 2,
+      "Transparente": 3
     }
   },
   {
