@@ -69,7 +69,8 @@ const PRODUCTS=[
       "Transparente",
       "Azul",
       "Gris",
-      "Verde"
+      "Verde",
+      "Ámbar"
     ],
     "uses": "Luz colgante de autor para cocina, comedor o un rincón especial. Cada lámpara es una pieza única e irrepetible.",
     "images": [
@@ -78,13 +79,16 @@ const PRODUCTS=[
       "img/lampara-caribe-marea/lampara-caribe-marea-03.jpg?v=2",
       "img/lampara-caribe-marea/lampara-caribe-marea-04.jpg?v=2",
       "img/lampara-caribe-marea/lampara-caribe-marea-05.jpg?v=2",
-      "img/lampara-caribe-marea/lampara-caribe-marea-06.jpg?v=2"
+      "img/lampara-caribe-marea/lampara-caribe-marea-06.jpg?v=2",
+      "img/lampara-caribe-marea/lampara-caribe-marea-07.jpg?v=1",
+      "img/lampara-caribe-marea/lampara-caribe-marea-08.jpg?v=1"
     ],
     "colorImages": {
       "Azul": 1,
       "Gris": 0,
       "Transparente": 5,
-      "Verde": 3
+      "Verde": 3,
+      "Ámbar": 6
     }
   },
   {
@@ -114,6 +118,37 @@ const PRODUCTS=[
       "Gris": 0,
       "Transparente": 3,
       "Verde": 1
+    }
+  },
+  {
+    "id": "mini-lampara-caribe-marea",
+    "sku": "LAM-006",
+    "cat": "lamparas",
+    "name": "Mini Lámpara Caribe Marea",
+    "price": 169000,
+    "size": "10 cm de alto × 14 cm diámetro inferior",
+    "materials": "Vidrio — vitrofusión · casquillo E27",
+    "colors": [
+      "Verde",
+      "Gris",
+      "Ámbar",
+      "Azul",
+      "Transparente"
+    ],
+    "uses": "Luz colgante de autor para cocina, comedor o un rincón especial. Cada lámpara es una pieza única e irrepetible.",
+    "images": [
+      "img/mini-lampara-caribe-marea/mini-lampara-caribe-marea-01.jpg?v=1",
+      "img/mini-lampara-caribe-marea/mini-lampara-caribe-marea-02.jpg?v=1",
+      "img/mini-lampara-caribe-marea/mini-lampara-caribe-marea-03.jpg?v=1",
+      "img/mini-lampara-caribe-marea/mini-lampara-caribe-marea-04.jpg?v=1",
+      "img/mini-lampara-caribe-marea/mini-lampara-caribe-marea-05.jpg?v=1"
+    ],
+    "colorImages": {
+      "Verde": 0,
+      "Gris": 1,
+      "Ámbar": 2,
+      "Azul": 3,
+      "Transparente": 4
     }
   },
   {
@@ -520,20 +555,23 @@ const PRODUCTS=[
       "Verde",
       "Azul",
       "Gris",
-      "Transparente"
+      "Transparente",
+      "Oro Rosa"
     ],
     "uses": "Florero, objeto decorativo.",
     "images": [
       "img/florero-alto-irregular/florero-alto-irregular-01.jpg?v=4",
       "img/florero-alto-irregular/florero-alto-irregular-02.jpg?v=4",
       "img/florero-alto-irregular/florero-alto-irregular-03.jpg?v=4",
-      "img/florero-alto-irregular/florero-alto-irregular-04.jpg?v=4"
+      "img/florero-alto-irregular/florero-alto-irregular-04.jpg?v=4",
+      "img/florero-alto-irregular/florero-alto-irregular-05.jpg?v=1"
     ],
     "colorImages": {
       "Verde": 0,
       "Transparente": 1,
       "Azul": 2,
-      "Gris": 3
+      "Gris": 3,
+      "Oro Rosa": 4
     }
   },
   {
@@ -651,6 +689,62 @@ const PRODUCTS=[
       "Gris": 2,
       "Transparente": 3,
       "Azul": 4
+    }
+  },
+  {
+    "id": "vaso-ondas",
+    "sku": "FLO-007",
+    "cat": "floreros",
+    "name": "Vaso Ondas",
+    "price": 98000,
+    "size": "17 cm alto × 15 cm diámetro sup. × 6 cm diámetro inf. (aprox)",
+    "materials": "Vidrio — vitrofusión",
+    "colors": [
+      "Transparente",
+      "Gris",
+      "Verde",
+      "Azul"
+    ],
+    "uses": "Flores, hojas, ramas.",
+    "images": [
+      "img/vaso-ondas/vaso-ondas-01.jpg?v=1",
+      "img/vaso-ondas/vaso-ondas-02.jpg?v=1",
+      "img/vaso-ondas/vaso-ondas-03.jpg?v=1",
+      "img/vaso-ondas/vaso-ondas-04.jpg?v=1"
+    ],
+    "colorImages": {
+      "Transparente": 0,
+      "Gris": 1,
+      "Verde": 2,
+      "Azul": 3
+    }
+  },
+  {
+    "id": "mini-vaso-ondas",
+    "sku": "FLO-008",
+    "cat": "floreros",
+    "name": "Mini Vaso Ondas",
+    "price": 58000,
+    "size": "13 cm alto × 14 cm diámetro sup. × 6 cm diámetro inf. (aprox)",
+    "materials": "Vidrio — vitrofusión",
+    "colors": [
+      "Transparente",
+      "Verde",
+      "Azul",
+      "Gris"
+    ],
+    "uses": "Flores, hojas, mini plantas.",
+    "images": [
+      "img/mini-vaso-ondas/mini-vaso-ondas-01.jpg?v=1",
+      "img/mini-vaso-ondas/mini-vaso-ondas-02.jpg?v=1",
+      "img/mini-vaso-ondas/mini-vaso-ondas-03.jpg?v=1",
+      "img/mini-vaso-ondas/mini-vaso-ondas-04.jpg?v=1"
+    ],
+    "colorImages": {
+      "Transparente": 0,
+      "Verde": 1,
+      "Azul": 2,
+      "Gris": 3
     }
   },
   {
@@ -1073,7 +1167,8 @@ const PRODUCTS=[
       "Dorado",
       "Gris",
       "Transparente",
-      "Verde"
+      "Verde",
+      "Ámbar"
     ],
     "uses": "Frutero, centro de mesa, objeto de diseño decorativo.",
     "images": [
@@ -1082,14 +1177,16 @@ const PRODUCTS=[
       "img/centro-mesa-marea/centro-mesa-marea-03.jpg?v=2",
       "img/centro-mesa-marea/centro-mesa-marea-04.jpg?v=2",
       "img/centro-mesa-marea/centro-mesa-marea-05.jpg?v=2",
-      "img/centro-mesa-marea/centro-mesa-marea-06.jpg?v=2"
+      "img/centro-mesa-marea/centro-mesa-marea-06.jpg?v=2",
+      "img/centro-mesa-marea/centro-mesa-marea-07.jpg?v=1"
     ],
     "colorImages": {
       "Azul": 3,
       "Dorado": 2,
       "Gris": 4,
       "Transparente": 0,
-      "Verde": 1
+      "Verde": 1,
+      "Ámbar": 6
     }
   },
   {
