@@ -566,7 +566,7 @@ const PRODUCTS=[
       "img/florero-alto-irregular/florero-alto-irregular-02.jpg?v=4",
       "img/florero-alto-irregular/florero-alto-irregular-03.jpg?v=4",
       "img/florero-alto-irregular/florero-alto-irregular-04.jpg?v=4",
-      "img/florero-alto-irregular/florero-alto-irregular-05.jpg?v=1"
+      "img/florero-alto-irregular/florero-alto-irregular-05.jpg?v=2"
     ],
     "colorImages": {
       "Verde": 0,
