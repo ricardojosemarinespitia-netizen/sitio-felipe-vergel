@@ -262,7 +262,7 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
 .sobre-text p{color:var(--tinta-soft);font-size:var(--t-md);margin:0 0 14px;max-width:520px;line-height:1.8;font-weight:300;text-wrap:pretty}
 .farex-badge{display:block;background:none;border:none;padding:0;color:var(--cobre-dark);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:var(--t-lg);letter-spacing:.03em;text-transform:none;font-weight:500;margin:0 0 20px}
 .sobre-mosaic{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;align-items:start}
-.sobre-mosaic .m{overflow:hidden;background:#eee;box-shadow:var(--shadow)}
+.sobre-mosaic .m{overflow:hidden;background:#eee;box-shadow:var(--shadow);cursor:pointer}
 .sobre-mosaic .m1{aspect-ratio:3/4;border-radius:160px 160px 4px 4px}
 .sobre-mosaic .m2{aspect-ratio:4/5;margin-top:56px;border-radius:4px}
 .sobre-mosaic .m3{grid-column:span 2;aspect-ratio:21/9;margin-top:2px;border-radius:4px 4px 4px 90px}
@@ -1688,6 +1688,19 @@ function guardarSesion(){try{sessionStorage.setItem("fv_sesion",JSON.stringify(f
     guardarSesion();
   }
   slots.forEach((el,i)=>{const img=new Image();img.src=fvImg(fvSesion.mosaic[i]||FELIPE_IMGS[i]);img.alt="Felipe Vergel";el.appendChild(img)});
+  // Fix Clarity #6: las fotos del mosaico (DIV.m > IMG) no tenian ningun
+  // manejador de clic -> 13+12+8 dead clicks. El panel .m tampoco era
+  // clicable como un todo, asi que no habia a donde "propagar" el clic;
+  // se agrega el mismo destino que ya usan otras llamadas a la accion de
+  // la pagina (ver "Descubrir piezas completas"): llevar al catalogo.
+  slots.forEach(el=>{
+    el.setAttribute("role","link");
+    el.setAttribute("tabindex","0");
+    el.setAttribute("aria-label","Ver piezas del catálogo");
+    const irAlCatalogo=()=>document.getElementById("catalogo").scrollIntoView({behavior:"smooth"});
+    el.addEventListener("click",irAlCatalogo);
+    el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();irAlCatalogo()}});
+  });
 })();
 
 // AGOTADO
@@ -1723,7 +1736,17 @@ function renderCircles(){
   // Activar animación de entrada (solo primera vez)
   requestAnimationFrame(()=>circlesEl.classList.add("loaded"));
   $$(".cat-circle").forEach(c=>c.onclick=()=>{
-    if(activeCat===c.dataset.cat) return;
+    // Fix Clarity #3: la categoría activa se auto-selecciona sola al cargar
+    // (ver autoSelectCat), asi que el usuario suele tocar un circulo que YA
+    // esta activo esperando ver esa coleccion. Antes esto hacia return sin
+    // feedback -> ~150 dead clicks (32% del total del home). Ahora, sea que
+    // cambie de categoria o toque la que ya esta activa, siempre se hace
+    // scroll hacia la grilla de resultados para que el toque tenga un
+    // efecto visible.
+    if(activeCat===c.dataset.cat){
+      scrollToGrid();
+      return;
+    }
     activeCat=c.dataset.cat;
     fvSesion.activeCat=activeCat;
     guardarSesion();
@@ -1745,8 +1768,18 @@ function renderCircles(){
       renderGrid();
       gridEl.style.pointerEvents="";
       requestAnimationFrame(()=>gridEl.classList.add("visible"));
+      scrollToGrid();
     },200);
   });
+}
+
+// Fix Clarity #3: centraliza el scroll hacia la grilla/resultados de la
+// categoria activa. En movil la grilla queda fuera de la pantalla inicial,
+// asi que tocar un circulo (cambie o no de categoria) debe llevar la vista
+// ahi para que el usuario vea el efecto de su toque.
+function scrollToGrid(){
+  const target=document.getElementById("catResults")||gridEl;
+  if(target)target.scrollIntoView({behavior:"smooth",block:"start"});
 }
 
 function autoSelectCat(){

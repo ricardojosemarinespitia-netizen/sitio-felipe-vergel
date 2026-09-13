@@ -177,6 +177,23 @@ h1,h2,h3,.h-serif{font-feature-settings:"kern","liga","dlig";text-wrap:balance}
   .p-gallery-counter{bottom:12px;right:12px;font-size:var(--t-2xs);padding:5px 10px}
 }
 
+/* LIGHTBOX (toque en la foto principal, sobre todo en móvil sin hover) */
+.p-lightbox{position:fixed;inset:0;z-index:300;background:rgba(45,42,38,.96);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity var(--d-3) var(--c-expresiva);touch-action:none}
+.p-lightbox.open{opacity:1;visibility:visible}
+.p-lightbox-img{max-width:92vw;max-height:82vh;object-fit:contain;border-radius:var(--radius-sm);transition:opacity .2s;user-select:none;-webkit-user-drag:none}
+.p-lightbox-close{position:absolute;top:18px;right:18px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;transition:background var(--d-2)}
+.p-lightbox-close:hover{background:rgba(255,255,255,.25)}
+.p-lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;display:flex;align-items:center;justify-content:center;font-size:var(--t-xl);border:none;cursor:pointer;transition:background var(--d-2)}
+.p-lightbox-nav:hover{background:rgba(255,255,255,.25)}
+.p-lightbox-nav.prev{left:16px}
+.p-lightbox-nav.next{right:16px}
+.p-lightbox-counter{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);color:#fff;font-size:var(--t-xs);letter-spacing:.1em;background:rgba(255,255,255,.12);padding:6px 14px;border-radius:2px}
+@media(max-width:640px){
+  .p-lightbox-nav{width:40px;height:40px}
+  .p-lightbox-close{width:40px;height:40px;top:12px;right:12px}
+}
+@media(prefers-reduced-motion:reduce){.p-lightbox{transition-duration:.01ms}}
+
 /* DETAILS */
 .p-details{padding:8px 0;min-width:0}
 /* Eyebrow sin caja de color: una etiqueta de coleccion en una galeria es
@@ -374,6 +391,19 @@ h1,h2,h3,.h-serif{font-feature-settings:"kern","liga","dlig";text-wrap:balance}
     <div class="p-thumbs" id="thumbs"></div>
   </section>
 
+  <!-- Lightbox: se abre al tocar la foto principal (sobre todo en móvil,
+       donde no hay lupa por hover). Swipe y flechas navegan igual que la
+       galería principal, reutilizando updateGallery(). -->
+  <div class="p-lightbox" id="lightbox" aria-hidden="true">
+    <button class="p-lightbox-close" id="lightboxClose" aria-label="Cerrar imagen ampliada">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <button class="p-lightbox-nav prev" id="lightboxPrev" aria-label="Imagen anterior">‹</button>
+    <img class="p-lightbox-img" id="lightboxImg" alt="">
+    <button class="p-lightbox-nav next" id="lightboxNext" aria-label="Imagen siguiente">›</button>
+    <div class="p-lightbox-counter" id="lightboxCounter">1 / 1</div>
+  </div>
+
   <section class="p-details">
     <span class="p-eyebrow">Vitrofusión artesanal</span>
     <h1 class="p-name" id="pName">Cargando…</h1>
@@ -459,7 +489,7 @@ h1,h2,h3,.h-serif{font-feature-settings:"kern","liga","dlig";text-wrap:balance}
 </footer>
 
 <!-- Botón volver a la página anterior -->
-<button class="back-float" onclick="history.back()" aria-label="Regresar a la página anterior">
+<button class="back-float" onclick="if(history.length>1){history.back()}else{location.href='index.html'}" aria-label="Volver al catálogo">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
   <span>Regresar</span>
 </button>
@@ -533,6 +563,11 @@ if(!product){
   // selector se comporta como antes (solo texto).
   const colorMap=product.colorImages||{};
   let curColor=product.colors[0];
+  // curImg se declara aqui (antes de usarse en el handler de color de abajo)
+  // porque antes vivia mas abajo, junto a la seccion "Gallery": si el click
+  // de color corria antes de que el script terminara de inicializar esa
+  // parte, lanzaba "can't find variable: curImg" (visto en Clarity).
+  let curImg=0;
   $("#pColors").innerHTML=product.colors.map((c,i)=>
     `<button class="color-pick${i===0?' active':''}" data-c="${c}">${c}</button>`
   ).join("");
@@ -589,7 +624,7 @@ if(!product){
   });
 
   // Gallery
-  let curImg=0;
+  // (curImg ya se declaro arriba, junto a curColor — ver comentario ahi)
   // índice de foto → color (inverso de colorMap) para sincronizar el selector
   const imgColor={};
   for(const c in colorMap)if(imgColor[colorMap[c]]==null)imgColor[colorMap[c]]=c;
@@ -640,6 +675,98 @@ if(!product){
     $("#counter").style.display="none";
   }
   updateGallery();
+
+  // SWIPE + LIGHTBOX EN LA FOTO PRINCIPAL (móvil, ~95% del tráfico real).
+  // Bug de Clarity #1: #mainImg no tenía ningún manejador de toque y la
+  // lupa de zoom (mas abajo) solo funciona con mouse — en móvil tocar la
+  // foto no hacía nada (92 dead clicks, 7 de 10 rage clicks del sitio).
+  (function(){
+    const mainImg=$("#mainImg");
+    const lightbox=$("#lightbox");
+    const lbImg=$("#lightboxImg");
+    const lbCounter=$("#lightboxCounter");
+    const SWIPE_MIN=40;   // px minimos para contar como swipe, no tap
+    const TAP_MAX=10;     // px maximos de movimiento para contar como tap
+    let touchStartX=0,touchStartY=0,touching=false;
+
+    function nextImg(){curImg=(curImg+1)%product.images.length;updateGallery();}
+    function prevImg(){curImg=(curImg-1+product.images.length)%product.images.length;updateGallery();}
+
+    function openLightbox(){
+      if(product.images.length<1)return;
+      syncLightbox();
+      lightbox.classList.add("open");
+      lightbox.setAttribute("aria-hidden","false");
+      document.body.style.overflow="hidden";
+    }
+    function closeLightbox(){
+      lightbox.classList.remove("open");
+      lightbox.setAttribute("aria-hidden","true");
+      document.body.style.overflow="";
+    }
+    function syncLightbox(){
+      lbImg.src=fvImg(product.images[curImg]);
+      lbImg.alt=mainImg.alt;
+      lbCounter.textContent=`${curImg+1} / ${product.images.length}`;
+    }
+    // updateGallery cambia curImg/mainImg; si el lightbox esta abierto lo
+    // mantenemos sincronizado para que las flechas del lightbox tambien
+    // se reflejen en la foto principal de fondo.
+    const _updateGallery=updateGallery;
+    updateGallery=function(){
+      _updateGallery();
+      if(lightbox.classList.contains("open"))syncLightbox();
+    };
+
+    if(product.images.length>1){
+      mainImg.addEventListener("touchstart",e=>{
+        const t=e.changedTouches[0];
+        touchStartX=t.clientX;touchStartY=t.clientY;touching=true;
+      },{passive:true});
+      mainImg.addEventListener("touchend",e=>{
+        if(!touching)return;
+        touching=false;
+        const t=e.changedTouches[0];
+        const dx=t.clientX-touchStartX, dy=t.clientY-touchStartY;
+        const adx=Math.abs(dx), ady=Math.abs(dy);
+        if(adx<TAP_MAX&&ady<TAP_MAX){
+          openLightbox();
+        }else if(adx>SWIPE_MIN&&adx>ady){
+          if(dx<0)nextImg();else prevImg();
+        }
+      },{passive:true});
+    }else{
+      mainImg.addEventListener("touchend",()=>openLightbox(),{passive:true});
+    }
+
+    $("#lightboxClose").onclick=closeLightbox;
+    lightbox.addEventListener("click",e=>{if(e.target===lightbox)closeLightbox()});
+    $("#lightboxPrev").onclick=prevImg;
+    $("#lightboxNext").onclick=nextImg;
+    if(product.images.length<=1){
+      $("#lightboxPrev").style.display="none";
+      $("#lightboxNext").style.display="none";
+      $("#lightboxCounter").style.display="none";
+    }
+    document.addEventListener("keydown",e=>{
+      if(!lightbox.classList.contains("open"))return;
+      if(e.key==="Escape")closeLightbox();
+      else if(e.key==="ArrowRight")nextImg();
+      else if(e.key==="ArrowLeft")prevImg();
+    });
+    // swipe dentro del lightbox
+    let lbTouchX=0,lbTouchY=0;
+    lightbox.addEventListener("touchstart",e=>{
+      const t=e.changedTouches[0];lbTouchX=t.clientX;lbTouchY=t.clientY;
+    },{passive:true});
+    lightbox.addEventListener("touchend",e=>{
+      const t=e.changedTouches[0];
+      const dx=t.clientX-lbTouchX, dy=t.clientY-lbTouchY;
+      if(Math.abs(dx)>SWIPE_MIN&&Math.abs(dx)>Math.abs(dy)){
+        if(dx<0)nextImg();else prevImg();
+      }
+    },{passive:true});
+  })();
 
   // LUPA DE AUMENTO (solo dispositivos con hover/mouse)
   if(window.matchMedia("(hover:hover)").matches){
