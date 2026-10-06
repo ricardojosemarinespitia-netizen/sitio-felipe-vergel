@@ -205,22 +205,18 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
 .nav-cart{position:relative;display:flex;align-items:center;min-height:44px;gap:8px;flex-shrink:0;white-space:nowrap;padding:10px 18px;border-radius:var(--radius-sm);background:var(--verde);color:var(--crema);font-size:var(--t-xs);font-weight:500;letter-spacing:var(--track-ui);text-transform:uppercase;transition:background var(--d-3) var(--c-autor),box-shadow var(--d-3) var(--c-autor),transform var(--d-3) var(--c-autor);box-shadow:var(--shadow-cta)}
 .nav-cart:hover{background:var(--verde-dark);transform:translateY(-1px);box-shadow:0 12px 28px -12px rgba(43,33,27,.45)}
 .cart-count{background:var(--crema-rosa);color:var(--verde-dark);min-width:18px;height:18px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;font-size:var(--t-2xs);font-weight:700;padding:0 6px}
-.nav-burger{display:none;background:none;border:none;font-size:var(--t-2xl);color:var(--verde);transition:color .3s;width:44px;height:44px;align-items:center;justify-content:center;border-radius:2px}
-.nav:not(.scrolled) .nav-burger{color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.4)}
+/* Enlaces en la columna izquierda de la cabecera de 3 columnas: el hueco
+   se ajusta para que quepan sin empujar el logo central. Por debajo de
+   1024px pasan al menu (.hm-panel). */
+.nav .nav-links.hm-left{gap:clamp(22px,2.4vw,40px)}
+.nav:not(.scrolled) .hm-menu-btn{color:#fff;filter:drop-shadow(0 1px 3px rgba(0,0,0,.45))}
 @media(max-width:860px){
-  .nav-links{display:none}
-  .nav-links.open{display:flex;flex-direction:column;gap:0;position:absolute;top:70px;left:0;right:0;background:rgba(250,244,237,.98);backdrop-filter:blur(20px);padding:14px 22px 22px;box-shadow:0 8px 24px -8px rgba(63,68,67,.15);max-height:calc(100vh - 70px);overflow-y:auto}
-  .nav-links.open a{padding:16px 4px;border-bottom:1px solid var(--linea);color:var(--tinta)!important;font-size:var(--t-md);text-shadow:none!important}
-  .nav-links.open a::after{display:none}
-  .nav-links.open a:last-child{border-bottom:none}
-  .nav-burger{display:flex}
   .nav-cart span.label{display:none}
   .nav-cart{padding:9px 14px}
 }
 @media(max-width:480px){
   .nav-inner{min-height:64px}
   .nav-logo img{height:34px!important}
-  .nav-links.open{top:64px}
   .nav-cart{padding:8px 12px;gap:6px}
 }
 
@@ -783,7 +779,6 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
 /* Cajas de tamano fijo con un glifo/numero dentro: con la fuente del
    sistema aumentada el contenido se recortaba. */
 .cart-count{min-width:18px;min-height:18px;height:auto;line-height:1;padding:2px 6px}
-.nav-burger{min-width:44px;min-height:44px;height:auto;line-height:1}
 .gallery-nav{min-width:44px;min-height:44px;height:auto;line-height:1}
 /* dvh: en iOS Safari 100vh incluye la barra de URL y el pie del modal
    (boton Agregar al carrito) quedaba debajo del borde visible. */
@@ -870,6 +865,64 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
 .product-card:hover .product-img img{transform:scale(1.04)}
 .product-card:hover .img-alt{opacity:1}
 }
+/* ============================================================
+   CABECERA (hm-): Regresar | logo central | acciones + menu.
+   Tres columnas minmax(0,1fr) auto minmax(0,1fr): las laterales
+   miden siempre lo mismo, asi el logo queda centrado respecto del
+   viewport y no del espacio sobrante.
+   ============================================================ */
+.hm-bar{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;column-gap:16px}
+.hm-left{grid-column:1;justify-self:start;display:flex;align-items:center;min-width:0}
+.hm-logo{grid-column:2;justify-self:center}
+.hm-right{grid-column:3;justify-self:end;display:flex;align-items:center;gap:10px;min-width:0}
+.hm-back{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 14px 0 10px;margin-left:-10px;background:none;border:1px solid transparent;border-radius:2px;color:var(--tinta-soft);font-family:inherit;font-size:var(--t-2xs);font-weight:400;letter-spacing:var(--track-ui);text-transform:uppercase;line-height:1;white-space:nowrap;cursor:pointer;transition:color var(--d-3) var(--c-autor),border-color var(--d-3) var(--c-autor)}
+.hm-back svg{width:16px;height:16px;flex:none;transition:transform var(--d-3) var(--c-autor)}
+.hm-back:hover{color:var(--verde);border-color:var(--linea)}
+.hm-back:hover svg{transform:translateX(-3px)}
+.hm-menu-btn{display:none;align-items:center;justify-content:center;width:44px;height:44px;margin-right:-8px;padding:0;background:none;border:none;border-radius:2px;color:var(--verde);cursor:pointer;flex:none}
+.hm-menu-btn svg{width:22px;height:22px}
+.hm-back:focus-visible,.hm-menu-btn:focus-visible,.hm-panel a:focus-visible,.hm-panel button:focus-visible{outline:2px solid var(--verde);outline-offset:2px}
+@media(max-width:1024px){
+  .hm-bar .hm-desk{display:none!important}
+  .hm-menu-btn{display:inline-flex}
+}
+@media(max-width:640px){
+  .hm-bar{column-gap:8px}
+  .hm-right{gap:6px}
+  .hm-back{gap:7px;padding:0 8px 0 6px;margin-left:-6px;letter-spacing:.12em}
+  .hm-back svg{width:15px;height:15px}
+}
+/* Pantallas de 320px: no cabe la palabra; queda la flecha (aria-label),
+   y logo/carrito se compactan para que las columnas no se pisen. */
+@media(max-width:359px){
+  .hm-back-txt{display:none}
+  .hm-back{min-width:44px;justify-content:center}
+  .hm-bar{column-gap:4px}
+  .hm-right{gap:4px}
+  .hm-bar .hm-logo img{height:26px!important;max-width:none}
+  .hm-right .nav-cart,.hm-right .p-cart-btn{padding:8px 9px;gap:5px}
+}
+/* Panel del menu: cajon lateral fijo, FUERA de la cabecera (un
+   backdrop-filter en la cabecera seria el containing block de un fixed).
+   No se bloquea el scroll del body (overflow:hidden falla en el WebView
+   de Instagram/Facebook): la cortina absorbe los toques y el panel
+   contiene su propio scroll. Solo transform/opacity; sin blur. */
+.hm-scrim{position:fixed;inset:0;z-index:1000;background:rgba(32,24,20,.44);opacity:0;visibility:hidden;touch-action:none;transition:opacity var(--d-3) var(--c-autor),visibility 0s linear var(--d-3)}
+.hm-scrim.is-open{opacity:1;visibility:visible;transition:opacity var(--d-3) var(--c-autor),visibility 0s}
+.hm-panel{position:fixed;top:0;right:0;bottom:0;z-index:1001;width:min(86vw,360px);display:flex;flex-direction:column;background:var(--crema);box-shadow:-24px 0 48px -24px rgba(43,33,27,.35);transform:translateX(104%);visibility:hidden;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:max(12px,env(safe-area-inset-top)) 24px max(28px,env(safe-area-inset-bottom));transition:transform var(--d-3) var(--c-autor),visibility 0s linear var(--d-3)}
+.hm-panel.is-open{transform:none;visibility:visible;transition:transform var(--d-3) var(--c-autor),visibility 0s}
+.hm-panel-head{display:flex;align-items:center;justify-content:space-between;min-height:56px;margin-bottom:12px;border-bottom:1px solid var(--linea)}
+.hm-kicker{font-size:var(--t-2xs);letter-spacing:.22em;text-transform:uppercase;color:var(--tinta-soft)}
+.hm-close{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;margin-right:-10px;padding:0;background:none;border:none;border-radius:2px;color:var(--tinta);cursor:pointer}
+.hm-close svg{width:20px;height:20px}
+.hm-links{display:flex;flex-direction:column}
+.hm-links a{display:flex;align-items:center;min-height:58px;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:var(--t-2xl);line-height:1.1;color:var(--tinta);border-bottom:1px solid var(--linea);transition:color var(--d-3) var(--c-autor)}
+.hm-links a:hover{color:var(--verde)}
+.hm-sub{display:flex;flex-direction:column;margin-top:22px}
+.hm-sub a,.hm-sub button{display:flex;align-items:center;gap:12px;min-height:48px;padding:0;background:none;border:none;font-family:inherit;font-size:var(--t-xs);font-weight:400;letter-spacing:var(--track-ui);text-transform:uppercase;color:var(--tinta-soft);cursor:pointer;text-align:left;transition:color var(--d-3) var(--c-autor)}
+.hm-sub svg{width:18px;height:18px;flex:none}
+.hm-sub a:hover,.hm-sub button:hover{color:var(--verde)}
+@media(prefers-reduced-motion:reduce){.hm-scrim,.hm-panel,.hm-back svg{transition-duration:.01ms!important}}
 </style>
 <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
@@ -914,27 +967,51 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
 })();
 </script>
 
-<nav class="nav" id="mainNav">
-  <div class="container nav-inner">
-    <a href="#top" class="nav-logo">
-      <img src="img/logo/logo_fv_ladrillo.png" alt="Felipe Vergel Arte en Vidrio" id="navLogoImg" style="height:45px;width:auto;object-fit:contain">
-    </a>
-    <button class="nav-burger" id="burger" aria-label="Menú">☰</button>
-    <div class="nav-links" id="navLinks">
+<nav class="nav" id="mainNav" aria-label="Principal">
+  <div class="container nav-inner hm-bar">
+    <div class="nav-links hm-left hm-desk" id="navLinks">
       <a href="#sobre">Manifiesto</a>
       <a href="#catalogo">Piezas de Autor</a>
       <a href="#contacto">Contacto</a>
     </div>
-    <div style="display:flex;align-items:center;gap:10px">
-      <button id="navProfile" aria-label="Únete al Círculo"></button>
+    <a href="#top" class="nav-logo hm-logo">
+      <img src="img/logo/logo_fv_ladrillo.png" alt="Felipe Vergel Arte en Vidrio" id="navLogoImg" style="height:45px;width:auto;object-fit:contain">
+    </a>
+    <div class="hm-right">
+      <button id="navProfile" class="hm-desk" aria-label="Únete al Círculo"></button>
       <button class="nav-cart" id="openCart">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
         <span class="label">Carrito</span>
         <span class="cart-count" id="cartCount">0</span>
       </button>
+      <button type="button" class="hm-menu-btn" id="hmMenuBtn" aria-label="Menú" aria-expanded="false" aria-controls="hmPanel">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="12" cy="19" r="1.7"/></svg>
+      </button>
     </div>
   </div>
 </nav>
+
+<!-- Menú móvil (fuera de la cabecera: ver .hm-panel en el CSS) -->
+<div class="hm-scrim" id="hmScrim" aria-hidden="true"></div>
+<div class="hm-panel" id="hmPanel" role="dialog" aria-modal="true" aria-label="Menú" inert>
+  <div class="hm-panel-head">
+    <span class="hm-kicker">Felipe Vergel · Arte en Vidrio</span>
+    <button type="button" class="hm-close" id="hmClose" aria-label="Cerrar menú">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+    </button>
+  </div>
+  <nav class="hm-links" aria-label="Secciones">
+    <a href="#sobre">Manifiesto</a>
+    <a href="#catalogo">Piezas de autor</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+  <div class="hm-sub">
+    <button type="button" data-hm-profile>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Mi perfil · Círculo
+    </button>
+  </div>
+</div>
 
 <section class="hero" id="top">
   <div class="hero-bg" id="heroBg"></div>
@@ -2049,9 +2126,6 @@ $("#closeCart").onclick=closeCart;
 $("#cartOverlay").onclick=closeCart;
 renderCart();
 
-// Burger
-$("#burger").onclick=()=>$("#navLinks").classList.toggle("open");
-$$("#navLinks a").forEach(a=>a.onclick=()=>$("#navLinks").classList.remove("open"));
 
 // CHECKOUT - FLUJO CON FORMULARIO PRIMERO
 let pendingOrder=null;
@@ -2205,6 +2279,54 @@ document.addEventListener("click",function(e){
     fbq('track','Contact',d);
   }catch(err){}
 },true);
+</script>
+<script>
+/* Menu movil de la cabecera (hm-). Cierra con X, toque fuera, Escape y
+   al elegir un enlace. No toca overflow del body (WebView IG/FB): la
+   cortina absorbe toques/rueda solo mientras esta abierta. */
+(function(){
+  var btn=document.getElementById('hmMenuBtn'),panel=document.getElementById('hmPanel'),
+      scrim=document.getElementById('hmScrim'),closeBtn=document.getElementById('hmClose');
+  if(!btn||!panel||!scrim||!closeBtn)return;
+  var lastFocus=null;
+  function isOpen(){return panel.classList.contains('is-open');}
+  function items(){return panel.querySelectorAll('a[href],button:not([disabled])');}
+  function onKey(e){
+    if(e.key==='Escape'){e.preventDefault();shut(true);return;}
+    if(e.key!=='Tab')return;
+    var f=items();if(!f.length)return;
+    var a=f[0],z=f[f.length-1];
+    if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus();}
+    else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus();}
+    else if(!panel.contains(document.activeElement)){e.preventDefault();a.focus();}
+  }
+  function open(){
+    lastFocus=document.activeElement;
+    panel.removeAttribute('inert');
+    panel.classList.add('is-open');scrim.classList.add('is-open');
+    btn.setAttribute('aria-expanded','true');
+    document.addEventListener('keydown',onKey);
+    setTimeout(function(){try{closeBtn.focus({preventScroll:true});}catch(e){closeBtn.focus();}},40);
+  }
+  function shut(restore){
+    if(!isOpen())return;
+    panel.classList.remove('is-open');scrim.classList.remove('is-open');
+    panel.setAttribute('inert','');
+    btn.setAttribute('aria-expanded','false');
+    document.removeEventListener('keydown',onKey);
+    if(restore&&lastFocus&&lastFocus.focus){try{lastFocus.focus({preventScroll:true});}catch(e){}}
+  }
+  btn.addEventListener('click',function(){isOpen()?shut(true):open();});
+  closeBtn.addEventListener('click',function(){shut(true);});
+  scrim.addEventListener('click',function(){shut(true);});
+  ['touchmove','wheel'].forEach(function(t){scrim.addEventListener(t,function(e){e.preventDefault();},{passive:false});});
+  panel.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(a)shut(false);});
+  var prof=panel.querySelector('[data-hm-profile]');
+  if(prof)prof.addEventListener('click',function(){shut(false);var p=document.getElementById('navProfile');if(p)p.click();});
+  var mq=window.matchMedia('(min-width:1025px)');
+  var onMq=function(m){if(m.matches)shut(false);};
+  if(mq.addEventListener)mq.addEventListener('change',onMq);else if(mq.addListener)mq.addListener(onMq);
+})();
 </script>
 </body>
 </html>
