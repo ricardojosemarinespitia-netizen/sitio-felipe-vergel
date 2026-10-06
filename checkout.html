@@ -211,21 +211,21 @@ h1,h2,h3{font-feature-settings:"kern","liga","dlig"}
 .co-footer .secure svg{width:14px;height:14px}
 
 /* FLOATING WhatsApp BUTTON */
-.wa-float{position:fixed;bottom:26px;right:26px;z-index:90;width:56px;height:56px;border-radius:50%;background:#25d366;color:#fff;box-shadow:0 4px 18px -4px rgba(37,211,102,.45),0 2px 6px rgba(0,0,0,.12);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);text-decoration:none}
+.wa-float{position:fixed;bottom:26px;right:26px;z-index:90;width:48px;height:48px;border-radius:50%;background:#25d366;color:#fff;box-shadow:0 4px 18px -4px rgba(37,211,102,.45),0 2px 6px rgba(0,0,0,.12);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);text-decoration:none}
 .wa-float::before{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:0 0 0 0 rgba(37,211,102,.45);animation:wapulse 2.6s ease-in-out infinite;pointer-events:none}
 .wa-float:hover{transform:scale(1.08) translateY(-2px);background:#1fb655}
-.wa-float svg{width:28px;height:28px;stroke-width:1.7;position:relative;z-index:1}
+.wa-float svg{width:24px;height:24px;stroke-width:1.7;position:relative;z-index:1}
 @keyframes wapulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.5)}70%{box-shadow:0 0 0 18px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
-@media(max-width:640px){.wa-float{width:52px;height:52px;bottom:18px;right:18px}.wa-float svg{width:26px;height:26px}}
+@media(max-width:640px){.wa-float{width:44px;height:44px;bottom:18px;right:18px}.wa-float svg{width:22px;height:22px}}
 
 /* BOTÓN LLAMAR AHORA — píldora apilada justo encima de WhatsApp (mismo eje derecho) */
-.call-float{position:fixed;bottom:96px;right:26px;z-index:90;height:48px;padding:0 20px 0 16px;border-radius:999px;background:rgba(87,41,50,.92);color:#fff;display:inline-flex;align-items:center;gap:10px;font-size:var(--t-2xs);letter-spacing:.16em;text-transform:uppercase;font-weight:500;line-height:1;white-space:nowrap;text-decoration:none;cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 4px 16px -4px rgba(87,41,50,.45),0 1px 3px rgba(0,0,0,.1),inset 0 0 0 1px rgba(255,255,255,.12);transition:transform .35s cubic-bezier(.4,0,.2,1),background .35s cubic-bezier(.4,0,.2,1),box-shadow .35s cubic-bezier(.4,0,.2,1)}
+.call-float{position:fixed;bottom:88px;right:26px;z-index:90;height:48px;padding:0 20px 0 16px;border-radius:999px;background:rgba(87,41,50,.92);color:#fff;display:inline-flex;align-items:center;gap:10px;font-size:var(--t-2xs);letter-spacing:.16em;text-transform:uppercase;font-weight:500;line-height:1;white-space:nowrap;text-decoration:none;cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 4px 16px -4px rgba(87,41,50,.45),0 1px 3px rgba(0,0,0,.1),inset 0 0 0 1px rgba(255,255,255,.12);transition:transform .35s cubic-bezier(.4,0,.2,1),background .35s cubic-bezier(.4,0,.2,1),box-shadow .35s cubic-bezier(.4,0,.2,1)}
 .call-float:hover{background:var(--verde-dark);transform:translateY(-3px);box-shadow:0 10px 24px -6px rgba(43,33,27,.5),0 2px 6px rgba(0,0,0,.12),inset 0 0 0 1px rgba(255,255,255,.14)}
 .call-float:focus-visible{outline:2px solid #fff;outline-offset:3px}
 .call-float svg{width:18px;height:18px;stroke-width:1.7;flex:none;transition:transform .35s cubic-bezier(.4,0,.2,1)}
 .call-float:hover svg{transform:rotate(-12deg)}
 .call-float{width:48px;padding:0;gap:0;justify-content:center}.call-float svg{width:22px;height:22px}
-@media(max-width:640px){.call-float{width:44px;height:44px;bottom:82px;right:18px}}
+@media(max-width:640px){.call-float{width:44px;height:44px;bottom:76px;right:18px}}
 
 /* ============================================================
    CABECERA (hm-): Regresar | logo central | acciones + menu.
