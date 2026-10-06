@@ -208,7 +208,9 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
 /* Enlaces en la columna izquierda de la cabecera de 3 columnas: el hueco
    se ajusta para que quepan sin empujar el logo central. Por debajo de
    1024px pasan al menu (.hm-panel). */
-.nav .nav-links.hm-left{gap:clamp(22px,2.4vw,40px)}
+.nav .hm-left .nav-links{gap:clamp(22px,2.4vw,40px)}
+.hm-left{gap:clamp(16px,1.8vw,26px)}
+.hm-left #navProfile{width:44px;height:44px}
 .nav:not(.scrolled) .hm-menu-btn{color:#fff;filter:drop-shadow(0 1px 3px rgba(0,0,0,.45))}
 @media(max-width:860px){
   .nav-cart span.label{display:none}
@@ -969,16 +971,18 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
 
 <nav class="nav" id="mainNav" aria-label="Principal">
   <div class="container nav-inner hm-bar">
-    <div class="nav-links hm-left hm-desk" id="navLinks">
-      <a href="#sobre">Manifiesto</a>
-      <a href="#catalogo">Piezas de Autor</a>
-      <a href="#contacto">Contacto</a>
+    <div class="hm-left">
+      <button id="navProfile" aria-label="Únete al Círculo"></button>
+      <div class="nav-links hm-desk" id="navLinks">
+        <a href="#sobre">Manifiesto</a>
+        <a href="#catalogo">Piezas de Autor</a>
+        <a href="#contacto">Contacto</a>
+      </div>
     </div>
     <a href="#top" class="nav-logo hm-logo">
       <img src="img/logo/logo_fv_ladrillo.png" alt="Felipe Vergel Arte en Vidrio" id="navLogoImg" style="height:45px;width:auto;object-fit:contain">
     </a>
     <div class="hm-right">
-      <button id="navProfile" class="hm-desk" aria-label="Únete al Círculo"></button>
       <button class="nav-cart" id="openCart">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
         <span class="label">Carrito</span>
