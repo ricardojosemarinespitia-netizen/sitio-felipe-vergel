@@ -257,14 +257,6 @@ h1,h2,h3,.h-serif{font-feature-settings:"kern","liga","dlig";text-wrap:balance}
    superficie blanca con borde fino, icono en medallon circular (el motivo
    de la marca), titulo en versalitas abiertas y cuerpo en gris calido. El
    hover sube apenas la tarjeta y tine el borde de cobre. */
-.p-info-blocks{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
-@media(max-width:560px){.p-info-blocks{grid-template-columns:1fr}}
-.p-info-block{display:flex;align-items:flex-start;gap:14px;padding:18px 18px 18px 16px;background:#fff;border:1px solid var(--linea);border-radius:var(--radius);font-size:var(--t-sm);color:var(--tinta-soft);font-weight:300;line-height:1.55;transition:border-color var(--d-3) var(--c-autor),box-shadow var(--d-3) var(--c-autor),transform var(--d-3) var(--c-autor)}
-@media(hover:hover){.p-info-block:hover{border-color:rgba(138,74,43,.35);box-shadow:var(--shadow-sm);transform:translateY(-2px)}}
-.p-info-block svg{width:18px;height:18px;flex-shrink:0;color:var(--cobre-dark);margin-top:0;box-sizing:content-box;padding:9px;border-radius:50%;background:var(--crema-2);border:1px solid rgba(138,74,43,.14);stroke-width:1.5;transition:background var(--d-3) var(--c-autor),color var(--d-3) var(--c-autor)}
-@media(hover:hover){.p-info-block:hover svg{background:var(--cobre-dark);color:#fff}}
-.p-info-block strong{display:block;font-weight:500;color:var(--verde-dark);margin:6px 0 4px;font-size:var(--t-2xs);letter-spacing:var(--track-label);text-transform:uppercase}
-.p-info-block b{font-weight:500;color:var(--tinta)}
 
 /* ============================================================
    MOVIL — espaciado compacto
@@ -294,9 +286,6 @@ h1,h2,h3,.h-serif{font-feature-settings:"kern","liga","dlig";text-wrap:balance}
   .p-specs dl{gap:10px 16px}
   .p-specs dt{font-size:var(--t-2xs)}
   .p-specs dd{font-size:var(--t-sm)}
-  .p-info-blocks{margin-top:14px;gap:10px}
-  .p-info-block{padding:14px 14px 14px 12px;gap:12px}
-  .p-info-block svg{width:16px;height:16px;padding:8px}
   .p-details{padding:0}
 }
 
@@ -312,6 +301,29 @@ h1,h2,h3,.h-serif{font-feature-settings:"kern","liga","dlig";text-wrap:balance}
 .p-error p{color:var(--tinta-soft);margin-bottom:24px}
 .p-error a{display:inline-block;padding:14px 28px;background:var(--verde);color:#fff;border-radius:2px;font-size:var(--t-xs);letter-spacing:.14em;text-transform:uppercase;font-weight:700}
 .p-error a:hover{background:var(--verde-dark)}
+
+/* TAMBIEN TE PUEDE INTERESAR: reemplaza las 5 tarjetas de confianza.
+   Misma cartela que el catalogo de index.html (.product-card): foto 2:3
+   (encuadre oficial 1600x2400, no recorta), titulo serif, precio cobre. */
+.rel{max-width:1280px;margin:0 auto;padding:72px 32px 96px;border-top:1px solid var(--linea)}
+.rel[hidden]{display:none}
+.rel-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:36px}
+.rel-eyebrow{display:block;font-size:var(--t-2xs);letter-spacing:var(--track-label);text-transform:uppercase;color:var(--cobre-dark);font-weight:500;margin-bottom:10px}
+.rel-title{font-family:'Cormorant Garamond',serif;font-size:var(--t-3xl);font-weight:500;line-height:1.08;color:var(--verde-dark);margin:0}
+.rel-title em{font-style:italic;font-weight:400}
+.rel-all{flex-shrink:0;display:inline-flex;align-items:center;min-height:44px;font-size:var(--t-2xs);letter-spacing:var(--track-label);text-transform:uppercase;color:var(--verde-dark);font-weight:500;border-bottom:1px solid currentColor}
+.rel-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px;list-style:none;margin:0;padding:0}
+.rel-card{display:flex;flex-direction:column;height:100%;background:#fff;border:1px solid transparent;border-radius:var(--radius);overflow:hidden;color:inherit;text-decoration:none;transition:transform var(--d-4) var(--c-autor),box-shadow var(--d-4) var(--c-autor),border-color var(--d-4) var(--c-autor)}
+.rel-card:focus-visible{outline:2px solid var(--verde-dark);outline-offset:3px}
+.rel-img{position:relative;aspect-ratio:2/3;background:var(--crema-2);overflow:hidden}
+.rel-img img{display:block;width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--c-autor)}
+.rel-info{padding:18px 20px 22px;display:flex;flex-direction:column;flex:1}
+.rel-info h3{font-family:'Cormorant Garamond',serif;font-size:var(--t-xl);font-weight:500;line-height:1.2;letter-spacing:.01em;color:var(--verde-dark);margin:0 0 6px;text-wrap:balance}
+.rel-price{color:var(--cobre-dark);font-size:var(--t-md);font-weight:500;letter-spacing:.04em;font-variant-numeric:tabular-nums}
+.rel-view{margin-top:auto;padding-top:10px;font-size:var(--t-2xs);letter-spacing:var(--track-label);text-transform:uppercase;color:var(--cobre-dark);font-weight:500}
+@media(hover:hover){.rel-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:var(--linea)}.rel-card:hover .rel-img img{transform:scale(1.04)}}
+@media(max-width:920px){.rel{padding:56px 24px 72px}.rel-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}}
+@media(max-width:640px){.rel{padding:44px 16px 56px}.rel-head{margin-bottom:22px;flex-wrap:wrap;gap:8px 16px}.rel-title{font-size:var(--t-2xl)}.rel-grid{gap:12px}.rel-info{padding:12px 12px 14px}.rel-info h3{font-size:var(--t-lg);line-height:1.25}.rel-price{font-size:var(--t-sm)}.rel-view{display:none}}
 
 /* FOOTER */
 .p-footer{text-align:center;padding:32px 20px;font-size:var(--t-2xs);color:var(--tinta-soft);font-weight:400;letter-spacing:var(--track-ui);text-transform:uppercase;border-top:1px solid var(--linea);background:var(--crema-2)}
@@ -535,31 +547,19 @@ h1,h2,h3,.h-serif{font-feature-settings:"kern","liga","dlig";text-wrap:balance}
       <h4>Detalles de la pieza</h4>
       <dl id="pSpecs"></dl>
     </div>
-
-    <div class="p-info-blocks">
-      <div class="p-info-block">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-        <div><strong>Pieza única</strong>Cada obra es irrepetible en forma, color y textura.</div>
-      </div>
-      <div class="p-info-block">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        <div><strong>Hecha a mano</strong>Vitrofusión artesanal en taller del artista.</div>
-      </div>
-      <div class="p-info-block">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-        <div><strong>Empaque seguro</strong>Embalaje especializado para piezas delicadas.</div>
-      </div>
-      <div class="p-info-block">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-        <div><strong>Atención directa</strong>Coordinamos contigo por WhatsApp.</div>
-      </div>
-      <div class="p-info-block" style="grid-column:1/-1;background:rgba(243,207,179,.18);border-color:rgba(138,74,43,.22)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        <div><strong>Tiempo de entrega</strong>Cada pieza se elabora a mano. El envío se realiza en <b>8 días hábiles</b> tras confirmar tu compra.</div>
-      </div>
-    </div>
   </section>
 </main>
+
+<section class="rel" id="relSection" aria-labelledby="relTitle" hidden>
+  <div class="rel-head">
+    <div>
+      <span class="rel-eyebrow">Del mismo taller</span>
+      <h2 class="rel-title" id="relTitle">También te puede <em>interesar</em></h2>
+    </div>
+    <a class="rel-all" href="index.html#catalogo">Ver todo el catálogo →</a>
+  </div>
+  <ul class="rel-grid" id="relGrid"></ul>
+</section>
 
 <div class="toast" id="toast">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -945,6 +945,30 @@ if(!product){
     window._t=setTimeout(()=>$("#toast").classList.remove("show"),3500);
   }
 }
+
+// TAMBIEN TE PUEDE INTERESAR: 4 piezas visibles, nunca la actual ni una
+// oculta/agotada. Primero la misma categoria (por cercania de precio),
+// luego una por categoria distinta para variar, y relleno si faltan.
+(function(){
+  if(!product||typeof PRODUCTS==="undefined"||!Array.isArray(PRODUCTS))return;
+  let sold={};
+  try{const s=localStorage.getItem("fv_sold_out");if(s)sold=JSON.parse(s)||{}}catch(e){}
+  const pool=PRODUCTS.filter(p=>p&&p.id!==product.id&&!p.hidden&&!sold[p.id]&&p.images&&p.images[0]);
+  const near=(a,b)=>Math.abs((a.price||0)-(product.price||0))-Math.abs((b.price||0)-(product.price||0));
+  const pick=[];
+  pool.filter(p=>p.cat===product.cat).sort(near).forEach(p=>{if(pick.length<4)pick.push(p)});
+  const rest=pool.filter(p=>!pick.includes(p)).sort(near);
+  const cats=new Set(pick.map(p=>p.cat));
+  rest.forEach(p=>{if(pick.length<4&&!cats.has(p.cat)){pick.push(p);cats.add(p.cat)}});
+  rest.forEach(p=>{if(pick.length<4&&!pick.includes(p))pick.push(p)});
+  if(!pick.length)return;
+  const esc=t=>String(t==null?"":t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  document.getElementById("relGrid").innerHTML=pick.map(p=>`<li><a class="rel-card" href="product.html?id=${encodeURIComponent(p.id)}">
+    <div class="rel-img"><img src="${esc(fvImg(p.images[0]))}" alt="${esc(p.name)}" width="800" height="1200" loading="lazy" decoding="async"></div>
+    <div class="rel-info"><h3>${esc(p.name)}</h3><span class="rel-price">${fmt(p.price)}</span><span class="rel-view" aria-hidden="true">Ver pieza →</span></div>
+  </a></li>`).join("");
+  document.getElementById("relSection").hidden=false;
+})();
 </script>
 <script>
 // Meta Pixel · Contact en toda salida a WhatsApp.
