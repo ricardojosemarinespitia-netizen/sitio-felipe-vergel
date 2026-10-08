@@ -1156,7 +1156,7 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
 
 <div id="top"></div>
 <section class="hjv" aria-label="Florero Alto Irregular, el favorito de la semana">
-  <figure class="hj-foto"><div class="hj-marco"><video class="hj-video" poster="video/florero-hero-poster.jpg" data-src="video/florero-hero-loop.mp4" muted loop playsinline preload="none" aria-hidden="true" onplaying="this.classList.add('on')"></video>
+  <figure class="hj-foto"><div class="hj-marco"><video class="hj-video" poster="video/florero-hero-poster.jpg" data-src="video/florero-hero-loop.mp4" muted loop playsinline preload="none" aria-hidden="true" onplaying="this.classList.add('on')"></video><script>(function(){var v=document.currentScript.previousElementSibling;if(v&&!window.matchMedia("(prefers-reduced-motion:reduce)").matches){v.addEventListener("loadeddata",function(){var p=v.play();if(p&&p.catch)p.catch(function(){})});v.src=v.getAttribute("data-src");v.load()}})()</script>
     <picture>
       <source srcset="img/florero-alto-irregular/florero-alto-irregular-01.webp" type="image/webp">
       <img src="img/florero-alto-irregular/florero-alto-irregular-01.jpg" width="1025" height="1535" decoding="async" alt="Florero Alto Irregular en vidrio verde con gerberas amarillas, sobre una mesa blanca con sombras de luz natural">
@@ -2487,13 +2487,8 @@ document.addEventListener("click",function(e){
 })();
 </script>
 <script>
-// PORTADA: el video del florero arranca al cargar y respeta "reducir movimiento".
+// PORTADA: "Ver todos los floreros" abre la coleccion en el catalogo.
 (function(){
-  var v=document.querySelector(".hj-video");
-  if(v&&!window.matchMedia("(prefers-reduced-motion:reduce)").matches){
-    v.addEventListener("loadeddata",function(){var p=v.play();if(p&&p.catch)p.catch(function(){})});
-    v.src=v.getAttribute("data-src");v.load();
-  }
   var ver=document.getElementById("hjFloreros");
   if(ver)ver.addEventListener("click",function(e){
     if(typeof abrirColeccion!=="function")return;
