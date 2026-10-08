@@ -925,7 +925,7 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
 .hm-sub svg{width:18px;height:18px;flex:none}
 .hm-sub a:hover,.hm-sub button:hover{color:var(--verde)}
 @media(prefers-reduced-motion:reduce){.hm-scrim,.hm-panel,.hm-back svg{transition-duration:.01ms!important}}
-/* PORTADA MOVIL: florero favorito de la semana, video a pantalla completa */
+/* PORTADA: florero favorito de la semana, video a pantalla completa (movil) y escena a toda la altura (PC) */
 .hjv{--hj-vino:#1F3D32;--hj-fondo:#E9E6E2;
   position:relative;min-height:100vh;min-height:100svh;overflow:hidden;background:var(--hj-fondo);color:var(--tinta);display:flex;flex-direction:column}
 .hj-foto{position:relative;margin:0;height:calc(var(--vh-fijo,100svh)*.54);min-height:380px;overflow:hidden;background:var(--hj-fondo)}
@@ -980,8 +980,44 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
    altura disponible: se ve completa, sin recorte. El texto ocupa el resto.
    La cabecera va en crema solido desde el inicio (el logo centrado cae
    sobre el papel, donde el blanco no se leeria). */
+.hj-ficha{display:none}
 .hj-marco{position:relative;width:100%;height:100%}
-
+@media(min-width:700px){
+  .hjv{flex-direction:row;min-height:100vh;min-height:100svh;padding-top:72px}
+  /* La foto flota con aire y sus bordes se disuelven en el mismo gris
+     calido de su fondo: no hay corte entre foto y pagina. */
+  /* PC: escena a pantalla completa. El fondo claro (el mismo cuadro desenfocado)
+     cubre todo el hero; el video va grande, a toda la altura, y el texto a su lado. */
+  .hjv{background:#E3E0DD;--hj-vh:calc(var(--vh-fijo,100svh) - 72px);--hj-izq:max(24px,calc((100vw - var(--hj-vh)*.7074 - clamp(32px,5vw,110px) - 560px)/2))}
+  .hj-foto{position:absolute;inset:0;height:auto;width:auto;max-width:none;min-height:0;margin:0;border-radius:0;box-shadow:none;background:#E3E0DD}
+  .hj-foto::before{display:none}
+  .hj-marco{position:absolute;z-index:1;left:var(--hj-izq);top:72px;transform:none;height:var(--hj-vh);width:auto;aspect-ratio:720/1018;max-width:none;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent),linear-gradient(180deg,transparent,#000 5%,#000 92%,transparent);-webkit-mask-composite:source-in;
+    mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent),linear-gradient(180deg,transparent,#000 5%,#000 92%,transparent);mask-composite:intersect}
+  .hj-marco picture{position:absolute;inset:0}
+  .hj-ficha{display:flex}
+  .nav:not(.scrolled) .nav-cart{background:var(--hj-vino,#1F3D32);border-color:transparent}
+  .hj-foto img{object-position:50% 50%;animation:none}
+  .hj-foto::after{display:none}
+  .nav:not(.scrolled){background:rgba(232,230,227,.9);box-shadow:0 1px 0 rgba(51,42,36,.08)}
+  .nav:not(.scrolled) .nav-logo img{filter:none;opacity:1}
+  .nav:not(.scrolled) .nav-links a{color:var(--tinta);text-shadow:none}
+  .nav:not(.scrolled) .nav-links a:hover{color:var(--cobre-dark)}
+  .nav:not(.scrolled) .hm-menu-btn{color:var(--tinta);filter:none}
+  /* perfil.js inyecta su <style> despues de este; "body" gana por especificidad. */
+  body .nav:not(.scrolled) #navProfile{color:var(--tinta);border-color:rgba(51,42,36,.28);background:transparent}
+  .hj-texto{position:relative;z-index:4;margin:0;flex:1;min-width:0;align-items:flex-start;text-align:left;justify-content:center;padding:40px clamp(24px,5vw,96px) 56px calc(var(--hj-izq) + var(--hj-vh)*.7074 + clamp(32px,5vw,110px))}
+  .hj-sello{margin-bottom:22px}
+  .hj-sello::before{display:none}
+  .hj-title{font-size:clamp(52px,6.6vw,124px);margin-bottom:30px}
+  .hj-title span:first-child{white-space:nowrap}
+  .hj-copy{font-size:clamp(17px,1.35vw,22px);max-width:30ch;margin-bottom:40px}
+  .hj-actions{flex-direction:column;align-items:flex-start;gap:10px;max-width:none;width:auto}
+  .hj-cta{width:auto;padding:16px 38px}
+  .hj-link{padding:0}
+  .hj-ficha{margin:56px 0 0;padding:20px 0 0;border-top:1px solid rgba(51,42,36,.16);gap:clamp(18px,2.4vw,40px);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--tinta-soft);list-style:none;width:100%;max-width:520px}
+  .hj-ficha li{margin:0;white-space:nowrap}
+}
 
 /* MOVIL: pelicula de producto a pantalla completa. El video vertical
    (720x1018) se ve COMPLETO a todo el ancho (cover recortaria las gerberas
@@ -1017,13 +1053,14 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
 }
 @media(max-width:699px) and (max-height:640px){.hj-copy{display:none}.hj-marco{height:min(141.4vw,calc(var(--vh-fijo,100svh) - 190px))}}
 @media(max-width:699px) and (prefers-reduced-motion:reduce){.hj-marco picture{animation:none}}
-/* Portada solo en celular: en PC se mantiene el hero publicado (#heroPc). */
-@media(min-width:700px){.hjv{display:none}}
-@media(max-width:699px){
-  #heroPc{display:none}
-  .nav-cart{background:#1F3D32}
-  .call-float{background:rgba(31,61,50,.94)}
-}
+.hj-sello-grande{margin:10px 0 22px;max-width:100%;gap:10px}
+.hj-sello-grande::after{display:none}
+@media(max-width:699px){.hj-sello-grande{font-size:13px;letter-spacing:.26em;color:#fff}.hj-sello-grande i{font-size:30px;letter-spacing:.01em;color:#D5E6DA;line-height:1}}
+@media(min-width:700px){.hj-sello-grande{font-size:13px;letter-spacing:.3em;margin:6px 0 34px}.hj-sello-grande i{font-size:clamp(30px,2.6vw,44px);letter-spacing:.01em;line-height:1}}
+/* El hero anterior (Lampara) queda en el codigo pero oculto en todos los anchos. */
+#heroPc{display:none}
+.nav-cart{background:#1F3D32}
+.call-float{background:rgba(31,61,50,.94)}
 
 </style>
 <script type="text/javascript">
@@ -1126,12 +1163,11 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
     </picture>
   </div></figure>
   <div class="hj-texto">
-    <p class="hj-sello">El favorito de <i>la semana</i></p>
-    <p class="hj-title" role="heading" aria-level="2"><span>Florero Alto</span><em>Irregular</em></p>
-    <p class="hj-copy">Vidrio que se pliega como un pétalo y guarda la luz de la tarde. Hecho a mano, en cinco colores.</p>
+    <h1 class="hj-title"><span>Florero Alto</span><em>Irregular</em><span class="sr-only"> · Felipe Vergel Arte en Vidrio, vitrofusión artesanal en Floridablanca, Colombia</span></h1>
+    <p class="hj-sello hj-sello-grande">El favorito de <i>la semana</i></p>
     <div class="hj-actions">
       <a href="product.html?id=florero-alto-irregular" class="hj-cta">Ver el florero <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
-      <a href="#catalogo" class="hj-link" id="hjFloreros">Ver todos los floreros</a>
+      <a href="#catalogo" class="hj-link" id="hjFloreros">Ver todos los floreros</a><ul class="hj-ficha" aria-label="Detalles de la pieza"><li>Vitrofusión</li><li>Hecho a mano</li><li>Floridablanca</li></ul>
     </div>
   </div>
 </section>
@@ -2451,11 +2487,10 @@ document.addEventListener("click",function(e){
 })();
 </script>
 <script>
-// PORTADA MOVIL: el video del florero solo se descarga y corre en celular
-// (en PC se mantiene el hero publicado) y respeta "reducir movimiento".
+// PORTADA: el video del florero arranca al cargar y respeta "reducir movimiento".
 (function(){
   var v=document.querySelector(".hj-video");
-  if(v&&window.matchMedia("(max-width:699px)").matches&&!window.matchMedia("(prefers-reduced-motion:reduce)").matches){
+  if(v&&!window.matchMedia("(prefers-reduced-motion:reduce)").matches){
     v.addEventListener("loadeddata",function(){var p=v.play();if(p&&p.catch)p.catch(function(){})});
     v.src=v.getAttribute("data-src");v.load();
   }
