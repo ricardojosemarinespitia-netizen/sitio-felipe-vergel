@@ -925,6 +925,106 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
 .hm-sub svg{width:18px;height:18px;flex:none}
 .hm-sub a:hover,.hm-sub button:hover{color:var(--verde)}
 @media(prefers-reduced-motion:reduce){.hm-scrim,.hm-panel,.hm-back svg{transition-duration:.01ms!important}}
+/* PORTADA MOVIL: florero favorito de la semana, video a pantalla completa */
+.hjv{--hj-vino:#1F3D32;--hj-fondo:#E9E6E2;
+  position:relative;min-height:100vh;min-height:100svh;overflow:hidden;background:var(--hj-fondo);color:var(--tinta);display:flex;flex-direction:column}
+.hj-foto{position:relative;margin:0;height:calc(var(--vh-fijo,100svh)*.54);min-height:380px;overflow:hidden;background:var(--hj-fondo)}
+.hj-foto picture{display:block;width:100%;height:100%}
+.hj-video{position:absolute;inset:0;z-index:1;width:100%;height:100%;object-fit:cover;object-position:50% 50%;opacity:0;transition:opacity 1s ease;pointer-events:none}
+.hj-video.on{opacity:1}
+.hj-foto picture{position:relative;z-index:0}
+@media(prefers-reduced-motion:reduce){.hj-video{display:none}}
+.hj-foto img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 60%;transform-origin:50% 60%;animation:hjRespira 14s 1.4s ease-in-out infinite alternate}
+/* Velo superior: solo para que el nav blanco se lea sobre el jardin.
+   Velo inferior: la mesa blanca se disuelve en el papel crema. */
+.hj-foto::before,.hj-foto::after{content:"";position:absolute;left:0;right:0;pointer-events:none;z-index:1}
+.hj-foto::before{top:0;height:120px;background:linear-gradient(180deg,rgba(24,16,10,.42),rgba(24,16,10,0))}
+.hj-foto::after{bottom:-1px;height:24%;background:linear-gradient(180deg,rgba(233,230,226,0) 0%,rgba(233,230,226,.55) 50%,var(--hj-fondo) 100%)}
+.nav-cart{background:#1F3D32}
+.hj-texto{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding:14px 24px 28px;margin-top:0}
+.hj-sello{display:flex;align-items:center;gap:12px;margin:0 0 12px;font-size:11px;letter-spacing:.42em;text-transform:uppercase;font-weight:400;color:var(--hj-vino)}
+.hj-sello::before,.hj-sello::after{content:"";width:22px;height:1px;background:currentColor;opacity:.55}
+.hj-sello i{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;letter-spacing:.04em;text-transform:none}
+.hj-title{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(46px,13.4vw,64px);line-height:.9;letter-spacing:-.005em;color:var(--tinta);margin:0 0 14px}
+.hj-title span{display:block}
+.hj-title em{display:block;font-style:italic;font-weight:300;color:var(--hj-vino);padding-left:.9em}
+.hj-copy{margin:0 0 20px;max-width:30ch;font-size:16px;line-height:1.55;font-weight:300;color:var(--tinta-soft)}
+.hj-actions{display:flex;flex-direction:column;align-items:center;gap:2px;width:100%;max-width:224px}
+.hj-cta,.hj-link{white-space:nowrap}
+@media(max-width:699px){.hj-cta{padding:14px 18px;letter-spacing:.22em;gap:10px}.hj-link{letter-spacing:.12em}}
+.hj-sello{white-space:nowrap}
+@media(max-width:360px){.hj-sello{letter-spacing:.28em;gap:8px}.hj-sello::before,.hj-sello::after{width:14px}.hm-logo{transform:scale(.84)}}
+.hj-cta{display:inline-flex;align-items:center;justify-content:center;gap:14px;width:100%;min-height:54px;padding:14px 28px;border-radius:2px;background:var(--hj-vino);color:#fff;font-size:12px;letter-spacing:.3em;text-transform:uppercase;font-weight:400;text-decoration:none;transition:background var(--d-2) var(--c-autor),transform var(--d-2) var(--c-autor)}
+.hj-cta svg{width:18px;height:18px;flex:none;transition:transform var(--d-3) var(--c-autor)}
+.hj-cta:active{transform:scale(.985)}
+.hj-link{display:inline-flex;align-items:center;min-height:44px;padding:0 10px;color:var(--tinta);font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:400;text-decoration:underline;text-decoration-color:rgba(51,42,36,.3);text-underline-offset:7px}
+@media(hover:hover){
+  .hj-cta:hover{background:#152B23}
+  .hj-cta:hover svg{transform:translateX(4px)}
+  .hj-link:hover{text-decoration-color:var(--tinta)}
+}
+@keyframes hjUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes hjVela{from{opacity:0;transform:scale(1.06)}to{opacity:1;transform:none}}
+@keyframes hjRespira{from{transform:scale(1)}to{transform:scale(1.045)}}
+.hj-foto picture{animation:hjVela 1.6s var(--c-autor) both}
+.hj-sello{animation:hjUp var(--d-5) .35s var(--c-autor) both}
+.hj-title{animation:hjUp 1.1s .48s var(--c-autor) both}
+.hj-copy{animation:hjUp var(--d-5) .68s var(--c-autor) both}
+.hj-actions{animation:hjUp var(--d-5) .82s var(--c-autor) both}
+@media(prefers-reduced-motion:reduce){
+  .hj-foto picture,.hj-sello,.hj-title,.hj-copy,.hj-actions{opacity:1!important;transform:none!important}
+  .hj-foto img{animation:none;transform:none}
+}
+/* Pantallas anchas (tablet horizontal y PC): la foto es vertical (1025x1535),
+   asi que su columna toma EXACTAMENTE la proporcion de la foto a toda la
+   altura disponible: se ve completa, sin recorte. El texto ocupa el resto.
+   La cabecera va en crema solido desde el inicio (el logo centrado cae
+   sobre el papel, donde el blanco no se leeria). */
+.hj-marco{position:relative;width:100%;height:100%}
+
+
+/* MOVIL: pelicula de producto a pantalla completa. El video vertical
+   (720x1018) se ve COMPLETO a todo el ancho (cover recortaria las gerberas
+   de los lados); detras, el mismo cuadro desenfocado extiende el fondo
+   gris-blanco sin costura. El texto se ancla abajo, a la izquierda, sobre
+   un velo verde profundo: blanco sobre #12261E/#1F3D32 >= 11:1 (AA de
+   sobra). Queda libre la franja derecha de 76px para los botones de
+   llamada y WhatsApp. Header en tinta oscura sobre la pared clara. */
+@media(max-width:699px){
+  .hjv{display:block;height:var(--vh-fijo,100svh);min-height:520px;background:#E8E6E3}
+  .hj-foto{position:absolute;inset:0;height:auto;min-height:0;background:#E8E6E3}
+  .hj-foto::before{top:-40px;bottom:-40px;left:-40px;right:-40px;height:auto;z-index:0;background:url(video/florero-hero-poster.jpg) 50% 30%/cover no-repeat;filter:blur(40px) saturate(.55);opacity:.7}
+  .hj-foto::after{bottom:0;height:min(64%,470px);z-index:3;background:linear-gradient(0deg,rgba(14,30,24,.96) 0%,rgba(18,38,30,.9) 34%,rgba(31,61,50,.55) 64%,rgba(31,61,50,.18) 84%,rgba(31,61,50,0) 100%)}
+  .hj-marco{position:absolute;z-index:1;left:50%;top:0;transform:translateX(-50%);width:auto;height:min(141.4vw,calc(var(--vh-fijo,100svh) - 236px));aspect-ratio:720/1018;max-width:100%;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent),linear-gradient(180deg,#000 80%,transparent);-webkit-mask-composite:source-in;
+    mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent),linear-gradient(180deg,#000 80%,transparent);mask-composite:intersect}
+  .hj-marco picture{position:absolute;inset:0}
+  .hj-foto img{object-position:50% 50%;animation:none}
+  .hj-texto{position:absolute;left:0;right:0;bottom:0;z-index:4;align-items:flex-start;text-align:left;padding:0 76px calc(20px + env(safe-area-inset-bottom)) 24px}
+  .hj-sello{color:rgba(255,255,255,.86);letter-spacing:.34em;margin-bottom:12px}
+  .hj-sello::before{display:none}
+  .hj-sello::after{width:26px}
+  .hj-title{color:#fff;font-size:clamp(42px,12.4vw,56px);margin-bottom:12px}
+  .hj-title em{color:#D5E6DA;padding-left:.7em}
+  .hj-copy{color:rgba(255,255,255,.84);font-size:15px;line-height:1.5;max-width:28ch;margin-bottom:18px}
+  .hj-actions{align-items:flex-start;max-width:236px}
+  .hj-cta{box-shadow:inset 0 0 0 1px rgba(255,255,255,.38),0 10px 24px -12px rgba(0,0,0,.5)}
+  .hj-link{padding:0;color:#fff;text-decoration-color:rgba(255,255,255,.5)}
+  .nav:not(.scrolled){background:linear-gradient(180deg,rgba(232,230,227,.82),rgba(232,230,227,0))}
+  .nav:not(.scrolled) .nav-logo img{filter:none;opacity:1}
+  .nav:not(.scrolled) .hm-menu-btn{color:var(--tinta);filter:none}
+  body .nav:not(.scrolled) #navProfile{color:var(--tinta);border-color:rgba(51,42,36,.28);background:transparent}
+}
+@media(max-width:699px) and (max-height:640px){.hj-copy{display:none}.hj-marco{height:min(141.4vw,calc(var(--vh-fijo,100svh) - 190px))}}
+@media(max-width:699px) and (prefers-reduced-motion:reduce){.hj-marco picture{animation:none}}
+/* Portada solo en celular: en PC se mantiene el hero publicado (#heroPc). */
+@media(min-width:700px){.hjv{display:none}}
+@media(max-width:699px){
+  #heroPc{display:none}
+  .nav-cart{background:#1F3D32}
+  .call-float{background:rgba(31,61,50,.94)}
+}
+
 </style>
 <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
@@ -1017,7 +1117,25 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
   </div>
 </div>
 
-<section class="hero" id="top">
+<div id="top"></div>
+<section class="hjv" aria-label="Florero Alto Irregular, el favorito de la semana">
+  <figure class="hj-foto"><div class="hj-marco"><video class="hj-video" poster="video/florero-hero-poster.jpg" data-src="video/florero-hero-loop.mp4" muted loop playsinline preload="none" aria-hidden="true" onplaying="this.classList.add('on')"></video>
+    <picture>
+      <source srcset="img/florero-alto-irregular/florero-alto-irregular-01.webp" type="image/webp">
+      <img src="img/florero-alto-irregular/florero-alto-irregular-01.jpg" width="1025" height="1535" decoding="async" alt="Florero Alto Irregular en vidrio verde con gerberas amarillas, sobre una mesa blanca con sombras de luz natural">
+    </picture>
+  </div></figure>
+  <div class="hj-texto">
+    <p class="hj-sello">El favorito de <i>la semana</i></p>
+    <p class="hj-title" role="heading" aria-level="2"><span>Florero Alto</span><em>Irregular</em></p>
+    <p class="hj-copy">Vidrio que se pliega como un pétalo y guarda la luz de la tarde. Hecho a mano, en cinco colores.</p>
+    <div class="hj-actions">
+      <a href="product.html?id=florero-alto-irregular" class="hj-cta">Ver el florero <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+      <a href="#catalogo" class="hj-link" id="hjFloreros">Ver todos los floreros</a>
+    </div>
+  </div>
+</section>
+<section class="hero" id="heroPc">
   <div class="hero-bg" id="heroBg"></div>
   <div class="hero-light" aria-hidden="true"></div>
   <div class="container hero-inner">
@@ -1940,12 +2058,12 @@ function pickRandom(arr,n){
 }
 // Portadas cinematográficas de colección: foto, título, descripción y encuadre del efecto scroll
 const COLECCIONES=[
-  {cat:"lamparas",     title:"Lámpara Caribe", desc:"Vidrio fundido que cae y florece. La luz atraviesa su textura como el mar bajo el sol.", img:"img/lamparas/lampara-01.jpg", start:"50% 40%", focus:"50% 44%", zoom:"0.14", novedad:true},
+  {cat:"floreros",     title:"Floreros",       desc:"Vasijas esculturales donde las flores dialogan con la transparencia.",                    img:"img/florero-alto-irregular/florero-alto-irregular-03.jpg",           start:"50% 30%", focus:"50% 45%", zoom:"0.16"},
   {cat:"bandejas",     title:"Bandejas",       desc:"Hojas y vetas de vidrio que sostienen lo cotidiano y lo convierten en ceremonia.",        img:"img/bandeja-hoja-maxi-irregular/bandeja-hoja-maxi-irregular-02.jpg", start:"50% 50%", focus:"50% 55%", zoom:"0.18"},
   {cat:"centros-mesa", title:"Centros de Mesa",desc:"El corazón de la mesa: color, textura y luz fundidos a 800 °C.",                          img:"img/centro-mesa-conico-mosaico/centro-mesa-conico-mosaico-05.jpg",   start:"50% 40%", focus:"50% 60%", zoom:"0.20"},
-  {cat:"floreros",     title:"Floreros",       desc:"Vasijas esculturales donde las flores dialogan con la transparencia.",                    img:"img/florero-alto-irregular/florero-alto-irregular-03.jpg",           start:"50% 30%", focus:"50% 45%", zoom:"0.16"},
+  {cat:"lamparas",     title:"Lámpara Caribe", desc:"Vidrio fundido que cae y florece. La luz atraviesa su textura como el mar bajo el sol.", img:"img/lamparas/lampara-01.jpg", start:"50% 40%", focus:"50% 44%", zoom:"0.14"},
   {cat:"porta-plantas",title:"Porta Plantas",  desc:"Piezas que abrazan lo vivo: vidrio y naturaleza en un mismo gesto.",                      img:"img/porta-matera/porta-matera-03.jpg",                               start:"50% 45%", focus:"50% 65%", zoom:"0.20"},
-  {cat:"pedestales",   title:"Pedestales",     desc:"Alturas que celebran: postres y pasabocas puestos en escena.",                            img:"img/porta-pasabocas-doble/porta-pasabocas-doble-01.jpg",             start:"50% 35%", focus:"50% 48%", zoom:"0.16"}
+  {cat:"pedestales",   title:"Pedestales",     desc:"Alturas que celebran: postres y pasabocas puestos en escena.",                            img:"img/porta-pasabocas-doble/porta-pasabocas-doble-01.jpg",             start:"50% 35%", focus:"50% 48%", zoom:"0.16"},
 ];
 function renderNovedades(){
   const nPiezas=cat=>PRODUCTS.filter(p=>p.cat===cat&&!p.hidden).length;
@@ -2330,6 +2448,22 @@ document.addEventListener("click",function(e){
   var mq=window.matchMedia('(min-width:1025px)');
   var onMq=function(m){if(m.matches)shut(false);};
   if(mq.addEventListener)mq.addEventListener('change',onMq);else if(mq.addListener)mq.addListener(onMq);
+})();
+</script>
+<script>
+// PORTADA MOVIL: el video del florero solo se descarga y corre en celular
+// (en PC se mantiene el hero publicado) y respeta "reducir movimiento".
+(function(){
+  var v=document.querySelector(".hj-video");
+  if(v&&window.matchMedia("(max-width:699px)").matches&&!window.matchMedia("(prefers-reduced-motion:reduce)").matches){
+    v.addEventListener("loadeddata",function(){var p=v.play();if(p&&p.catch)p.catch(function(){})});
+    v.src=v.getAttribute("data-src");v.load();
+  }
+  var ver=document.getElementById("hjFloreros");
+  if(ver)ver.addEventListener("click",function(e){
+    if(typeof abrirColeccion!=="function")return;
+    e.preventDefault();abrirColeccion("floreros");
+  });
 })();
 </script>
 </body>
