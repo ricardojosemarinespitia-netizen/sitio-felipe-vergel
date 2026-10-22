@@ -940,7 +940,6 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
 .hj-foto::before,.hj-foto::after{content:"";position:absolute;left:0;right:0;pointer-events:none;z-index:1}
 .hj-foto::before{top:0;height:120px;background:linear-gradient(180deg,rgba(24,16,10,.42),rgba(24,16,10,0))}
 .hj-foto::after{bottom:-1px;height:24%;background:linear-gradient(180deg,rgba(233,230,226,0) 0%,rgba(233,230,226,.55) 50%,var(--hj-fondo) 100%)}
-.nav-cart{background:#1F3D32}
 .hj-texto{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding:14px 24px 28px;margin-top:0}
 .hj-sello{display:flex;align-items:center;gap:12px;margin:0 0 12px;font-size:11px;letter-spacing:.42em;text-transform:uppercase;font-weight:400;color:var(--hj-vino)}
 .hj-sello::before,.hj-sello::after{content:"";width:22px;height:1px;background:currentColor;opacity:.55}
@@ -988,25 +987,27 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
      calido de su fondo: no hay corte entre foto y pagina. */
   /* PC: escena a pantalla completa. El fondo claro (el mismo cuadro desenfocado)
      cubre todo el hero; el video va grande, a toda la altura, y el texto a su lado. */
-  .hjv{background:#E3E0DD;--hj-vh:calc(var(--vh-fijo,100svh) - 72px);--hj-izq:max(24px,calc((100vw - var(--hj-vh)*.7074 - clamp(32px,5vw,110px) - 560px)/2))}
-  .hj-foto{position:absolute;inset:0;height:auto;width:auto;max-width:none;min-height:0;margin:0;border-radius:0;box-shadow:none;background:#E3E0DD}
-  .hj-foto::before{display:block;top:-60px;bottom:-60px;left:-60px;right:-60px;height:auto;z-index:0;background:url(video/florero-hero-poster.jpg) 50% 45%/cover no-repeat;filter:blur(70px) saturate(.4);opacity:.6}
-  .hj-marco{position:absolute;z-index:1;left:var(--hj-izq);top:72px;transform:none;height:var(--hj-vh);width:auto;aspect-ratio:720/1018;max-width:none;
+  .hjv{background:#E6D8C8;--hj-vh:calc(var(--vh-fijo,100svh) - 72px);--hj-izq:max(24px,calc((100vw - var(--hj-vh)*.6656 - clamp(32px,5vw,110px) - 600px)/2))}
+  .hj-foto{position:absolute;inset:0;height:auto;width:auto;max-width:none;min-height:0;margin:0;border-radius:0;box-shadow:none;background:#E6D8C8}
+  .hj-foto::before{display:block;top:-80px;bottom:-80px;left:-80px;right:-80px;height:auto;z-index:0;background:url(img/porta-matera/porta-matera-04.jpg) 50% 50%/cover no-repeat;filter:blur(60px) saturate(.75);opacity:.85}
+  .hj-marco{position:absolute;z-index:1;left:var(--hj-izq);top:72px;transform:none;height:var(--hj-vh);width:auto;aspect-ratio:1023/1537;max-width:none;
     -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent),linear-gradient(180deg,transparent,#000 5%,#000 92%,transparent);-webkit-mask-composite:source-in;
     mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent),linear-gradient(180deg,transparent,#000 5%,#000 92%,transparent);mask-composite:intersect}
   .hj-marco picture{position:absolute;inset:0}
   .hj-ficha{display:flex}
-  .nav:not(.scrolled) .nav-cart{background:var(--hj-vino,#1F3D32);border-color:transparent}
   .hj-foto img{object-position:50% 50%;animation:none}
-  .hj-foto::after{display:none}
-  .nav:not(.scrolled){background:rgba(232,230,227,.9);box-shadow:0 1px 0 rgba(51,42,36,.08)}
+  /* Velo arena: unifica el difuminado detras del texto sin tocar la foto. */
+  .hj-foto::after{display:block;top:0;bottom:0;left:calc(var(--hj-izq) + var(--hj-vh)*.6656 - 40px);right:0;height:auto;z-index:2;background:linear-gradient(90deg,rgba(236,224,208,0) 0%,rgba(236,224,208,.78) 18%,rgba(236,224,208,.9) 100%)}
+  .hj-copy{color:#4A3D33}
+  .hj-ficha{color:#5A4B3F!important}
+  .nav:not(.scrolled){background:rgba(236,226,214,.92);box-shadow:0 1px 0 rgba(51,42,36,.08)}
   .nav:not(.scrolled) .nav-logo img{filter:none;opacity:1}
   .nav:not(.scrolled) .nav-links a{color:var(--tinta);text-shadow:none}
   .nav:not(.scrolled) .nav-links a:hover{color:var(--cobre-dark)}
   .nav:not(.scrolled) .hm-menu-btn{color:var(--tinta);filter:none}
   /* perfil.js inyecta su <style> despues de este; "body" gana por especificidad. */
   body .nav:not(.scrolled) #navProfile{color:var(--tinta);border-color:rgba(51,42,36,.28);background:transparent}
-  .hj-texto{position:relative;z-index:4;margin:0;flex:1;min-width:0;align-items:flex-start;text-align:left;justify-content:center;padding:40px clamp(24px,5vw,96px) 56px calc(var(--hj-izq) + var(--hj-vh)*.7074 + clamp(32px,5vw,110px))}
+  .hj-texto{position:relative;z-index:4;margin:0;flex:1;min-width:0;align-items:flex-start;text-align:left;justify-content:center;padding:40px clamp(24px,5vw,96px) 56px calc(var(--hj-izq) + var(--hj-vh)*.6656 + clamp(32px,5vw,110px))}
   .hj-sello{margin-bottom:22px}
   .hj-sello::before{display:none}
   .hj-title{font-size:clamp(52px,6.6vw,124px);margin-bottom:30px}
@@ -1027,11 +1028,11 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
    sobra). Queda libre la franja derecha de 76px para los botones de
    llamada y WhatsApp. Header en tinta oscura sobre la pared clara. */
 @media(max-width:699px){
-  .hjv{display:block;height:var(--vh-fijo,100svh);min-height:520px;background:#E8E6E3}
-  .hj-foto{position:absolute;inset:0;height:auto;min-height:0;background:#E8E6E3}
-  .hj-foto::before{top:-40px;bottom:-40px;left:-40px;right:-40px;height:auto;z-index:0;background:url(video/florero-hero-poster.jpg) 50% 30%/cover no-repeat;filter:blur(40px) saturate(.55);opacity:.7}
-  .hj-foto::after{bottom:0;height:min(64%,470px);z-index:3;background:linear-gradient(0deg,rgba(14,30,24,.96) 0%,rgba(18,38,30,.9) 34%,rgba(31,61,50,.55) 64%,rgba(31,61,50,.18) 84%,rgba(31,61,50,0) 100%)}
-  .hj-marco{position:absolute;z-index:1;left:50%;top:0;transform:translateX(-50%);width:auto;height:min(141.4vw,calc(var(--vh-fijo,100svh) - 236px));aspect-ratio:720/1018;max-width:100%;
+  .hjv{display:block;height:var(--vh-fijo,100svh);min-height:520px;background:#E6D8C8}
+  .hj-foto{position:absolute;inset:0;height:auto;min-height:0;background:#E6D8C8}
+  .hj-foto::before{top:-40px;bottom:-40px;left:-40px;right:-40px;height:auto;z-index:0;background:url(img/porta-matera/porta-matera-04.jpg) 50% 30%/cover no-repeat;filter:blur(40px) saturate(.75);opacity:.85}
+  .hj-foto::after{bottom:0;height:min(40%,340px);z-index:3;background:linear-gradient(0deg,rgba(14,30,24,.97) 0%,rgba(18,38,30,.93) 55%,rgba(31,61,50,.5) 80%,rgba(31,61,50,0) 100%)}
+  .hj-marco{position:absolute;z-index:1;left:50%;top:0;transform:translateX(-50%);width:auto;height:min(150.2vw,calc(var(--vh-fijo,100svh) - 236px));aspect-ratio:1023/1537;max-width:100%;
     -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent),linear-gradient(180deg,#000 80%,transparent);-webkit-mask-composite:source-in;
     mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent),linear-gradient(180deg,#000 80%,transparent);mask-composite:intersect}
   .hj-marco picture{position:absolute;inset:0}
@@ -1042,7 +1043,7 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
   .hj-sello::after{width:26px}
   .hj-title{color:#fff;font-size:clamp(42px,12.4vw,56px);margin-bottom:12px}
   .hj-title em{color:#D5E6DA;padding-left:.7em}
-  .hj-copy{color:rgba(255,255,255,.84);font-size:15px;line-height:1.5;max-width:28ch;margin-bottom:18px}
+  .hj-copy{display:none}
   .hj-actions{align-items:flex-start;max-width:236px}
   .hj-cta{box-shadow:inset 0 0 0 1px rgba(255,255,255,.38),0 10px 24px -12px rgba(0,0,0,.5)}
   .hj-link{padding:0;color:#fff;text-decoration-color:rgba(255,255,255,.5)}
@@ -1051,16 +1052,165 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
   .nav:not(.scrolled) .hm-menu-btn{color:var(--tinta);filter:none}
   body .nav:not(.scrolled) #navProfile{color:var(--tinta);border-color:rgba(51,42,36,.28);background:transparent}
 }
-@media(max-width:699px) and (max-height:640px){.hj-copy{display:none}.hj-marco{height:min(141.4vw,calc(var(--vh-fijo,100svh) - 190px))}}
+/* TABLET VERTICAL: no cabe foto + texto lado a lado; se apilan. Foto completa
+   arriba, centrada, y el texto debajo sobre el mismo velo arena. */
+@media(min-width:700px) and (max-aspect-ratio:4/5){
+  .hjv{display:block;padding-top:0}
+  .hj-marco{left:50%;transform:translateX(-50%);top:72px;height:calc(var(--vh-fijo,100svh)*.54)}
+  .hj-foto::after{left:0;right:0;top:auto;bottom:0;height:46%;background:linear-gradient(180deg,rgba(236,224,208,0),rgba(236,224,208,.9) 28%,rgba(236,224,208,.94))}
+  .hj-texto{position:relative;min-height:var(--vh-fijo,100svh);justify-content:flex-end;align-items:center;text-align:center;padding:calc(72px + var(--vh-fijo,100svh)*.54) 48px 28px}
+  .hj-title{font-size:clamp(52px,8vw,76px);margin-bottom:12px}
+  .hj-title em{padding-left:0}
+  .hj-sello-grande{margin:0 0 20px}
+  .hj-copy{display:none}
+  .hj-actions{align-items:center}
+  .hj-ficha{justify-content:center;margin-top:18px}
+}
+@media(max-width:699px) and (max-height:640px){.hj-copy{display:none}.hj-marco{height:min(150.2vw,calc(var(--vh-fijo,100svh) - 190px))}}
 @media(max-width:699px) and (prefers-reduced-motion:reduce){.hj-marco picture{animation:none}}
 .hj-sello-grande{margin:10px 0 22px;max-width:100%;gap:10px}
 .hj-sello-grande::after{display:none}
 @media(max-width:699px){.hj-sello-grande{font-size:13px;letter-spacing:.26em;color:#fff}.hj-sello-grande i{font-size:30px;letter-spacing:.01em;color:#D5E6DA;line-height:1}}
 @media(min-width:700px){.hj-sello-grande{font-size:13px;letter-spacing:.3em;margin:6px 0 34px}.hj-sello-grande i{font-size:clamp(30px,2.6vw,44px);letter-spacing:.01em;line-height:1}}
+/* PORTADA PORTA MATERA: collage editorial. Tres fotos completas en marcos con
+   paspartu (sin recortar la pieza), el titulo cruza sobre los marcos.
+   Movil y pantallas verticales: las 4 fotos se funden una a otra a pantalla completa. */
+.pmh{--pm-arena:#E9DCCB;--pm-papel:#F5EDE2;--pm-tinta:#2E241C;--pm-verde:var(--verde,#9C4A2F);--pm-sombra:rgba(92,62,36,.42);--pm-ease:cubic-bezier(.2,.7,.3,1);
+  position:relative;overflow:hidden;height:var(--vh-fijo,100svh);min-height:560px;background:radial-gradient(120% 90% at 30% 40%,#F1E6D7 0%,var(--pm-arena) 55%,#DCCBB5 100%);color:var(--pm-tinta)}
+.pmh::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.32;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .33 0 0 0 0 .22 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E")}
+.pmh-f{margin:0;position:absolute;z-index:1;background:var(--pm-papel);padding:10px;box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 34px 60px -28px var(--pm-sombra),0 8px 18px -10px rgba(92,62,36,.25)}
+.pmh-ph{position:relative;width:100%;height:100%;overflow:hidden;background:#E3D3BF}
+.pmh-ph picture,.pmh-ph img{display:block;width:100%;height:100%}
+.pmh-ph img{object-fit:cover}
+.pmh-f figcaption{position:absolute;left:10px;top:100%;margin-top:8px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:#6B5747;white-space:nowrap}
+.pmh-sello{display:flex;align-items:baseline;gap:12px;margin:0 0 18px;font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--pm-verde);white-space:nowrap}
+.pmh-sello i{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,2.4vw,42px);letter-spacing:.01em;text-transform:none;line-height:1}
+.pmh-title{font-family:'Cormorant Garamond',serif;font-weight:400;line-height:.86;letter-spacing:-.01em;margin:0;color:var(--pm-tinta)}
+.pmh-title span:not(.sr-only),.pmh-title em{display:block}
+.pmh-title em{font-weight:300;color:var(--pm-verde)}
+.pmh-copy{font-size:clamp(16px,1.2vw,19px);line-height:1.6;font-weight:300;color:#4A3D33;max-width:34ch;margin:0}
+.pmh-actions{display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+.pmh-cta{display:inline-flex;align-items:center;gap:14px;min-height:54px;padding:15px 34px;border-radius:2px;background:var(--pm-verde);color:#fff;font-size:12px;letter-spacing:.28em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:background .3s var(--pm-ease)}
+.pmh-cta svg{width:18px;height:18px;transition:transform .45s var(--pm-ease)}
+.pmh-link{display:inline-flex;align-items:center;min-height:44px;color:var(--pm-tinta);font-size:12px;letter-spacing:.18em;text-transform:uppercase;text-decoration:underline;text-decoration-color:rgba(46,36,28,.3);text-underline-offset:7px;white-space:nowrap}
+.pmh-cta:focus-visible,.pmh-link:focus-visible{outline:2px solid var(--pm-verde);outline-offset:4px}
+@media(hover:hover){.pmh-cta:hover{background:var(--verde-dark,#2B211B)}.pmh-cta:hover svg{transform:translateX(4px)}.pmh-link:hover{text-decoration-color:currentColor}}
+.pmh-ficha{list-style:none;margin:0;padding:16px 0 0;border-top:1px solid rgba(46,36,28,.18);display:flex;gap:clamp(14px,2vw,32px);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#5A4B3F}
+.pmh-ficha li{white-space:nowrap}
+/* Cinta washi: papel arena traslucido con trama fina, pegado torcido. */
+.pmh-f2::before,.pmh-f3::before,.pmh-f4::before,.pmh-f1::before{content:"";position:absolute;z-index:3;left:50%;top:-12px;width:clamp(56px,34%,120px);height:24px;translate:-50% 0;rotate:-4deg;pointer-events:none;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,.18) 0 3px,transparent 3px 7px),linear-gradient(rgba(214,178,140,.62),rgba(201,160,120,.58));
+  box-shadow:0 1px 3px rgba(92,62,36,.18);-webkit-mask:linear-gradient(90deg,transparent 0,#000 4px,#000 calc(100% - 4px),transparent 100%);mask:linear-gradient(90deg,transparent 0,#000 4px,#000 calc(100% - 4px),transparent 100%)}
+.pmh-f1::before{left:14%;rotate:-38deg;top:-6px;width:clamp(48px,22%,96px)}
+.pmh-f3::before{rotate:5deg;left:44%}
+.pmh-f4::before{rotate:-6deg;left:58%;background:repeating-linear-gradient(90deg,rgba(255,255,255,.16) 0 3px,transparent 3px 7px),linear-gradient(rgba(156,74,47,.42),rgba(156,74,47,.36))}
+/* Pie de foto tipo galeria: el color real de cada pieza. */
+.pmh-f figcaption{font-family:inherit;font-style:normal;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#6B5747}
+.pmh-f figcaption b{font-weight:400;color:var(--pm-verde)}
+/* Sello circular: "Hecho a mano", gira muy lento. */
+.pmh-circ{position:absolute;z-index:5;width:var(--cs,120px);aspect-ratio:1;pointer-events:none;color:var(--pm-verde)}
+.pmh-circ svg{display:block;width:100%;height:100%;animation:pmGira 48s linear infinite}
+.pmh-circ::before{content:"";position:absolute;inset:4%;border-radius:50%;background:rgba(245,237,226,.86);box-shadow:0 10px 24px -12px rgba(92,62,36,.5)}
+.pmh-circ svg{position:relative}
+.pmh-circ text{font-size:10.4px;font-weight:500;letter-spacing:.2em;fill:currentColor;text-transform:uppercase}
+.pmh-circ .pmh-circ-c{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:30px;letter-spacing:0;text-transform:none}
+.pmh-circ circle{fill:none;stroke:currentColor;stroke-width:.6;opacity:.55}
+@keyframes pmGira{to{rotate:360deg}}
+/* Entrada: los marcos se revelan de abajo hacia arriba, escalonados. */
+@keyframes pmRevela{from{clip-path:inset(100% -30% -30% -30%);transform:translateY(24px)}to{clip-path:inset(-30% -30% -30% -30%);transform:none}}
+@keyframes pmSube{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes pmLento{from{transform:scale(1)}to{transform:scale(1.035)}}
+.pmh-f{animation:pmRevela 1.3s var(--pm-ease) both}
+.pmh-f2{animation-delay:.25s}.pmh-f3{animation-delay:.45s}.pmh-f4{animation-delay:.6s}
+.pmh-f1 img{animation:pmLento 18s 1.3s ease-in-out infinite alternate}
+.pmh-texto>*{animation:pmSube .9s var(--pm-ease) both}
+.pmh-sello{animation-delay:.5s}.pmh-title{animation-delay:.62s}.pmh-copy{animation-delay:.8s}.pmh-actions{animation-delay:.92s}.pmh-ficha{animation-delay:1.04s}
+
+/* PC y tablet horizontal ancha */
+@media(min-width:1101px),(min-width:700px) and (min-aspect-ratio:23/20){
+  .pmh{--H:calc(var(--vh-fijo,100svh) - 72px);--S:min(calc(var(--H) - 40px),52vw);--L:max(5vw,calc((100vw - var(--S)*1.03 - 780px)/2));--T:calc(72px + (var(--H) - var(--S))/2);--E:calc(var(--L) + var(--S)*1.03)}
+  .pmh-f1{left:var(--L);top:var(--T);height:calc(var(--S)*.9);aspect-ratio:1023/1537;box-sizing:border-box;padding:14px;rotate:-1.2deg}
+  .pmh-f2{left:calc(var(--L) + var(--S)*.47);top:calc(var(--T) + var(--S)*.03);height:calc(var(--S)*.4);aspect-ratio:1189/1323;box-sizing:border-box;z-index:2;rotate:2.2deg}
+  .pmh-f3{left:calc(var(--L) + var(--S)*.76);top:calc(var(--T) + var(--S)*.36);height:calc(var(--S)*.4);aspect-ratio:1023/1537;box-sizing:border-box;z-index:3;rotate:-2deg}
+  .pmh-f4{left:calc(var(--L) + var(--S)*.585);top:calc(var(--T) + var(--S)*.64);height:calc(var(--S)*.29);aspect-ratio:1203/1307;box-sizing:border-box;z-index:2;rotate:1.6deg}
+  .pmh{--cs:clamp(96px,8.6vw,150px)}
+  .pmh-f figcaption{font-size:clamp(10px,.7vw,12px)}
+  .pmh-f2 figcaption{left:auto;right:4px;top:auto;bottom:100%;margin:0 0 10px}
+  .pmh-f3 figcaption{display:none}
+  .pmh-f4 figcaption{display:none}
+  .pmh-f1 figcaption{left:calc(var(--cs)*.62)}
+  .pmh-circ{left:calc(var(--L) - var(--cs)*.38);top:calc(var(--T) + var(--S)*.9 - var(--cs)*.62)}
+  .pmh-texto{position:absolute;z-index:3;left:calc(var(--E) + clamp(24px,3vw,64px));right:max(84px,calc(100vw - var(--E) - 64px - 780px));top:72px;bottom:0;display:flex;flex-direction:column;justify-content:center;gap:clamp(18px,2.6vh,30px)}
+  .pmh-title{font-size:clamp(60px,7.4vw,148px);margin-left:calc(-1 * clamp(80px,9vw,190px));text-shadow:0 2px 30px rgba(241,230,215,.7)}
+  .pmh-title .pmh-t2{padding-left:.42em}
+  .pmh-title em{padding-left:.9em}
+  .pmh-copy{max-width:36ch}
+  .pmh-ficha{max-width:520px;flex-wrap:wrap;row-gap:8px}
+}
+/* Profundidad con el mouse (solo PC con puntero fino): cada marco se desplaza
+   segun su capa. --mx/--my los pone un script corto, entre -1 y 1. */
+@media(min-width:700px) and (min-aspect-ratio:23/20) and (hover:hover) and (prefers-reduced-motion:no-preference){
+  .pmh-f,.pmh-circ{transition:translate .9s cubic-bezier(.2,.7,.3,1)}
+  .pmh-f1{translate:calc(var(--mx,0)*-5px) calc(var(--my,0)*-5px)}
+  .pmh-f2{translate:calc(var(--mx,0)*14px) calc(var(--my,0)*10px)}
+  .pmh-f3{translate:calc(var(--mx,0)*20px) calc(var(--my,0)*14px)}
+  .pmh-f4{translate:calc(var(--mx,0)*10px) calc(var(--my,0)*18px)}
+  .pmh-circ{translate:calc(var(--mx,0)*26px) calc(var(--my,0)*22px)}
+}
+
+/* Pantallas de escritorio bajas (laptops, ventanas pequenas): el texto cabe completo, sin ficha ni parrafo. */
+@media(min-width:700px) and (min-aspect-ratio:23/20) and (max-height:720px){
+  .pmh-copy,.pmh-ficha{display:none}
+  .pmh-title{font-size:clamp(44px,min(7.4vw,13vh),120px)}
+  .pmh-texto{gap:16px}
+  .pmh-sello{margin-bottom:0}
+}
+/* Movil y tablet: collage estatico de las 4 fotos (marcos escalonados y
+   girados apenas), a todo el ancho. Medidas en cqw del escenario. */
+@media(max-width:699px),(min-width:700px) and (max-width:1100px) and (max-aspect-ratio:23/20){
+  .pmh-collage{position:absolute;z-index:1;left:50%;top:64px;translate:-50% 0;width:var(--W);aspect-ratio:var(--R);container-type:inline-size}
+  .pmh-f{box-sizing:border-box;padding:6px}
+  .pmh-f figcaption{display:none}
+  .pmh-f4{display:block}
+  .pmh-f1{left:3cqw;top:3cqw;width:54cqw;aspect-ratio:1023/1537;rotate:-2.5deg}
+  .pmh-f2{left:49cqw;top:0;width:47cqw;aspect-ratio:1189/1323;rotate:2.5deg;z-index:2}
+  .pmh-f3{left:57cqw;top:58cqw;width:38cqw;aspect-ratio:1023/1537;rotate:-2deg;z-index:3}
+  .pmh-f4{left:8cqw;top:79cqw;width:46cqw;aspect-ratio:1203/1307;rotate:2deg;z-index:2}
+  .pmh-circ{--cs:21cqw;left:45cqw;top:111cqw}
+  .pmh-f::before{height:18px;top:-9px}
+  .pmh{--W:min(calc(100vw - 8px),calc((var(--vh-fijo,100svh) - 64px - 250px)/1.3));--R:1/1.3}
+  .pmh-texto{position:absolute;z-index:4;left:0;right:0;bottom:0;padding:0 84px calc(12px + env(safe-area-inset-bottom)) 24px}
+  .pmh-sello{font-size:11px;letter-spacing:.26em;margin-bottom:6px}
+  .pmh-sello i{font-size:26px}
+  .pmh-title{font-size:clamp(42px,12.4vw,58px);margin-bottom:12px;text-shadow:0 0 18px rgba(241,230,215,.95),0 0 4px rgba(241,230,215,.9)}
+  .pmh-title span:not(.sr-only){display:inline}
+  .pmh-title em{padding-left:.6em}
+  .pmh-copy,.pmh-ficha{display:none}
+  .pmh-actions{gap:2px}
+  .pmh-cta{padding:14px 20px;letter-spacing:.2em}
+}
+/* Tablet: escenario apaisado con los 4 marcos en fila escalonada. */
+@media(min-width:700px) and (max-width:1100px) and (max-aspect-ratio:23/20){
+  .pmh{--W:min(calc(100vw - 40px),calc((var(--vh-fijo,100svh) - 72px - 250px)/.92));--R:1/.92;min-height:max(var(--vh-fijo,100svh),calc(72px + var(--W)*.92 + 230px));height:auto}
+  .pmh-collage{top:80px}
+  .pmh-f{padding:10px}
+  .pmh-f1{left:3cqw;top:4cqw;width:42cqw}
+  .pmh-f2{left:45cqw;top:1cqw;width:36cqw}
+  .pmh-f3{left:70cqw;top:33cqw;width:27cqw}
+  .pmh-f4{left:33cqw;top:51cqw;width:36cqw}
+  .pmh-circ{--cs:15cqw;left:74cqw;top:77cqw}
+  .pmh-f::before{height:24px;top:-12px}
+  .pmh-texto{top:auto;bottom:0;display:flex;flex-direction:column;align-items:flex-start;padding:0 96px 40px calc((100vw - var(--W))/2 + 24px)}
+  .pmh-title{font-size:clamp(64px,10vw,104px)}
+  .pmh-sello i{font-size:34px}
+}
+@media(prefers-reduced-motion:reduce){
+  .pmh *{animation-duration:.01ms!important;animation-iteration-count:1!important;animation-delay:0s!important}
+  .pmh-circ svg{animation:none}
+}
 /* El hero anterior (Lampara) queda en el codigo pero oculto en todos los anchos. */
 #heroPc{display:none}
-.nav-cart{background:#1F3D32}
-.call-float{background:rgba(31,61,50,.94)}
 
 </style>
 <script type="text/javascript">
@@ -1155,20 +1305,22 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
 </div>
 
 <div id="top"></div>
-<section class="hjv" aria-label="Florero Alto Irregular, el favorito de la semana">
-  <figure class="hj-foto"><div class="hj-marco"><video class="hj-video" poster="video/florero-hero-poster.jpg" data-src="video/florero-hero-loop.mp4" muted loop playsinline preload="none" aria-hidden="true" onplaying="this.classList.add('on')"></video><script>(function(){var v=document.currentScript.previousElementSibling;if(v&&!window.matchMedia("(prefers-reduced-motion:reduce)").matches){v.addEventListener("loadeddata",function(){var p=v.play();if(p&&p.catch)p.catch(function(){})});v.src=v.getAttribute("data-src");v.load()}})()</script>
-    <picture>
-      <source srcset="img/florero-alto-irregular/florero-alto-irregular-01.webp" type="image/webp">
-      <img src="img/florero-alto-irregular/florero-alto-irregular-01.jpg" width="1025" height="1535" decoding="async" alt="Florero Alto Irregular en vidrio verde con gerberas amarillas, sobre una mesa blanca con sombras de luz natural">
-    </picture>
-  </div></figure>
-  <div class="hj-texto">
-    <h1 class="hj-title"><span>Florero Alto</span><em>Irregular</em><span class="sr-only"> · Felipe Vergel Arte en Vidrio, vitrofusión artesanal en Floridablanca, Colombia</span></h1>
-    <p class="hj-sello hj-sello-grande">El favorito de <i>la semana</i></p>
-    <div class="hj-actions">
-      <a href="product.html?id=florero-alto-irregular" class="hj-cta">Ver el florero <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
-      <a href="#catalogo" class="hj-link" id="hjFloreros">Ver todos los floreros</a><ul class="hj-ficha" aria-label="Detalles de la pieza"><li>Vitrofusión</li><li>Hecho a mano</li><li>Floridablanca</li></ul>
+<section class="pmh" aria-label="Porta Matera Versátil, el favorito de la semana">
+  <div class="pmh-collage">
+    <figure class="pmh-f pmh-f1"><div class="pmh-ph"><picture><source srcset="img/porta-matera/porta-matera-04.webp" type="image/webp"><img src="img/porta-matera/porta-matera-04.jpg" width="1023" height="1537" fetchpriority="high" decoding="async" alt="Porta Matera Versátil en vidrio transparente con borde ondulado y una orquídea morada adentro, sobre telas color arena"></picture></div><figcaption><b>Transparente</b> · con orquídea</figcaption></figure>
+    <figure class="pmh-f pmh-f2"><div class="pmh-ph"><picture><source srcset="img/porta-matera/porta-matera-02.webp" type="image/webp"><img src="img/porta-matera/porta-matera-02.jpg" width="1189" height="1323" decoding="async" alt="Porta Matera en vidrio azul cobalto con un potos que cae por el borde"></picture></div><figcaption><b>Azul</b> · con potos</figcaption></figure>
+    <figure class="pmh-f pmh-f3"><div class="pmh-ph"><picture><source srcset="img/porta-matera/porta-matera-01.webp" type="image/webp"><img src="img/porta-matera/porta-matera-01.jpg" width="1023" height="1537" decoding="async" alt="Porta Matera en vidrio verde usada como champañera, con una botella entre el hielo"></picture></div><figcaption><b>Verde</b> · de champañera</figcaption></figure>
+    <figure class="pmh-f pmh-f4"><div class="pmh-ph"><picture><source srcset="img/porta-matera/porta-matera-03.webp" type="image/webp"><img src="img/porta-matera/porta-matera-03.jpg" width="1203" height="1307" decoding="async" alt="Porta Matera en vidrio gris humo con una orquídea blanca adentro"></picture></div><figcaption><b>Gris</b> · con orquídea blanca</figcaption></figure>
+  </div>
+  <div class="pmh-texto">
+    <p class="pmh-sello">El favorito de <i>la semana</i></p>
+    <h1 class="pmh-title"><span>Porta</span> <span class="pmh-t2">Matera</span><em>Versátil</em><span class="sr-only"> · Felipe Vergel Arte en Vidrio, vitrofusión artesanal en Floridablanca, Colombia</span></h1>
+    <p class="pmh-copy">Abraza tu orquídea, enfría el champaña o recibe flores frescas. Una sola pieza de vidrio, hecha a mano, en cuatro colores.</p>
+    <div class="pmh-actions">
+      <a href="product.html?id=porta-matera" class="pmh-cta">Ver la porta matera <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+      <a href="#catalogo" class="pmh-link" id="hjFloreros">Ver los porta plantas</a>
     </div>
+    <ul class="pmh-ficha" aria-label="Usos de la pieza"><li>Porta matera</li><li>Champañera</li><li>Hielera</li><li>Florero</li></ul>
   </div>
 </section>
 <section class="hero" id="heroPc">
@@ -2487,12 +2639,23 @@ document.addEventListener("click",function(e){
 })();
 </script>
 <script>
-// PORTADA: "Ver todos los floreros" abre la coleccion en el catalogo.
+// PORTADA: "Ver los porta plantas" abre la coleccion en el catalogo.
 (function(){
   var ver=document.getElementById("hjFloreros");
   if(ver)ver.addEventListener("click",function(e){
     if(typeof abrirColeccion!=="function")return;
-    e.preventDefault();abrirColeccion("floreros");
+    e.preventDefault();abrirColeccion("porta-plantas");
+  });
+  // Profundidad del collage con el mouse: solo puntero fino y sin movimiento reducido.
+  var pm=document.querySelector(".pmh");
+  if(!pm||!window.matchMedia("(hover:hover) and (prefers-reduced-motion:no-preference)").matches)return;
+  var raf=0,x=0,y=0;
+  pm.addEventListener("pointermove",function(e){
+    x=e.clientX/window.innerWidth*2-1;y=e.clientY/window.innerHeight*2-1;
+    if(raf)return;
+    raf=requestAnimationFrame(function(){raf=0;pm.style.setProperty("--mx",x.toFixed(3));pm.style.setProperty("--my",y.toFixed(3));});
+  });
+  pm.addEventListener("pointerleave",function(){pm.style.setProperty("--mx","0");pm.style.setProperty("--my","0");
   });
 })();
 </script>
