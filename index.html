@@ -1212,6 +1212,228 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
 /* El hero anterior (Lampara) queda en el codigo pero oculto en todos los anchos. */
 #heroPc{display:none}
 
+/* =====================================================================
+   REDISENO CENTROS DE MESA (home). Hero .pmh-cm reutiliza el collage
+   aprobado de Porta Matera con 4 fotos 2:3 de centros de mesa en uso
+   (marcos completos, nada recortado). Despues: portada de coleccion en
+   triptico, seccion de modelos por forma y las otras colecciones en
+   mosaico discreto. Solo tokens de la paleta (terracota, marron, crema).
+   ===================================================================== */
+.pmh-cm .pmh-f{aspect-ratio:2/3}
+@media(min-width:1101px),(min-width:700px) and (min-aspect-ratio:23/20){
+  .pmh-cm .pmh-f1{aspect-ratio:2/3;height:calc(var(--S)*.94);top:calc(var(--T) - var(--S)*.02)}
+  .pmh-cm .pmh-f2{aspect-ratio:2/3;left:calc(var(--L) + var(--S)*.53);top:calc(var(--T) - var(--S)*.01);height:calc(var(--S)*.47)}
+  .pmh-cm .pmh-f3{aspect-ratio:2/3;left:calc(var(--L) + var(--S)*.76);top:calc(var(--T) + var(--S)*.31);height:calc(var(--S)*.41)}
+  .pmh-cm .pmh-f4{aspect-ratio:2/3;left:calc(var(--L) + var(--S)*.5);top:calc(var(--T) + var(--S)*.53);height:calc(var(--S)*.41)}
+  .pmh-cm .pmh-texto{right:max(96px,calc(100vw - var(--E) - 64px - 780px))}
+  .pmh-cm .pmh-cta{max-width:100%;padding-left:clamp(18px,2vw,34px);padding-right:clamp(18px,2vw,34px);letter-spacing:clamp(.14em,1.4vw,.28em)}
+  .pmh-cm .pmh-f2 figcaption{right:auto;left:10px;top:100%;bottom:auto;margin:8px 0 0}
+}
+@media(max-width:699px),(min-width:700px) and (max-width:1100px) and (max-aspect-ratio:23/20){
+  .pmh-cm{--W:min(calc(100vw - 8px),calc((var(--vh-fijo,100svh) - 64px - 236px)/1.3));--R:1/1.3}
+  .pmh-cm .pmh-f1{left:3cqw;top:4cqw;width:50cqw;rotate:-2.2deg}
+  .pmh-cm .pmh-f2{left:55cqw;top:1cqw;width:40cqw;rotate:2.4deg}
+  .pmh-cm .pmh-f3{left:59cqw;top:64cqw;width:37cqw;rotate:-1.8deg}
+  .pmh-cm .pmh-f4{left:15cqw;top:80cqw;width:32cqw;rotate:2deg;z-index:1}
+}
+@media(min-width:700px) and (max-width:1100px) and (max-aspect-ratio:23/20){
+  .pmh-cm{--W:min(calc(100vw - 40px),calc((var(--vh-fijo,100svh) - 72px - 250px)/.92));--R:1/.92}
+  .pmh-cm .pmh-f1{left:4cqw;top:4cqw;width:36cqw}
+  .pmh-cm .pmh-f2{left:42cqw;top:1cqw;width:27cqw}
+  .pmh-cm .pmh-f3{left:73cqw;top:9cqw;width:24cqw}
+  .pmh-cm .pmh-f4{left:31cqw;top:47cqw;width:24cqw;z-index:2}
+}
+
+@media(max-width:699px){
+  .pmh-cm .pmh-cta{max-width:100%;padding:14px 18px;letter-spacing:.16em}
+}
+@media(max-width:374px){
+  .pmh-cm .pmh-cta{padding:13px 14px;letter-spacing:.12em;font-size:11px}
+  .pmh-cm .pmh-cta svg{display:none}
+}
+
+/* ---- Portada de la coleccion: triptico de fotos completas + banda ---- */
+#novGrid .col-tri{height:auto;min-height:0;background:var(--verde-dark);width:min(calc(100% - 56px),calc((var(--vh-fijo,100svh) - 210px)*2));margin:0 auto}
+.col-tri .tri-fotos{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:var(--crema)}
+.col-tri .tri-fotos img{display:block;width:100%;height:auto;aspect-ratio:2/3;object-fit:cover;transition:transform var(--d-4) var(--c-autor)}
+.col-tri .tri-fotos{overflow:hidden}
+#novGrid .col-tri .col-overlay{position:static;display:grid;grid-template-columns:auto 1fr auto;align-items:center;column-gap:clamp(24px,4vw,64px);padding:28px clamp(24px,3vw,44px);background:var(--verde-dark)}
+#novGrid .col-tri .col-eyebrow{grid-column:1;grid-row:1;margin:0 0 6px}
+#novGrid .col-tri h3{grid-column:1;grid-row:2;margin:0;font-size:var(--t-3xl)}
+#novGrid .col-tri p{grid-column:2;grid-row:1/3;margin:0;max-width:44ch;color:rgba(255,255,255,.82)}
+#novGrid .col-tri .btn-descubrir{grid-column:3;grid-row:1/3;background:var(--verde);border-color:var(--verde);backdrop-filter:none;-webkit-backdrop-filter:none}
+@media(hover:hover){#novGrid .col-tri:hover .btn-descubrir{background:var(--crema);color:var(--verde-dark);border-color:var(--crema)}}
+@media(max-width:699px){#novGrid .col-tri{width:100%}}
+@media(max-width:899px){
+  #novGrid .col-tri .col-overlay{grid-template-columns:1fr;row-gap:10px;padding:26px 24px 30px}
+  #novGrid .col-tri .col-eyebrow,#novGrid .col-tri h3,#novGrid .col-tri p,#novGrid .col-tri .btn-descubrir{grid-column:1;grid-row:auto}
+  #novGrid .col-tri .btn-descubrir{justify-self:start;margin-top:8px}
+}
+@media(max-width:599px){
+  .col-tri .tri-fotos{grid-template-columns:repeat(2,1fr);gap:4px}
+  .col-tri .tri-2{display:none!important}
+}
+
+/* ---- Seccion de modelos por forma ---- */
+.cmx{background:var(--crema);padding:clamp(72px,9vw,128px) 0 clamp(80px,9vw,128px);color:var(--tinta)}
+.cmx-head{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);column-gap:clamp(32px,6vw,96px);align-items:end;margin-bottom:clamp(32px,4vw,56px)}
+.cmx-eyebrow{grid-column:1/-1;margin:0 0 18px;font-size:var(--t-xs);letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--cobre-dark)}
+.cmx-title{margin:0;font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(46px,6.4vw,104px);line-height:.9;letter-spacing:-.01em;color:var(--verde-dark)}
+.cmx-title em{display:block;padding-left:.8em;font-weight:300;color:var(--verde)}
+.cmx-copy{margin:0 0 8px;font-size:var(--t-lg);font-weight:300;line-height:1.65;color:var(--tinta-soft);max-width:40ch}
+.cmx-formas{display:grid;grid-template-columns:repeat(6,1fr);border-top:1px solid rgba(43,33,27,.2);border-bottom:1px solid rgba(43,33,27,.2);margin-bottom:clamp(36px,4vw,56px)}
+.cmx-formas button{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-height:76px;padding:16px 18px 18px;text-align:left;background:none;border:0;border-left:1px solid rgba(43,33,27,.12);color:var(--tinta);cursor:pointer;transition:background var(--d-2) var(--c-suave),color var(--d-2) var(--c-suave)}
+.cmx-formas button:first-child{border-left:0}
+.cmx-formas b{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(21px,1.7vw,26px);line-height:1}
+.cmx-formas small{font-size:var(--t-2xs);letter-spacing:.14em;text-transform:uppercase;color:var(--tinta-soft)}
+.cmx-formas button::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:3px;background:var(--verde);transform:scaleX(0);transform-origin:left;transition:transform var(--d-3) var(--c-autor)}
+.cmx-formas button[aria-pressed="true"]{color:var(--verde)}
+.cmx-formas button[aria-pressed="true"]::after{transform:scaleX(1)}
+.cmx-formas button:focus-visible{outline:2px solid var(--verde);outline-offset:-4px}
+@media(hover:hover){.cmx-formas button:hover{background:rgba(231,207,180,.35)}}
+.cmx-grid{display:grid;grid-template-columns:repeat(4,1fr);column-gap:clamp(16px,2vw,32px);row-gap:clamp(40px,4vw,64px);padding-bottom:56px}
+.cmx-grid>.cmx-card:nth-child(4n+2),.cmx-grid>.cmx-card:nth-child(4n+4){transform:translateY(56px)}
+.cmx-grid.pocos>.cmx-card{transform:none}
+.cmx-grid.pocos{padding-bottom:0}
+.cmx-card{display:flex;flex-direction:column;gap:16px;color:inherit;text-decoration:none;min-width:0}
+.cmx-foto{display:block;background:#F5EDE2;padding:8px;box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 26px 44px -30px rgba(92,62,36,.5),0 6px 14px -10px rgba(92,62,36,.22)}
+.cmx-foto img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:50% 50%;background:var(--crema-2);transition:transform var(--d-4) var(--c-autor)}
+.cmx-foto{overflow:hidden}
+.cmx-info{display:flex;flex-direction:column;gap:6px;padding:0 2px}
+.cmx-forma{font-size:var(--t-2xs);letter-spacing:.16em;text-transform:uppercase;color:var(--tinta-soft);line-height:1.5}
+.cmx-nombre{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,2vw,30px);font-weight:500;line-height:1.05;color:var(--verde-dark)}
+.cmx-nombre i{font-style:italic;font-weight:400;color:var(--verde)}
+.cmx-colores{font-size:var(--t-sm);font-weight:300;line-height:1.5;color:var(--tinta-soft)}
+.cmx-pie{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:6px;padding-top:12px;border-top:1px solid rgba(43,33,27,.14)}
+.cmx-precio{font-size:var(--t-lg);font-weight:400;letter-spacing:.02em;color:var(--tinta)}
+.cmx-ver{font-size:var(--t-2xs);letter-spacing:.2em;text-transform:uppercase;color:var(--verde);text-decoration:underline;text-decoration-color:rgba(156,74,47,.35);text-underline-offset:6px}
+.cmx-card:focus-visible{outline:2px solid var(--verde);outline-offset:6px}
+@media(hover:hover){.cmx-card:hover .cmx-foto img{transform:scale(1.04)}.cmx-card:hover .cmx-ver{text-decoration-color:currentColor}}
+.cmx-foot{display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:clamp(40px,5vw,72px);text-align:center}
+.cmx-todo{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:14px 34px;border:1px solid var(--verde-dark);border-radius:var(--radius-sm);color:var(--verde-dark);font-size:var(--t-xs);letter-spacing:.24em;text-transform:uppercase;text-decoration:none;transition:background var(--d-2) var(--c-suave),color var(--d-2) var(--c-suave)}
+.cmx-todo:focus-visible{outline:2px solid var(--verde);outline-offset:4px}
+@media(hover:hover){.cmx-todo:hover{background:var(--verde-dark);color:var(--crema)}}
+.cmx-nota{margin:0;font-size:var(--t-sm);color:var(--tinta-soft);max-width:46ch}
+@media(max-width:1100px){
+  .cmx-formas{grid-template-columns:repeat(3,1fr)}
+  .cmx-formas button:nth-child(3n+1){border-left:0}
+  .cmx-formas button:nth-child(n+4){border-top:1px solid rgba(43,33,27,.12)}
+}
+@media(max-width:899px){
+  .cmx-head{grid-template-columns:1fr;row-gap:18px}
+  .cmx-grid{grid-template-columns:repeat(3,1fr);padding-bottom:36px}
+  .cmx-grid>.cmx-card:nth-child(4n+2),.cmx-grid>.cmx-card:nth-child(4n+4){transform:none}
+  .cmx-grid>.cmx-card:nth-child(3n+2){transform:translateY(36px)}
+  .cmx-grid.pocos>.cmx-card{transform:none}
+}
+@media(max-width:599px){
+  .cmx-grid{grid-template-columns:repeat(2,1fr)}
+  .cmx-grid>.cmx-card:nth-child(3n+2){transform:none}
+  .cmx-grid>.cmx-card:nth-child(2n){transform:translateY(36px)}
+  .cmx-grid.pocos>.cmx-card{transform:none}
+}
+@media(max-width:599px){
+  .cmx-formas{grid-template-columns:repeat(2,1fr)}
+  .cmx-formas button{min-height:64px;padding:12px 12px 14px;border-left:0}
+  .cmx-formas button:nth-child(2n){border-left:1px solid rgba(43,33,27,.12)}
+  .cmx-formas button:nth-child(n+3){border-top:1px solid rgba(43,33,27,.12)}
+  .cmx-grid{column-gap:12px;row-gap:34px}
+  .cmx-foto{padding:5px}
+  .cmx-nombre{font-size:22px}
+  .cmx-colores{font-size:12px}
+  .cmx-pie{flex-direction:column;gap:4px}
+  .cmx-precio{font-size:15px}
+}
+
+/* ---- Otras colecciones: mosaico discreto debajo ---- */
+.col-otras{background:var(--crema-2);padding:clamp(56px,6vw,88px) 0 clamp(56px,6vw,88px)}
+.otras-head{display:flex;align-items:baseline;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:28px}
+.otras-head h2{margin:0;font-family:'Cormorant Garamond',serif;font-weight:400;font-size:var(--t-3xl);color:var(--verde-dark)}
+.otras-head h2 span{font-style:italic;color:var(--verde)}
+.otras-head p{margin:0;font-size:var(--t-sm);letter-spacing:.04em;color:var(--tinta-soft)}
+#novOtras{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;max-width:1280px;margin:0 auto;padding:0 28px}
+#novOtras .col-panel{grid-column:span 2;height:clamp(300px,44svh,460px);min-height:0}
+#novOtras .col-panel:nth-child(n+4){grid-column:span 3}
+#novOtras .col-overlay{padding:0 24px 24px;background:linear-gradient(to bottom,rgba(43,33,27,0) 40%,rgba(43,33,27,.78) 100%)}
+#novOtras .col-overlay .col-eyebrow{margin-bottom:8px;letter-spacing:.3em}
+#novOtras .col-overlay h3{font-size:var(--t-2xl);margin:0 0 12px}
+#novOtras .col-overlay p{display:none}
+#novOtras .btn-descubrir{min-height:44px;padding:10px 22px;font-size:var(--t-2xs)}
+@media(max-width:899px){
+  #novOtras{grid-template-columns:repeat(2,1fr);gap:8px;padding:0 18px}
+  #novOtras .col-panel,#novOtras .col-panel:nth-child(n+4){grid-column:span 1;height:62vw;max-height:420px}
+  #novOtras .col-panel:last-child{grid-column:span 2}
+  #novOtras .col-overlay{padding:0 14px 14px}
+  #novOtras .col-overlay .col-eyebrow,#novOtras .btn-descubrir{display:none}
+  #novOtras .col-overlay h3{font-size:22px;margin:0}
+}
+@media(prefers-reduced-motion:reduce){
+  .cmx-foto img,.col-tri .tri-fotos img,.cmx-formas button::after{transition-duration:.01ms}
+}
+
+/* ===== HERO EN RECORTES A MANO (scrapbook) =====
+   Cada foto es un recorte de tijera: papel claro alrededor (.pmh-ph con
+   padding) y la foto con el mismo contorno irregular. Sombra por capa con
+   drop-shadow porque clip-path anula box-shadow. Los recortes solo muerden
+   el borde (max ~3%), el vidrio queda siempre completo. */
+.pmh-cm .pmh-f{background:none!important;box-shadow:none!important;padding:0!important;filter:drop-shadow(0 16px 18px rgba(92,62,36,.26)) drop-shadow(0 2px 3px rgba(92,62,36,.22))}
+.pmh-cm .pmh-ph{box-sizing:border-box;padding:7px;background:#FBF6EE}
+.pmh-cm .pmh-f1 .pmh-ph{padding:clamp(7px,.8vw,12px)}
+.pmh-cm .pmh-ph picture{position:relative}
+.pmh-cm .cr{position:absolute;pointer-events:none;z-index:0}
+.pmh-cm .cr svg{display:block;width:100%;height:100%;overflow:visible}
+/* tiras de papel rasgado */
+.pmh-cm .cr-tira{background:#E7CFB4}
+.pmh-cm .cr-tira.t2{background:#D9A88C}
+.pmh-cm .cr-tira::after{content:"";position:absolute;inset:0;opacity:.35;background:repeating-linear-gradient(0deg,rgba(255,255,255,.25) 0 1px,transparent 1px 4px)}
+/* trozo de papel manuscrito: texto propio, no imagen */
+.pmh-cm .cr-diario{background:#EFE4D2;color:rgba(51,42,36,.62);padding:7% 8%;box-sizing:border-box;font-family:'Cormorant Garamond',serif;overflow:hidden;filter:drop-shadow(0 6px 8px rgba(92,62,36,.18))}
+.pmh-cm .cr-diario b{display:block;font-family:'Jost',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.14em;font-size:.5em;white-space:nowrap;color:#9C4A2F;border-bottom:1px solid rgba(51,42,36,.25);padding-bottom:.4em;margin-bottom:.5em}
+.pmh-cm .cr-diario p{margin:0;font-style:italic;line-height:1.25;font-size:1em}
+.pmh-cm .cr-diario p+p{margin-top:.35em;font-style:normal;font-size:.8em;line-height:1.35;}
+.pmh-cm .cr-rama{color:#9C4A2F;z-index:4}
+.pmh-cm .cr-estrella{z-index:5;filter:drop-shadow(0 4px 5px rgba(92,62,36,.3))}
+.pmh-cm .pmh-sello i{position:relative}
+.pmh-cm .pmh-sello i::after{content:"";position:absolute;left:-10%;top:-18%;width:120%;height:140%;pointer-events:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 60' preserveAspectRatio='none'%3E%3Cpath d='M18 34C20 12 92 4 150 10s48 26 22 38-120 10-148-4C6 34 30 16 70 12' fill='none' stroke='%239C4A2F' stroke-width='1.3' stroke-linecap='round' opacity='.75'/%3E%3C/svg%3E") center/100% 100% no-repeat}
+
+/* posiciones: PC (unidades del escenario --S) */
+@media(min-width:1101px),(min-width:700px) and (min-aspect-ratio:23/20){
+  .pmh-cm .cr-tira.t1{left:calc(var(--L) - var(--S)*.05);top:calc(var(--T) + var(--S)*.74);width:calc(var(--S)*.5);height:calc(var(--S)*.08);rotate:-7deg}
+  .pmh-cm .cr-tira.t2{left:calc(var(--L) + var(--S)*.66);top:calc(var(--T) - var(--S)*.035);width:calc(var(--S)*.28);height:calc(var(--S)*.05);rotate:9deg;z-index:3}
+  .pmh-cm .cr-diario{left:calc(var(--L) + var(--S)*.76);top:calc(var(--T) + var(--S)*.7);width:calc(var(--S)*.3);height:calc(var(--S)*.25);rotate:5deg;font-size:calc(var(--S)*.03)}
+  .pmh-cm .cr-rama{left:calc(var(--L) - var(--S)*.07);top:calc(var(--T) + var(--S)*.04);width:calc(var(--S)*.14);height:calc(var(--S)*.3);rotate:-14deg}
+  .pmh-cm .cr-estrella{left:calc(var(--L) + var(--S)*.44);top:calc(var(--T) + var(--S)*.83);width:calc(var(--S)*.085);aspect-ratio:1}
+}
+/* movil (cqw del collage) */
+@media(max-width:699px){
+  .pmh-cm .cr-tira.t1{left:50cqw;top:115cqw;width:48cqw;height:8cqw;rotate:-5deg}
+  .pmh-cm .cr-tira.t2{left:52cqw;top:-2cqw;width:34cqw;height:6cqw;rotate:8deg;z-index:3}
+  .pmh-cm .cr-diario{left:3cqw;top:78cqw;width:44cqw;height:40cqw;rotate:-6deg;font-size:2.7cqw}
+  .pmh-cm .cr-rama{z-index:4}
+  .pmh-cm .cr-rama{left:42cqw;top:86cqw;width:13cqw;height:28cqw;rotate:12deg}
+  .pmh-cm .cr-estrella{left:47cqw;top:113cqw;width:11cqw;aspect-ratio:1}
+  .pmh-cm .pmh-ph{padding:5px}
+}
+/* tablet vertical */
+@media(min-width:700px) and (max-width:1100px) and (max-aspect-ratio:23/20){
+  .pmh-cm .cr-tira.t1{left:0;top:52cqw;width:40cqw;height:6cqw;rotate:-6deg}
+  .pmh-cm .cr-tira.t2{left:39cqw;top:-1cqw;width:28cqw;height:4.5cqw;rotate:7deg;z-index:3}
+  .pmh-cm .cr-diario{left:56cqw;top:43cqw;width:27cqw;height:27cqw;rotate:5deg;font-size:2.2cqw}
+  .pmh-cm .cr-rama{left:84cqw;top:47cqw;width:12cqw;height:26cqw;rotate:10deg}
+  .pmh-cm .cr-estrella{left:22cqw;top:62cqw;width:7cqw;aspect-ratio:1}
+}
+/* toque del mismo lenguaje en el triptico: bordes de tijera, sin recargar */
+.col-tri .tri-fotos{background:none;gap:10px;padding:10px 0}
+.col-tri .tri-fotos img{border:6px solid #FBF6EE;box-sizing:border-box;box-shadow:0 12px 22px -14px rgba(92,62,36,.5)}
+.col-tri .tri-0{rotate:-1deg}.col-tri .tri-1{rotate:.8deg}.col-tri .tri-2{rotate:-.6deg}
+#novGrid .col-tri{background:none}
+.pmh-cm .pmh-f1 .pmh-ph,.pmh-cm .pmh-f1 picture{clip-path:polygon(9.0% 0.2%,14.9% 0.5%,20.7% 0.2%,26.6% 0.6%,32.4% 0.1%,38.3% 0.2%,44.1% 0.6%,50.0% 0.0%,55.9% 0.6%,61.7% 0.1%,67.6% 0.6%,73.4% 0.6%,79.3% 0.1%,85.1% 0.5%,90.8% 0.2%,93.8% 3.2%,96.9% 6.1%,99.5% 9.0%,99.9% 13.6%,99.9% 18.1%,99.4% 22.7%,99.5% 27.2%,99.6% 31.8%,99.7% 36.3%,99.6% 40.9%,99.5% 45.4%,99.8% 50.0%,99.6% 54.6%,99.6% 59.1%,99.9% 63.7%,99.8% 68.2%,99.8% 72.8%,99.9% 77.3%,99.5% 81.9%,99.5% 86.4%,99.8% 90.8%,96.9% 93.9%,94.0% 97.0%,91.0% 99.7%,85.1% 99.9%,79.3% 99.9%,73.4% 99.7%,67.6% 99.6%,61.7% 99.7%,55.9% 99.6%,50.0% 99.9%,44.1% 100.0%,38.3% 99.5%,32.4% 99.7%,26.6% 99.7%,20.7% 99.3%,14.9% 99.5%,9.0% 100.0%,6.1% 96.9%,3.2% 93.8%,0.0% 91.0%,0.6% 86.4%,0.2% 81.9%,0.3% 77.3%,0.1% 72.8%,0.5% 68.2%,0.2% 63.7%,0.2% 59.1%,0.1% 54.6%,0.1% 50.0%,0.1% 45.4%,0.4% 40.9%,0.5% 36.3%,0.0% 31.8%,0.2% 27.2%,0.5% 22.7%,0.2% 18.1%,0.2% 13.6%,0.3% 9.3%,3.2% 6.2%,6.1% 3.1%)}
+.pmh-cm .pmh-f2 .pmh-ph,.pmh-cm .pmh-f2 picture{clip-path:polygon(0.0% 0.2%,7.1% 0.3%,14.3% 0.8%,21.4% 0.1%,28.6% 0.5%,35.7% 0.6%,42.9% 0.7%,50.0% 0.4%,57.1% 0.6%,64.3% 0.4%,71.4% 0.2%,78.6% 0.6%,85.7% 0.7%,92.9% 0.1%,99.9% 0.0%,99.4% 5.6%,99.5% 11.1%,99.4% 16.7%,99.6% 22.2%,99.9% 27.8%,99.8% 33.3%,99.4% 38.9%,99.3% 44.4%,99.4% 50.0%,99.5% 55.6%,99.6% 61.1%,99.6% 66.7%,100.0% 72.2%,99.9% 77.8%,99.6% 83.3%,99.2% 88.9%,99.9% 94.4%,100.0% 99.8%,92.9% 99.9%,85.7% 99.3%,78.6% 99.7%,71.4% 100.0%,64.3% 99.8%,57.1% 99.7%,50.0% 99.3%,42.9% 99.4%,35.7% 99.6%,28.6% 99.4%,21.4% 99.5%,14.3% 99.8%,7.1% 99.8%,0.6% 100.0%,0.2% 94.4%,0.7% 88.9%,0.7% 83.3%,0.5% 77.8%,0.5% 72.2%,0.3% 66.7%,0.7% 61.1%,0.8% 55.6%,0.6% 50.0%,0.6% 44.4%,0.2% 38.9%,0.8% 33.3%,0.6% 27.8%,0.2% 22.2%,0.6% 16.7%,0.4% 11.1%,0.2% 5.6%)}
+.pmh-cm .pmh-f3 .pmh-ph,.pmh-cm .pmh-f3 picture{clip-path:polygon(0.0% 0.1%,7.1% 0.4%,14.3% 0.3%,21.4% 0.5%,28.6% 0.0%,35.7% 0.0%,42.9% 0.4%,50.0% 0.4%,57.1% 0.2%,64.3% 0.2%,71.4% 0.3%,78.6% 0.3%,85.7% 0.5%,92.9% 0.5%,99.8% 0.0%,97.7% 5.6%,99.7% 11.1%,97.0% 16.7%,99.8% 22.2%,96.9% 27.8%,97.7% 33.3%,98.7% 38.9%,98.5% 44.4%,99.1% 50.0%,97.9% 55.6%,98.3% 61.1%,99.8% 66.7%,98.2% 72.2%,98.9% 77.8%,98.2% 83.3%,98.0% 88.9%,96.9% 94.4%,100.0% 99.6%,92.9% 99.7%,85.7% 99.7%,78.6% 99.8%,71.4% 99.7%,64.3% 100.0%,57.1% 99.9%,50.0% 99.5%,42.9% 99.5%,35.7% 99.8%,28.6% 99.8%,21.4% 99.8%,14.3% 99.5%,7.1% 99.9%,0.4% 100.0%,0.5% 94.4%,0.5% 88.9%,0.1% 83.3%,0.3% 77.8%,0.3% 72.2%,0.3% 66.7%,0.3% 61.1%,0.1% 55.6%,0.4% 50.0%,0.3% 44.4%,0.0% 38.9%,0.2% 33.3%,0.3% 27.8%,0.4% 22.2%,0.2% 16.7%,0.4% 11.1%,0.3% 5.6%)}
+.pmh-cm .pmh-f4 .pmh-ph,.pmh-cm .pmh-f4 picture{clip-path:polygon(98.7% 50.0%,98.8% 56.4%,96.9% 62.6%,95.0% 68.6%,92.4% 74.5%,88.6% 79.6%,84.1% 84.1%,79.9% 88.9%,74.5% 92.5%,68.5% 94.6%,62.6% 97.1%,56.3% 98.2%,50.0% 98.5%,43.7% 98.1%,37.5% 96.8%,31.4% 94.9%,25.7% 92.0%,20.4% 88.5%,15.9% 84.1%,11.2% 79.8%,7.6% 74.5%,4.6% 68.8%,3.2% 62.5%,2.2% 56.3%,1.7% 50.0%,1.4% 43.6%,2.4% 37.3%,5.3% 31.5%,7.4% 25.4%,11.5% 20.5%,15.6% 15.6%,20.4% 11.4%,25.6% 7.8%,31.3% 4.9%,37.4% 2.9%,43.6% 1.3%,50.0% 1.2%,56.4% 1.3%,62.5% 3.2%,68.5% 5.3%,74.5% 7.6%,80.0% 11.0%,84.7% 15.3%,88.4% 20.5%,92.5% 25.4%,94.7% 31.5%,97.6% 37.2%,98.8% 43.6%)}
+.pmh-cm .cr-tira{clip-path:polygon(0.0% 0.2%,7.1% 4.8%,14.3% 0.6%,21.4% 3.2%,28.6% 5.0%,35.7% 3.0%,42.9% 3.3%,50.0% 0.3%,57.1% 2.3%,64.3% 0.6%,71.4% 1.7%,78.6% 0.2%,85.7% 0.6%,92.9% 2.8%,98.8% 0.0%,99.8% 5.6%,99.2% 11.1%,99.3% 16.7%,99.2% 22.2%,100.0% 27.8%,99.8% 33.3%,99.2% 38.9%,98.8% 44.4%,99.8% 50.0%,99.7% 55.6%,100.0% 61.1%,100.0% 66.7%,99.4% 72.2%,99.9% 77.8%,99.9% 83.3%,99.9% 88.9%,98.7% 94.4%,100.0% 98.0%,92.9% 96.2%,85.7% 95.6%,78.6% 97.6%,71.4% 99.4%,64.3% 95.6%,57.1% 96.6%,50.0% 96.4%,42.9% 96.2%,35.7% 99.4%,28.6% 95.7%,21.4% 97.4%,14.3% 95.7%,7.1% 98.3%,0.9% 100.0%,1.2% 94.4%,1.0% 88.9%,0.6% 83.3%,0.5% 77.8%,1.1% 72.2%,1.1% 66.7%,1.4% 61.1%,0.8% 55.6%,1.4% 50.0%,0.3% 44.4%,0.0% 38.9%,1.5% 33.3%,1.0% 27.8%,1.0% 22.2%,0.2% 16.7%,0.0% 11.1%,0.5% 5.6%)}
+.pmh-cm .cr-diario{clip-path:polygon(0.0% 0.7%,7.1% 0.4%,14.3% 0.5%,21.4% 1.2%,28.6% 0.1%,35.7% 0.1%,42.9% 1.2%,50.0% 0.4%,57.1% 0.3%,64.3% 0.0%,71.4% 1.0%,78.6% 1.2%,85.7% 0.7%,92.9% 1.1%,98.1% 0.0%,98.9% 5.6%,97.8% 11.1%,98.7% 16.7%,98.9% 22.2%,98.2% 27.8%,99.6% 33.3%,98.0% 38.9%,98.5% 44.4%,98.8% 50.0%,98.3% 55.6%,98.0% 61.1%,99.7% 66.7%,99.0% 72.2%,98.0% 77.8%,97.9% 83.3%,99.1% 88.9%,99.6% 94.4%,100.0% 99.0%,92.9% 98.9%,85.7% 99.7%,78.6% 99.3%,71.4% 99.0%,64.3% 99.1%,57.1% 99.0%,50.0% 99.1%,42.9% 99.9%,35.7% 99.6%,28.6% 99.9%,21.4% 99.0%,14.3% 99.4%,7.1% 99.1%,0.1% 100.0%,1.4% 94.4%,2.0% 88.9%,1.8% 83.3%,2.3% 77.8%,1.6% 72.2%,1.0% 66.7%,1.0% 61.1%,1.3% 55.6%,1.1% 50.0%,0.0% 44.4%,1.7% 38.9%,0.8% 33.3%,2.5% 27.8%,1.3% 22.2%,2.5% 16.7%,1.2% 11.1%,0.3% 5.6%)}
+
 </style>
 <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
@@ -1305,22 +1527,27 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
 </div>
 
 <div id="top"></div>
-<section class="pmh" aria-label="Porta Matera Versátil, el favorito de la semana">
+<section class="pmh pmh-cm" aria-label="Centros de mesa en vidrio, la línea de la semana">
   <div class="pmh-collage">
-    <figure class="pmh-f pmh-f1"><div class="pmh-ph"><picture><source srcset="img/porta-matera/porta-matera-04.webp" type="image/webp"><img src="img/porta-matera/porta-matera-04.jpg" width="1023" height="1537" fetchpriority="high" decoding="async" alt="Porta Matera Versátil en vidrio transparente con borde ondulado y una orquídea morada adentro, sobre telas color arena"></picture></div><figcaption><b>Transparente</b> · con orquídea</figcaption></figure>
-    <figure class="pmh-f pmh-f2"><div class="pmh-ph"><picture><source srcset="img/porta-matera/porta-matera-02.webp" type="image/webp"><img src="img/porta-matera/porta-matera-02.jpg" width="1189" height="1323" decoding="async" alt="Porta Matera en vidrio azul cobalto con un potos que cae por el borde"></picture></div><figcaption><b>Azul</b> · con potos</figcaption></figure>
-    <figure class="pmh-f pmh-f3"><div class="pmh-ph"><picture><source srcset="img/porta-matera/porta-matera-01.webp" type="image/webp"><img src="img/porta-matera/porta-matera-01.jpg" width="1023" height="1537" decoding="async" alt="Porta Matera en vidrio verde usada como champañera, con una botella entre el hielo"></picture></div><figcaption><b>Verde</b> · de champañera</figcaption></figure>
-    <figure class="pmh-f pmh-f4"><div class="pmh-ph"><picture><source srcset="img/porta-matera/porta-matera-03.webp" type="image/webp"><img src="img/porta-matera/porta-matera-03.jpg" width="1203" height="1307" decoding="async" alt="Porta Matera en vidrio gris humo con una orquídea blanca adentro"></picture></div><figcaption><b>Gris</b> · con orquídea blanca</figcaption></figure>
+    <span class="cr cr-tira t1" aria-hidden="true"></span>
+    <span class="cr cr-tira t2" aria-hidden="true"></span>
+    <div class="cr cr-diario" aria-hidden="true"><b>La mesa puesta</b><p>hecho a mano en Floridablanca</p><p>vidrio fundido a 800 °C, pieza por pieza, para el centro de la mesa: frutas, flores, el pan del domingo</p></div>
+    <span class="cr cr-rama" aria-hidden="true"><svg viewBox="0 0 40 90" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"><path d="M20 88C19 62 22 36 18 4"/><path d="M19.5 70c-6-3-10-8-11-14 6 1 10 6 11 14zM20 52c6-3 10-9 11-15-6 1-10 7-11 15zM19 36c-5-3-8-8-8-13 5 1 8 6 8 13zM18.6 20c4-3 6-7 6-11-4 1-6 5-6 11z"/><circle cx="18" cy="4" r="1.6"/><circle cx="24.6" cy="8.5" r="1.1"/></svg></span>
+    <span class="cr cr-estrella" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M50 3l13 31 34 3-26 22 8 34-29-18-29 18 8-34L3 37l34-3z" fill="#FBF6EE"/><path d="M50 13l10 24 26 2-20 17 6 26-22-14-22 14 6-26-20-17 26-2z" fill="#9C4A2F"/></svg></span>
+    <figure class="pmh-f pmh-f1"><div class="pmh-ph"><picture><source srcset="img/centro-mesa-ovalado-liso/centro-mesa-ovalado-liso-01.webp" type="image/webp"><img src="img/centro-mesa-ovalado-liso/centro-mesa-ovalado-liso-01.jpg" width="1400" height="2099" fetchpriority="high" decoding="async" alt="Centro de Mesa Oval en vidrio sobre una mesa de piedra, servido con peras, uvas y una piña"></picture></div><figcaption><b>Oval</b> · de frutero</figcaption></figure>
+    <figure class="pmh-f pmh-f2"><div class="pmh-ph"><picture><source srcset="img/centro-mesa-conico-mosaico/centro-mesa-conico-mosaico-05.webp" type="image/webp"><img src="img/centro-mesa-conico-mosaico/centro-mesa-conico-mosaico-05.jpg" width="800" height="1200" decoding="async" alt="Centros de Mesa Cónicos Mosaico en vidrio azul y verde sobre una mesa con mantel blanco en un jardín"></picture></div><figcaption><b>Cónico Mosaico</b> · mesa en el jardín</figcaption></figure>
+    <figure class="pmh-f pmh-f3"><div class="pmh-ph"><picture><source srcset="img/centro-mesa-ovalado-mosaico/centro-mesa-ovalado-mosaico-04.webp" type="image/webp"><img src="img/centro-mesa-ovalado-mosaico/centro-mesa-ovalado-mosaico-04.jpg" width="800" height="1200" decoding="async" alt="Centro de Mesa Oval Mosaico transparente con pasta servida y una mano sirviendo"></picture></div><figcaption><b>Oval Mosaico</b> · para servir</figcaption></figure>
+    <figure class="pmh-f pmh-f4"><div class="pmh-ph"><picture><source srcset="img/centro-mesa-folia/centro-mesa-folia-05.webp" type="image/webp"><img src="img/centro-mesa-folia/centro-mesa-folia-05.jpg" width="1600" height="2400" decoding="async" alt="Centro de Mesa Folia en vidrio gris con una orquídea rosada en el centro de una mesa"></picture></div><figcaption><b>Folia</b> · con orquídea</figcaption></figure>
   </div>
   <div class="pmh-texto">
-    <p class="pmh-sello">El favorito de <i>la semana</i></p>
-    <h1 class="pmh-title"><span>Porta</span> <span class="pmh-t2">Matera</span><em>Versátil</em><span class="sr-only"> · Felipe Vergel Arte en Vidrio, vitrofusión artesanal en Floridablanca, Colombia</span></h1>
-    <p class="pmh-copy">Abraza tu orquídea, enfría el champaña o recibe flores frescas. Una sola pieza de vidrio, hecha a mano, en cuatro colores.</p>
+    <p class="pmh-sello">La línea de <i>la semana</i></p>
+    <h1 class="pmh-title"><span>Centros</span> <span class="pmh-t2">de mesa</span><em>para reunir</em><span class="sr-only"> · Felipe Vergel Arte en Vidrio, vitrofusión artesanal en Floridablanca, Colombia</span></h1>
+    <p class="pmh-copy">Fruteros, ensaladeras y piezas para dejar en la mitad de la mesa. Vidrio fundido a mano en Floridablanca: cónicos, ovalados, redondos, cuadrados y en forma de hoja.</p>
     <div class="pmh-actions">
-      <a href="product.html?id=porta-matera" class="pmh-cta">Ver la porta matera <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
-      <a href="#catalogo" class="pmh-link" id="hjFloreros">Ver los porta plantas</a>
+      <a href="#centros" class="pmh-cta">Ver centros de mesa <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+      <a href="#catalogo" class="pmh-link" id="hjFloreros">Abrir el catálogo completo</a>
     </div>
-    <ul class="pmh-ficha" aria-label="Usos de la pieza"><li>Porta matera</li><li>Champañera</li><li>Hielera</li><li>Florero</li></ul>
+    <ul class="pmh-ficha" aria-label="Usos de la pieza"><li>Frutero</li><li>Ensaladera</li><li>Para servir</li><li>Pieza decorativa</li></ul>
   </div>
 </section>
 <section class="hero" id="heroPc">
@@ -1342,12 +1569,38 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
 <section class="colecciones" id="novedades">
   <div class="container">
     <div class="nov-head">
-      <span class="eyebrow">Colecciones</span>
-      <h2 class="h-display">Universos <span class="acc">en vidrio</span></h2>
-      <p>Obras creadas a mano en vitrofusión. Cada colección es un territorio propio de luz, color y materia.</p>
+      <span class="eyebrow">Colección principal</span>
+      <h2 class="h-display">Pensados <span class="acc">para reunir</span></h2>
+      <p>Un almuerzo largo, un cumpleaños, la cena con amigos o un regalo para una casa nueva: el centro de mesa se queda en la casa y se usa todos los días.</p>
     </div>
   </div>
   <div id="novGrid"></div>
+</section>
+
+<section class="cmx" id="centros" aria-labelledby="cmxT">
+  <div class="container">
+    <header class="cmx-head">
+      <p class="cmx-eyebrow" id="cmxResumen">Centros de mesa · hechos a mano</p>
+      <h2 class="cmx-title" id="cmxT">Elige la forma <em>de tu mesa</em></h2>
+      <p class="cmx-copy">Cada modelo sale del horno con su propia textura. Toca una forma para ver todos sus modelos, con medidas, colores y precio.</p>
+    </header>
+    <div class="cmx-formas" id="cmxFormas" role="group" aria-label="Filtrar por forma"></div>
+    <div class="cmx-grid" id="cmxGrid"></div>
+    <div class="cmx-foot">
+      <a href="#catalogo" class="cmx-todo" id="cmxCatalogo">Ver todos en el catálogo</a>
+      <p class="cmx-nota">¿Lo quieres de regalo o en otro color? Escríbenos por WhatsApp desde la ficha de cada pieza.</p>
+    </div>
+  </div>
+</section>
+
+<section class="col-otras" aria-labelledby="otrasT">
+  <div class="container">
+    <div class="otras-head">
+      <h2 id="otrasT">Más piezas <span>en vidrio</span></h2>
+      <p>Lámparas, porta plantas, floreros, bandejas y pedestales.</p>
+    </div>
+  </div>
+  <div id="novOtras"></div>
 </section>
 
 <section class="catalogo" id="catalogo">
@@ -2111,7 +2364,9 @@ function updateResultsBar(cat){
 
 function renderCircles(){
   let html="";
-  for(const [id,name] of CATEGORIES){
+  // Centros de mesa va primero en los circulos (el resto conserva su orden).
+  const ordenCats=[...CATEGORIES].sort((a,b)=>(b[0]==="centros-mesa")-(a[0]==="centros-mesa"));
+  for(const [id,name] of ordenCats){
     const sil=SILHOUETTES[id]||"";
     const n=PRODUCTS.filter(p=>p.cat===id&&!p.hidden).length;
     html+=`<div class="cat-circle ${activeCat===id?'active':''}" data-cat="${id}"><div class="circle-img">${sil?`<img src="${fvImg(sil)}" alt="${name}">`:`<span style="display:flex;align-items:center;justify-content:center;height:100%;font-size:10px;color:var(--tinta-soft)">${name}</span>`}</div><div class="circle-label">${name}<span class="cat-count">${n} pieza${n!==1?"s":""}</span></div></div>`;
@@ -2171,7 +2426,8 @@ function autoSelectCat(){
   const featured=['centros-mesa','floreros','bandejas','porta-plantas','solitarios'];
   const catIds=CATEGORIES.map(c=>c[0]);
   const saved=fvSesion.activeCat;
-  activeCat=(saved&&catIds.includes(saved))?saved:featured[Math.floor(Math.random()*featured.length)];
+  // Rediseno centros de mesa: si no hay categoria guardada en la sesion, abre centros de mesa.
+  activeCat=(saved&&catIds.includes(saved))?saved:featured[0];
   fvSesion.activeCat=activeCat;
   guardarSesion();
   const hint=document.getElementById("catHint");
@@ -2246,17 +2502,26 @@ function pickRandom(arr,n){
 }
 // Portadas cinematográficas de colección: foto, título, descripción y encuadre del efecto scroll
 const COLECCIONES=[
+  {cat:"centros-mesa", title:"Centros de Mesa",desc:"El corazón de la mesa: color, textura y luz fundidos a 800 °C.", tri:[["img/bandeja-folia-hoja/bandeja-folia-hoja-02.jpg","Centro de mesa Folia en el centro de un comedor con lámparas colgantes",1600,2400],["img/centro-mesa-ovalado-mosaico/centro-mesa-ovalado-mosaico-03.jpg","Centro de Mesa Oval Mosaico con girasoles sobre hojas secas",801,1200],["img/centro-mesa-conico/centro-mesa-conico-04.jpg","Centro de Mesa Cónico servido con ensalada",1400,2099]]},
   {cat:"porta-plantas",title:"Porta Plantas",  desc:"Piezas que abrazan lo vivo: vidrio y naturaleza en un mismo gesto.",                      img:"img/porta-matera/porta-matera-03.jpg",                               start:"50% 45%", focus:"50% 65%", zoom:"0.20"},
   {cat:"floreros",     title:"Floreros",       desc:"Vasijas esculturales donde las flores dialogan con la transparencia.",                    img:"img/florero-alto-irregular/florero-alto-irregular-03.jpg",           start:"50% 30%", focus:"50% 45%", zoom:"0.16"},
   {cat:"bandejas",     title:"Bandejas",       desc:"Hojas y vetas de vidrio que sostienen lo cotidiano y lo convierten en ceremonia.",        img:"img/bandeja-hoja-maxi-irregular/bandeja-hoja-maxi-irregular-02.jpg", start:"50% 50%", focus:"50% 55%", zoom:"0.18"},
-  {cat:"centros-mesa", title:"Centros de Mesa",desc:"El corazón de la mesa: color, textura y luz fundidos a 800 °C.",                          img:"img/centro-mesa-conico-mosaico/centro-mesa-conico-mosaico-05.jpg",   start:"50% 40%", focus:"50% 60%", zoom:"0.20"},
   {cat:"lamparas",     title:"Lámpara Caribe", desc:"Vidrio fundido que cae y florece. La luz atraviesa su textura como el mar bajo el sol.", img:"img/lamparas/lampara-01.jpg", start:"50% 40%", focus:"50% 44%", zoom:"0.14"},
   {cat:"pedestales",   title:"Pedestales",     desc:"Alturas que celebran: postres y pasabocas puestos en escena.",                            img:"img/porta-pasabocas-doble/porta-pasabocas-doble-01.jpg",             start:"50% 35%", focus:"50% 48%", zoom:"0.16"},
 ];
 function renderNovedades(){
   const nPiezas=cat=>PRODUCTS.filter(p=>p.cat===cat&&!p.hidden).length;
-  novGrid.innerHTML=COLECCIONES.map(c=>{
+  const html=COLECCIONES.map(c=>{
     const n=nPiezas(c.cat);
+    if(c.tri)return `<article class="col-panel col-tri" data-cat="${c.cat}">
+    <div class="tri-fotos">${c.tri.map((t,i)=>`<img src="${fvImg(t[0])}" alt="${t[1]}" width="${t[2]}" height="${t[3]}" loading="lazy" decoding="async" class="tri-${i}">`).join("")}</div>
+    <div class="col-overlay">
+      <span class="col-eyebrow">Colección · ${n} modelos</span>
+      <h3>${c.title}</h3>
+      <p>${c.desc}</p>
+      <button class="btn-descubrir" aria-label="Ver los ${n} centros de mesa">Ver los ${n} modelos</button>
+    </div>
+  </article>`;
     return `<article class="col-panel${c.novedad?' is-novedad':''}" data-cat="${c.cat}">
     <img src="${fvImg(c.img)}" alt="${c.title}" loading="lazy" data-start="${c.start}" data-focus="${c.focus}" data-zoom="${c.zoom}">
     <div class="col-overlay">
@@ -2265,8 +2530,14 @@ function renderNovedades(){
       <p>${c.desc}</p>
       <button class="btn-descubrir" aria-label="Descubrir ${c.title}">${c.novedad?"Quiero esta pieza":"Descubrir"}</button>
     </div>
-  </article>`}).join("");
-  $$(".col-panel").forEach(c=>c.onclick=()=>abrirColeccion(c.dataset.cat));
+  </article>`});
+  novGrid.innerHTML=html[0];
+  const otras=document.getElementById("novOtras");
+  if(otras)otras.innerHTML=html.slice(1).join("");else novGrid.innerHTML=html.join("");
+  $$(".col-panel").forEach(c=>c.onclick=()=>{
+    if(c.dataset.cat==="centros-mesa"){const t=document.getElementById("centros");if(t){t.scrollIntoView({behavior:"smooth"});return;}}
+    abrirColeccion(c.dataset.cat);
+  });
   initFotoFocus();
 }
 // Abre la categoría en el catálogo (reutiliza la lógica de los círculos)
@@ -2639,12 +2910,12 @@ document.addEventListener("click",function(e){
 })();
 </script>
 <script>
-// PORTADA: "Ver los porta plantas" abre la coleccion en el catalogo.
+// PORTADA: "Abrir el catalogo completo" abre centros de mesa en el catalogo.
 (function(){
   var ver=document.getElementById("hjFloreros");
   if(ver)ver.addEventListener("click",function(e){
     if(typeof abrirColeccion!=="function")return;
-    e.preventDefault();abrirColeccion("porta-plantas");
+    e.preventDefault();abrirColeccion("centros-mesa");
   });
   // Profundidad del collage con el mouse: solo puntero fino y sin movimiento reducido.
   var pm=document.querySelector(".pmh");
@@ -2657,6 +2928,83 @@ document.addEventListener("click",function(e){
   });
   pm.addEventListener("pointerleave",function(){pm.style.setProperty("--mx","0");pm.style.setProperty("--my","0");
   });
+})();
+</script>
+<script>
+// CENTROS DE MESA: seccion propia del home. Todo sale de products.js
+// (categoria centros-mesa): nombre, medida, colores y precio reales.
+(function(){
+  var grid=document.getElementById("cmxGrid"),formasEl=document.getElementById("cmxFormas");
+  if(!grid||typeof PRODUCTS==="undefined")return;
+  var img=typeof fvImg==="function"?fvImg:function(s){return s};
+  var precio=function(n){return "$"+n.toLocaleString("es-CO")};
+  var todos=PRODUCTS.filter(function(p){return p.cat==="centros-mesa"&&!p.hidden});
+  // Forma segun el id del modelo (redondos: Mosaico, Marea y Folia miden por diametro).
+  var FORMAS=[
+    ["conica","Cónicos",function(p){return /conico/.test(p.id)}],
+    ["oval","Ovalados",function(p){return /ovalado/.test(p.id)}],
+    ["redonda","Redondos",function(p){return /redondo|marea|centro-mesa-folia/.test(p.id)}],
+    ["cuadrada","Cuadrado",function(p){return /cuadrado/.test(p.id)}],
+    ["hoja","Hojas",function(p){return /hoja/.test(p.id)}]
+  ];
+  var formaDe=function(p){for(var i=0;i<FORMAS.length;i++)if(FORMAS[i][2](p))return FORMAS[i];return null};
+  // Seleccion de la portada de la seccion: una pieza por forma y textura.
+  var DESTACADOS=["centro-mesa-marea","centro-mesa-ovalado-franjas","centro-mesa-conico-mosaico","bandeja-folia-hoja","centro-mesa-cuadrado-mosaico","centro-mesa-redondo-mosaico","centro-mesa-ovalado-hojas","centro-mesa-conico-degrade"];
+  var porId={};todos.forEach(function(p){porId[p.id]=p});
+  var destacados=DESTACADOS.map(function(id){return porId[id]}).filter(Boolean);
+  var minimo=function(l){return Math.min.apply(null,l.map(function(p){return p.price}))};
+  var vendidos={};try{vendidos=JSON.parse(localStorage.getItem("fv_sold_out")||"{}")||{}}catch(e){}
+
+  var resumen=document.getElementById("cmxResumen");
+  if(resumen&&todos.length)resumen.textContent=todos.length+" modelos · desde "+precio(minimo(todos));
+
+  // Medida corta para la tarjeta (la completa queda en la ficha).
+  function medida(s){
+    s=s.replace(/\s*\(aprox\)/i,"");
+    var m=s.match(/Di[aá]metro(?: sup\.)? (\d+) cm.*?(\d+) cm alto/i);
+    if(m)return "Ø "+m[1]+" cm · "+m[2]+" cm alto";
+    m=s.match(/^(\d+)(?: cm largo)? × (\d+) cm(?: ancho)?(?: × (\d+) cm alto)?/);
+    if(m)return m[1]+" × "+m[2]+" cm"+(m[3]?" · "+m[3]+" cm alto":"");
+    return s;
+  }
+  function tarjeta(p,vista){
+    var f=formaDe(p),c=p.colors||[],agotado=!!vendidos[p.id];
+    var src=p.images[vista?vista.i:0];
+    return '<a class="cmx-card" href="product.html?id='+encodeURIComponent(p.id)+'" data-id="'+p.id+'">'+
+      '<span class="cmx-foto"><img src="'+img(src)+'" alt="'+p.name+'" width="800" height="1200" loading="lazy" decoding="async"></span>'+
+      '<span class="cmx-info">'+
+        '<span class="cmx-forma">'+(f?f[1].replace(/s$/,"").replace(/le$/,"l"):"")+(p.size?' · '+medida(p.size):"")+'</span>'+
+        '<span class="cmx-nombre">'+p.name.replace(/^Centro de Mesa /,"")+(vista?' <i>· '+vista.color+'</i>':'')+'</span>'+
+        (c.length?'<span class="cmx-colores">'+(c.length===1?"1 color: ":c.length+" colores: ")+c.join(", ")+'</span>':'')+
+        '<span class="cmx-pie"><span class="cmx-precio">'+(agotado?"Agotado":precio(p.price))+'</span><span class="cmx-ver">Ver la pieza</span></span>'+
+      '</span></a>';
+  }
+  var actual="destacados";
+  function pintar(){
+    var lista=actual==="destacados"?destacados:todos.filter(function(p){var f=formaDe(p);return f&&f[0]===actual}).sort(function(a,b){return a.price-b.price});
+    // Forma con un solo modelo: se muestran sus fotos (colores y vistas) para no dejar la fila vacia.
+    if(lista.length===1){
+      var p=lista[0],ci=p.colorImages||{},porImg={};
+      Object.keys(ci).forEach(function(k){porImg[ci[k]]=k});
+      grid.innerHTML=p.images.slice(0,4).map(function(_,i){return tarjeta(p,{i:i,color:porImg[i]||"otra vista"})}).join("");
+    }else grid.innerHTML=lista.map(function(p){return tarjeta(p)}).join("");
+    grid.classList.toggle("pocos",grid.children.length<4);
+    Array.prototype.forEach.call(formasEl.querySelectorAll("button"),function(b){b.setAttribute("aria-pressed",b.dataset.forma===actual?"true":"false")});
+    Array.prototype.forEach.call(grid.querySelectorAll(".cmx-card"),function(a){a.addEventListener("click",function(){if(typeof guardarPiezaParaDestino==="function")guardarPiezaParaDestino(a.dataset.id)})});
+  }
+  var botones='<button type="button" data-forma="destacados"><b>Los favoritos</b><small>'+destacados.length+' modelos</small></button>';
+  FORMAS.forEach(function(f){
+    var l=todos.filter(function(p){return formaDe(p)===f});if(!l.length)return;
+    botones+='<button type="button" data-forma="'+f[0]+'"><b>'+(l.length===1?f[1]:f[1])+'</b><small>'+l.length+(l.length===1?" modelo":" modelos")+' · desde '+precio(minimo(l))+'</small></button>';
+  });
+  formasEl.innerHTML=botones;
+  formasEl.addEventListener("click",function(e){
+    var b=e.target.closest&&e.target.closest("button[data-forma]");if(!b)return;
+    actual=b.dataset.forma;pintar();
+  });
+  pintar();
+  var cat=document.getElementById("cmxCatalogo");
+  if(cat)cat.addEventListener("click",function(e){if(typeof abrirColeccion!=="function")return;e.preventDefault();abrirColeccion("centros-mesa")});
 })();
 </script>
 </body>
