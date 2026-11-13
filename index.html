@@ -989,7 +989,7 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
      cubre todo el hero; el video va grande, a toda la altura, y el texto a su lado. */
   .hjv{background:#E6D8C8;--hj-vh:calc(var(--vh-fijo,100svh) - 72px);--hj-izq:max(24px,calc((100vw - var(--hj-vh)*.6656 - clamp(32px,5vw,110px) - 600px)/2))}
   .hj-foto{position:absolute;inset:0;height:auto;width:auto;max-width:none;min-height:0;margin:0;border-radius:0;box-shadow:none;background:#E6D8C8}
-  .hj-foto::before{display:block;top:-80px;bottom:-80px;left:-80px;right:-80px;height:auto;z-index:0;background:url(img/porta-matera/porta-matera-04.jpg) 50% 50%/cover no-repeat;filter:blur(60px) saturate(.75);opacity:.85}
+  .hj-foto::before{display:block;top:-80px;bottom:-80px;left:-80px;right:-80px;height:auto;z-index:0;background:url(img/porta-matera/porta-matera-08.jpg) 50% 50%/cover no-repeat;filter:blur(60px) saturate(.75);opacity:.85}
   .hj-marco{position:absolute;z-index:1;left:var(--hj-izq);top:72px;transform:none;height:var(--hj-vh);width:auto;aspect-ratio:1023/1537;max-width:none;
     -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent),linear-gradient(180deg,transparent,#000 5%,#000 92%,transparent);-webkit-mask-composite:source-in;
     mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent),linear-gradient(180deg,transparent,#000 5%,#000 92%,transparent);mask-composite:intersect}
@@ -1030,7 +1030,7 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
 @media(max-width:699px){
   .hjv{display:block;height:var(--vh-fijo,100svh);min-height:520px;background:#E6D8C8}
   .hj-foto{position:absolute;inset:0;height:auto;min-height:0;background:#E6D8C8}
-  .hj-foto::before{top:-40px;bottom:-40px;left:-40px;right:-40px;height:auto;z-index:0;background:url(img/porta-matera/porta-matera-04.jpg) 50% 30%/cover no-repeat;filter:blur(40px) saturate(.75);opacity:.85}
+  .hj-foto::before{top:-40px;bottom:-40px;left:-40px;right:-40px;height:auto;z-index:0;background:url(img/porta-matera/porta-matera-08.jpg) 50% 30%/cover no-repeat;filter:blur(40px) saturate(.75);opacity:.85}
   .hj-foto::after{bottom:0;height:min(40%,340px);z-index:3;background:linear-gradient(0deg,rgba(14,30,24,.97) 0%,rgba(18,38,30,.93) 55%,rgba(31,61,50,.5) 80%,rgba(31,61,50,0) 100%)}
   .hj-marco{position:absolute;z-index:1;left:50%;top:0;transform:translateX(-50%);width:auto;height:min(150.2vw,calc(var(--vh-fijo,100svh) - 236px));aspect-ratio:1023/1537;max-width:100%;
     -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent),linear-gradient(180deg,#000 80%,transparent);-webkit-mask-composite:source-in;
@@ -2503,7 +2503,7 @@ function pickRandom(arr,n){
 // Portadas cinematográficas de colección: foto, título, descripción y encuadre del efecto scroll
 const COLECCIONES=[
   {cat:"centros-mesa", title:"Centros de Mesa",desc:"El corazón de la mesa: color, textura y luz fundidos a 800 °C.", tri:[["img/bandeja-folia-hoja/bandeja-folia-hoja-02.jpg","Centro de mesa Folia en el centro de un comedor con lámparas colgantes",1600,2400],["img/centro-mesa-ovalado-mosaico/centro-mesa-ovalado-mosaico-03.jpg","Centro de Mesa Oval Mosaico con girasoles sobre hojas secas",801,1200],["img/centro-mesa-conico/centro-mesa-conico-04.jpg","Centro de Mesa Cónico servido con ensalada",1400,2099]]},
-  {cat:"porta-plantas",title:"Porta Plantas",  desc:"Piezas que abrazan lo vivo: vidrio y naturaleza en un mismo gesto.",                      img:"img/porta-matera/porta-matera-03.jpg",                               start:"50% 45%", focus:"50% 65%", zoom:"0.20"},
+  {cat:"porta-plantas",title:"Porta Plantas",  desc:"Piezas que abrazan lo vivo: vidrio y naturaleza en un mismo gesto.",                      img:"img/porta-matera/porta-matera-07.jpg",                               start:"50% 45%", focus:"50% 65%", zoom:"0.20"},
   {cat:"floreros",     title:"Floreros",       desc:"Vasijas esculturales donde las flores dialogan con la transparencia.",                    img:"img/florero-alto-irregular/florero-alto-irregular-03.jpg",           start:"50% 30%", focus:"50% 45%", zoom:"0.16"},
   {cat:"bandejas",     title:"Bandejas",       desc:"Hojas y vetas de vidrio que sostienen lo cotidiano y lo convierten en ceremonia.",        img:"img/bandeja-hoja-maxi-irregular/bandeja-hoja-maxi-irregular-02.jpg", start:"50% 50%", focus:"50% 55%", zoom:"0.18"},
   {cat:"lamparas",     title:"Lámpara Caribe", desc:"Vidrio fundido que cae y florece. La luz atraviesa su textura como el mar bajo el sol.", img:"img/lamparas/lampara-01.jpg", start:"50% 40%", focus:"50% 44%", zoom:"0.14"},
@@ -2939,11 +2939,12 @@ document.addEventListener("click",function(e){
   var img=typeof fvImg==="function"?fvImg:function(s){return s};
   var precio=function(n){return "$"+n.toLocaleString("es-CO")};
   var todos=PRODUCTS.filter(function(p){return p.cat==="centros-mesa"&&!p.hidden});
-  // Forma segun el id del modelo (redondos: Mosaico, Marea y Folia miden por diametro).
+  // Forma segun el id del modelo (redondos: Mosaico, Marea, Folia y Huella miden por diametro;
+  // la Batea Pliegues, 68 x 58 cm, va con los ovalados).
   var FORMAS=[
     ["conica","Cónicos",function(p){return /conico/.test(p.id)}],
-    ["oval","Ovalados",function(p){return /ovalado/.test(p.id)}],
-    ["redonda","Redondos",function(p){return /redondo|marea|centro-mesa-folia/.test(p.id)}],
+    ["oval","Ovalados",function(p){return /ovalado|batea/.test(p.id)}],
+    ["redonda","Redondos",function(p){return /redondo|marea|centro-mesa-folia|huella/.test(p.id)}],
     ["cuadrada","Cuadrado",function(p){return /cuadrado/.test(p.id)}],
     ["hoja","Hojas",function(p){return /hoja/.test(p.id)}]
   ];

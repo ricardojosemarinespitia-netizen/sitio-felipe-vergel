@@ -525,7 +525,8 @@ const PRODUCTS=[
       "Gris",
       "Azul",
       "Verde",
-      "Dorado"
+      "Dorado",
+      "Ámbar"
     ],
     "uses": "Flores, hojas.",
     "images": [
@@ -534,7 +535,8 @@ const PRODUCTS=[
       "img/florero-triptico/florero-triptico-03.jpg?v=4",
       "img/florero-triptico/florero-triptico-04.jpg?v=4",
       "img/florero-triptico/florero-triptico-05.jpg?v=4",
-      "img/florero-triptico/florero-triptico-06.jpg?v=4"
+      "img/florero-triptico/florero-triptico-06.jpg?v=4",
+      "img/florero-triptico/florero-triptico-07.jpg?v=1"
     ],
     "colorImages": {
       "Transparente": 0,
@@ -542,7 +544,8 @@ const PRODUCTS=[
       "Gris": 2,
       "Azul": 3,
       "Verde": 4,
-      "Dorado": 5
+      "Dorado": 5,
+      "Ámbar": 6
     }
   },
   {
@@ -558,7 +561,8 @@ const PRODUCTS=[
       "Azul",
       "Gris",
       "Transparente",
-      "Oro Rosa"
+      "Oro Rosa",
+      "Ámbar"
     ],
     "uses": "Florero, objeto decorativo.",
     "images": [
@@ -566,14 +570,16 @@ const PRODUCTS=[
       "img/florero-alto-irregular/florero-alto-irregular-02.jpg?v=4",
       "img/florero-alto-irregular/florero-alto-irregular-03.jpg?v=4",
       "img/florero-alto-irregular/florero-alto-irregular-04.jpg?v=4",
-      "img/florero-alto-irregular/florero-alto-irregular-05.jpg?v=2"
+      "img/florero-alto-irregular/florero-alto-irregular-05.jpg?v=2",
+      "img/florero-alto-irregular/florero-alto-irregular-06.jpg?v=1"
     ],
     "colorImages": {
       "Verde": 0,
       "Transparente": 1,
       "Azul": 2,
       "Gris": 3,
-      "Oro Rosa": 4
+      "Oro Rosa": 4,
+      "Ámbar": 5
     }
   },
   {
@@ -887,7 +893,7 @@ const PRODUCTS=[
     "sku": "PPN-001",
     "cat": "porta-plantas",
     "name": "Porta Plantas Individual",
-    "price": 98000,
+    "price": 108000,
     "size": "13 cm alto × 14 cm diámetro sup. × 9 cm diámetro inf. (aprox)",
     "materials": "Vidrio — vitrofusión",
     "colors": [
@@ -977,21 +983,28 @@ const PRODUCTS=[
       "Verde",
       "Azul",
       "Gris",
-      "Transparente"
+      "Transparente",
+      "Gris y dorado"
     ],
     "uses": "Florero, champañera, hielera, porta matera.",
     "images": [
-      "img/porta-matera/porta-matera-01.jpg?v=3",
-      "img/porta-matera/porta-matera-02.jpg?v=3",
-      "img/porta-matera/porta-matera-03.jpg?v=3",
-      "img/porta-matera/porta-matera-04.jpg?v=3",
-      "img/porta-matera/porta-matera-05.jpg?v=3"
+      "img/porta-matera/porta-matera-01.jpg?v=4",
+      "img/porta-matera/porta-matera-02.jpg?v=4",
+      "img/porta-matera/porta-matera-03.jpg?v=4",
+      "img/porta-matera/porta-matera-04.jpg?v=4",
+      "img/porta-matera/porta-matera-05.jpg?v=4",
+      "img/porta-matera/porta-matera-06.jpg?v=4",
+      "img/porta-matera/porta-matera-07.jpg?v=4",
+      "img/porta-matera/porta-matera-08.jpg?v=4",
+      "img/porta-matera/porta-matera-09.jpg?v=4",
+      "img/porta-matera/porta-matera-10.jpg?v=4"
     ],
     "colorImages": {
       "Verde": 0,
       "Azul": 1,
-      "Gris": 2,
-      "Transparente": 3
+      "Gris": 6,
+      "Transparente": 2,
+      "Gris y dorado": 3
     }
   },
   {
@@ -1312,6 +1325,125 @@ const PRODUCTS=[
       "Transparente": 6,
       "Verde agua": 3,
       "Verde": 4
+    }
+  },
+  {
+    "id": "centro-mesa-huella",
+    "sku": "CEN-018",
+    "cat": "centros-mesa",
+    "name": "Centro de Mesa Huella",
+    "price": 190000,
+    "size": "Diámetro sup. 34 cm × 11 cm alto",
+    "materials": "Vidrio — vitrofusión",
+    "colors": [
+      "Verde agua",
+      "Ámbar"
+    ],
+    "uses": "Frutero, centro de mesa, objeto de diseño decorativo.",
+    "images": [
+      "img/centro-mesa-huella/centro-mesa-huella-01.jpg?v=1",
+      "img/centro-mesa-huella/centro-mesa-huella-02.jpg?v=1",
+      "img/centro-mesa-huella/centro-mesa-huella-03.jpg?v=1",
+      "img/centro-mesa-huella/centro-mesa-huella-04.jpg?v=1",
+      "img/centro-mesa-huella/centro-mesa-huella-05.jpg?v=1"
+    ],
+    "colorImages": {
+      "Verde agua": 0,
+      "Ámbar": 1
+    }
+  },
+  {
+    "id": "centro-mesa-huella-xl",
+    "sku": "CEN-019",
+    "cat": "centros-mesa",
+    "name": "Centro de Mesa Huella XL",
+    "price": 310000,
+    "size": "Diámetro sup. 42 cm × 12 cm alto",
+    "materials": "Vidrio — vitrofusión",
+    "colors": [
+      "Verde agua",
+      "Ámbar"
+    ],
+    "uses": "Frutero, centro de mesa, objeto de diseño decorativo.",
+    "images": [
+      "img/centro-mesa-huella-xl/centro-mesa-huella-xl-01.jpg?v=1",
+      "img/centro-mesa-huella-xl/centro-mesa-huella-xl-02.jpg?v=1",
+      "img/centro-mesa-huella-xl/centro-mesa-huella-xl-03.jpg?v=1",
+      "img/centro-mesa-huella-xl/centro-mesa-huella-xl-04.jpg?v=1",
+      "img/centro-mesa-huella-xl/centro-mesa-huella-xl-05.jpg?v=1"
+    ],
+    "colorImages": {
+      "Verde agua": 0,
+      "Ámbar": 1
+    }
+  },
+  {
+    "id": "batea-pliegues",
+    "sku": "CEN-020",
+    "cat": "centros-mesa",
+    "name": "Batea Pliegues",
+    "price": 410000,
+    "size": "68 cm largo × 58 cm ancho × 5 cm alto",
+    "materials": "Vidrio — vitrofusión",
+    "colors": [
+      "Verde agua",
+      "Ámbar"
+    ],
+    "uses": "Centro de mesa, frutero, pieza decorativa.",
+    "images": [
+      "img/batea-pliegues/batea-pliegues-01.jpg?v=1",
+      "img/batea-pliegues/batea-pliegues-02.jpg?v=1",
+      "img/batea-pliegues/batea-pliegues-03.jpg?v=1",
+      "img/batea-pliegues/batea-pliegues-04.jpg?v=1",
+      "img/batea-pliegues/batea-pliegues-05.jpg?v=1"
+    ],
+    "colorImages": {
+      "Verde agua": 0,
+      "Ámbar": 1
+    }
+  },
+  {
+    "id": "lampara-triada",
+    "sku": "LAM-007",
+    "cat": "lamparas",
+    "name": "Lámpara Triada",
+    "price": 1970000,
+    "size": "Diámetro sup. 52 cm × 38 cm alto · piezas de vidrio de 16 cm alto × 8 cm ancho",
+    "materials": "Vidrio — vitrofusión",
+    "colors": [
+      "Ámbar"
+    ],
+    "uses": "Luz colgante de autor para comedor, sala o un rincón especial.",
+    "images": [
+      "img/lampara-triada/lampara-triada-01.jpg?v=1",
+      "img/lampara-triada/lampara-triada-02.jpg?v=1",
+      "img/lampara-triada/lampara-triada-03.jpg?v=1"
+    ],
+    "colorImages": {
+      "Ámbar": 0
+    }
+  },
+  {
+    "id": "candelabro-arco",
+    "sku": "PED-003",
+    "cat": "pedestales",
+    "name": "Candelabro Arco",
+    "price": 98000,
+    "size": "28 cm largo × 9 cm alto × 14 cm fondo",
+    "materials": "Vidrio — vitrofusión",
+    "colors": [
+      "Ámbar"
+    ],
+    "uses": "Porta vela para la mesa o un rincón especial. Precio por unidad.",
+    "images": [
+      "img/candelabro-arco/candelabro-arco-01.jpg?v=1",
+      "img/candelabro-arco/candelabro-arco-02.jpg?v=1",
+      "img/candelabro-arco/candelabro-arco-03.jpg?v=1",
+      "img/candelabro-arco/candelabro-arco-04.jpg?v=1",
+      "img/candelabro-arco/candelabro-arco-05.jpg?v=1"
+    ],
+    "colorImages": {
+      "Ámbar": 0
     }
   }
 ];
