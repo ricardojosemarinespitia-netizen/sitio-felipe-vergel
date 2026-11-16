@@ -154,6 +154,11 @@ window.fvImg=(function(){
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Jost:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<!-- Hero Candelabro Arco: la foto es el LCP, se pide antes que los scripts del head. -->
+<link rel="preload" as="image" type="image/webp" media="(min-aspect-ratio: 2301/2000)" imagesrcset="img/candelabro-arco/candelabro-arco-04-800.webp 800w, img/candelabro-arco/candelabro-arco-04.webp 1536w" imagesizes="100vw" fetchpriority="high">
+<link rel="preload" as="image" type="image/webp" media="(max-aspect-ratio: 23/20)" imagesrcset="img/candelabro-arco/candelabro-arco-hero-vertical-720.webp 720w, img/candelabro-arco/candelabro-arco-hero-vertical.webp 1080w" imagesizes="100vw" fetchpriority="high">
+<!-- Letra del nombre en el hero (Bodoni Moda cursiva, subconjunto de 1.8 KB, local). -->
+<link rel="preload" href="fonts/bodoni-moda-italic-600-candelabro.woff2" as="font" type="font/woff2" crossorigin>
 <!-- EmailJS para Club de Descuentos -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <!-- Google Sign-In (para login del Club, opcional) -->
@@ -1434,6 +1439,209 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
 .pmh-cm .cr-tira{clip-path:polygon(0.0% 0.2%,7.1% 4.8%,14.3% 0.6%,21.4% 3.2%,28.6% 5.0%,35.7% 3.0%,42.9% 3.3%,50.0% 0.3%,57.1% 2.3%,64.3% 0.6%,71.4% 1.7%,78.6% 0.2%,85.7% 0.6%,92.9% 2.8%,98.8% 0.0%,99.8% 5.6%,99.2% 11.1%,99.3% 16.7%,99.2% 22.2%,100.0% 27.8%,99.8% 33.3%,99.2% 38.9%,98.8% 44.4%,99.8% 50.0%,99.7% 55.6%,100.0% 61.1%,100.0% 66.7%,99.4% 72.2%,99.9% 77.8%,99.9% 83.3%,99.9% 88.9%,98.7% 94.4%,100.0% 98.0%,92.9% 96.2%,85.7% 95.6%,78.6% 97.6%,71.4% 99.4%,64.3% 95.6%,57.1% 96.6%,50.0% 96.4%,42.9% 96.2%,35.7% 99.4%,28.6% 95.7%,21.4% 97.4%,14.3% 95.7%,7.1% 98.3%,0.9% 100.0%,1.2% 94.4%,1.0% 88.9%,0.6% 83.3%,0.5% 77.8%,1.1% 72.2%,1.1% 66.7%,1.4% 61.1%,0.8% 55.6%,1.4% 50.0%,0.3% 44.4%,0.0% 38.9%,1.5% 33.3%,1.0% 27.8%,1.0% 22.2%,0.2% 16.7%,0.0% 11.1%,0.5% 5.6%)}
 .pmh-cm .cr-diario{clip-path:polygon(0.0% 0.7%,7.1% 0.4%,14.3% 0.5%,21.4% 1.2%,28.6% 0.1%,35.7% 0.1%,42.9% 1.2%,50.0% 0.4%,57.1% 0.3%,64.3% 0.0%,71.4% 1.0%,78.6% 1.2%,85.7% 0.7%,92.9% 1.1%,98.1% 0.0%,98.9% 5.6%,97.8% 11.1%,98.7% 16.7%,98.9% 22.2%,98.2% 27.8%,99.6% 33.3%,98.0% 38.9%,98.5% 44.4%,98.8% 50.0%,98.3% 55.6%,98.0% 61.1%,99.7% 66.7%,99.0% 72.2%,98.0% 77.8%,97.9% 83.3%,99.1% 88.9%,99.6% 94.4%,100.0% 99.0%,92.9% 98.9%,85.7% 99.7%,78.6% 99.3%,71.4% 99.0%,64.3% 99.1%,57.1% 99.0%,50.0% 99.1%,42.9% 99.9%,35.7% 99.6%,28.6% 99.9%,21.4% 99.0%,14.3% 99.4%,7.1% 99.1%,0.1% 100.0%,1.4% 94.4%,2.0% 88.9%,1.8% 83.3%,2.3% 77.8%,1.6% 72.2%,1.0% 66.7%,1.0% 61.1%,1.3% 55.6%,1.1% 50.0%,0.0% 44.4%,1.7% 38.9%,0.8% 33.3%,2.5% 27.8%,1.3% 22.2%,2.5% 16.7%,1.2% 11.1%,0.3% 5.6%)}
 
+/* =====================================================================
+   HERO CANDELABRO ARCO v2 (producto nuevo). Una sola foto fija y tres
+   capas alineadas pixel a pixel dentro de .hc-escena (caja 3:2 de la foto):
+     1. .hc-fondo   la foto completa (candelabro-arco-04, 1536x1024)
+     2. .hc-velo    marron que oscurece la franja de arriba (sillas y marmol)
+        .hc-title  "Candelabro Arco" en Cormorant, encima del velo
+     3. .hc-piezas  recorte con alfa de los dos arcos y las velas
+        (candelabro-arco-04-piezas.webp, caja x 69-1459, y 290-745 de la
+        foto), que tapa la base de algunas letras: el nombre queda POR
+        DETRAS de las velas y del borde del vidrio, sin dejar de leerse.
+   Todo se mide en cqw de la escena, asi la relacion letras/velas es la
+   misma en cualquier pantalla. La linea base del titulo va al 33 % del
+   alto de la foto; las velas empiezan al 28.5 %: tapan ~1/3 de la altura
+   de las letras que caen sobre ellas.
+   Orden de lectura (pedido de Ricardo): "Candelabro" gigante (la palabra
+   entrelazada con las velas), "Arco" mas pequeno debajo de las piezas, la
+   etiqueta "Nuevo producto" y los dos botones. Nada mas: sin precio ni frase.
+   Composiciones (ninguna recorta las piezas):
+   - vertical (base): foto a todo el ancho con "Candelabro" cruzando por
+     detras de las velas / "Arco" / etiqueta / botones.
+   - apaisado alto (>=700px, >=23:20, >=541px de alto): foto a pantalla
+     completa con el titulo en una linea; si la pantalla es mas ancha que
+     1.85:1 la foto se limita a 1.85 x alto y se funde por los lados.
+   - apaisado bajo (celular acostado): texto a la izquierda, foto a la derecha.
+   Solo tokens: --verde-dark, --verde, --crema, --crema-rosa. Sin verde.
+   Entrada: el nombre aparece y luego las piezas "pasan" por encima
+   (el recorte entra de 0 a 1 de opacidad: las velas se encienden). */
+.hc{--hc-m:43,33,27;--hc-t:156,74,47;--hc-x:20px;--hc-nav:64px;
+  container-type:inline-size;position:relative;box-sizing:border-box;min-height:var(--vh-fijo,100svh);overflow:hidden;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:calc(var(--hc-nav) + var(--e-3)) 0 calc(var(--e-5) + env(safe-area-inset-bottom));
+  background:radial-gradient(90% 45% at 0% 100%,rgba(var(--hc-t),.34),rgba(var(--hc-t),0) 70%),radial-gradient(70% 35% at 100% 0%,rgba(var(--hc-t),.16),rgba(var(--hc-t),0) 70%),var(--verde-dark);
+  color:var(--crema)}
+/* escena: caja exacta de la foto. --fs tamano del titulo, --ln lineas,
+   --base linea inferior de la caja del titulo (33 % de 66.667cqw). */
+.hc-escena{--fs:20.5cqw;--base:20.6cqw;--ttop:calc(var(--base) - .8*var(--fs));
+  container-type:inline-size;position:relative;z-index:1;flex:none;width:100%;aspect-ratio:3/2;margin-top:var(--e-2)}
+.hc-fondo,.hc-fondo img{position:absolute;inset:0;display:block;width:100%;height:100%}
+.hc-velo{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(var(--hc-m),.94) 0%,rgba(var(--hc-m),.8) 20%,rgba(var(--hc-m),.5) 32%,rgba(var(--hc-m),0) 46%),
+    linear-gradient(0deg,rgba(var(--hc-m),.6) 0%,rgba(var(--hc-m),0) 14%)}
+.hc-label{margin:var(--e-2) 0 0;display:flex;align-items:center;gap:var(--e-3);
+  font-family:'Jost',sans-serif;font-weight:400;font-size:var(--t-2xs);letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--crema-rosa);white-space:nowrap}
+/* v4: "Candelabro" en Bodoni Moda cursiva 600 (SIL OFL 1.1), instancia fija
+   opsz 96 y subconjunto con solo las letras de "Candelabro Arco"
+   (fonts/bodoni-moda-italic-600-candelabro.woff2, 1.8 KB). Relleno ambar-oro
+   recortado al texto, contorno crema finisimo, sombra calida con filter
+   (text-shadow se veria a traves del relleno transparente) y un brillo de
+   vidrio (.hc-brillo) que cruza una sola vez. La caja lleva relleno arriba y
+   a la derecha para que el degradado alcance ascendentes y la cursiva. */
+@font-face{font-family:'Bodoni Candelabro';src:url(fonts/bodoni-moda-italic-600-candelabro.woff2) format('woff2');font-style:italic;font-weight:600;font-display:swap}
+/* misma letra en tamano optico 28 (trazos finos mas gruesos): para "Arco" y para el titulo en celular */
+@font-face{font-family:'Bodoni Candelabro Texto';src:url(fonts/bodoni-moda-italic-600-opsz28-candelabro.woff2) format('woff2');font-style:italic;font-weight:600;font-display:swap}
+.hc{--hc-oro:linear-gradient(180deg,#F3D9A0 0%,#E6B865 34%,#C98A2B 60%,#8A4A1B 100%)}
+/* v5 CAPAS ENTRETEJIDAS. El nombre se dibuja tres veces, identico y en el
+   mismo sitio (.hc-capa-atras / -medio / -frente); cada copia solo muestra
+   sus letras (visibility), asi cada letra vive en un nivel:
+     foto > velo > [atras] > .hc-vidrio > [medio] > .hc-velas > [frente]
+   Las letras de una copia que no le tocan conservan su espacio, por eso las
+   tres coinciden al pixel. Reparto (clases d-* horizontal, m-* vertical):
+   at = detras del vidrio, me = sobre el vidrio y bajo la vela (la vela la
+   corta), fr = delante de todo. Regla: ninguna letra tapada mas de ~40 % de
+   su altura; la llama nunca queda debajo de una letra. */
+.hc-title{position:absolute;left:4.6%;top:var(--ttop);margin:-.24em 0 0;padding:.24em .16em .1em 0;
+  font-family:'Bodoni Candelabro','Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:var(--fs);line-height:.8;letter-spacing:-.012em;white-space:nowrap;
+  -webkit-text-stroke:.6px rgba(244,238,227,.55);filter:drop-shadow(0 3px 12px rgba(60,30,10,.5));pointer-events:none}
+.hc-capa-atras{z-index:2}.hc-capa-medio{z-index:4}.hc-capa-frente{z-index:6}
+p.hc-title{margin-bottom:0}
+.hc-letras i{font-style:inherit;visibility:hidden;background:var(--hc-oro);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.hc-letras i.cap{font-size:1.16em;letter-spacing:-.02em}
+@media(min-aspect-ratio:2301/2000){
+  .hc-capa-atras i.d-at,.hc-capa-medio i.d-me,.hc-capa-frente i.d-fr{visibility:visible}
+}
+@media(max-aspect-ratio:23/20){
+  .hc-capa-atras i.m-at,.hc-capa-medio i.m-me,.hc-capa-frente i.m-fr{visibility:visible}
+}
+/* brillo de vidrio: solo sobre las letras de la capa frontal, cruza una vez */
+.hc-brillo{position:absolute;inset:0;padding:inherit}
+.hc-brillo i{background:linear-gradient(105deg,rgba(255,248,232,0) 38%,rgba(255,248,232,.92) 50%,rgba(255,248,232,0) 62%) 130% 0/300% 100% no-repeat;-webkit-text-stroke:0;
+  animation:hcBrillo 1.1s var(--c-suave) both;animation-delay:calc(1.9s + var(--i)*70ms)}
+@keyframes hcBrillo{from{background-position:130% 0}to{background-position:-30% 0}}
+/* capas de las piezas (WebP con alfa, recortadas de la misma foto) */
+.hc-vidrio,.hc-velas{position:absolute;display:block;pointer-events:none}
+.hc-vidrio{z-index:3;left:4.4922%;top:33.7891%;width:90.4948%}
+.hc-velas{z-index:5;left:16.6016%;top:28.4180%;width:65.4948%}
+.hc-vidrio img,.hc-velas img{display:block;width:100%;height:auto}
+.hc-pie{position:relative;z-index:4;padding:0 var(--hc-x);margin-top:var(--e-5)}
+.hc-nombre{margin:0 0 var(--e-5)}
+.hc-arco{display:block;margin:0;font-family:'Bodoni Candelabro Texto','Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:clamp(42px,13cqw,58px);line-height:1;letter-spacing:-.01em;color:var(--crema)}
+.hc-acciones{display:flex;flex-direction:column;align-items:flex-start;gap:var(--e-2)}
+.hc-cta{display:inline-flex;align-items:center;gap:var(--e-3);min-height:48px;box-sizing:border-box;padding:0 var(--e-6);border-radius:var(--radius-sm);background:var(--crema);color:var(--verde-dark);font-family:'Jost',sans-serif;font-weight:500;font-size:var(--t-xs);letter-spacing:var(--track-ui);text-transform:uppercase;text-decoration:none;box-shadow:0 10px 26px -14px rgba(var(--hc-m),.9);transition:background var(--d-2) var(--c-suave),transform var(--d-2) var(--c-autor)}
+.hc-cta svg{width:16px;height:16px;flex:none;transition:transform var(--d-2) var(--c-autor)}
+.hc-cta:hover{background:var(--crema-rosa);transform:translateY(-1px)}
+.hc-cta:hover svg{transform:translateX(3px)}
+.hc-link{display:inline-flex;align-items:center;min-height:44px;font-family:'Jost',sans-serif;font-weight:400;font-size:var(--t-xs);letter-spacing:var(--track-ui);text-transform:uppercase;color:var(--crema);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:6px;text-decoration-color:rgba(244,238,227,.45);transition:text-decoration-color var(--d-2) var(--c-suave)}
+.hc-link:hover{text-decoration-color:var(--crema)}
+.hc-cta:focus-visible,.hc-link:focus-visible{outline:2px solid var(--crema);outline-offset:4px}
+/* entrada: etiqueta y nombre aparecen; despues las piezas pasan por encima */
+.hc-title,.hc-nombre,.hc-acciones{animation:hcSube var(--d-5) var(--c-autor) both}
+.hc-title{animation-delay:.15s}
+.hc-vidrio,.hc-velas{animation:hcPasa 1.2s var(--c-autor) .85s both}
+.hc-nombre{animation-delay:1s}.hc-acciones{animation-delay:1.15s}
+@keyframes hcSube{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes hcPasa{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){
+  .hc *{animation-duration:.01ms!important;animation-delay:0s!important}
+  .hc-cta,.hc-cta svg,.hc-link{transition-duration:.01ms}
+}
+/* Cabecera transparente oscura sobre este hero, solo en horizontal (en
+   vertical el fondo es marmol claro y queda la cabecera clara de siempre). */
+@media(min-aspect-ratio:2301/2000){
+body:has(>.hc) .nav:not(.scrolled){background:linear-gradient(180deg,rgba(43,33,27,.62) 0%,rgba(43,33,27,.28) 65%,rgba(43,33,27,0) 100%);box-shadow:none}
+body:has(>.hc) .nav:not(.scrolled) .nav-logo img{filter:brightness(0) invert(1);opacity:.95}
+body:has(>.hc) .nav:not(.scrolled) .nav-links a{color:var(--crema);text-shadow:none}
+body:has(>.hc) .nav:not(.scrolled) .nav-links a:hover{color:var(--crema-rosa)}
+body:has(>.hc) .nav:not(.scrolled) .hm-menu-btn{color:var(--crema);filter:none}
+body:has(>.hc) .nav:not(.scrolled) #navProfile{color:var(--crema);border-color:rgba(244,238,227,.4);background:transparent}
+}
+
+/* tablet vertical */
+@media(min-width:700px){
+  .hc{--hc-x:clamp(32px,5vw,96px);--hc-nav:70px}
+  .hc-escena{--fs:17cqw}
+  .hc-arco{font-size:clamp(56px,9cqw,88px)}
+  .hc-acciones{flex-direction:row;align-items:center;flex-wrap:wrap;column-gap:var(--e-6)}
+}
+/* apaisado alto: foto a pantalla completa (ancho completo hasta 1.85:1) */
+@media(min-width:700px) and (min-aspect-ratio:23/20) and (min-height:541px){
+  .hc{--hc-W:min(100cqw,calc(var(--vh-fijo,100svh)*1.85));display:block;height:var(--vh-fijo,100svh);min-height:0;padding:0}
+  .hc-escena{--fs:13.6cqw;position:absolute;left:0;right:0;margin:0 auto;width:var(--hc-W);
+    top:calc((var(--vh-fijo,100svh) - var(--hc-W)/1.5)*.5)}
+  @media(max-height:700px){.hc-escena{--fs:12cqw;--base:20.6cqw;top:calc((var(--vh-fijo,100svh) - var(--hc-W)/1.5)*.4)}}
+  .hc-fondo img{-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 6%,#000 94%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 6%,#000 94%,transparent 100%)}
+  /* franja inferior para la frase y los botones (encima de la escena) */
+  .hc::after{content:"";position:absolute;left:0;right:0;bottom:0;height:30%;z-index:2;pointer-events:none;
+    background:linear-gradient(0deg,rgba(var(--hc-m),.9) 0%,rgba(var(--hc-m),.62) 42%,rgba(var(--hc-m),0) 100%),radial-gradient(55% 90% at 0% 100%,rgba(var(--hc-t),.35),rgba(var(--hc-t),0) 75%)}
+  .hc-pie{position:absolute;left:0;right:max(112px,var(--hc-x));bottom:clamp(18px,4vh,48px);margin:0;display:flex;align-items:flex-end;flex-wrap:nowrap;column-gap:clamp(28px,5vw,80px)}
+  .hc-nombre{margin:0;flex:none}
+  .hc-arco{font-size:min(5.6cqw,calc(var(--vh-fijo,100svh)*.085))}
+  .hc-label{margin:0}
+  .hc-acciones{flex-wrap:nowrap}
+}
+/* pantalla mas ancha que 1.85:1: la foto no alcanza el ancho, se funde por los lados */
+@media(min-width:700px) and (min-aspect-ratio:37/20) and (min-height:541px){
+  .hc-fondo img{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 3%,#000 97%,transparent 100%),linear-gradient(180deg,transparent 0,#000 6%,#000 94%,transparent 100%);-webkit-mask-composite:source-in;
+    mask-image:linear-gradient(90deg,transparent 0,#000 3%,#000 97%,transparent 100%),linear-gradient(180deg,transparent 0,#000 6%,#000 94%,transparent 100%);mask-composite:intersect}
+}
+/* celulares verticales bajos (iPhone SE 375x667, 320x568) */
+@media(max-aspect-ratio:23/20) and (max-height:700px){
+  .hc{padding-top:calc(var(--hc-nav) + var(--e-1))}
+  .hc-pie{margin-top:var(--e-4)}
+  .hc-nombre{margin-bottom:var(--e-3)}
+  .hc-acciones{gap:0}
+}
+/* apaisado bajo (celular acostado): dos columnas */
+@media(min-aspect-ratio:23/20) and (max-height:540px){
+  .hc{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);grid-template-rows:1fr auto 1fr;column-gap:var(--e-5);
+    padding:calc(var(--hc-nav) + var(--e-2)) 96px var(--e-2) var(--e-5)}
+  .hc-escena{--fs:13.6cqw;grid-column:2;grid-row:1/4;align-self:center;margin:0;width:100%;max-width:calc((var(--vh-fijo,100svh) - var(--hc-nav) - 24px)*1.5);justify-self:center}
+  .hc-pie{grid-column:1;grid-row:2;padding:0;margin:0}
+  .hc-nombre{margin-bottom:var(--e-3)}
+  .hc-arco{font-size:clamp(40px,6cqw,56px)}
+  .hc-acciones{flex-direction:row;flex-wrap:wrap;align-items:center;gap:0 var(--e-5)}
+}
+/* v3 VERTICAL (celular y tablet en retrato): foto vertical (version
+   1080x1919 de la imagen generada desde la foto 04) a todo el ancho, con
+   el marmol arriba y abajo para el texto. Misma idea de capas: "Candelabro"
+   en marron detras del recorte de ESTA imagen
+   (candelabro-arco-hero-vertical-piezas.webp, caja x 37-1042, y 783-1114 de
+   1080x1919). Las piezas ocupan x 3.4-96.6 %: la foto nunca se recorta de
+   lado; si la pantalla es mas alta que la foto, el sobrante es el mismo
+   tono del marmol (fundido), no un bloque. Un velo de marmol tapa la rama
+   de hojas de la esquina superior. Texto oscuro sobre marmol claro
+   (marron sobre marmol >= 5.5:1 incluso en las sombras de hojas). */
+@media(max-aspect-ratio:23/20){
+  .hc{--hc-arriba:222,186,155;--hc-abajo:190,158,135;display:block;height:var(--vh-fijo,100svh);min-height:0;padding:0;
+    background:linear-gradient(180deg,rgb(var(--hc-arriba)) 0%,rgb(var(--hc-arriba)) 40%,rgb(var(--hc-abajo)) 100%);color:var(--verde-dark)}
+  .hc-escena{--fs:17.5cqw;--base:73.9cqw;position:absolute;left:0;right:0;width:100%;margin:0;aspect-ratio:1080/1919;
+    top:calc((var(--vh-fijo,100svh) - 177.7cqw)*.25)}
+  .hc-fondo img{-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 4%,#000 90%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 4%,#000 90%,transparent 100%)}
+  .hc-velo{background:linear-gradient(180deg,rgba(var(--hc-arriba),.98) 0%,rgba(var(--hc-arriba),.97) 14%,rgba(var(--hc-arriba),.7) 18%,rgba(var(--hc-arriba),0) 25%)}
+  .hc-title{font-family:'Bodoni Candelabro Texto','Cormorant Garamond',serif}
+  /* sobre marmol claro el oro baja de tono para mantener contraste */
+  .hc{--hc-oro:linear-gradient(174deg,#D9A452 0%,#B9772A 34%,#8A4A1B 66%,#5E2F12 100%)}
+  .hc{--hc-oro:linear-gradient(180deg,#D9A452 0%,#B9772A 34%,#8A4A1B 66%,#5E2F12 100%)}
+  .hc-title{left:4.4%;-webkit-text-stroke:.6px rgba(255,246,228,.75);filter:drop-shadow(0 1px 1px rgba(255,244,226,.55)) drop-shadow(0 4px 12px rgba(70,36,12,.32))}
+  .hc-vidrio{left:3.5185%;top:42.8348%;width:92.8704%}
+  .hc-velas{left:16.7593%;top:40.8025%;width:65.1852%}
+  .hc-pie{position:absolute;left:0;right:0;bottom:calc(var(--e-5) + env(safe-area-inset-bottom));margin:0;padding:0 var(--hc-x);z-index:4}
+  .hc-arco{color:var(--verde-dark)}
+  .hc-label{color:var(--tinta)}
+  .hc-cta{background:var(--verde-dark);color:var(--crema);box-shadow:0 12px 26px -14px rgba(43,33,27,.7)}
+  .hc-cta:hover{background:var(--verde);color:var(--crema)}
+  .hc-link{color:var(--verde-dark);text-decoration-color:rgba(43,33,27,.45)}
+  .hc-link:hover{text-decoration-color:var(--verde-dark)}
+  .hc-cta:focus-visible,.hc-link:focus-visible{outline-color:var(--verde-dark)}
+}
+@media(min-width:700px) and (max-aspect-ratio:23/20){
+  .hc-escena{--fs:16cqw}
+  .hc-title{left:7%}
+  .hc-pie{bottom:clamp(32px,5vh,64px)}
+}
+
 </style>
 <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
@@ -1527,6 +1735,43 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
 </div>
 
 <div id="top"></div>
+<!-- HERO v2: producto nuevo, Candelabro Arco. Una sola foto fija (candelabro-arco-04) y el recorte
+     de las piezas encima del titulo (ver CSS .hc). La v1 queda en index.v1.html.
+     El hero anterior (Centros de Mesa) queda intacto en <template id="heroAnterior">
+     justo debajo y en hero-anterior.html: para volver, se saca de ahi y se borra este bloque. -->
+<section class="hc" id="heroCandelabro" aria-labelledby="hcTitulo">
+  <div class="hc-escena">
+    <picture class="hc-fondo">
+      <source media="(max-aspect-ratio: 23/20)" type="image/webp" srcset="img/candelabro-arco/candelabro-arco-hero-vertical-720.webp 720w, img/candelabro-arco/candelabro-arco-hero-vertical.webp 1080w" sizes="100vw">
+      <source media="(max-aspect-ratio: 23/20)" srcset="img/candelabro-arco/candelabro-arco-hero-vertical-720.jpg 720w, img/candelabro-arco/candelabro-arco-hero-vertical.jpg 1080w" sizes="100vw">
+      <source type="image/webp" srcset="img/candelabro-arco/candelabro-arco-04-800.webp 800w, img/candelabro-arco/candelabro-arco-04.webp 1536w" sizes="100vw">
+      <img src="img/candelabro-arco/candelabro-arco-04.jpg" srcset="img/candelabro-arco/candelabro-arco-04-800.jpg 800w, img/candelabro-arco/candelabro-arco-04.jpg 1536w" sizes="100vw" width="1536" height="1024" fetchpriority="high" alt="Dos Candelabros Arco en vidrio ámbar, cada uno con una vela de pilar encendida, sobre una mesa de mármol claro con sombras de hojas">
+    </picture>
+    <span class="hc-velo" aria-hidden="true"></span>
+    <h1 class="hc-title hc-capa hc-capa-atras" id="hcTitulo"><span class="sr-only">Candelabro Arco · nuevo producto de Felipe Vergel Arte en Vidrio, vitrofusión artesanal en Floridablanca, Colombia</span><span class="hc-letras" aria-hidden="true"><i class="d-at m-at cap" style="--i:0">C</i><i class="d-fr m-me" style="--i:1">a</i><i class="d-me m-fr" style="--i:2">n</i><i class="d-me m-at" style="--i:3">d</i><i class="d-at m-at" style="--i:4">e</i><i class="d-at m-at" style="--i:5">l</i><i class="d-at m-at" style="--i:6">a</i><i class="d-at m-me" style="--i:7">b</i><i class="d-at m-me" style="--i:8">r</i><i class="d-fr m-fr" style="--i:9">o</i></span></h1>
+    <picture class="hc-vidrio" aria-hidden="true">
+      <source media="(max-aspect-ratio: 23/20)" srcset="img/candelabro-arco/candelabro-arco-hero-vertical-vidrio-720.webp 669w, img/candelabro-arco/candelabro-arco-hero-vertical-vidrio.webp 1003w" sizes="93vw">
+      <img src="img/candelabro-arco/candelabro-arco-04-vidrio.webp" srcset="img/candelabro-arco/candelabro-arco-04-vidrio-800.webp 724w, img/candelabro-arco/candelabro-arco-04-vidrio.webp 1390w" sizes="91vw" width="1390" height="399" alt="" decoding="async">
+    </picture>
+    <p class="hc-title hc-capa hc-capa-medio" aria-hidden="true"><span class="hc-letras" aria-hidden="true"><i class="d-at m-at cap" style="--i:0">C</i><i class="d-fr m-me" style="--i:1">a</i><i class="d-me m-fr" style="--i:2">n</i><i class="d-me m-at" style="--i:3">d</i><i class="d-at m-at" style="--i:4">e</i><i class="d-at m-at" style="--i:5">l</i><i class="d-at m-at" style="--i:6">a</i><i class="d-at m-me" style="--i:7">b</i><i class="d-at m-me" style="--i:8">r</i><i class="d-fr m-fr" style="--i:9">o</i></span></p>
+    <picture class="hc-velas" aria-hidden="true">
+      <source media="(max-aspect-ratio: 23/20)" srcset="img/candelabro-arco/candelabro-arco-hero-vertical-velas-720.webp 469w, img/candelabro-arco/candelabro-arco-hero-vertical-velas.webp 704w" sizes="66vw">
+      <img src="img/candelabro-arco/candelabro-arco-04-velas.webp" srcset="img/candelabro-arco/candelabro-arco-04-velas-800.webp 524w, img/candelabro-arco/candelabro-arco-04-velas.webp 1006w" sizes="66vw" width="1006" height="277" alt="" decoding="async">
+    </picture>
+    <p class="hc-title hc-capa hc-capa-frente" aria-hidden="true"><span class="hc-letras" aria-hidden="true"><i class="d-at m-at cap" style="--i:0">C</i><i class="d-fr m-me" style="--i:1">a</i><i class="d-me m-fr" style="--i:2">n</i><i class="d-me m-at" style="--i:3">d</i><i class="d-at m-at" style="--i:4">e</i><i class="d-at m-at" style="--i:5">l</i><i class="d-at m-at" style="--i:6">a</i><i class="d-at m-me" style="--i:7">b</i><i class="d-at m-me" style="--i:8">r</i><i class="d-fr m-fr" style="--i:9">o</i></span><span class="hc-letras hc-brillo" aria-hidden="true"><i class="d-at m-at cap" style="--i:0">C</i><i class="d-fr m-me" style="--i:1">a</i><i class="d-me m-fr" style="--i:2">n</i><i class="d-me m-at" style="--i:3">d</i><i class="d-at m-at" style="--i:4">e</i><i class="d-at m-at" style="--i:5">l</i><i class="d-at m-at" style="--i:6">a</i><i class="d-at m-me" style="--i:7">b</i><i class="d-at m-me" style="--i:8">r</i><i class="d-fr m-fr" style="--i:9">o</i></span></p>
+  </div>
+  <div class="hc-pie">
+    <div class="hc-nombre" aria-hidden="true">
+      <p class="hc-arco">Arco</p>
+      <p class="hc-label">Nuevo producto</p>
+    </div>
+    <div class="hc-acciones">
+      <a href="product.html?id=candelabro-arco" class="hc-cta">Ver candelabro <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+      <a href="#catalogo" class="hc-link">Ver el catálogo completo</a>
+    </div>
+  </div>
+</section>
+<template id="heroAnterior">
 <section class="pmh pmh-cm" aria-label="Centros de mesa en vidrio, la línea de la semana">
   <div class="pmh-collage">
     <span class="cr cr-tira t1" aria-hidden="true"></span>
@@ -1550,6 +1795,7 @@ h1,h2,h3,.h-serif,.h-display{font-feature-settings:"kern","liga","dlig";text-wra
     <ul class="pmh-ficha" aria-label="Usos de la pieza"><li>Frutero</li><li>Ensaladera</li><li>Para servir</li><li>Pieza decorativa</li></ul>
   </div>
 </section>
+</template>
 <section class="hero" id="heroPc">
   <div class="hero-bg" id="heroBg"></div>
   <div class="hero-light" aria-hidden="true"></div>
