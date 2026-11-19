@@ -1458,3 +1458,100 @@ const FELIPE_IMGS=["img/felipe/felipe-01.jpg", "img/felipe/felipe-02.jpg", "img/
 const CATEGORIES=[["lamparas", "Lámparas"], ["bandejas", "Bandejas"], ["centros-mesa", "Centros de Mesa"], ["floreros", "Floreros"], ["solitarios", "Solitarios"], ["porta-plantas", "Porta Plantas"], ["vajilla", "Vajilla"], ["pedestales", "Pedestales"], ["candelabros", "Candelabros"], ["portavasos", "Portavasos"]];
 const SILHOUETTES={"lamparas": "img/silhouettes/lamparas.png", "bandejas": "img/silhouettes/bandejas.png", "centros-mesa": "img/silhouettes/centros-mesa.png", "floreros": "img/silhouettes/floreros.png", "solitarios": "img/silhouettes/solitarios.png", "porta-plantas": "img/silhouettes/porta-plantas.png", "vajilla": "img/silhouettes/vajilla.png", "pedestales": "img/silhouettes/pedestales.png", "candelabros": "img/silhouettes/candelabros.png","portavasos": "img/silhouettes/portavasos.png"};
 
+
+// ============================================================================
+//  BLACK FRIDAY · interruptor UNICO de la campana (cliente)
+//  ---------------------------------------------------------------------------
+//  Apagar la campana:   activo:false   (y en el servidor BLACK_FRIDAY_ACTIVO=0)
+//  Cambiar el %:        pct:NN         (y PCT_BLACK_FRIDAY en el servidor)
+//  Fecha de fin:        hasta:"AAAA-MM-DDTHH:MM:SS-05:00" o null (sin fecha).
+//                       No se inventa: la pone Ricardo/Felipe cuando la decidan.
+//  acumulaCodigo:false  el codigo del Club (FV15) NO se suma al descuento de la
+//                       campana. PENDIENTE DE CONFIRMAR POR RICARDO.
+//
+//  REDONDEO (identico en fv-functions/netlify/functions/lib/catalogo-precios.js):
+//    final = Math.round(lista * (100 - pct) / 1000) * 10
+//    -> pesos COP enteros, multiplo de 10, mitad hacia arriba. Con los precios
+//       actuales (todos multiplos de $1.000) y pct=15 el resultado es EXACTO
+//       (lista x 0,85 ya es multiplo de $850), asi que el redondeo no mueve
+//       ni un peso; solo protege si algun dia entra un precio "raro".
+//    El descuento se aplica POR UNIDAD y luego se multiplica por la cantidad:
+//    subtotal = suma(final x qty). El envio se calcula sobre ese subtotal.
+//
+//  Ley 1480: el precio tachado es el precio de lista REAL que rige fuera de la
+//  campana (el mismo p.price de siempre). No es un precio inflado.
+// ============================================================================
+window.FV_BF={activo:true,pct:15,etiqueta:"Black Friday",hasta:null,acumulaCodigo:false};
+
+function fvBFActivo(){
+  var bf=window.FV_BF;
+  if(!bf||!bf.activo||!(bf.pct>0))return false;
+  if(bf.hasta){var t=Date.parse(bf.hasta);if(!isNaN(t)&&Date.now()>=t)return false}
+  return true;
+}
+// Precio final de UNA unidad a partir del precio de lista.
+function fvPrecioFinal(lista){
+  lista=Math.round(Number(lista)||0);
+  if(!fvBFActivo()||lista<=0)return lista;
+  return Math.round(lista*(100-window.FV_BF.pct)/1000)*10;
+}
+// {lista, final, ahorro, pct, activo} de una pieza de PRODUCTS.
+function fvPrecio(p){
+  var lista=Math.round(Number(p&&p.price)||0);
+  var activo=fvBFActivo()&&lista>0;
+  var final=activo?fvPrecioFinal(lista):lista;
+  return {lista:lista,final:final,ahorro:lista-final,pct:activo?window.FV_BF.pct:0,activo:activo};
+}
+function fvPesos(n){return "$"+Math.round(Number(n)||0).toLocaleString("es-CO")}
+// Etiqueta corta de la campana: "Black Friday −15 %" (U+2212 menos, espacio fino antes de %).
+function fvBFEtiqueta(){return window.FV_BF.etiqueta+" \u2212"+window.FV_BF.pct+"\u00a0%"}
+// Marcado accesible del precio: tachado en <s> con "Precio anterior" para
+// lectores de pantalla, precio final y la pildora de la campana.
+// cls: prefijo de clase del contexto (para tamanos propios de cada vista).
+function fvPrecioHTML(p,cls){
+  var pr=fvPrecio(p);cls=cls||"";
+  if(!pr.activo)return '<span class="'+cls+'">'+fvPesos(pr.lista)+'</span>';
+  return '<span class="bf-precio">'+
+    '<s class="bf-antes"><span class="bf-sr">Precio anterior: </span>'+fvPesos(pr.lista)+'</s>'+
+    '<span class="bf-final '+cls+'"><span class="bf-sr">Precio con descuento: </span>'+fvPesos(pr.final)+'</span>'+
+    '<span class="bf-pill">'+fvBFEtiqueta()+'</span>'+
+  '</span>';
+}
+// Normaliza un carrito guardado: cada item queda con price = precio FINAL y
+// precioLista = precio de lista, recalculados SIEMPRE desde el catalogo por id.
+// Sirve para carritos viejos (solo traian price de lista) y para cuando la
+// campana se apague (vuelven solos al precio de lista).
+function fvNormalizarCarrito(cart){
+  if(!Array.isArray(cart))return [];
+  var cat=(typeof PRODUCTS!=="undefined"&&Array.isArray(PRODUCTS))?PRODUCTS:[];
+  cart.forEach(function(i){
+    if(!i)return;
+    var p=null;for(var k=0;k<cat.length;k++){if(cat[k].id===i.id){p=cat[k];break}}
+    if(p){var pr=fvPrecio(p);i.precioLista=pr.lista;i.price=pr.final}
+    else if(i.precioLista==null)i.precioLista=i.price;
+  });
+  return cart;
+}
+// Totales del carrito: lista, final, ahorro de la campana.
+function fvTotalesCarrito(cart){
+  var lista=0,final=0;
+  (cart||[]).forEach(function(i){var q=Number(i.qty)||0;final+=(Number(i.price)||0)*q;lista+=(Number(i.precioLista!=null?i.precioLista:i.price)||0)*q});
+  return {lista:lista,final:final,ahorro:lista-final};
+}
+// Envio: 25 % hasta $180.000, 15 % hasta $310.000, 10 % despues, sobre el
+// subtotal YA con descuento. Bucaramanga metropolitana: gratis. Copia EXACTA
+// de calcularEnvio() del servidor.
+function fvEnvio(subtotal,metodo){
+  if(metodo==="bucaramanga")return 0;
+  if(subtotal<=180000)return Math.round(subtotal*0.25);
+  if(subtotal<=310000)return Math.round(subtotal*0.15);
+  return Math.round(subtotal*0.10);
+}
+// Importe de una linea del carrito: lista tachada encima del final, alineados
+// a la derecha. Sin campana (o pieza sin rebaja) devuelve solo el importe.
+function fvLineaHTML(i){
+  var q=Number(i&&i.qty)||0,f=(Number(i&&i.price)||0)*q;
+  var l=(Number(i&&i.precioLista!=null?i.precioLista:i&&i.price)||0)*q;
+  if(l>f)return '<span class="bf-linea"><s class="bf-antes"><span class="bf-sr">Precio anterior: </span>'+fvPesos(l)+'</s><span class="bf-final"><span class="bf-sr">Precio con descuento: </span>'+fvPesos(f)+'</span></span>';
+  return fvPesos(f);
+}

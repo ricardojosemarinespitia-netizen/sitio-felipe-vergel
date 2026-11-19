@@ -72,7 +72,7 @@ window.fvImg=(function(){
      ningun font-family del sitio, y repetia display=swap tres veces. -->
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Jost:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
 <script src="perfil.js" defer></script>
-<link rel="stylesheet" href="tokens.css?v=2">
+<link rel="stylesheet" href="tokens.css?v=3">
 <style>
 /* overscroll-behavior-y: evita que el navegador integrado de Instagram/Facebook
    se robe el swipe vertical para su propio gesto de "pull" (mismo arreglo que
@@ -555,6 +555,14 @@ input.error{border-color:#d32f2f;background:#fff5f5}
       <div class="summary-empty">Tu carrito está vacío.</div>
     </div>
     <div class="summary-totals" id="sumTotals" style="display:none">
+      <div class="summary-row" id="sumListaRow" style="display:none">
+        <span>Precio de lista</span>
+        <span id="sumLista">—</span>
+      </div>
+      <div class="summary-row bf-fila" id="sumBFRow" style="display:none">
+        <span id="sumBFLbl">Black Friday 15&nbsp;%</span>
+        <span id="sumBF">—</span>
+      </div>
       <div class="summary-row">
         <span>Subtotal</span>
         <span id="sumSubtotal">$0</span>
@@ -623,11 +631,21 @@ input.error{border-color:#d32f2f;background:#fff5f5}
 </a>
 
 <script src="colombia.js"></script>
+<script src="products.js?v=20261119bf"></script>
 <script>
 const $=(s,c=document)=>c.querySelector(s);
 const $$=(s,c=document)=>[...c.querySelectorAll(s)];
 const fmt=n=>"$"+(n||0).toLocaleString("es-CO");
 document.getElementById("year").textContent=new Date().getFullYear();
+// Respaldo si products.js no cargo: el carrito se muestra tal cual se guardo.
+// El cobro igual lo recalcula el servidor (wompi-sign) desde su catalogo.
+if(typeof fvNormalizarCarrito!=="function"){
+  window.fvBFActivo=()=>false;
+  window.fvNormalizarCarrito=c=>Array.isArray(c)?c:[];
+  window.fvTotalesCarrito=c=>{const f=(c||[]).reduce((s,i)=>s+i.price*i.qty,0);return{lista:f,final:f,ahorro:0}};
+  window.fvLineaHTML=i=>fmt(i.price*i.qty);
+  window.FV_BF={activo:false,pct:0,etiqueta:"",acumulaCodigo:true};
+}
 
 // LOAD CART
 let cart=[];
@@ -635,6 +653,12 @@ try{
   const raw=localStorage.getItem("fv_checkout_cart")||sessionStorage.getItem("cart");
   if(raw)cart=JSON.parse(raw);
 }catch(e){cart=[]}
+// Black Friday: price = precio final, precioLista = lista (recalculado por id;
+// migra carritos guardados antes de la campana).
+cart=fvNormalizarCarrito(cart);
+try{localStorage.setItem("fv_checkout_cart",JSON.stringify(cart))}catch(e){}
+// El codigo del Club no se suma al descuento de la campana (FV_BF.acumulaCodigo).
+const BF_SIN_CODIGO=fvBFActivo()&&!window.FV_BF.acumulaCodigo;
 
 // Meta Pixel: InitiateCheckout — llego a datos de envio con carrito valido
 if(typeof fbq==="function" && cart.length){
@@ -642,7 +666,7 @@ if(typeof fbq==="function" && cart.length){
     content_ids:cart.map(i=>i.sku||i.id),
     content_type:'product',
     num_items:cart.reduce((s,i)=>s+i.qty,0),
-    value:cart.reduce((s,i)=>s+i.price*i.qty,0),
+    value:fvTotalesCarrito(cart).final,
     currency:'COP'
   });
 }
@@ -668,6 +692,15 @@ function aplicarCodigo(){
   const msg=document.getElementById("discountMsg");
   const btn=document.getElementById("applyDiscountBtn");
   const code=(input.value||"").trim().toUpperCase();
+  // Black Friday: el 15 % de la tienda ya esta en el precio. El codigo no se
+  // consulta ni se marca como usado: no resta nada y queda libre.
+  if(BF_SIN_CODIGO){
+    activeDiscount={code:"",amount:0};renderSummary();
+    msg.style.color="";
+    msg.innerHTML='<div class="bf-aviso" role="status">El descuento de Black Friday ya está aplicado; el código de bienvenida no se suma durante la campaña. Tu código no se gasta en esta compra.</div>';
+    input.style.borderColor="var(--linea)";
+    return;
+  }
   if(!code){msg.style.color="#b91c1c";msg.textContent="Ingresa un código.";return;}
   if(!/^FV15-[A-Z0-9]{7}$/.test(code)){
     activeDiscount={code:"",amount:0};renderSummary();
@@ -733,8 +766,11 @@ function renderSummary(){
     return;
   }
   const totalQty=cart.reduce((s,i)=>s+i.qty,0);
-  const subtotal=cart.reduce((s,i)=>s+i.price*i.qty,0);
-  const discountAmt=activeDiscount.code?Math.round(subtotal*0.15):0;
+  // subtotal = suma de precios FINALES (ya con Black Friday). El envio se
+  // calcula sobre este numero, igual que en el servidor.
+  const tot=fvTotalesCarrito(cart);
+  const subtotal=tot.final;
+  const discountAmt=(activeDiscount.code&&!BF_SIN_CODIGO)?Math.round(subtotal*0.15):0;
   activeDiscount.amount=discountAmt;
   const discountedSubtotal=subtotal-discountAmt;
   const shipping=calcShipping(discountedSubtotal,deliveryMethod);
@@ -753,7 +789,7 @@ function renderSummary(){
         </div>
       </div>
       <div class="right">
-        <div class="sub">${fmt(i.price*i.qty)}</div>
+        <div class="sub">${fvLineaHTML(i)}</div>
         <button type="button" class="item-remove" onclick="eliminarItem(${idx})" aria-label="Eliminar producto">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
           Quitar
@@ -761,6 +797,7 @@ function renderSummary(){
       </div>
     </div>
   `).join("");
+  pintarFilasBF(tot);
   $("#sumSubtotal").textContent=fmt(subtotal);
   const discRow=document.getElementById("sumDiscountRow");
   if(discountAmt>0){
@@ -772,6 +809,16 @@ function renderSummary(){
   $("#sumShipping").textContent=shipping>0?fmt(shipping):"Gratis";
   $("#sumTotal").textContent=fmt(total);
   totals.style.display="block";
+}
+// Filas "Precio de lista" y "Black Friday 15 %": solo si hay ahorro real.
+function pintarFilasBF(tot){
+  const on=tot.ahorro>0;
+  $("#sumListaRow").style.display=on?"":"none";
+  $("#sumBFRow").style.display=on?"":"none";
+  if(!on)return;
+  $("#sumLista").textContent=fmt(tot.lista);
+  $("#sumBFLbl").textContent=window.FV_BF.etiqueta+" "+window.FV_BF.pct+" %";
+  $("#sumBF").textContent="-"+fmt(tot.ahorro);
 }
 renderSummary();
 
@@ -904,8 +951,9 @@ $("#ciForm").addEventListener("submit",e=>{
     window.scrollTo({top:0,behavior:"smooth"});
     return;
   }
-  const subtotal=cart.reduce((s,i)=>s+i.price*i.qty,0);
-  const discountAmt=activeDiscount.code?Math.round(subtotal*0.15):0;
+  const tot=fvTotalesCarrito(cart);
+  const subtotal=tot.final;
+  const discountAmt=(activeDiscount.code&&!BF_SIN_CODIGO)?Math.round(subtotal*0.15):0;
   const discountedSubtotal=subtotal-discountAmt;
   const shipping=calcShipping(discountedSubtotal,deliveryMethod);
   const info={
@@ -925,7 +973,11 @@ $("#ciForm").addEventListener("submit",e=>{
     deliveryMethod,
     cart,
     subtotal,
-    discountCode:activeDiscount.code||null,
+    // Black Friday: subtotal ya es con precios finales; esto es informativo.
+    subtotalLista:tot.lista,
+    descuentoBF:tot.ahorro,
+    bfPct:tot.ahorro>0?window.FV_BF.pct:0,
+    discountCode:(activeDiscount.code&&!BF_SIN_CODIGO)?activeDiscount.code:null,
     discountAmount:discountAmt||null,
     shipping,
     total:discountedSubtotal+shipping,

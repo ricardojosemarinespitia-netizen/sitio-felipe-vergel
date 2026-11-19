@@ -72,7 +72,7 @@ window.fvImg=(function(){
      font-family del sitio, y repetia display=swap tres veces. -->
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Jost:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
 <script src="perfil.js" defer></script>
-<link rel="stylesheet" href="tokens.css?v=2">
+<link rel="stylesheet" href="tokens.css?v=3">
 <style>
 /* overscroll-behavior-y: evita que el navegador integrado de Instagram/Facebook
    se robe el swipe vertical para su propio gesto de "pull" (mismo arreglo que
@@ -207,7 +207,14 @@ h1,h2,h3,.h-serif{font-feature-settings:"kern","liga","dlig";text-wrap:balance}
 /* .p-price-old / .p-price-off / .p-price-save se fueron con precioAnterior():
    el precio tachado ficticio esta desactivado a proposito y no debe volver
    (Ley 1480: anunciar descuento sobre un precio de referencia que nunca
-   existio es publicidad enganosa). Sin markup en ningun archivo. */
+   existio es publicidad enganosa). Sin markup en ningun archivo.
+   Black Friday (nov-2026) es otra cosa: el tachado es el precio de lista REAL
+   (p.price) y el descuento se cobra de verdad. Sale de fvPrecioHTML() en
+   products.js y se apaga con window.FV_BF.activo=false. */
+.p-price-save{margin:0 0 4px;font-size:var(--t-sm);color:var(--tinta-soft);line-height:1.5}
+.p-qty-total{margin:0;font-size:var(--t-sm);color:var(--tinta);font-variant-numeric:tabular-nums;line-height:1.4}
+.p-qty-total:empty{display:none}
+.qty-row{flex-wrap:wrap;row-gap:8px}
 .p-divider{height:1px;background:var(--linea);margin:24px 0}
 
 .p-group{margin-bottom:24px}
@@ -506,6 +513,7 @@ h1,h2,h3,.h-serif{font-feature-settings:"kern","liga","dlig";text-wrap:balance}
     <div class="p-price-wrap">
       <span class="p-price" id="pPrice"></span>
     </div>
+    <p class="p-price-save" id="pPriceSave" hidden></p>
 
     <div class="p-divider"></div>
 
@@ -522,6 +530,7 @@ h1,h2,h3,.h-serif{font-feature-settings:"kern","liga","dlig";text-wrap:balance}
           <span id="qVal">1</span>
           <button id="qPlus" aria-label="Aumentar">+</button>
         </div>
+        <p class="p-qty-total" id="pQtyTotal" aria-live="polite"></p>
       </div>
     </div>
 
@@ -584,12 +593,21 @@ h1,h2,h3,.h-serif{font-feature-settings:"kern","liga","dlig";text-wrap:balance}
   </svg>
 </a>
 
-<script src="products.js?v=20261116a"></script>
+<script src="products.js?v=20261119bf"></script>
 <script>
 const $=(s,c=document)=>c.querySelector(s);
 const $$=(s,c=document)=>[...c.querySelectorAll(s)];
 const fmt=n=>"$"+(n||0).toLocaleString("es-CO");
 document.getElementById("year").textContent=new Date().getFullYear();
+// Respaldo si products.js no cargo (la ficha sale del localStorage): sin
+// campana visible. El servidor recalcula igual y checkout.html muestra su total.
+if(typeof fvPrecio!=="function"){
+  window.fvBFActivo=()=>false;
+  window.fvPrecio=p=>({lista:p.price,final:p.price,ahorro:0,pct:0,activo:false});
+  window.fvPrecioHTML=(p,c)=>`<span class="${c||""}">${fmt(p.price)}</span>`;
+  window.fvNormalizarCarrito=c=>Array.isArray(c)?c:[];
+  window.fvBFEtiqueta=()=>"";
+}
 
 // GET PRODUCT FROM URL
 const params=new URLSearchParams(window.location.search);
@@ -620,10 +638,21 @@ if(!product){
 }else{
   document.title=product.name+" · Felipe Vergel Arte en Vidrio";
   // Para el listener de Contact de mas abajo: nombre y precio de la pieza.
-  window.FV_PIECE={name:product.name,price:product.price,id:product.sku||product.id};
+  // Precio de la campana (Black Friday): pr.final es lo que se cobra.
+  // Una pieza agotada no muestra descuento (sin campana para ella).
+  let soldOutPieza=false;
+  try{soldOutPieza=!!(JSON.parse(localStorage.getItem("fv_sold_out")||"{}")||{})[product.id]}catch(e){}
+  const pr=soldOutPieza?{lista:product.price,final:product.price,ahorro:0,pct:0,activo:false}:fvPrecio(product);
+  window.FV_PIECE={name:product.name,price:pr.final,id:product.sku||product.id};
   $("#crumbName").textContent=product.name;
   $("#pName").textContent=product.name;
-  $("#pPrice").textContent=fmt(product.price);
+  if(pr.activo)$("#pPrice").innerHTML=fvPrecioHTML(product);
+  else $("#pPrice").textContent=fmt(pr.lista);
+  if(pr.activo){
+    const s=$("#pPriceSave");
+    s.textContent=`Ahorras ${fmt(pr.ahorro)} por pieza. El descuento ya está aplicado en el carrito y en el pago.`;
+    s.hidden=false;
+  }
 
   // Specs
   $("#pSpecs").innerHTML=`
@@ -668,12 +697,27 @@ if(!product){
       msg=`Hola Felipe! Vengo de tu página web y me interesa esta pieza, que aparece como agotada:\n\n*${product.name}* — ${curColor}\n\n${url}\n\n¿Tienes una similar disponible?`;
     }else{
       const precio=cant>1
-        ? `${fmt(product.price)} c/u (Total: ${fmt(product.price*cant)})`
-        : fmt(product.price);
-      msg=`Hola Felipe! Vengo de tu página web interesado en este producto:\n\n*${product.name}* — ${curColor} — Cantidad: ${cant} — ${precio}\n\n${url}`;
+        ? `${fmt(pr.final)} c/u (Total: ${fmt(pr.final*cant)})`
+        : fmt(pr.final);
+      // Con campana: se dice el precio de lista y la rebaja, para que Felipe
+      // vea en el chat el mismo precio que el cliente vio en la ficha.
+      const bf=pr.activo?`\n${fvBFEtiqueta()} · antes ${fmt(pr.lista)}${cant>1?" c/u":""}`:"";
+      msg=`Hola Felipe! Vengo de tu página web interesado en este producto:\n\n*${product.name}* — ${curColor} — Cantidad: ${cant} — ${precio}${bf}\n\n${url}`;
     }
     a.href="https://wa.me/573116214726?text="+encodeURIComponent(msg);
+    pintarTotalCantidad(cant);
   }
+  // "c/u / Total" junto al selector de cantidad: con 2 o mas piezas muestra el
+  // total que se cobra (y el de lista tachado si hay campana).
+  function pintarTotalCantidad(cant){
+    const el=$("#pQtyTotal");
+    if(!el)return;
+    if(cant<2||a_agotado()){el.innerHTML="";return}
+    el.innerHTML=pr.activo
+      ? `${cant} × ${fmt(pr.final)} c/u · Total <s class="bf-antes"><span class="bf-sr">Precio anterior: </span>${fmt(pr.lista*cant)}</s> <strong>${fmt(pr.final*cant)}</strong>`
+      : `${cant} × ${fmt(pr.final)} c/u · Total <strong>${fmt(pr.final*cant)}</strong>`;
+  }
+  function a_agotado(){const a=$("#btnWa");return !!(a&&a.dataset.agotado==="1")}
 
   // Meta Pixel: Contact desde el boton de compra por WhatsApp.
   // Sin preventDefault -> el enlace navega igual, el evento no lo demora.
@@ -686,7 +730,7 @@ if(!product){
         content_ids:[product.sku||product.id],
         content_name:product.name,
         source:'wa_producto',
-        value:product.price*cant,
+        value:pr.final*cant,
         currency:'COP'
       });
     }catch(e){}
@@ -897,7 +941,8 @@ if(!product){
     try{
       // Prioriza localStorage (sincronizado entre pestañas)
       const raw=localStorage.getItem("fv_checkout_cart")||sessionStorage.getItem("cart");
-      return raw?JSON.parse(raw):[];
+      // Migra carritos viejos: price = final, precioLista = lista (por id).
+      return fvNormalizarCarrito(raw?JSON.parse(raw):[]);
     }catch(e){return[]}
   }
   function saveCart(c){
@@ -915,7 +960,7 @@ if(!product){
     const key=product.id+"::"+curColor;
     const existing=cart.find(i=>i.key===key);
     if(existing)existing.qty+=qty;
-    else cart.push({key,id:product.id,sku:product.sku||"",name:product.name,color:curColor,qty,price:product.price,img:product.images[0]});
+    else cart.push({key,id:product.id,sku:product.sku||"",name:product.name,color:curColor,qty,price:pr.final,precioLista:pr.lista,img:product.images[0]});
     saveCart(cart);
     showToast(`Agregado: ${qty}× ${product.name} (${curColor})`);
     // Meta Pixel: AddToCart
@@ -924,7 +969,7 @@ if(!product){
         content_ids:[product.sku||product.id],
         content_type:'product',
         content_name:product.name,
-        value:product.price*qty,
+        value:pr.final*qty,
         currency:'COP'
       });
     }
@@ -965,7 +1010,7 @@ if(!product){
   const esc=t=>String(t==null?"":t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
   document.getElementById("relGrid").innerHTML=pick.map(p=>`<li><a class="rel-card" href="product.html?id=${encodeURIComponent(p.id)}">
     <div class="rel-img"><img src="${esc(fvImg(p.images[0]))}" alt="${esc(p.name)}" width="800" height="1200" loading="lazy" decoding="async"></div>
-    <div class="rel-info"><h3>${esc(p.name)}</h3><span class="rel-price">${fmt(p.price)}</span><span class="rel-view" aria-hidden="true">Ver pieza →</span></div>
+    <div class="rel-info"><h3>${esc(p.name)}</h3><span class="rel-price">${fvPrecioHTML(p)}</span><span class="rel-view" aria-hidden="true">Ver pieza →</span></div>
   </a></li>`).join("");
   document.getElementById("relSection").hidden=false;
 })();

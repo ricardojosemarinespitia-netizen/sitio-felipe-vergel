@@ -74,7 +74,7 @@ window.fvImg=(function(){
 <!-- EmailJS: envío automático de correos (factura a Felipe + confirmación al comprador) -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script src="perfil.js" defer></script>
-<link rel="stylesheet" href="tokens.css?v=2">
+<link rel="stylesheet" href="tokens.css?v=3">
 <style>
 /* overscroll-behavior-y: evita que el navegador integrado de Instagram/Facebook
    se robe el swipe vertical para su propio gesto de "pull" (mismo arreglo que
@@ -481,6 +481,14 @@ h1,h2,h3{font-feature-settings:"kern","liga","dlig"}
     </div>
     <div class="summary-items" id="sumItems"></div>
     <div class="summary-totals" id="sumTotals">
+      <div class="summary-row" id="sumListaRow" style="display:none">
+        <span>Precio de lista</span>
+        <span id="sumLista">—</span>
+      </div>
+      <div class="summary-row bf-fila" id="sumBFRow" style="display:none">
+        <span id="sumBFLbl">Black Friday 15&nbsp;%</span>
+        <span id="sumBF">—</span>
+      </div>
       <div class="summary-row">
         <span>Subtotal</span>
         <span id="sumSubtotal">$0</span>
@@ -587,6 +595,7 @@ h1,h2,h3{font-feature-settings:"kern","liga","dlig"}
   </svg>
 </a>
 
+<script src="products.js?v=20261119bf"></script>
 <script>
 const WOMPI_KEY="pub_prod_Nic5INHYDJiWHxDscG9g8OcPYElRjPYi";
 /* ============================================================
@@ -645,6 +654,9 @@ async function enviarCorreos(pedido){
   const metodoPagoTxt = esWhatsApp?"WhatsApp (pago por confirmar)":"PSE / Wompi";
   const metodoEntrega = pedido.deliveryMethod==="bucaramanga"?"Envío gratis · Zona metropolitana de Bucaramanga":"Envío a domicilio";
   const notasTxt      = pedido.notes||"—";
+  // Black Friday: el ahorro de la campana como linea informativa ANTES del
+  // subtotal (el subtotal ya viene con precios finales).
+  const bfLineHtml=pedido.descuentoBF>0?`<tr><td style="padding:10px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#B89A8E;">Precio de lista · Black Friday ${pedido.bfPct||""} %</td><td align="right" style="padding:10px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#F3CFB3;">${fmt(pedido.subtotalLista)} · -${fmt(pedido.descuentoBF)}</td></tr>`:"";
   const descLineHtml=pedido.discountAmount>0?`<tr><td style="padding:10px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#B89A8E;">Descuento (${pedido.discountCode})</td><td align="right" style="padding:10px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#C66E4E;">-${fmt(pedido.discountAmount)}</td></tr>`:"";
   // Dirección completa: calle + apto, municipio, departamento y código postal.
   // Antes solo salía "dirección, ciudad" y Felipe no sabía a qué departamento enviar.
@@ -655,7 +667,7 @@ async function enviarCorreos(pedido){
   const introCliente=esWhatsApp
     ?`Recibimos tu solicitud de pedido. Felipe te escribirá por WhatsApp para confirmar el pago y coordinar la entrega. Una vez confirmado, tu pieza estará lista en aproximadamente <strong style="color:#FAF4ED;">8 días hábiles</strong>.`
     :`Tu pedido fue confirmado. Tu pieza entra al taller hoy y estará lista en aproximadamente <strong style="color:#FAF4ED;">8 días hábiles</strong>.`;
-  const msgCliente=`<p style="font-family:-apple-system,sans-serif;font-size:15px;line-height:1.8;color:#E7CDBC;margin:0 0 20px;">${introCliente}</p><table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background:rgba(243,207,179,0.07);border-radius:14px;overflow:hidden;margin-bottom:16px;"><tr><td colspan="2" style="padding:12px 18px;border-bottom:1px solid rgba(243,207,179,.15);"><span style="font-family:-apple-system,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#C66E4E;font-weight:700;">Referencia</span><br><span style="font-family:-apple-system,sans-serif;font-size:18px;font-weight:800;color:#FAF4ED;letter-spacing:2px;">${pedido.ref}</span></td></tr><tr><td colspan="2" style="padding:12px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#E7CDBC;white-space:pre-line;">${lineas}</td></tr><tr><td style="padding:10px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#B89A8E;">Subtotal</td><td align="right" style="padding:10px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#F3CFB3;">${fmt(pedido.subtotal)}</td></tr>${descLineHtml}<tr><td style="padding:10px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#B89A8E;">Envío</td><td align="right" style="padding:10px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#F3CFB3;">${pedido.shipping>0?fmt(pedido.shipping):"Gratis"}</td></tr><tr><td style="padding:14px 18px;font-family:-apple-system,sans-serif;font-size:13px;font-weight:700;color:#F3CFB3;">Total</td><td align="right" style="padding:14px 18px;font-family:-apple-system,sans-serif;font-size:20px;font-weight:800;color:#FAF4ED;">${fmt(pedido.total)}</td></tr></table><p style="font-family:-apple-system,sans-serif;font-size:13px;color:#B89A8E;margin:0;"><strong style="color:#F3CFB3;">Entrega:</strong> ${entrega} &nbsp;·&nbsp; <strong style="color:#F3CFB3;">Fecha:</strong> ${fechaHoy}${pedido.notes?`<br><strong style="color:#F3CFB3;">Tu nota:</strong> ${pedido.notes}`:""}</p>`;
+  const msgCliente=`<p style="font-family:-apple-system,sans-serif;font-size:15px;line-height:1.8;color:#E7CDBC;margin:0 0 20px;">${introCliente}</p><table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background:rgba(243,207,179,0.07);border-radius:14px;overflow:hidden;margin-bottom:16px;"><tr><td colspan="2" style="padding:12px 18px;border-bottom:1px solid rgba(243,207,179,.15);"><span style="font-family:-apple-system,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#C66E4E;font-weight:700;">Referencia</span><br><span style="font-family:-apple-system,sans-serif;font-size:18px;font-weight:800;color:#FAF4ED;letter-spacing:2px;">${pedido.ref}</span></td></tr><tr><td colspan="2" style="padding:12px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#E7CDBC;white-space:pre-line;">${lineas}</td></tr>${bfLineHtml}<tr><td style="padding:10px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#B89A8E;">Subtotal</td><td align="right" style="padding:10px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#F3CFB3;">${fmt(pedido.subtotal)}</td></tr>${descLineHtml}<tr><td style="padding:10px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#B89A8E;">Envío</td><td align="right" style="padding:10px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#F3CFB3;">${pedido.shipping>0?fmt(pedido.shipping):"Gratis"}</td></tr><tr><td style="padding:14px 18px;font-family:-apple-system,sans-serif;font-size:13px;font-weight:700;color:#F3CFB3;">Total</td><td align="right" style="padding:14px 18px;font-family:-apple-system,sans-serif;font-size:20px;font-weight:800;color:#FAF4ED;">${fmt(pedido.total)}</td></tr></table><p style="font-family:-apple-system,sans-serif;font-size:13px;color:#B89A8E;margin:0;"><strong style="color:#F3CFB3;">Entrega:</strong> ${entrega} &nbsp;·&nbsp; <strong style="color:#F3CFB3;">Fecha:</strong> ${fechaHoy}${pedido.notes?`<br><strong style="color:#F3CFB3;">Tu nota:</strong> ${pedido.notes}`:""}</p>`;
 
   const msgFelipe=`<p style="font-family:-apple-system,sans-serif;font-size:14px;line-height:1.7;color:#d4e8e6;margin:0;"><strong style="color:#FAF4ED;">Referencia:</strong> ${pedido.ref}<br><strong style="color:#FAF4ED;">Cliente:</strong> ${pedido.fullName}<br><strong style="color:#FAF4ED;">Cédula / NIT:</strong> ${pedido.docId||"—"}<br><strong style="color:#FAF4ED;">Correo:</strong> ${pedido.email}<br><strong style="color:#FAF4ED;">Teléfono:</strong> ${pedido.phone}<br><strong style="color:#FAF4ED;">Método de pago:</strong> ${metodoPagoTxt}<br><strong style="color:#FAF4ED;">Total:</strong> ${fmt(pedido.total)}<br><br><strong style="color:#FAF4ED;">Dirección de entrega:</strong><br>${entrega}<br><strong style="color:#FAF4ED;">Tipo de envío:</strong> ${metodoEntrega}<br><br><strong style="color:#FAF4ED;">Notas del cliente:</strong> ${notasTxt}<br><br><strong style="color:#FAF4ED;">Piezas:</strong><br>${lineas.replace(/\n/g,"<br>")}</p>`;
 
@@ -716,6 +728,19 @@ try{
   const raw=localStorage.getItem("fv_checkout_cart");
   if(raw)cart=JSON.parse(raw);
 }catch(e){}
+// Respaldo si products.js no cargo: el servidor (wompi-sign) recalcula igual
+// y abajo se muestra SU total si difiere.
+if(typeof fvNormalizarCarrito!=="function"){
+  window.fvBFActivo=()=>false;
+  window.fvNormalizarCarrito=c=>Array.isArray(c)?c:[];
+  window.fvTotalesCarrito=c=>{const f=(c||[]).reduce((s,i)=>s+i.price*i.qty,0);return{lista:f,final:f,ahorro:0}};
+  window.fvLineaHTML=i=>fmt(i.price*i.qty);
+  window.FV_BF={activo:false,pct:0,etiqueta:"",acumulaCodigo:true};
+}
+// Black Friday: price = precio final, precioLista = lista, por id.
+cart=fvNormalizarCarrito(cart);
+const BF_SIN_CODIGO=fvBFActivo()&&!window.FV_BF.acumulaCodigo;
+if(BF_SIN_CODIGO&&info){info.discountCode=null;info.discountAmount=null}
 
 // REDIRECT IF MISSING DATA
 if(!info||!cart.length){
@@ -770,11 +795,24 @@ function calcShipping(subtotal,method){
 // RENDER SUMMARY
 function renderSummary(){
   const totalQty=cart.reduce((s,i)=>s+i.qty,0);
-  const subtotal=cart.reduce((s,i)=>s+i.price*i.qty,0);
-  const discountAmt=(info&&info.discountAmount&&info.discountCode)?info.discountAmount:0;
+  // Todo se recalcula aqui desde el carrito normalizado (precios finales), con
+  // las mismas formulas del servidor: si el carrito cambio de precio desde
+  // customer-info (p. ej. empezo o termino la campana), lo guardado en
+  // fv_customer_info ya no vale.
+  const tot=fvTotalesCarrito(cart);
+  const subtotal=tot.final;
+  const discountAmt=(info&&info.discountCode&&!BF_SIN_CODIGO)?Math.round(subtotal*0.15):0;
   const discountedSubtotal=subtotal-discountAmt;
-  const shipping=(info&&typeof info.shipping==="number")?info.shipping:calcShipping(discountedSubtotal,info?.deliveryMethod||"domicilio");
+  const shipping=calcShipping(discountedSubtotal,info?.deliveryMethod||"domicilio");
   const total=discountedSubtotal+shipping;
+  window._checkoutBF=tot;
+  $("#sumListaRow").style.display=tot.ahorro>0?"":"none";
+  $("#sumBFRow").style.display=tot.ahorro>0?"":"none";
+  if(tot.ahorro>0){
+    $("#sumLista").textContent=fmt(tot.lista);
+    $("#sumBFLbl").textContent=window.FV_BF.etiqueta+" "+window.FV_BF.pct+" %";
+    $("#sumBF").textContent="-"+fmt(tot.ahorro);
+  }
   $("#sumCount").textContent=totalQty===1?"1 pieza":`${totalQty} piezas`;
   $("#sumItems").innerHTML=cart.map(i=>`
     <div class="summary-item">
@@ -783,7 +821,7 @@ function renderSummary(){
         <h4>${i.name}</h4>
         <div class="meta">${i.color}<span class="sep">·</span>×${i.qty}</div>
       </div>
-      <div class="sub">${fmt(i.price*i.qty)}</div>
+      <div class="sub">${fvLineaHTML(i)}</div>
     </div>
   `).join("");
   $("#sumSubtotal").textContent=fmt(subtotal);
@@ -883,7 +921,11 @@ $("#btnPay").onclick=async()=>{
   const pedido={
     ref,email:info.email,fullName,docId:info.docId,
     address:fullAddress,city:info.city,department:info.department,zipCode:info.zipCode,
-    phone:info.phone,cart,subtotal,discountCode:info.discountCode||null,discountAmount:discountAmt,shipping,total,
+    phone:info.phone,cart,subtotal,discountCode:discountAmt>0?(info.discountCode||null):null,discountAmount:discountAmt,shipping,total,
+    // Black Friday (informativo: subtotal YA es con precios finales).
+    subtotalLista:(window._checkoutBF||{}).lista||subtotal,
+    descuentoBF:(window._checkoutBF||{}).ahorro||0,
+    bfPct:((window._checkoutBF||{}).ahorro||0)>0?window.FV_BF.pct:0,
     deliveryMethod:info.deliveryMethod,notes:info.notes,
     waNotif:info.waNotif,paymentMethod
   };
@@ -915,7 +957,8 @@ $("#btnPay").onclick=async()=>{
     if(window.FVPerfil) window.FVPerfil.addOrder({ref:pedido.ref,fecha:new Date().toISOString(),items:pedido.cart.map(i=>({name:i.name,qty:i.qty,price:i.price})),total:pedido.total,metodo:"WhatsApp",estado:"WHATSAPP"});
     const lines=cart.map(i=>`• ${i.qty}× ${i.sku?`[${i.sku}] `:''}${i.name} (${i.color}) — ${fmt(i.price*i.qty)}`).join("\n");
     const discLine=discountAmt>0?`\nDescuento (${pedido.discountCode}): -${fmt(discountAmt)}`:"";
-    const envioLine=`\nSubtotal: ${fmt(subtotal)}${discLine}\nEnvío: ${shipping>0?fmt(shipping):"Gratis (zona metropolitana de Bucaramanga)"}`;
+    const bfLine=pedido.descuentoBF>0?`\nPrecio de lista: ${fmt(pedido.subtotalLista)}\n${window.FV_BF.etiqueta} ${pedido.bfPct} %: -${fmt(pedido.descuentoBF)}`:"";
+    const envioLine=`${bfLine}\nSubtotal: ${fmt(subtotal)}${discLine}\nEnvío: ${shipping>0?fmt(shipping):"Gratis (zona metropolitana de Bucaramanga)"}`;
     const msg=`Hola Felipe! Soy ${fullName}.\n\nMe gustaría confirmar este pedido:\n\n${lines}${envioLine}\n\n*Total: ${fmt(total)}*\n\nMis datos:\nCorreo: ${info.email}\nDocumento: ${info.docId}\nTeléfono: ${info.phone}\nDirección: ${fullAddress}\nCiudad: ${info.city}\n\nReferencia: ${ref}\n\n¿Cómo continuamos?`;
     window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`,"_blank");
   }else{
@@ -958,8 +1001,21 @@ $("#btnPay").onclick=async()=>{
           // que el Club rechazó), manda el del servidor: es el que se va a cobrar.
           // Actualizamos lo que se muestra y lo que se guarda para que el cliente
           // nunca vea un número distinto del que paga.
+          // FALLA CERRADO si el servidor cobraria las PIEZAS mas caras de lo
+          // que el cliente ve (p. ej. sitio con Black Friday publicado antes
+          // que el servidor). Un codigo rechazado solo cambia "descuento", no
+          // el subtotal de piezas, asi que ese caso sigue su curso normal.
+          if(jf.resumen&&Number(jf.resumen.subtotal)>subtotal){
+            console.error("wompi-sign cobraria mas que lo mostrado:",jf.resumen.subtotal,">",subtotal);
+            if(wompiWin){try{wompiWin.close()}catch(e){}}
+            alert("El total del pago no coincide con el precio que ves en pantalla, así que no iniciamos el cobro. Escríbenos por WhatsApp y te ayudamos a terminar tu compra con el precio mostrado.");
+            $("#btnPay").disabled=false;
+            return;
+          }
           if(totalSrv!==total&&jf.resumen){
             pedido.subtotal=jf.resumen.subtotal;
+            if(jf.resumen.subtotalLista!=null)pedido.subtotalLista=jf.resumen.subtotalLista;
+            if(jf.resumen.descuentoBF!=null)pedido.descuentoBF=jf.resumen.descuentoBF;
             pedido.discountAmount=jf.resumen.descuento;
             pedido.discountCode=jf.resumen.codigo||null;
             pedido.shipping=jf.resumen.envio;
