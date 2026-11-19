@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Acceso VIP · Black Friday · Felipe Vergel</title>
+<meta name="description" content="20 % de descuento exclusivo en toda la tienda antes de que abra al público. Recibe tu código personal.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<style>
+*{box-sizing:border-box;margin:0}
+html{-webkit-text-size-adjust:100%}
+body{background:#2B211B;color:#F4EEE3;font-family:'Jost',system-ui,sans-serif;font-weight:300;line-height:1.6;min-height:100vh;min-height:100dvh}
+.vip{display:grid;min-height:100vh;min-height:100dvh;grid-template-columns:1fr}
+.vip-foto{position:relative;min-height:62svh;overflow:hidden;background:#1d1511}
+.vip-foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 38%}
+/* La foto se funde con el marron donde empieza el texto */
+.vip-foto::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to bottom,rgba(43,33,27,.55) 0%,rgba(43,33,27,0) 22%,rgba(43,33,27,0) 42%,rgba(43,33,27,.78) 78%,#2B211B 100%)}
+.vip-top{position:absolute;z-index:2;top:0;left:0;right:0;padding:22px 24px;display:flex;justify-content:space-between;align-items:center}
+.vip-top img{position:static;width:auto;height:38px;filter:brightness(0) invert(1);opacity:.95}
+.vip-cifra{position:absolute;z-index:2;left:24px;right:24px;bottom:34px}
+.vip-eyebrow{display:inline-block;padding:6px 10px;background:#2B211B;color:#F4EEE3;font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--crema-rosa);font-weight:500}
+.vip-20{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(88px,26vw,168px);line-height:.9;margin:6px 0 2px;color:#fff}
+.vip-20 sup{font-size:.42em;vertical-align:top;position:relative;top:.12em;margin-left:.04em}
+.vip-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,5vw,28px);font-weight:500;line-height:1.2;max-width:15em}
+.vip-form-zona{position:relative;padding:8px 24px 40px;margin-top:-6px;max-width:560px;width:100%;margin-inline:auto}
+.vip h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(28px,7vw,38px);line-height:1.12;margin-bottom:10px}
+.vip p.lead{color:rgba(244,238,227,.86);font-size:16px;margin-bottom:22px}
+.vip label{display:block;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--crema-rosa);font-weight:500;margin:0 0 7px}
+.vip label small{letter-spacing:.04em;text-transform:none;font-weight:300;opacity:.8}
+.vip input{width:100%;min-height:52px;padding:13px 16px;border-radius:2px;border:1px solid transparent;background:#F4EEE3;color:#2B211B;font:400 16px 'Jost',sans-serif;outline:none}
+.vip input::placeholder{color:#7a6a5f}
+.vip input:focus-visible{border-color:var(--cobre);box-shadow:0 0 0 3px rgba(192,133,82,.45)}
+.campo{margin-bottom:16px}
+.vip button.cta{width:100%;min-height:56px;margin-top:6px;border:0;border-radius:2px;background:#F4EEE3;color:#2B211B;font:600 13px 'Jost',sans-serif;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:background .2s,transform .15s}
+.vip button.cta:hover{background:#fff}
+.vip button.cta:active{transform:scale(.985)}
+.nota{font-size:13px;color:rgba(244,238,227,.72);margin-top:14px;line-height:1.55}
+.reglas{margin-top:22px;padding-top:18px;border-top:1px solid rgba(244,238,227,.16);font-size:13px;color:rgba(244,238,227,.72);display:grid;gap:6px}
+.error{display:none;margin:-4px 0 14px;color:#ffd9cc;font-size:14px}
+.ok{display:none;text-align:center;padding:6px 0 0}
+.ok .caja{display:inline-block;margin:14px 0 10px;padding:16px 26px;border:2px dashed var(--cobre);border-radius:2px;font-weight:600;font-size:28px;letter-spacing:.12em;color:#fff}
+.ok h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:32px;line-height:1.1}
+.ok a.cta2{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 28px;margin-top:18px;background:#F4EEE3;color:#2B211B;text-decoration:none;font:600 13px 'Jost',sans-serif;letter-spacing:.2em;text-transform:uppercase;border-radius:2px}
+.prev{font-size:12px;color:var(--crema-rosa);margin-top:10px}
+@media(min-width:900px){
+  .vip{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);align-items:stretch}
+  .vip-foto{min-height:100vh;min-height:100dvh}
+  .vip-foto img{object-position:50% 30%}
+  .vip-foto::after{background:linear-gradient(to right,rgba(43,33,27,0) 55%,rgba(43,33,27,.7) 85%,#2B211B 100%),linear-gradient(to bottom,rgba(43,33,27,.5) 0%,rgba(43,33,27,0) 20%,rgba(43,33,27,0) 62%,rgba(43,33,27,.7) 100%)}
+  .vip-cifra{left:48px;bottom:56px}
+  .vip-top{padding:30px 48px}
+  .vip-form-zona{align-self:center;padding:40px 56px 40px 24px;margin:0;max-width:600px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main class="vip">
+  <section class="vip-foto" aria-label="Lámpara Tríada en vidrio ámbar">
+    <picture><source srcset="../img/lampara-triada/lampara-triada-01.webp" type="image/webp"><img src="../img/lampara-triada/lampara-triada-01.jpg" alt="Lámpara Tríada en vidrio ámbar encendida" fetchpriority="high" decoding="async"></picture>
+    <div class="vip-top"><a href="../index.html" aria-label="Felipe Vergel · Arte en Vidrio"><img src="../img/logo/logo_fv_ladrillo.png" alt="Felipe Vergel · Arte en Vidrio"></a></div>
+    <div class="vip-cifra">
+      <div class="vip-eyebrow">Black Friday · Acceso VIP</div>
+      <div class="vip-20">20<sup>%</sup></div>
+      <div class="vip-sub">de descuento en toda la tienda, antes que el público</div>
+    </div>
+  </section>
+
+  <section class="vip-form-zona">
+    <div id="vista-form">
+      <h1>Recibe tu código personal</h1>
+      <p class="lead">Dejas tu nombre y tu correo, y te enviamos un código para usarlo en cualquier pieza de la tienda. Es solo tuyo y de un solo uso.</p>
+      <form id="vipForm" novalidate>
+        <div class="campo"><label for="vNombre">Tu nombre</label><input id="vNombre" name="nombre" type="text" autocomplete="given-name" placeholder="Cómo te llamas" required></div>
+        <div class="campo"><label for="vMail">Tu correo</label><input id="vMail" name="correo" type="email" inputmode="email" autocomplete="email" placeholder="tu@correo.com" required></div>
+        <p class="error" id="vErr" role="alert"></p>
+        <button class="cta" type="submit">Recibir mi código del 20 %</button>
+      </form>
+      <p class="nota">Te lo enviamos al correo. Sin spam: solo arte, luz y vidrio.</p>
+      <div class="reglas">
+        <span>Un código por persona, válido en toda la tienda.</span>
+        <span>Se gasta cuando tu compra es aprobada.</span>
+        <span>No se suma al 15 % de Black Friday: el 20 % lo reemplaza.</span>
+      </div>
+    </div>
+
+    <div class="ok" id="vista-ok" aria-live="polite">
+      <h2>Listo, <span id="okNombre"></span></h2>
+      <p class="lead" style="margin-top:8px">Este es tu código del 20 %. También te lo enviamos al correo.</p>
+      <div class="caja" id="okCodigo">FV20-XXXXXXX</div>
+      <p class="nota">Escríbelo al pagar. Es personal y de un solo uso.</p>
+      <a class="cta2" href="../index.html#catalogo">Ver la tienda</a>
+      <p class="prev">Vista previa: este código es de ejemplo, aún no se genera uno real.</p>
+    </div>
+  </section>
+</main>
+<script>
+(function(){
+  var f=document.getElementById('vipForm'),err=document.getElementById('vErr');
+  function msg(t){err.textContent=t;err.style.display='block'}
+  f.addEventListener('submit',function(e){
+    e.preventDefault();err.style.display='none';
+    var n=f.nombre.value.trim(),m=f.correo.value.trim();
+    if(!n){msg('Escribe tu nombre.');f.nombre.focus();return}
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m)){msg('Revisa tu correo.');f.correo.focus();return}
+    /* VISTA PREVIA: aquí irá la llamada que crea el código real FV20 y lo envía por correo. */
+    document.getElementById('okNombre').textContent=n;
+    document.getElementById('vista-form').style.display='none';
+    document.getElementById('vista-ok').style.display='block';
+  });
+})();
+</script>
+</body>
+</html>
