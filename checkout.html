@@ -766,6 +766,7 @@ function renderSummary(){
   const tot={lista:R.subtotalLista,final:R.subtotal,ahorro:R.descuentoBF};
   window._checkoutBF=tot;
   window._checkoutCodigoPago=R.codigoPago;
+  window._checkoutVip=vipAplicado;
   $("#sumListaRow").style.display=tot.ahorro>0?"":"none";
   $("#sumBFRow").style.display=tot.ahorro>0?"":"none";
   if(tot.ahorro>0){
@@ -869,7 +870,10 @@ $("#btnPay").onclick=async()=>{
   if(!info||!cart.length)return;
   $("#btnPay").disabled=true;
   const fullName=`${info.firstName||""} ${info.lastName||""}`.trim();
-  const subtotal=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  // Con el código VIP el 20 % va sobre el precio de LISTA: las líneas del
+  // pedido (correo, WhatsApp, hoja) van a lista, igual que en el servidor.
+  const cartPago=window._checkoutVip?cart.map(i=>({...i,price:i.precioLista!=null?i.precioLista:i.price})):cart;
+  const subtotal=window._checkoutSubtotal!=null?window._checkoutSubtotal:cartPago.reduce((s,i)=>s+i.price*i.qty,0);
   const shipping=window._checkoutShipping||0;
   const total=window._checkoutTotal||(subtotal+shipping);
   // Sufijo aleatorio de 5 caracteres SIEMPRE. Con toString(36).slice(2,7) el
@@ -884,7 +888,7 @@ $("#btnPay").onclick=async()=>{
   const pedido={
     ref,email:info.email,fullName,docId:info.docId,
     address:fullAddress,city:info.city,department:info.department,zipCode:info.zipCode,
-    phone:info.phone,cart,subtotal,discountCode:discountAmt>0?(window._checkoutCodigoPago||null):null,discountAmount:discountAmt,shipping,total,
+    phone:info.phone,cart:cartPago,subtotal,discountCode:discountAmt>0?(window._checkoutCodigoPago||null):null,discountAmount:discountAmt,shipping,total,
     // Black Friday (informativo: subtotal YA es con precios finales).
     subtotalLista:(window._checkoutBF||{}).lista||subtotal,
     descuentoBF:(window._checkoutBF||{}).ahorro||0,
@@ -918,7 +922,7 @@ $("#btnPay").onclick=async()=>{
     // pulsar "Enviar" en WhatsApp, el pedido quedaba solo en el Excel y nadie se enteraba.
     enviarCorreos(pedido).catch(e=>console.error("enviarCorreos (WhatsApp):",e));
     if(window.FVPerfil) window.FVPerfil.addOrder({ref:pedido.ref,fecha:new Date().toISOString(),items:pedido.cart.map(i=>({name:i.name,qty:i.qty,price:i.price})),total:pedido.total,metodo:"WhatsApp",estado:"WHATSAPP"});
-    const lines=cart.map(i=>`• ${i.qty}× ${i.sku?`[${i.sku}] `:''}${i.name} (${i.color}) — ${fmt(i.price*i.qty)}`).join("\n");
+    const lines=cartPago.map(i=>`• ${i.qty}× ${i.sku?`[${i.sku}] `:''}${i.name} (${i.color}) — ${fmt(i.price*i.qty)}`).join("\n");
     const discLine=discountAmt>0?`\nDescuento (${pedido.discountCode}): -${fmt(discountAmt)}`:"";
     const bfLine=pedido.descuentoBF>0?`\nPrecio de lista: ${fmt(pedido.subtotalLista)}\n${window.FV_BF.etiqueta} ${pedido.bfPct} %: -${fmt(pedido.descuentoBF)}`:"";
     const envioLine=`${bfLine}\nSubtotal: ${fmt(subtotal)}${discLine}\nEnvío: ${shipping>0?fmt(shipping):"Gratis (zona metropolitana de Bucaramanga)"}`;
