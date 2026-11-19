@@ -37,7 +37,7 @@ window.fvImg=(function(){
      GitHub Pages no permite cabeceras propias, asi que la CSP viaja como
      <meta http-equiv>. Por eso no lleva frame-ancestors ni report-uri: esas
      directivas solo funcionan como cabecera HTTP real (ver _headers). -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://www.clarity.ms https://*.clarity.ms https://connect.facebook.net https://www.googletagmanager.com https://cdn.jsdelivr.net https://accounts.google.com https://apis.google.com https://script.google.com https://script.googleusercontent.com; script-src-elem 'self' 'unsafe-inline' https://www.clarity.ms https://*.clarity.ms https://connect.facebook.net https://www.googletagmanager.com https://cdn.jsdelivr.net https://accounts.google.com https://apis.google.com https://script.google.com https://script.googleusercontent.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com; style-src-elem 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://*.clarity.ms https://*.googleusercontent.com https://www.facebook.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://accounts.google.com; connect-src 'self' https://www.clarity.ms https://*.clarity.ms https://www.facebook.com https://connect.facebook.net https://fonts.googleapis.com https://fonts.gstatic.com https://api.emailjs.com https://script.google.com https://script.googleusercontent.com https://docs.google.com https://www.googleapis.com https://accounts.google.com https://production.wompi.co https://exquisite-pasca-848b8b.netlify.app https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com; frame-src https://accounts.google.com https://checkout.wompi.co; form-action 'self' https://docs.google.com https://checkout.wompi.co; manifest-src 'self'; worker-src 'self' blob:">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://www.clarity.ms https://*.clarity.ms https://connect.facebook.net https://www.googletagmanager.com https://accounts.google.com https://apis.google.com https://script.google.com https://script.googleusercontent.com; script-src-elem 'self' 'unsafe-inline' https://www.clarity.ms https://*.clarity.ms https://connect.facebook.net https://www.googletagmanager.com https://accounts.google.com https://apis.google.com https://script.google.com https://script.googleusercontent.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com; style-src-elem 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://*.clarity.ms https://*.googleusercontent.com https://www.facebook.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://accounts.google.com; connect-src 'self' https://www.clarity.ms https://*.clarity.ms https://www.facebook.com https://connect.facebook.net https://fonts.googleapis.com https://fonts.gstatic.com https://script.google.com https://script.googleusercontent.com https://docs.google.com https://www.googleapis.com https://accounts.google.com https://production.wompi.co https://exquisite-pasca-848b8b.netlify.app https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com; frame-src https://accounts.google.com https://checkout.wompi.co; form-action 'self' https://docs.google.com https://checkout.wompi.co; manifest-src 'self'; worker-src 'self' blob:">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-E2SG3MESQW"></script>
@@ -71,8 +71,7 @@ window.fvImg=(function(){
      en la fuente del sistema. Ademas pedia Lora, que no se usa en ningun
      font-family del sitio, y repetia display=swap tres veces. -->
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Jost:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
-<!-- EmailJS: envío automático de correos (factura a Felipe + confirmación al comprador) -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<!-- Correos (factura a Felipe + confirmación al comprador): los envía el servidor (función enviar-correo + Resend). Ya no se carga ningún script de terceros ni hay claves en el navegador. -->
 <script src="perfil.js" defer></script>
 <link rel="stylesheet" href="tokens.css?v=3">
 <style>
@@ -623,97 +622,47 @@ const WA_NUMBER="573116214726";
 const FORM_ID="1FAIpQLSflsK1YlaHGgdxFdOQ4pvnrF_cA0KUnLUVubAlO2eD3LBfm4Q";
 
 /* ============================================================
-   CORREOS AUTOMÁTICOS (EmailJS)
+   CORREOS AUTOMÁTICOS (Resend, vía función de Netlify)
    ------------------------------------------------------------
-   PASO 1: Crea cuenta gratis en https://www.emailjs.com
-   PASO 2: Conecta tu Gmail (felipevergelarteenvidrio@gmail.com)
-   PASO 3: Crea 2 plantillas (templates) y pega aquí los IDs.
-   PASO 4: Copia tu Public Key (Account > General).
-   Reemplaza los 4 valores de abajo. Mientras estén en "TU_...",
-   los correos NO se envían (el resto del sitio funciona igual).
+   El navegador NO envía correos ni lleva ninguna clave: manda
+   {tipo:"pedido", datos} a la función enviar-correo, que valida,
+   rehace piezas y montos con el catálogo del servidor, arma las
+   plantillas (aviso a Felipe + confirmación al cliente) y las
+   envía con Resend. Los destinatarios los fija el servidor.
    ============================================================ */
-const EMAILJS_PUBLIC_KEY   = "XVjxIagv23vBCkzTX";
-const EMAILJS_SERVICE_ID   = "service_bnw4s0x";
-const EMAILJS_TPL_FELIPE   = "template_80c4173";  // notificación de nuevo pedido para Felipe
-const EMAILJS_TPL_CLIENTE  = "template_20wj574";  // confirmación de compra para el cliente
-const EMAIL_FELIPE         = "felipevergelarteenvidrio@gmail.com";
+const CORREO_API           = "https://exquisite-pasca-848b8b.netlify.app/.netlify/functions/enviar-correo";
 /* Antes el navegador llamaba DIRECTO al Apps Script de Ventas mandando
    VENTAS_KEY en el body: cualquiera con "ver código fuente" se llevaba la
    clave. Ahora se llama a esta función de Netlify (sin clave alguna); el
    servidor agrega la clave antes de reenviar al Apps Script. */
 const VENTAS_API           = "https://exquisite-pasca-848b8b.netlify.app/.netlify/functions/ventas-registrar";
 
-const emailjsListo = EMAILJS_PUBLIC_KEY!=="TU_PUBLIC_KEY" && typeof emailjs!=="undefined";
-if(emailjsListo){ try{ emailjs.init({publicKey:EMAILJS_PUBLIC_KEY}); }catch(e){} }
-
-// Envía la factura a Felipe + la confirmación al comprador
+// Envía la factura a Felipe + la confirmación al comprador (todo lo arma el servidor).
+// Si falla, el pedido NO se rompe: se avisa en consola y listo (igual que antes).
 async function enviarCorreos(pedido){
-  if(!emailjsListo)return; // si no está configurado, no hace nada
-  const lineas=pedido.cart.map(i=>`${i.qty}x ${i.sku?`[${i.sku}] `:''}${i.name} (${i.color}) - ${fmt(i.price*i.qty)}`).join("\n");
-  const esWhatsApp    = pedido.paymentMethod==="whatsapp";
-  const metodoPagoTxt = esWhatsApp?"WhatsApp (pago por confirmar)":"PSE / Wompi";
-  const metodoEntrega = pedido.deliveryMethod==="bucaramanga"?"Envío gratis · Zona metropolitana de Bucaramanga":"Envío a domicilio";
-  const notasTxt      = pedido.notes||"—";
-  // Black Friday: el ahorro de la campana como linea informativa ANTES del
-  // subtotal (el subtotal ya viene con precios finales).
-  const bfLineHtml=pedido.descuentoBF>0?`<tr><td style="padding:10px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#B89A8E;">Precio de lista · Black Friday ${pedido.bfPct||""} %</td><td align="right" style="padding:10px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#F3CFB3;">${fmt(pedido.subtotalLista)} · -${fmt(pedido.descuentoBF)}</td></tr>`:"";
-  const descLineHtml=pedido.discountAmount>0?`<tr><td style="padding:10px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#B89A8E;">Descuento (${pedido.discountCode})</td><td align="right" style="padding:10px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#C66E4E;">-${fmt(pedido.discountAmount)}</td></tr>`:"";
-  // Dirección completa: calle + apto, municipio, departamento y código postal.
-  // Antes solo salía "dirección, ciudad" y Felipe no sabía a qué departamento enviar.
-  const entrega=[pedido.address,pedido.city,pedido.department,pedido.zipCode?"CP "+pedido.zipCode:""]
-    .filter(Boolean).join(", ");
-  const fechaHoy=new Date().toLocaleDateString("es-CO",{year:"numeric",month:"long",day:"numeric"});
-
-  const introCliente=esWhatsApp
-    ?`Recibimos tu solicitud de pedido. Felipe te escribirá por WhatsApp para confirmar el pago y coordinar la entrega. Una vez confirmado, tu pieza estará lista en aproximadamente <strong style="color:#FAF4ED;">8 días hábiles</strong>.`
-    :`Tu pedido fue confirmado. Tu pieza entra al taller hoy y estará lista en aproximadamente <strong style="color:#FAF4ED;">8 días hábiles</strong>.`;
-  const msgCliente=`<p style="font-family:-apple-system,sans-serif;font-size:15px;line-height:1.8;color:#E7CDBC;margin:0 0 20px;">${introCliente}</p><table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background:rgba(243,207,179,0.07);border-radius:14px;overflow:hidden;margin-bottom:16px;"><tr><td colspan="2" style="padding:12px 18px;border-bottom:1px solid rgba(243,207,179,.15);"><span style="font-family:-apple-system,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#C66E4E;font-weight:700;">Referencia</span><br><span style="font-family:-apple-system,sans-serif;font-size:18px;font-weight:800;color:#FAF4ED;letter-spacing:2px;">${pedido.ref}</span></td></tr><tr><td colspan="2" style="padding:12px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#E7CDBC;white-space:pre-line;">${lineas}</td></tr>${bfLineHtml}<tr><td style="padding:10px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#B89A8E;">Subtotal</td><td align="right" style="padding:10px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#F3CFB3;">${fmt(pedido.subtotal)}</td></tr>${descLineHtml}<tr><td style="padding:10px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#B89A8E;">Envío</td><td align="right" style="padding:10px 18px;border-bottom:1px solid rgba(243,207,179,.1);font-family:-apple-system,sans-serif;font-size:13px;color:#F3CFB3;">${pedido.shipping>0?fmt(pedido.shipping):"Gratis"}</td></tr><tr><td style="padding:14px 18px;font-family:-apple-system,sans-serif;font-size:13px;font-weight:700;color:#F3CFB3;">Total</td><td align="right" style="padding:14px 18px;font-family:-apple-system,sans-serif;font-size:20px;font-weight:800;color:#FAF4ED;">${fmt(pedido.total)}</td></tr></table><p style="font-family:-apple-system,sans-serif;font-size:13px;color:#B89A8E;margin:0;"><strong style="color:#F3CFB3;">Entrega:</strong> ${entrega} &nbsp;·&nbsp; <strong style="color:#F3CFB3;">Fecha:</strong> ${fechaHoy}${pedido.notes?`<br><strong style="color:#F3CFB3;">Tu nota:</strong> ${pedido.notes}`:""}</p>`;
-
-  const msgFelipe=`<p style="font-family:-apple-system,sans-serif;font-size:14px;line-height:1.7;color:#d4e8e6;margin:0;"><strong style="color:#FAF4ED;">Referencia:</strong> ${pedido.ref}<br><strong style="color:#FAF4ED;">Cliente:</strong> ${pedido.fullName}<br><strong style="color:#FAF4ED;">Cédula / NIT:</strong> ${pedido.docId||"—"}<br><strong style="color:#FAF4ED;">Correo:</strong> ${pedido.email}<br><strong style="color:#FAF4ED;">Teléfono:</strong> ${pedido.phone}<br><strong style="color:#FAF4ED;">Método de pago:</strong> ${metodoPagoTxt}<br><strong style="color:#FAF4ED;">Total:</strong> ${fmt(pedido.total)}<br><br><strong style="color:#FAF4ED;">Dirección de entrega:</strong><br>${entrega}<br><strong style="color:#FAF4ED;">Tipo de envío:</strong> ${metodoEntrega}<br><br><strong style="color:#FAF4ED;">Notas del cliente:</strong> ${notasTxt}<br><br><strong style="color:#FAF4ED;">Piezas:</strong><br>${lineas.replace(/\n/g,"<br>")}</p>`;
-
-  const paramsFelipe={
-    nombre: pedido.fullName,
-    to_email: EMAIL_FELIPE,
-    asunto: `${esWhatsApp?"Pedido por WhatsApp":"Nuevo pedido"} · ${pedido.ref} · ${fmt(pedido.total)}`,
-    mensaje: msgFelipe,
-    // Casillas individuales del template (antes salían vacías porque no se pasaban)
-    email_cliente: pedido.email,
-    telefono: pedido.phone,
-    documento: pedido.docId||"—",
-    fecha: fechaHoy,
-    referencia: pedido.ref,
-    productos: lineas,
-    codigo_descuento: pedido.discountCode||"",
-    direccion: entrega,
-    ciudad: pedido.city||"—",
-    departamento: pedido.department||"—",
-    metodo_entrega: metodoEntrega,
-    metodo_pago: metodoPagoTxt,
-    notas: notasTxt,
-    total: (pedido.total||0).toLocaleString("es-CO")
+  const datos={
+    ref:pedido.ref, fullName:pedido.fullName, email:pedido.email, phone:pedido.phone||"",
+    docId:pedido.docId||"", address:pedido.address||"", city:pedido.city||"",
+    department:pedido.department||"", zipCode:pedido.zipCode||"", notes:pedido.notes||"",
+    deliveryMethod:pedido.deliveryMethod||"domicilio", paymentMethod:pedido.paymentMethod||"pse",
+    discountCode:pedido.discountCode||"", discountAmount:pedido.discountAmount||0,
+    subtotal:pedido.subtotal||0, shipping:pedido.shipping||0, total:pedido.total||0,
+    // Black Friday (informativo: el servidor lo recalcula igual)
+    subtotalLista:pedido.subtotalLista||0, descuentoBF:pedido.descuentoBF||0, bfPct:pedido.bfPct||0,
+    cart:(pedido.cart||[]).map(i=>({id:i.id||"",qty:i.qty,sku:i.sku||"",name:i.name,color:i.color||"",price:i.price,precioLista:i.precioLista||i.price}))
   };
-  const paramsCliente={
-    nombre: pedido.fullName,
-    to_email: pedido.email,
-    asunto: esWhatsApp?`Recibimos tu pedido · ${pedido.ref}`:`Tu pedido está confirmado · ${pedido.ref}`,
-    mensaje: msgCliente,
-    referencia: pedido.ref,
-    productos: lineas,
-    subtotal: fmt(pedido.subtotal),
-    direccion: entrega,
-    metodo_entrega: metodoEntrega,
-    notas: notasTxt,
-    total: (pedido.total||0).toLocaleString("es-CO")
-  };
-  const resultados=await Promise.allSettled([
-    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TPL_FELIPE,  paramsFelipe),  // → felipevergelarteenvidrio@gmail.com
-    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TPL_CLIENTE, paramsCliente)  // → email del cliente
-  ]);
-  resultados.forEach((r,i)=>{
-    const dest=i===0?"FELIPE":"CLIENTE";
-    if(r.status==="fulfilled") console.log(`✅ Correo ${dest} enviado:`, r.value);
-    else                       console.error(`❌ Correo ${dest} falló:`, r.reason);
-  });
+  try{
+    const r=await fetch(CORREO_API,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({tipo:"pedido",datos}),
+      keepalive:true // sigue vivo aunque el cliente cambie de pantalla
+    });
+    if(r.ok) console.log("✅ Correos del pedido enviados (Felipe + cliente)");
+    else console.error("❌ Correos del pedido: el servidor respondió "+r.status);
+  }catch(e){
+    console.error("❌ Correos del pedido fallaron:",e);
+  }
 }
 
 const $=(s,c=document)=>c.querySelector(s);

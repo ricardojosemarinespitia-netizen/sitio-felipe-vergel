@@ -37,7 +37,7 @@ window.fvImg=(function(){
      GitHub Pages no permite cabeceras propias, asi que la CSP viaja como
      <meta http-equiv>. Por eso no lleva frame-ancestors ni report-uri: esas
      directivas solo funcionan como cabecera HTTP real (ver _headers). -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://www.clarity.ms https://*.clarity.ms https://connect.facebook.net https://www.googletagmanager.com https://cdn.jsdelivr.net https://accounts.google.com https://apis.google.com https://script.google.com https://script.googleusercontent.com; script-src-elem 'self' 'unsafe-inline' https://www.clarity.ms https://*.clarity.ms https://connect.facebook.net https://www.googletagmanager.com https://cdn.jsdelivr.net https://accounts.google.com https://apis.google.com https://script.google.com https://script.googleusercontent.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com; style-src-elem 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://*.clarity.ms https://*.googleusercontent.com https://www.facebook.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://accounts.google.com; connect-src 'self' https://www.clarity.ms https://*.clarity.ms https://www.facebook.com https://connect.facebook.net https://fonts.googleapis.com https://fonts.gstatic.com https://api.emailjs.com https://script.google.com https://script.googleusercontent.com https://docs.google.com https://www.googleapis.com https://accounts.google.com https://production.wompi.co https://exquisite-pasca-848b8b.netlify.app https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com; frame-src https://accounts.google.com https://checkout.wompi.co; form-action 'self' https://docs.google.com https://checkout.wompi.co; manifest-src 'self'; worker-src 'self' blob:">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://www.clarity.ms https://*.clarity.ms https://connect.facebook.net https://www.googletagmanager.com https://accounts.google.com https://apis.google.com https://script.google.com https://script.googleusercontent.com; script-src-elem 'self' 'unsafe-inline' https://www.clarity.ms https://*.clarity.ms https://connect.facebook.net https://www.googletagmanager.com https://accounts.google.com https://apis.google.com https://script.google.com https://script.googleusercontent.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com; style-src-elem 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://*.clarity.ms https://*.googleusercontent.com https://www.facebook.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://accounts.google.com; connect-src 'self' https://www.clarity.ms https://*.clarity.ms https://www.facebook.com https://connect.facebook.net https://fonts.googleapis.com https://fonts.gstatic.com https://script.google.com https://script.googleusercontent.com https://docs.google.com https://www.googleapis.com https://accounts.google.com https://production.wompi.co https://exquisite-pasca-848b8b.netlify.app https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com; frame-src https://accounts.google.com https://checkout.wompi.co; form-action 'self' https://docs.google.com https://checkout.wompi.co; manifest-src 'self'; worker-src 'self' blob:">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-E2SG3MESQW"></script>
@@ -159,8 +159,7 @@ window.fvImg=(function(){
 <link rel="preload" as="image" type="image/webp" media="(max-aspect-ratio: 23/20)" imagesrcset="img/candelabro-arco/candelabro-arco-hero-vertical-720.webp 720w, img/candelabro-arco/candelabro-arco-hero-vertical.webp 1080w" imagesizes="100vw" fetchpriority="high">
 <!-- Letra del nombre en el hero (Gloock, subconjunto de 4 KB, local). -->
 <link rel="preload" href="fonts/gloock-candelabro.woff2" as="font" type="font/woff2" crossorigin>
-<!-- EmailJS para Club de Descuentos -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<!-- Club de Descuentos: sus correos los envía el servidor (función enviar-correo + Resend), sin script de terceros ni claves aquí -->
 <!-- Google Sign-In (para login del Club, opcional) -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <!-- Perfiles de usuario -->
@@ -2219,10 +2218,22 @@ if(backTop)backTop.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
 
 // CLUB DE DESCUENTOS (código único por email, sin duplicados)
 (function(){
-  const CLUB_EMAILJS_PUBLIC="XVjxIagv23vBCkzTX";
-  const CLUB_EMAILJS_SERVICE="service_bnw4s0x";
-  const CLUB_EMAILJS_TPL_CLIENTE="template_20wj574";
-  const CLUB_EMAILJS_TPL_FELIPE="template_80c4173";
+  // Correos del Club: los arma y envía el servidor (Resend). El navegador solo manda
+  // {tipo:"club", datos}; no hay claves ni script de terceros aquí. El servidor
+  // recalcula el código desde el correo (mismo fnv1a7) y lo exige igual.
+  const CLUB_CORREO_API="https://exquisite-pasca-848b8b.netlify.app/.netlify/functions/enviar-correo";
+  async function clubEnviarCorreo(nombre,email,codigo,via){
+    const r=await fetch(CLUB_CORREO_API,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({tipo:"club",datos:{nombre:nombre||"coleccionista",email,codigo,via}})
+    });
+    let j=null;try{j=await r.json()}catch(e){}
+    // El correo del cliente es el que importa; el aviso a Felipe es de mejor esfuerzo.
+    if(!r.ok||!j||!j.ok)throw new Error((j&&j.error)||("HTTP "+r.status));
+    if(!j.felipe)console.error("Club email Felipe: no se pudo enviar el aviso");
+    return j;
+  }
   const CLUB_FORM_ID="1FAIpQLSflsK1YlaHGgdxFdOQ4pvnrF_cA0KUnLUVubAlO2eD3LBfm4Q";
   // URL del Apps Script (validación cross-device + conteo + lista).
   // Pega aquí la URL que termina en /exec tras desplegar club-suscriptores.gs.
@@ -2454,7 +2465,6 @@ if(backTop)backTop.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
       imgs.forEach((im,i)=>im.classList.toggle("on",i===k));
     },5000);
   })();
-  try{if(typeof emailjs!=="undefined")emailjs.init({publicKey:CLUB_EMAILJS_PUBLIC})}catch(e){}
 
   // ========================================================
   // GOOGLE SIGN-IN (login verificado, opcional)
@@ -2483,17 +2493,8 @@ if(backTop)backTop.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
     if(yaRegistrado(email)){ yaEsta(); return; }
     if(await yaRegistradoRemoto(email)){ marcarLocal(email,CODE); yaEsta(); return; }
     try{
-      if(typeof emailjs!=="undefined"){
-        const msgClub=`<p style="font-family:-apple-system,sans-serif;font-size:15px;line-height:1.8;color:#E7CDBC;margin:0 0 24px;">Acabas de unirte a un espacio reservado para quienes aman las piezas únicas hechas a mano. Este código es tuyo:</p><table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 auto 20px;"><tr><td align="center" style="border:2px dashed #F3CFB3;border-radius:16px;background:rgba(243,207,179,0.08);padding:20px 38px;"><div style="font-family:-apple-system,sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#C66E4E;font-weight:700;margin-bottom:8px;">Tu código de bienvenida · 15% OFF</div><div style="font-family:-apple-system,sans-serif;font-size:28px;letter-spacing:8px;font-weight:800;color:#FAF4ED;">${CODE}</div><div style="font-family:-apple-system,sans-serif;font-size:11px;color:#F3CFB3;margin-top:8px;">Solo válido en tu primera compra · No transferible</div></td></tr></table>`;
-        const msgFelipeClub=`<p style="font-family:-apple-system,sans-serif;font-size:14px;line-height:1.7;color:#d4e8e6;margin:0;">Nuevo suscriptor vía Google Sign-In.<br><strong style="color:#FAF4ED;">Correo:</strong> ${email}<br><strong style="color:#FAF4ED;">Código:</strong> ${CODE}</p>`;
-        const [r1,r2]=await Promise.allSettled([
-          emailjs.send(CLUB_EMAILJS_SERVICE,CLUB_EMAILJS_TPL_CLIENTE,{nombre:nombre||"coleccionista",to_email:email,asunto:"Bienvenido al Círculo · Tu 15% de descuento",mensaje:msgClub}),
-          emailjs.send(CLUB_EMAILJS_SERVICE,CLUB_EMAILJS_TPL_FELIPE,{nombre:nombre||"coleccionista",to_email:"felipevergelarteenvidrio@gmail.com",asunto:`Nuevo suscriptor · ${nombre||'coleccionista'}`,mensaje:msgFelipeClub,email_cliente:email,fecha:new Date().toLocaleDateString("es-CO",{year:"numeric",month:"long",day:"numeric"})})
-        ]);
-        if(r1.status==="rejected")console.error("Club email cliente:",r1.reason);
-        if(r2.status==="rejected")console.error("Club email Felipe:",r2.reason);
-      }
-    }catch(err){console.error("Club EmailJS error:",err)}
+      await clubEnviarCorreo(nombre,email,CODE,"google");
+    }catch(err){console.error("Club email:",err)}
     try{
       const lst=getRegistrados();lst.push(email.toLowerCase());
       localStorage.setItem("fv_club_registrados",JSON.stringify(lst));
@@ -2632,18 +2633,10 @@ if(backTop)backTop.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
     btn.textContent="Enviando...";
     let envioOK=false, errMsg="";
     try{
-      if(typeof emailjs==="undefined")throw new Error("EmailJS no cargó");
-      const msgClub=`<p style="font-family:-apple-system,sans-serif;font-size:15px;line-height:1.8;color:#E7CDBC;margin:0 0 24px;">Acabas de unirte a un espacio reservado para quienes aman las piezas únicas hechas a mano. Este código es tuyo:</p><table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 auto 20px;"><tr><td align="center" style="border:2px dashed #F3CFB3;border-radius:16px;background:rgba(243,207,179,0.08);padding:20px 38px;"><div style="font-family:-apple-system,sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#C66E4E;font-weight:700;margin-bottom:8px;">Tu código de bienvenida · 15% OFF</div><div style="font-family:-apple-system,sans-serif;font-size:28px;letter-spacing:8px;font-weight:800;color:#FAF4ED;">${CODE}</div><div style="font-family:-apple-system,sans-serif;font-size:11px;color:#F3CFB3;margin-top:8px;">Solo válido en tu primera compra · No transferible</div></td></tr></table>`;
-      const msgFelipeClub=`<p style="font-family:-apple-system,sans-serif;font-size:14px;line-height:1.7;color:#d4e8e6;margin:0;">Nuevo suscriptor vía formulario.<br><strong style="color:#FAF4ED;">Correo:</strong> ${emailRaw}<br><strong style="color:#FAF4ED;">Código:</strong> ${CODE}</p>`;
-      const [rCliente,rFelipe]=await Promise.allSettled([
-        emailjs.send(CLUB_EMAILJS_SERVICE,CLUB_EMAILJS_TPL_CLIENTE,{nombre,to_email:emailRaw,asunto:"Bienvenido al Círculo · Tu 15% de descuento",mensaje:msgClub}),
-        emailjs.send(CLUB_EMAILJS_SERVICE,CLUB_EMAILJS_TPL_FELIPE,{nombre,to_email:"felipevergelarteenvidrio@gmail.com",asunto:`Nuevo suscriptor · ${nombre}`,mensaje:msgFelipeClub,email_cliente:emailRaw,fecha:new Date().toLocaleDateString("es-CO",{year:"numeric",month:"long",day:"numeric"})})
-      ]);
-      if(rFelipe.status==="rejected")console.error("Club email Felipe:",rFelipe.reason);
-      if(rCliente.status==="rejected")throw rCliente.reason;
+      await clubEnviarCorreo(nombre,emailRaw,CODE,"formulario");
       envioOK=true;
     }catch(err){
-      console.error("Club EmailJS:",err);
+      console.error("Club email:",err);
       errMsg=(err&&err.text)||(err&&err.message)||String(err);
     }
     // Registrar al usuario
@@ -3213,7 +3206,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeModal();closeC
 </script>
 <script>
 // Círculo inline: reutiliza el flujo completo del modal del Club
-// (anti-duplicados, EmailJS, Google Sheets, perfil) sin duplicar lógica.
+// (anti-duplicados, correos por Resend, Google Sheets, perfil) sin duplicar lógica.
 (function(){
   var f=document.getElementById("circuloForm");
   if(!f)return;
