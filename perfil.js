@@ -166,9 +166,9 @@ function buildOut(){
   <div class="fvp-nologin">
     <div class="fvp-nl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
     <h4>Únete al Círculo</h4>
-    <p>Regístrate para obtener un <strong>15% de descuento</strong> en tu primera pieza, acceso anticipado a nuevas colecciones y seguimiento de tus pedidos.</p>
+    <p>Por Black Friday, <strong>15&#8239;% de descuento en toda la tienda</strong>, sin registrarte. Únete para tener acceso anticipado a nuevas colecciones y seguimiento de tus pedidos.</p>
     ${isIndex
-      ?`<button class="fvp-nl-cta" id="fvPOpenClub">Quiero mi descuento</button>`
+      ?`<button class="fvp-nl-cta" id="fvPOpenClub">Unirme al Círculo</button>`
       :`<a href="index.html" class="fvp-nl-cta">Ir al inicio</a>`
     }
     <p class="fvp-nl-note">¿Ya eres miembro? Tu código llegó a tu correo al registrarte.</p>
