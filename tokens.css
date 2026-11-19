@@ -230,3 +230,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;
 /* El aviso vive dentro de #discountMsg, que trae Cormorant italica inline:
    a 12px eso no se lee. El aviso va en la sans del cuerpo, recto. */
 .bf-aviso{font-family:'Jost',-apple-system,sans-serif;font-style:normal;font-weight:400}
+
+/* Textos que dependen de la hora de inicio de Black Friday (FV_BF.desde en
+   products.js pone <html class="fv-bf"> cuando la campana esta activa).
+   Sin JavaScript se ve la version neutra. */
+html:not(.fv-bf) .bf-solo{display:none!important}
+html.fv-bf .bf-no{display:none!important}

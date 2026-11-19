@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../tokens.css?v=4">
 <style>
 *{box-sizing:border-box;margin:0}
 html{-webkit-text-size-adjust:100%}
@@ -57,6 +57,9 @@ body{background:#2B211B;color:#F4EEE3;font-family:'Jost',system-ui,sans-serif;fo
   .vip-form-zona{align-self:center;padding:40px 56px 40px 24px;margin:0;max-width:600px}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+/* Campo trampa para bots: fuera de la vista y del orden de tabulacion */
+.hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;overflow:hidden}
+.cta[disabled]{opacity:.6;cursor:progress}
 </style>
 </head>
 <body>
@@ -78,8 +81,9 @@ body{background:#2B211B;color:#F4EEE3;font-family:'Jost',system-ui,sans-serif;fo
       <form id="vipForm" novalidate>
         <div class="campo"><label for="vNombre">Tu nombre</label><input id="vNombre" name="nombre" type="text" autocomplete="given-name" placeholder="Cómo te llamas" required></div>
         <div class="campo"><label for="vMail">Tu correo</label><input id="vMail" name="correo" type="email" inputmode="email" autocomplete="email" placeholder="tu@correo.com" required></div>
+        <div class="hp" aria-hidden="true"><label for="vWeb">No llenes este campo</label><input id="vWeb" name="web" type="text" tabindex="-1" autocomplete="off"></div>
         <p class="error" id="vErr" role="alert"></p>
-        <button class="cta" type="submit">Recibir mi código del 20 %</button>
+        <button class="cta" id="vBtn" type="submit">Recibir mi código del 20 %</button>
       </form>
       <p class="nota">Te lo enviamos al correo. Sin spam: solo arte, luz y vidrio.</p>
       <div class="reglas">
@@ -91,27 +95,53 @@ body{background:#2B211B;color:#F4EEE3;font-family:'Jost',system-ui,sans-serif;fo
 
     <div class="ok" id="vista-ok" aria-live="polite">
       <h2>Listo, <span id="okNombre"></span></h2>
-      <p class="lead" style="margin-top:8px">Este es tu código del 20 %. También te lo enviamos al correo.</p>
+      <p class="lead" style="margin-top:8px" id="okLead">Este es tu código del 20 %. También te lo enviamos al correo.</p>
       <div class="caja" id="okCodigo">FV20-XXXXXXX</div>
       <p class="nota">Escríbelo al pagar. Es personal y de un solo uso.</p>
       <a class="cta2" href="../index.html#catalogo">Ver la tienda</a>
-      <p class="prev">Vista previa: este código es de ejemplo, aún no se genera uno real.</p>
     </div>
   </section>
 </main>
 <script>
 (function(){
-  var f=document.getElementById('vipForm'),err=document.getElementById('vErr');
+  // El código real lo crea el servidor (función vip-codigo): uno por correo,
+  // 20 % sobre el precio de lista, un solo uso. Aquí solo van nombre y correo.
+  var API="https://exquisite-pasca-848b8b.netlify.app/.netlify/functions/vip-codigo";
+  var f=document.getElementById('vipForm'),err=document.getElementById('vErr'),btn=document.getElementById('vBtn');
+  var TXT=btn.textContent;
   function msg(t){err.textContent=t;err.style.display='block'}
+  var ERRORES={
+    'datos-invalidos':'Revisa tu nombre y tu correo: el nombre no puede llevar enlaces.',
+    'demasiadas-solicitudes':'Hiciste varias solicitudes seguidas. Espera unos minutos y vuelve a intentarlo.',
+    'vip-cerrado':'El acceso VIP ya cerró. Los precios de la tienda siguen disponibles.',
+    'almacen-no-disponible':'No pudimos crear tu código en este momento. Intenta de nuevo en unos minutos.',
+    'origen-no-permitido':'Abre esta página desde felipevergel.com/vip para pedir tu código.'
+  };
   f.addEventListener('submit',function(e){
     e.preventDefault();err.style.display='none';
     var n=f.nombre.value.trim(),m=f.correo.value.trim();
     if(!n){msg('Escribe tu nombre.');f.nombre.focus();return}
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m)){msg('Revisa tu correo.');f.correo.focus();return}
-    /* VISTA PREVIA: aquí irá la llamada que crea el código real FV20 y lo envía por correo. */
-    document.getElementById('okNombre').textContent=n;
-    document.getElementById('vista-form').style.display='none';
-    document.getElementById('vista-ok').style.display='block';
+    btn.disabled=true;btn.textContent='Creando tu código…';
+    fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({accion:'solicitar',origen:'vip',nombre:n,email:m,web:f.web.value})})
+      .then(function(r){return r.json().catch(function(){return null}).then(function(j){return {r:r,j:j}})})
+      .then(function(x){
+        var j=x.j;
+        if(!x.r.ok||!j||!j.ok||!j.codigo){
+          msg((j&&ERRORES[j.error])||'No pudimos crear tu código. Intenta de nuevo en unos segundos.');
+          return;
+        }
+        document.getElementById('okNombre').textContent=n;
+        document.getElementById('okCodigo').textContent=j.codigo;
+        document.getElementById('okLead').textContent=j.correo
+          ?'Este es tu código del 20 %. También te lo enviamos al correo.'
+          :'Este es tu código del 20 %. No pudimos enviarte el correo: guárdalo, ya funciona.';
+        document.getElementById('vista-form').style.display='none';
+        document.getElementById('vista-ok').style.display='block';
+      })
+      .catch(function(){msg('No pudimos conectarnos. Revisa tu conexión e intenta de nuevo.')})
+      .then(function(){btn.disabled=false;btn.textContent=TXT});
   });
 })();
 </script>

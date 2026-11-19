@@ -1462,12 +1462,19 @@ const SILHOUETTES={"lamparas": "img/silhouettes/lamparas.png", "bandejas": "img/
 // ============================================================================
 //  BLACK FRIDAY · interruptor UNICO de la campana (cliente)
 //  ---------------------------------------------------------------------------
+//  INICIO AUTOMATICO:   desde:"2026-11-27T01:00:00-05:00" (viernes 27-nov,
+//                       1:00 a. m. hora de Colombia). Antes de esa hora el
+//                       sitio se ve como siempre (precio de lista, sin BF).
+//                       El MISMO instante va en el servidor (BF_DESDE o la
+//                       variable BLACK_FRIDAY_DESDE). El servidor manda: si el
+//                       reloj del celular esta mal, el checkout no abre Wompi
+//                       cuando el cobro seria mayor que lo mostrado.
 //  Apagar la campana:   activo:false   (y en el servidor BLACK_FRIDAY_ACTIVO=0)
 //  Cambiar el %:        pct:NN         (y PCT_BLACK_FRIDAY en el servidor)
 //  Fecha de fin:        hasta:"AAAA-MM-DDTHH:MM:SS-05:00" o null (sin fecha).
 //                       No se inventa: la pone Ricardo/Felipe cuando la decidan.
-//  acumulaCodigo:false  el codigo del Club (FV15) NO se suma al descuento de la
-//                       campana. PENDIENTE DE CONFIRMAR POR RICARDO.
+//  acumulaCodigo:false  regla de Ricardo: los descuentos NUNCA se acumulan; en
+//                       un pedido rige uno solo (ver fvResumen mas abajo).
 //
 //  REDONDEO (identico en fv-functions/netlify/functions/lib/catalogo-precios.js):
 //    final = Math.round(lista * (100 - pct) / 1000) * 10
@@ -1481,12 +1488,14 @@ const SILHOUETTES={"lamparas": "img/silhouettes/lamparas.png", "bandejas": "img/
 //  Ley 1480: el precio tachado es el precio de lista REAL que rige fuera de la
 //  campana (el mismo p.price de siempre). No es un precio inflado.
 // ============================================================================
-window.FV_BF={activo:true,pct:15,etiqueta:"Black Friday",hasta:null,acumulaCodigo:false};
+window.FV_BF={activo:true,pct:15,etiqueta:"Black Friday",desde:"2026-11-27T01:00:00-05:00",hasta:null,acumulaCodigo:false};
 
 function fvBFActivo(){
   var bf=window.FV_BF;
   if(!bf||!bf.activo||!(bf.pct>0))return false;
-  if(bf.hasta){var t=Date.parse(bf.hasta);if(!isNaN(t)&&Date.now()>=t)return false}
+  var ahora=Date.now();
+  if(bf.desde){var d=Date.parse(bf.desde);if(!isNaN(d)&&ahora<d)return false}
+  if(bf.hasta){var t=Date.parse(bf.hasta);if(!isNaN(t)&&ahora>=t)return false}
   return true;
 }
 // Precio final de UNA unidad a partir del precio de lista.
@@ -1555,3 +1564,63 @@ function fvLineaHTML(i){
   if(l>f)return '<span class="bf-linea"><s class="bf-antes"><span class="bf-sr">Precio anterior: </span>'+fvPesos(l)+'</s><span class="bf-final"><span class="bf-sr">Precio con descuento: </span>'+fvPesos(f)+'</span></span>';
   return fvPesos(f);
 }
+
+// ============================================================================
+//  UN SOLO DESCUENTO POR PEDIDO (regla de Ricardo) · espejo EXACTO de
+//  recalcularTotal() en fv-functions/netlify/functions/lib/catalogo-precios.js
+//  cod = {code:"FV20-...", tipo:"vip"} | {code:"FV15-...", tipo:"club"} | null
+//  (solo se pasa un codigo ya VERIFICADO).
+//   - FV20 (vip):            precios de LISTA, descuento 20 % del subtotal de lista
+//   - FV15 sin Black Friday: precios de lista, descuento 15 %
+//   - FV15 con Black Friday: precios BF, sin descuento extra (mismo 15 %;
+//                            el codigo NO se gasta: no se manda al pago)
+//   - sin codigo:            precios BF si la campana esta activa
+//  envio sobre (subtotal - descuento). codigoPago = codigo que se manda a
+//  wompi-sign (solo el que de verdad da el descuento).
+// ============================================================================
+window.FV_VIP={pct:20};
+function fvTipoCodigo(code){
+  code=String(code||"").trim().toUpperCase();
+  if(/^FV20-[A-Z0-9]{7}$/.test(code))return "vip";
+  if(/^FV15-[A-Z0-9]{7}$/.test(code))return "club";
+  return "";
+}
+function fvResumen(cart,metodo,cod){
+  var tot=fvTotalesCarrito(cart);
+  var tipo=cod&&cod.code?cod.tipo:"";
+  var r={subtotalLista:tot.lista,descuentoBF:0,subtotal:0,descuento:0,envio:0,total:0,
+         tipo:"ninguno",pctCodigo:0,codigoPago:null,codigoIgualQueBF:false,bfActivo:fvBFActivo()};
+  if(tipo==="vip"){
+    r.subtotal=tot.lista;r.descuento=Math.round(tot.lista*0.20);r.tipo="vip";r.pctCodigo=20;r.codigoPago=cod.code;
+  }else if(tipo==="club"&&r.bfActivo&&!window.FV_BF.acumulaCodigo){
+    r.subtotal=tot.final;r.descuentoBF=tot.ahorro;r.tipo="bf";r.pctCodigo=15;r.codigoIgualQueBF=true;
+  }else if(tipo==="club"){
+    r.subtotal=tot.final;r.descuentoBF=tot.ahorro;r.descuento=Math.round(tot.final*0.15);r.tipo="club";r.pctCodigo=15;r.codigoPago=cod.code;
+  }else{
+    r.subtotal=tot.final;r.descuentoBF=tot.ahorro;r.tipo=tot.ahorro>0?"bf":"ninguno";
+  }
+  r.envio=fvEnvio(r.subtotal-r.descuento,metodo==="bucaramanga"?"bucaramanga":"domicilio");
+  r.total=r.subtotal-r.descuento+r.envio;
+  return r;
+}
+
+// ============================================================================
+//  Textos que cambian con la hora de inicio: <html class="fv-bf"> cuando la
+//  campana esta activa. CSS (tokens.css): .bf-solo se ve solo con fv-bf y
+//  .bf-no solo sin ella. Se revisa cada 20 s: al llegar la 1:00 a. m. la
+//  pagina cambia sola (recarga si no estas escribiendo en un formulario ni en
+//  el pago; ahi el servidor manda y el checkout ya lo controla).
+// ============================================================================
+(function(){
+  if(typeof document==="undefined"||!document.documentElement)return;
+  var raiz=document.documentElement,estado=fvBFActivo();
+  raiz.classList.toggle("fv-bf",estado);
+  setInterval(function(){
+    var ahora=fvBFActivo();
+    if(ahora===estado)return;
+    estado=ahora;raiz.classList.toggle("fv-bf",ahora);
+    var enPago=/checkout\.html|customer-info\.html/.test(location.pathname);
+    var a=document.activeElement,escribiendo=a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName);
+    if(!enPago&&!escribiendo)location.reload();
+  },20000);
+})();

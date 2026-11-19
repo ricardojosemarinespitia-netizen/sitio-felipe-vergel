@@ -72,8 +72,8 @@ window.fvImg=(function(){
      font-family del sitio, y repetia display=swap tres veces. -->
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Jost:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
 <!-- Correos (factura a Felipe + confirmación al comprador): los envía el servidor (función enviar-correo + Resend). Ya no se carga ningún script de terceros ni hay claves en el navegador. -->
-<script src="perfil.js" defer></script>
-<link rel="stylesheet" href="tokens.css?v=3">
+<script src="perfil.js?v=20261127vip" defer></script>
+<link rel="stylesheet" href="tokens.css?v=4">
 <style>
 /* overscroll-behavior-y: evita que el navegador integrado de Instagram/Facebook
    se robe el swipe vertical para su propio gesto de "pull" (mismo arreglo que
@@ -493,7 +493,7 @@ h1,h2,h3{font-feature-settings:"kern","liga","dlig"}
         <span id="sumSubtotal">$0</span>
       </div>
       <div class="summary-row" id="sumDiscountRow" style="display:none">
-        <span style="color:#15803d">Descuento 15%</span>
+        <span style="color:#15803d" id="sumDiscountLbl">Descuento</span>
         <span id="sumDiscount" style="color:#15803d">—</span>
       </div>
       <div class="summary-row">
@@ -594,7 +594,7 @@ h1,h2,h3{font-feature-settings:"kern","liga","dlig"}
   </svg>
 </a>
 
-<script src="products.js?v=20261119bf"></script>
+<script src="products.js?v=20261127vip"></script>
 <script>
 const WOMPI_KEY="pub_prod_Nic5INHYDJiWHxDscG9g8OcPYElRjPYi";
 /* ============================================================
@@ -686,10 +686,19 @@ if(typeof fvNormalizarCarrito!=="function"){
   window.fvLineaHTML=i=>fmt(i.price*i.qty);
   window.FV_BF={activo:false,pct:0,etiqueta:"",acumulaCodigo:true};
 }
+if(typeof fvResumen!=="function"){
+  // Sin products.js: lista + un solo código. El servidor recalcula igual y el
+  // checkout no abre Wompi si cobraría más de lo mostrado.
+  window.fvEnvio=(s,m)=>m==="bucaramanga"?0:s<=180000?Math.round(s*.25):s<=310000?Math.round(s*.15):Math.round(s*.10);
+  window.fvTipoCodigo=c=>/^FV20-[A-Z0-9]{7}$/.test(String(c||""))?"vip":/^FV15-[A-Z0-9]{7}$/.test(String(c||""))?"club":"";
+  window.fvResumen=(c,m,cod)=>{const t=fvTotalesCarrito(c);const tipo=cod&&cod.code?cod.tipo:"";const pct=tipo==="vip"?.2:tipo==="club"?.15:0;const d=Math.round(t.lista*pct);const e=fvEnvio(t.lista-d,m);
+    return{subtotalLista:t.lista,descuentoBF:0,subtotal:t.lista,descuento:d,envio:e,total:t.lista-d+e,tipo:pct?tipo:"ninguno",pctCodigo:pct*100,codigoPago:pct?cod.code:null,codigoIgualQueBF:false,bfActivo:false}};
+}
 // Black Friday: price = precio final, precioLista = lista, por id.
 cart=fvNormalizarCarrito(cart);
-const BF_SIN_CODIGO=fvBFActivo()&&!window.FV_BF.acumulaCodigo;
-if(BF_SIN_CODIGO&&info){info.discountCode=null;info.discountAmount=null}
+// Código que se verificó en customer-info (uno solo). fvResumen decide si da
+// descuento (y si se manda al pago) con la misma regla que el servidor.
+const COD_INFO=(info&&info.discountCode)?{code:String(info.discountCode).toUpperCase(),tipo:info.discountTipo||fvTipoCodigo(info.discountCode)}:null;
 
 // REDIRECT IF MISSING DATA
 if(!info||!cart.length){
@@ -748,13 +757,15 @@ function renderSummary(){
   // las mismas formulas del servidor: si el carrito cambio de precio desde
   // customer-info (p. ej. empezo o termino la campana), lo guardado en
   // fv_customer_info ya no vale.
-  const tot=fvTotalesCarrito(cart);
-  const subtotal=tot.final;
-  const discountAmt=(info&&info.discountCode&&!BF_SIN_CODIGO)?Math.round(subtotal*0.15):0;
-  const discountedSubtotal=subtotal-discountAmt;
-  const shipping=calcShipping(discountedSubtotal,info?.deliveryMethod||"domicilio");
-  const total=discountedSubtotal+shipping;
+  const R=fvResumen(cart,info?.deliveryMethod||"domicilio",COD_INFO);
+  const vipAplicado=R.tipo==="vip";
+  const subtotal=R.subtotal;
+  const discountAmt=R.descuento;
+  const shipping=R.envio;
+  const total=R.total;
+  const tot={lista:R.subtotalLista,final:R.subtotal,ahorro:R.descuentoBF};
   window._checkoutBF=tot;
+  window._checkoutCodigoPago=R.codigoPago;
   $("#sumListaRow").style.display=tot.ahorro>0?"":"none";
   $("#sumBFRow").style.display=tot.ahorro>0?"":"none";
   if(tot.ahorro>0){
@@ -770,13 +781,16 @@ function renderSummary(){
         <h4>${i.name}</h4>
         <div class="meta">${i.color}<span class="sep">·</span>×${i.qty}</div>
       </div>
-      <div class="sub">${fvLineaHTML(i)}</div>
+      <div class="sub">${vipAplicado?fmt(i.precioLista*i.qty):fvLineaHTML(i)}</div>
     </div>
   `).join("");
   $("#sumSubtotal").textContent=fmt(subtotal);
   const discRow=document.getElementById("sumDiscountRow");
-  if(discountAmt>0){
-    document.getElementById("sumDiscount").textContent=`-${fmt(discountAmt)}`;
+  if(discountAmt>0||R.codigoIgualQueBF){
+    document.getElementById("sumDiscountLbl").textContent=
+      R.tipo==="vip"?`Código VIP 20 % (${COD_INFO.code})`:
+      R.codigoIgualQueBF?`Código aplicado: 15 % (${COD_INFO.code})`:`Código del Círculo 15 % (${COD_INFO.code})`;
+    document.getElementById("sumDiscount").textContent=discountAmt>0?`-${fmt(discountAmt)}`:"Incluido";
     discRow.style.display="";
   }else{
     discRow.style.display="none";
@@ -870,7 +884,7 @@ $("#btnPay").onclick=async()=>{
   const pedido={
     ref,email:info.email,fullName,docId:info.docId,
     address:fullAddress,city:info.city,department:info.department,zipCode:info.zipCode,
-    phone:info.phone,cart,subtotal,discountCode:discountAmt>0?(info.discountCode||null):null,discountAmount:discountAmt,shipping,total,
+    phone:info.phone,cart,subtotal,discountCode:discountAmt>0?(window._checkoutCodigoPago||null):null,discountAmount:discountAmt,shipping,total,
     // Black Friday (informativo: subtotal YA es con precios finales).
     subtotalLista:(window._checkoutBF||{}).lista||subtotal,
     descuentoBF:(window._checkoutBF||{}).ahorro||0,
@@ -954,10 +968,19 @@ $("#btnPay").onclick=async()=>{
           // que el cliente ve (p. ej. sitio con Black Friday publicado antes
           // que el servidor). Un codigo rechazado solo cambia "descuento", no
           // el subtotal de piezas, asi que ese caso sigue su curso normal.
-          if(jf.resumen&&Number(jf.resumen.subtotal)>subtotal){
-            console.error("wompi-sign cobraria mas que lo mostrado:",jf.resumen.subtotal,">",subtotal);
+          // FALLA CERRADO si el servidor cobraria MAS que el total mostrado
+          // (reloj del celular adelantado frente al inicio de Black Friday,
+          // código que ya se usó o venció, sitio publicado antes que el servidor).
+          if(totalSrv>total){
+            console.error("wompi-sign cobraria mas que lo mostrado:",totalSrv,">",total,jf.resumen);
             if(wompiWin){try{wompiWin.close()}catch(e){}}
-            alert("El total del pago no coincide con el precio que ves en pantalla, así que no iniciamos el cobro. Escríbenos por WhatsApp y te ayudamos a terminar tu compra con el precio mostrado.");
+            const rs=jf.resumen||{},ver=rs.veredictoCodigo;
+            let aviso="El total del pago no coincide con el que ves en pantalla, así que no iniciamos el cobro. Recarga la página para ver el precio vigente o escríbenos por WhatsApp y te ayudamos a terminar tu compra.";
+            if(ver==="usado")aviso="Tu código ya se usó en una compra aprobada, así que no iniciamos el cobro. Vuelve al paso anterior, quítalo o usa otro, y continúa.";
+            else if(ver==="vencido")aviso="Tu código ya venció, así que no iniciamos el cobro. Vuelve al paso anterior, quítalo o usa otro, y continúa.";
+            else if(ver==="invalido"||ver==="sin-verificar")aviso="No pudimos validar tu código en este momento, así que no iniciamos el cobro. Intenta de nuevo en unos segundos o escríbenos por WhatsApp.";
+            else if(fvBFActivo()&&rs.blackFriday&&!rs.blackFriday.campanaActiva)aviso="Black Friday empieza el viernes 27 de noviembre a la 1:00 a. m. (hora de Colombia) y la hora de tu dispositivo parece adelantada. Recarga la página para ver los precios vigentes.";
+            alert(aviso);
             $("#btnPay").disabled=false;
             return;
           }
@@ -1085,8 +1108,9 @@ async function guardarPedido(order){
       }).catch(e=>console.error("Ventas API:",e))
     );
   }
-  // Marcar código de descuento como usado (una sola vez)
-  if(order.discountCode){
+  // Marcar código del Círculo (FV15) como usado (una sola vez). Los FV20 los
+  // marca solo el servidor (wompi-webhook) cuando Wompi aprueba el pago.
+  if(order.discountCode&&!/^FV20-/.test(order.discountCode)){
     tareas.push(
       fetch(VENTAS_API,{method:"POST",headers:{"Content-Type":"application/json"},
         body:JSON.stringify({action:"markUsed",code:order.discountCode,ref,email})

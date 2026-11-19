@@ -163,10 +163,10 @@ window.fvImg=(function(){
 <!-- Google Sign-In (para login del Club, opcional) -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <!-- Perfiles de usuario -->
-<script src="perfil.js" defer></script>
+<script src="perfil.js?v=20261127vip" defer></script>
 <!-- Sistema de diseno: paleta, escala tipografica, espacio, radios, foco.
      Una sola fuente de verdad para los 4 HTML (antes: 4 :root divergentes). -->
-<link rel="stylesheet" href="tokens.css?v=3">
+<link rel="stylesheet" href="tokens.css?v=4">
 <style>
 /* overscroll-behavior-y: dentro del navegador integrado de Instagram/Facebook,
    el gesto de swipe vertical se lo roba su propia capa de "pull" (para cerrar
@@ -1957,7 +1957,7 @@ p.hc-title{margin-bottom:0}
   <div class="container">
     <span class="eyebrow">Círculo Felipe Vergel</span>
     <h2 class="h-display">Sé el primero <span class="acc">en saberlo</span></h2>
-    <p class="circulo-sub">El <strong>15&#8239;% de Black Friday</strong> ya está en todos los precios, te registres o no. Al Círculo le llegan primero los lanzamientos privados, las piezas únicas y las invitaciones a eventos con Felipe.</p>
+    <p class="circulo-sub"><span class="bf-solo">El <strong>15&#8239;% de Black Friday</strong> ya está en todos los precios, te registres o no. </span>Al Círculo le llegan primero los lanzamientos privados, las piezas únicas y las invitaciones a eventos con Felipe.</p>
     <form id="circuloForm" novalidate>
       <input type="text" id="circuloNombre" placeholder="Tu nombre" autocomplete="given-name">
       <input type="email" id="circuloEmail" placeholder="Tu correo electrónico" required autocomplete="email">
@@ -2012,8 +2012,12 @@ p.hc-title{margin-bottom:0}
       <picture><source srcset="img/candelabro-arco/candelabro-arco-01.webp" type="image/webp"><img src="img/candelabro-arco/candelabro-arco-01.jpg" alt="" loading="lazy" width="1600" height="2400"></picture>
       <picture><source srcset="img/lampara-triada/lampara-triada-03.webp" type="image/webp"><img src="img/lampara-triada/lampara-triada-03.jpg" alt="" loading="lazy" width="1600" height="2400"></picture>
       <h2 class="club-cover" id="clubTitle">
-        <span class="club-cover-masthead">Black Friday</span>
-        <span class="club-cover-oferta">
+        <span class="club-cover-masthead bf-solo">Black Friday</span>
+        <span class="club-cover-masthead bf-no">Círculo Felipe Vergel</span>
+        <span class="club-cover-oferta bf-no">
+          <span class="club-cover-linea">Lanzamientos, piezas únicas y eventos, antes que nadie</span>
+        </span>
+        <span class="club-cover-oferta bf-solo">
           <span class="club-cover-num">15<span class="club-cover-pct">&#8239;%</span></span>
           <span class="club-cover-linea">de descuento en toda la tienda</span>
           <span class="club-cover-nota">Todas las piezas y obras de arte</span>
@@ -2024,7 +2028,7 @@ p.hc-title{margin-bottom:0}
     <div class="club-content" id="clubBody">
       <p class="club-kicker">Círculo Felipe Vergel</p>
       <h3 class="club-h">Entérate antes que nadie</h3>
-      <p class="club-intro" id="clubIntro">El 15&#8239;% ya es tuyo, sin registrarte. Si quieres, únete al Círculo y recibe primero los lanzamientos, el acceso anticipado a piezas únicas, los eventos privados con Felipe y los avisos de ofertas.</p>
+      <p class="club-intro" id="clubIntro"><span class="bf-solo">El 15&#8239;% ya es tuyo, sin registrarte. Si quieres, únete al Círculo y recibe primero los lanzamientos, el acceso anticipado a piezas únicas, los eventos privados con Felipe y los avisos de ofertas.</span><span class="bf-no">Únete al Círculo y recibe primero los lanzamientos, el acceso anticipado a piezas únicas y las invitaciones a los eventos privados con Felipe.</span></p>
       <button type="button" class="club-google" id="clubGoogle">
         <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6 8-11.3 8a12 12 0 1 1 0-24c3 0 5.8 1.1 8 3l5.7-5.7C33.6 5.7 29 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15 18.9 12 24 12c3 0 5.8 1.1 8 3l5.7-5.7C33.6 5.7 29 4 24 4 16.3 4 9.7 8.4 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5 0 9.5-1.9 13-5l-6-5c-2 1.4-4.4 2-7 2-5.3 0-9.7-3.3-11.3-8l-6.5 5C9.5 39.5 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.2 4.3-4 5.7l6.1 5C42.1 35.9 44 30.4 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>
         Continuar con Google
@@ -2043,9 +2047,9 @@ p.hc-title{margin-bottom:0}
     <div class="club-content club-success" id="clubDone" style="display:none">
       <div class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
       <h3 class="club-h">¡Bienvenido al Círculo!</h3>
-      <p class="club-intro">El 15&#8239;% de Black Friday ya está aplicado en toda la tienda: no necesitas ningún código.</p>
-      <p class="club-code-label">Tu código del Círculo</p>
-      <div class="code-box">BIENVENIDO15</div>
+      <p class="club-intro" id="clubDoneIntro"><span class="bf-solo">El 15&#8239;% de Black Friday ya está en toda la tienda. Con tu código personal tienes 20&#8239;% en lugar del 15&#8239;%, en una compra.</span><span class="bf-no">Este es tu código personal: 20&#8239;% de descuento en una compra, en cualquier pieza.</span></p>
+      <p class="club-code-label" id="clubCodeLabel">Tu código personal del 20&#8239;%</p>
+      <div class="code-box" id="clubCodeBox">FV20-·······</div>
       <p class="club-done-nota" id="clubDoneNota">Te enviamos una copia al correo.</p>
       <button type="button" class="club-ver" id="clubDoneVer">Ver la tienda</button>
     </div>
@@ -2180,7 +2184,7 @@ p.hc-title{margin-bottom:0}
   <button class="btn-admin" id="btnExitAdmin">Salir</button>
 </div>
 
-<script src="products.js?v=20261119bf"></script>
+<script src="products.js?v=20261127vip"></script>
 <script>
 const WOMPI_KEY="pub_prod_Nic5INHYDJiWHxDscG9g8OcPYElRjPYi";
 const WA_NUMBER="573116214726";
@@ -2218,21 +2222,32 @@ if(backTop)backTop.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
 
 // CLUB DE DESCUENTOS (código único por email, sin duplicados)
 (function(){
-  // Correos del Club: los arma y envía el servidor (Resend). El navegador solo manda
-  // {tipo:"club", datos}; no hay claves ni script de terceros aquí. El servidor
-  // recalcula el código desde el correo (mismo fnv1a7) y lo exige igual.
-  const CLUB_CORREO_API="https://exquisite-pasca-848b8b.netlify.app/.netlify/functions/enviar-correo";
-  async function clubEnviarCorreo(nombre,email,codigo,via){
-    const r=await fetch(CLUB_CORREO_API,{
+  // Código personal del Círculo: el servidor (función vip-codigo) crea un FV20
+  // por correo (20 % sobre lista, un solo uso), lo envía por Resend y lo
+  // devuelve para mostrarlo. El navegador no tiene claves ni elige destinatario.
+  const VIP_API="https://exquisite-pasca-848b8b.netlify.app/.netlify/functions/vip-codigo";
+  async function clubPedirCodigo(nombre,email){
+    const r=await fetch(VIP_API,{
       method:"POST",
       headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({tipo:"club",datos:{nombre:nombre||"coleccionista",email,codigo,via}})
+      body:JSON.stringify({accion:"solicitar",origen:"circulo",nombre:nombre||"",email,web:""})
     });
     let j=null;try{j=await r.json()}catch(e){}
-    // El correo del cliente es el que importa; el aviso a Felipe es de mejor esfuerzo.
-    if(!r.ok||!j||!j.ok)throw new Error((j&&j.error)||("HTTP "+r.status));
-    if(!j.felipe)console.error("Club email Felipe: no se pudo enviar el aviso");
-    return j;
+    if(!r.ok||!j||!j.ok||!j.codigo)throw new Error((j&&j.error)||("HTTP "+r.status));
+    return j; // {codigo, correo:true|false}
+  }
+  // Muestra el resultado en la pantalla de bienvenida.
+  function clubMostrarCodigo(res){
+    const box=document.getElementById("clubCodeBox"),lbl=document.getElementById("clubCodeLabel"),nota=document.getElementById("clubDoneNota");
+    if(res&&res.codigo){
+      box.textContent=res.codigo;box.style.display="";lbl.style.display="";
+      nota.innerHTML=res.correo
+        ? "También te lo enviamos al correo. Escríbelo al pagar: es de <b>un solo uso</b> y no se suma a otros descuentos."
+        : "<b>Guarda este código.</b> No pudimos enviarte el correo, pero el código ya funciona: escríbelo al pagar.";
+    }else{
+      box.style.display="none";lbl.style.display="none";
+      nota.innerHTML='<span class="club-aviso">Ya estás en el Círculo, pero no pudimos crear tu código en este momento.</span> Escríbenos por WhatsApp y te lo damos.';
+    }
   }
   const CLUB_FORM_ID="1FAIpQLSflsK1YlaHGgdxFdOQ4pvnrF_cA0KUnLUVubAlO2eD3LBfm4Q";
   // URL del Apps Script (validación cross-device + conteo + lista).
@@ -2492,17 +2507,17 @@ if(backTop)backTop.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
     // ANTI-DUPLICADO local + nube (cualquier dispositivo)
     if(yaRegistrado(email)){ yaEsta(); return; }
     if(await yaRegistradoRemoto(email)){ marcarLocal(email,CODE); yaEsta(); return; }
-    try{
-      await clubEnviarCorreo(nombre,email,CODE,"google");
-    }catch(err){console.error("Club email:",err)}
+    let res=null;
+    try{ res=await clubPedirCodigo(nombre,email); }catch(err){console.error("Club código:",err)}
+    const CODIGO=res&&res.codigo||"";
     try{
       const lst=getRegistrados();lst.push(email.toLowerCase());
       localStorage.setItem("fv_club_registrados",JSON.stringify(lst));
-      localStorage.setItem("fv_club_codigo_"+email.toLowerCase(),CODE);
+      if(CODIGO)localStorage.setItem("fv_club_codigo_"+email.toLowerCase(),CODIGO);
     }catch(e){}
-    registrarEnForm(email, nombre, CODE, metodoLogin||"google");
-    if(window.FVPerfil) window.FVPerfil.save({nombre:nombre||'Coleccionista',email,avatar:avatar||'',metodoLogin:metodoLogin||'email',codigoDescuento:CODE});
-    document.querySelector("#clubDone .code-box").textContent=CODE;
+    registrarEnForm(email, nombre, CODIGO||"sin código", metodoLogin||"google");
+    if(window.FVPerfil) window.FVPerfil.save({nombre:nombre||'Coleccionista',email,avatar:avatar||'',metodoLogin:metodoLogin||'email',codigoDescuento:CODIGO||CODE});
+    clubMostrarCodigo(res);
     document.getElementById("clubBody").style.display="none";
     document.getElementById("clubDone").style.display="block";
   }
@@ -2631,28 +2646,24 @@ if(backTop)backTop.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
       return;
     }
     btn.textContent="Enviando...";
-    let envioOK=false, errMsg="";
+    let res=null;
     try{
-      await clubEnviarCorreo(nombre,emailRaw,CODE,"formulario");
-      envioOK=true;
+      res=await clubPedirCodigo(nombre,emailRaw);
     }catch(err){
-      console.error("Club email:",err);
-      errMsg=(err&&err.text)||(err&&err.message)||String(err);
+      console.error("Club código:",err);
     }
+    const CODIGO=res&&res.codigo||"";
     // Registrar al usuario
     try{
       const lst=getRegistrados();
       lst.push(email);
       localStorage.setItem("fv_club_registrados",JSON.stringify(lst));
-      localStorage.setItem("fv_club_codigo_"+email,CODE);
+      if(CODIGO)localStorage.setItem("fv_club_codigo_"+email,CODIGO);
     }catch(e){}
-    registrarEnForm(email, nombre, CODE, "email");
-    if(window.FVPerfil) window.FVPerfil.save({nombre,email,avatar:'',metodoLogin:'email',codigoDescuento:CODE});
-    // Mostrar el código único en pantalla
-    document.querySelector("#clubDone .code-box").textContent=CODE;
-    document.getElementById("clubDoneNota").innerHTML=envioOK
-      ? "Te enviamos una copia al correo. Solo válido en <b>tu primera compra</b> y no es transferible."
-      : `<span class="club-aviso">No pudimos enviar el correo.</span> <b>Guarda este código.</b> Detalle: <span style="opacity:.6;font-size:10px">${errMsg}</span>`;
+    registrarEnForm(email, nombre, CODIGO||"sin código", "email");
+    if(window.FVPerfil) window.FVPerfil.save({nombre,email,avatar:'',metodoLogin:'email',codigoDescuento:CODIGO||CODE});
+    // Mostrar el código personal en pantalla
+    clubMostrarCodigo(res);
     document.getElementById("clubBody").style.display="none";
     document.getElementById("clubDone").style.display="block";
   };

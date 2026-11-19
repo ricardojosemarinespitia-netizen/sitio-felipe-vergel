@@ -71,8 +71,8 @@ window.fvImg=(function(){
      entero en la fuente del sistema. Ademas pedia Lora, que no se usa en
      ningun font-family del sitio, y repetia display=swap tres veces. -->
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Jost:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
-<script src="perfil.js" defer></script>
-<link rel="stylesheet" href="tokens.css?v=3">
+<script src="perfil.js?v=20261127vip" defer></script>
+<link rel="stylesheet" href="tokens.css?v=4">
 <style>
 /* overscroll-behavior-y: evita que el navegador integrado de Instagram/Facebook
    se robe el swipe vertical para su propio gesto de "pull" (mismo arreglo que
@@ -568,7 +568,7 @@ input.error{border-color:#d32f2f;background:#fff5f5}
         <span id="sumSubtotal">$0</span>
       </div>
       <div class="summary-row" id="sumDiscountRow" style="display:none">
-        <span style="color:#15803d">Descuento 15%</span>
+        <span style="color:#15803d" id="sumDiscountLbl">Descuento</span>
         <span id="sumDiscount" style="color:#15803d">—</span>
       </div>
       <div class="summary-row">
@@ -589,7 +589,7 @@ input.error{border-color:#d32f2f;background:#fff5f5}
       </div>
       <div id="discountInputArea" style="display:none;margin-top:10px">
         <div style="display:flex;gap:8px">
-          <input type="text" id="discountCode" placeholder="FV15-XXXXXXX" maxlength="12"
+          <input type="text" id="discountCode" placeholder="FV20-XXXXXXX" maxlength="12" autocomplete="off" aria-label="Código de descuento"
             style="flex:1;padding:10px 14px;border:1.5px solid var(--linea);border-radius:2px;font-family:inherit;font-size:13px;color:var(--tinta);background:var(--crema-2);outline:none;transition:border-color .2s;text-transform:uppercase;letter-spacing:.06em;font-weight:200"
             oninput="this.value=this.value.toUpperCase()"
             onfocus="this.style.borderColor='var(--cobre)'"
@@ -599,7 +599,7 @@ input.error{border-color:#d32f2f;background:#fff5f5}
             onmouseover="this.style.background='var(--verde-dark)'"
             onmouseout="this.style.background='var(--verde)'">Aplicar</button>
         </div>
-        <div id="discountMsg" style="font-size:12px;margin-top:8px;font-family:'Cormorant Garamond',serif;font-style:italic"></div>
+        <div id="discountMsg" role="status" aria-live="polite" style="font-size:12px;margin-top:8px;font-family:'Jost',-apple-system,sans-serif;font-style:normal;line-height:1.5"></div>
       </div>
     </div>
 
@@ -631,7 +631,7 @@ input.error{border-color:#d32f2f;background:#fff5f5}
 </a>
 
 <script src="colombia.js"></script>
-<script src="products.js?v=20261119bf"></script>
+<script src="products.js?v=20261127vip"></script>
 <script>
 const $=(s,c=document)=>c.querySelector(s);
 const $$=(s,c=document)=>[...c.querySelectorAll(s)];
@@ -646,6 +646,14 @@ if(typeof fvNormalizarCarrito!=="function"){
   window.fvLineaHTML=i=>fmt(i.price*i.qty);
   window.FV_BF={activo:false,pct:0,etiqueta:"",acumulaCodigo:true};
 }
+if(typeof fvResumen!=="function"){
+  // Sin products.js: lista + un solo código. El servidor recalcula igual y el
+  // checkout no abre Wompi si cobraría más de lo mostrado.
+  window.fvEnvio=(s,m)=>m==="bucaramanga"?0:s<=180000?Math.round(s*.25):s<=310000?Math.round(s*.15):Math.round(s*.10);
+  window.fvTipoCodigo=c=>/^FV20-[A-Z0-9]{7}$/.test(String(c||""))?"vip":/^FV15-[A-Z0-9]{7}$/.test(String(c||""))?"club":"";
+  window.fvResumen=(c,m,cod)=>{const t=fvTotalesCarrito(c);const tipo=cod&&cod.code?cod.tipo:"";const pct=tipo==="vip"?.2:tipo==="club"?.15:0;const d=Math.round(t.lista*pct);const e=fvEnvio(t.lista-d,m);
+    return{subtotalLista:t.lista,descuentoBF:0,subtotal:t.lista,descuento:d,envio:e,total:t.lista-d+e,tipo:pct?tipo:"ninguno",pctCodigo:pct*100,codigoPago:pct?cod.code:null,codigoIgualQueBF:false,bfActivo:false}};
+}
 
 // LOAD CART
 let cart=[];
@@ -657,8 +665,8 @@ try{
 // migra carritos guardados antes de la campana).
 cart=fvNormalizarCarrito(cart);
 try{localStorage.setItem("fv_checkout_cart",JSON.stringify(cart))}catch(e){}
-// El codigo del Club no se suma al descuento de la campana (FV_BF.acumulaCodigo).
-const BF_SIN_CODIGO=fvBFActivo()&&!window.FV_BF.acumulaCodigo;
+// Un solo descuento por pedido: lo decide fvResumen() (products.js), espejo
+// exacto de recalcularTotal() del servidor.
 
 // Meta Pixel: InitiateCheckout — llego a datos de envio con carrito valido
 if(typeof fbq==="function" && cart.length){
@@ -684,74 +692,93 @@ function calcShipping(subtotal,method){
 }
 
 // ---- DESCUENTO ----
+// Un solo código por pedido; el nuevo reemplaza al anterior.
+//   FV20 (personal, 20 % sobre lista): lo verifica la función vip-codigo.
+//   FV15 (Círculo, emitidos antes): lo verifica el Apps Script del Club.
 const CLUB_API="https://script.google.com/macros/s/AKfycbznN-5jCwKFFvSeKEiFuvaqwCW2DLv7OpQm6jCmEgH8w2qHIZtTfCPNsi3saPAv7j3s/exec";
-let activeDiscount={code:"",amount:0};
+const VIP_API="https://exquisite-pasca-848b8b.netlify.app/.netlify/functions/vip-codigo";
+let activeDiscount={code:"",tipo:"",amount:0};
 
 function aplicarCodigo(){
   const input=document.getElementById("discountCode");
   const msg=document.getElementById("discountMsg");
   const btn=document.getElementById("applyDiscountBtn");
   const code=(input.value||"").trim().toUpperCase();
-  // Black Friday: el 15 % de la tienda ya esta en el precio. El codigo no se
-  // consulta ni se marca como usado: no resta nada y queda libre.
-  if(BF_SIN_CODIGO){
-    activeDiscount={code:"",amount:0};renderSummary();
-    msg.style.color="";
-    msg.innerHTML='<div class="bf-aviso" role="status">El descuento de Black Friday ya está aplicado; el código de bienvenida no se suma durante la campaña. Tu código no se gasta en esta compra.</div>';
-    input.style.borderColor="var(--linea)";
+  const decir=(ok,texto)=>{msg.style.color=ok?"#15803d":"#b91c1c";msg.textContent=texto;input.style.borderColor=ok?"#15803d":"#b91c1c"};
+  const quitar=()=>{activeDiscount={code:"",tipo:"",amount:0};renderSummary()};
+  const listo=(aplicado)=>{btn.disabled=false;btn.textContent=aplicado?"✓ Aplicado":"Aplicar";btn.style.background=aplicado?"var(--verde-dark)":""};
+  if(!code){decir(false,"Escribe tu código.");return}
+  const tipo=fvTipoCodigo(code);
+  if(!tipo){quitar();listo(false);decir(false,"Ese código no existe. Revísalo: tiene la forma FV20-XXXXXXX o FV15-XXXXXXX.");return}
+  btn.textContent="Verificando…";btn.disabled=true;
+  const aplicar=()=>{
+    activeDiscount={code,tipo,amount:0};renderSummary();listo(true);
+    if(tipo==="vip"){
+      decir(true,fvBFActivo()?"Código VIP 20 % aplicado, reemplaza el descuento de Black Friday.":"Código VIP 20 % aplicado sobre el precio de lista.");
+    }else if(fvBFActivo()&&!window.FV_BF.acumulaCodigo){
+      decir(true,"Código aplicado: 15 %. Durante Black Friday es el mismo 15 % que ya tienen los precios, así que no hay descuento extra y tu código no se gasta: lo conservas para otra compra.");
+    }else{
+      decir(true,"Código aplicado: 15 % de descuento en tus piezas.");
+    }
+  };
+  const fallo=(texto)=>{quitar();listo(false);decir(false,texto)};
+
+  if(tipo==="vip"){
+    const ctl=("AbortController" in window)?new AbortController():null;
+    const to=ctl?setTimeout(()=>ctl.abort(),8000):null;
+    fetch(VIP_API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({accion:"verificar",codigo:code}),signal:ctl?ctl.signal:undefined})
+      .then(r=>r.json().catch(()=>null).then(j=>({r,j})))
+      .then(({r,j})=>{
+        const e=j&&j.estado;
+        if(r.ok&&e==="valido")aplicar();
+        else if(e==="usado")fallo("Este código ya se usó en una compra aprobada. Cada código personal sirve una sola vez.");
+        else if(e==="vencido")fallo("Este código ya venció.");
+        else if(e==="invalido")fallo("Ese código no existe. Revisa que esté completo, por ejemplo FV20-AB3CD7E.");
+        else if(r.status===429)fallo("Hiciste muchos intentos seguidos. Espera unos minutos y vuelve a intentarlo.");
+        else fallo("No pudimos verificar el código ahora. Intenta de nuevo en unos segundos.");
+      })
+      .catch(()=>fallo("No pudimos verificar el código: revisa tu conexión e intenta de nuevo."))
+      .finally(()=>{if(to)clearTimeout(to)});
     return;
   }
-  if(!code){msg.style.color="#b91c1c";msg.textContent="Ingresa un código.";return;}
-  if(!/^FV15-[A-Z0-9]{7}$/.test(code)){
-    activeDiscount={code:"",amount:0};renderSummary();
-    msg.style.color="#b91c1c";msg.textContent="Código no válido. Únete al Club de Descuentos para obtener el tuyo.";
-    input.style.borderColor="#b91c1c";return;
-  }
-  btn.textContent="Verificando…";btn.disabled=true;
+
+  // FV15 (Círculo): Apps Script por JSONP, como siempre.
   const cbName="_fvdc"+Date.now();
-  const s=document.createElement("script");
+  const sc=document.createElement("script");
   let completed=false;
   const to=setTimeout(()=>{
     if(completed)return;
     completed=true;
-    try{document.body.removeChild(s);}catch(e){}
+    try{document.body.removeChild(sc);}catch(e){}
     delete window[cbName];
-    btn.textContent="Aplicar";btn.disabled=false;
-    msg.style.color="#b91c1c";msg.textContent="No se pudo verificar. Intenta de nuevo.";
+    fallo("No pudimos verificar el código ahora. Intenta de nuevo en unos segundos.");
     console.error("Timeout verificando código de descuento");
   },10000);
   window[cbName]=function(res){
     if(completed)return;
     completed=true;
     clearTimeout(to);
-    try{document.body.removeChild(s);}catch(e){}
+    try{document.body.removeChild(sc);}catch(e){}
     delete window[cbName];
-    btn.disabled=false;
-    if(res&&res.valid){
-      activeDiscount.code=code;renderSummary();
-      msg.style.color="#15803d";msg.textContent="¡Código aplicado! 15% de descuento en tus productos.";
-      input.style.borderColor="#15803d";btn.textContent="✓ Aplicado";btn.style.background="var(--verde-dark)";
-    }else if(res&&res.used){
-      activeDiscount={code:"",amount:0};renderSummary();
-      msg.style.color="#b91c1c";msg.textContent="Este código ya fue utilizado en una compra anterior.";
-      input.style.borderColor="#b91c1c";btn.textContent="Aplicar";
-    }else{
-      activeDiscount={code:"",amount:0};renderSummary();
-      msg.style.color="#b91c1c";msg.textContent="Código no válido. Únete al Club de Descuentos para obtener el tuyo.";
-      input.style.borderColor="#b91c1c";btn.textContent="Aplicar";
-    }
+    if(res&&res.valid)aplicar();
+    else if(res&&res.used)fallo("Este código ya se usó en una compra anterior.");
+    else fallo("Ese código no existe. Revisa que esté completo, por ejemplo FV15-AB3CD7E.");
   };
-  s.src=CLUB_API+"?action=checkCode&code="+encodeURIComponent(code)+"&callback="+cbName;
-  s.onerror=()=>{
+  sc.src=CLUB_API+"?action=checkCode&code="+encodeURIComponent(code)+"&callback="+cbName;
+  sc.onerror=()=>{
     if(completed)return;
     completed=true;
     clearTimeout(to);
     delete window[cbName];
-    btn.textContent="Aplicar";btn.disabled=false;
-    msg.style.color="#b91c1c";msg.textContent="Error al conectar. Intenta de nuevo.";
+    fallo("No pudimos verificar el código: revisa tu conexión e intenta de nuevo.");
     console.error("Error cargando script JSONP");
   };
-  document.body.appendChild(s);
+  document.body.appendChild(sc);
+}
+
+// Resumen con UN solo descuento (fvResumen = mismo cálculo que el servidor).
+function resumenActual(){
+  return fvResumen(cart,deliveryMethod,activeDiscount.code?activeDiscount:null);
 }
 
 function renderSummary(){
@@ -768,13 +795,13 @@ function renderSummary(){
   const totalQty=cart.reduce((s,i)=>s+i.qty,0);
   // subtotal = suma de precios FINALES (ya con Black Friday). El envio se
   // calcula sobre este numero, igual que en el servidor.
-  const tot=fvTotalesCarrito(cart);
-  const subtotal=tot.final;
-  const discountAmt=(activeDiscount.code&&!BF_SIN_CODIGO)?Math.round(subtotal*0.15):0;
+  const R=resumenActual();
+  const vipAplicado=R.tipo==="vip";
+  const subtotal=R.subtotal;
+  const discountAmt=R.descuento;
   activeDiscount.amount=discountAmt;
-  const discountedSubtotal=subtotal-discountAmt;
-  const shipping=calcShipping(discountedSubtotal,deliveryMethod);
-  const total=discountedSubtotal+shipping;
+  const shipping=R.envio;
+  const total=R.total;
   count.textContent=totalQty===1?"1 pieza":`${totalQty} piezas`;
   items.innerHTML=cart.map((i,idx)=>`
     <div class="summary-item">
@@ -789,7 +816,7 @@ function renderSummary(){
         </div>
       </div>
       <div class="right">
-        <div class="sub">${fvLineaHTML(i)}</div>
+        <div class="sub">${vipAplicado?fmt(i.precioLista*i.qty):fvLineaHTML(i)}</div>
         <button type="button" class="item-remove" onclick="eliminarItem(${idx})" aria-label="Eliminar producto">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
           Quitar
@@ -797,11 +824,15 @@ function renderSummary(){
       </div>
     </div>
   `).join("");
-  pintarFilasBF(tot);
+  // Con el código VIP no hay tachado ni etiqueta de Black Friday: rige el 20 %.
+  pintarFilasBF({lista:R.subtotalLista,ahorro:R.descuentoBF});
   $("#sumSubtotal").textContent=fmt(subtotal);
   const discRow=document.getElementById("sumDiscountRow");
-  if(discountAmt>0){
-    document.getElementById("sumDiscount").textContent=`-${fmt(discountAmt)}`;
+  if(discountAmt>0||R.codigoIgualQueBF){
+    document.getElementById("sumDiscountLbl").textContent=
+      R.tipo==="vip"?`Código VIP 20 % (${activeDiscount.code})`:
+      R.codigoIgualQueBF?`Código aplicado: 15 % (${activeDiscount.code})`:`Código del Círculo 15 % (${activeDiscount.code})`;
+    document.getElementById("sumDiscount").textContent=discountAmt>0?`-${fmt(discountAmt)}`:"Incluido";
     discRow.style.display="";
   }else{
     discRow.style.display="none";
@@ -951,11 +982,10 @@ $("#ciForm").addEventListener("submit",e=>{
     window.scrollTo({top:0,behavior:"smooth"});
     return;
   }
-  const tot=fvTotalesCarrito(cart);
-  const subtotal=tot.final;
-  const discountAmt=(activeDiscount.code&&!BF_SIN_CODIGO)?Math.round(subtotal*0.15):0;
-  const discountedSubtotal=subtotal-discountAmt;
-  const shipping=calcShipping(discountedSubtotal,deliveryMethod);
+  const R=resumenActual();
+  const subtotal=R.subtotal;
+  const discountAmt=R.descuento;
+  const shipping=R.envio;
   const info={
     email:$("#email").value.trim(),
     phone:$("#phone").value.trim(),
@@ -974,13 +1004,16 @@ $("#ciForm").addEventListener("submit",e=>{
     cart,
     subtotal,
     // Black Friday: subtotal ya es con precios finales; esto es informativo.
-    subtotalLista:tot.lista,
-    descuentoBF:tot.ahorro,
-    bfPct:tot.ahorro>0?window.FV_BF.pct:0,
-    discountCode:(activeDiscount.code&&!BF_SIN_CODIGO)?activeDiscount.code:null,
+    subtotalLista:R.subtotalLista,
+    descuentoBF:R.descuentoBF,
+    bfPct:R.descuentoBF>0?window.FV_BF.pct:0,
+    // Código verificado aquí (checkout lo recalcula con fvResumen y solo manda
+    // al pago el que de verdad da el descuento).
+    discountCode:activeDiscount.code||null,
+    discountTipo:activeDiscount.tipo||null,
     discountAmount:discountAmt||null,
     shipping,
-    total:discountedSubtotal+shipping,
+    total:R.total,
     timestamp:Date.now()
   };
   localStorage.setItem("fv_customer_info",JSON.stringify(info));
