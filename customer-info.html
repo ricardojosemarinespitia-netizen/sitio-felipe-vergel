@@ -589,7 +589,7 @@ input.error{border-color:#d32f2f;background:#fff5f5}
       </div>
       <div id="discountInputArea" style="display:none;margin-top:10px">
         <div style="display:flex;gap:8px">
-          <input type="text" id="discountCode" placeholder="FV20-XXXXXXX" maxlength="12" autocomplete="off" aria-label="Código de descuento"
+          <input type="text" id="discountCode" placeholder="FV10-XXXXXXX" maxlength="12" autocomplete="off" aria-label="Código de descuento"
             style="flex:1;padding:10px 14px;border:1.5px solid var(--linea);border-radius:2px;font-family:inherit;font-size:13px;color:var(--tinta);background:var(--crema-2);outline:none;transition:border-color .2s;text-transform:uppercase;letter-spacing:.06em;font-weight:200"
             oninput="this.value=this.value.toUpperCase()"
             onfocus="this.style.borderColor='var(--cobre)'"
@@ -650,8 +650,8 @@ if(typeof fvResumen!=="function"){
   // Sin products.js: lista + un solo código. El servidor recalcula igual y el
   // checkout no abre Wompi si cobraría más de lo mostrado.
   window.fvEnvio=(s,m)=>m==="bucaramanga"?0:s<=180000?Math.round(s*.25):s<=310000?Math.round(s*.15):Math.round(s*.10);
-  window.fvTipoCodigo=c=>/^FV20-[A-Z0-9]{7}$/.test(String(c||""))?"vip":/^FV15-[A-Z0-9]{7}$/.test(String(c||""))?"club":"";
-  window.fvResumen=(c,m,cod)=>{const t=fvTotalesCarrito(c);const tipo=cod&&cod.code?cod.tipo:"";const pct=tipo==="vip"?.2:tipo==="club"?.15:0;const d=Math.round(t.lista*pct);const e=fvEnvio(t.lista-d,m);
+  window.fvTipoCodigo=c=>/^FV20-[A-Z0-9]{7}$/.test(String(c||""))?"vip":/^FV10-[A-Z0-9]{7}$/.test(String(c||""))?"circulo":/^FV15-[A-Z0-9]{7}$/.test(String(c||""))?"club":"";
+  window.fvResumen=(c,m,cod)=>{const t=fvTotalesCarrito(c);const tipo=cod&&cod.code?cod.tipo:"";const pct=tipo==="vip"?.2:tipo==="circulo"?.1:tipo==="club"?.15:0;const d=Math.round(t.lista*pct);const e=fvEnvio(t.lista-d,m);
     return{subtotalLista:t.lista,descuentoBF:0,subtotal:t.lista,descuento:d,envio:e,total:t.lista-d+e,tipo:pct?tipo:"ninguno",pctCodigo:pct*100,codigoPago:pct?cod.code:null,codigoIgualQueBF:false,bfActivo:false}};
 }
 
@@ -693,7 +693,8 @@ function calcShipping(subtotal,method){
 
 // ---- DESCUENTO ----
 // Un solo código por pedido; el nuevo reemplaza al anterior.
-//   FV20 (personal, 20 % sobre lista) y FV15 (Círculo, emitidos antes): los
+//   FV20 (personal /vip, 20 % sobre lista), FV10 (Círculo, 10 % sobre lista)
+//   y FV15 (Círculo, emitidos antes): los
 //   verifica la función vip-codigo contra la base (Supabase). El cobro lo
 //   vuelve a verificar wompi-sign: sin verificar, no hay descuento.
 const VIP_API="https://exquisite-pasca-848b8b.netlify.app/.netlify/functions/vip-codigo";
@@ -709,12 +710,16 @@ function aplicarCodigo(){
   const listo=(aplicado)=>{btn.disabled=false;btn.textContent=aplicado?"✓ Aplicado":"Aplicar";btn.style.background=aplicado?"var(--verde-dark)":""};
   if(!code){decir(false,"Escribe tu código.");return}
   const tipo=fvTipoCodigo(code);
-  if(!tipo){quitar();listo(false);decir(false,"Ese código no existe. Revísalo: tiene la forma FV20-XXXXXXX o FV15-XXXXXXX.");return}
+  if(!tipo){quitar();listo(false);decir(false,"Ese código no existe. Revísalo: tiene la forma FV20-XXXXXXX, FV10-XXXXXXX o FV15-XXXXXXX.");return}
   btn.textContent="Verificando…";btn.disabled=true;
   const aplicar=()=>{
     activeDiscount={code,tipo,amount:0};renderSummary();listo(true);
     if(tipo==="vip"){
       decir(true,fvBFActivo()?"Código VIP 20 % aplicado, reemplaza el descuento de Black Friday.":"Código VIP 20 % aplicado sobre el precio de lista.");
+    }else if(tipo==="circulo"&&fvBFActivo()){
+      decir(true,"Código del Círculo (10 %) aceptado. Durante Black Friday ya tienes el 15 % en todos los precios, así que este código no suma y no se gasta: lo conservas para tus compras después de la campaña.");
+    }else if(tipo==="circulo"){
+      decir(true,"Código del Círculo aplicado: 10 % de descuento sobre el precio de lista.");
     }else if(fvBFActivo()&&!window.FV_BF.acumulaCodigo){
       decir(true,"Código aplicado: 15 %. Durante Black Friday es el mismo 15 % que ya tienen los precios, así que no hay descuento extra y tu código no se gasta: lo conservas para otra compra.");
     }else{
@@ -724,7 +729,7 @@ function aplicarCodigo(){
   const fallo=(texto)=>{quitar();listo(false);decir(false,texto)};
 
   {
-    const ejemplo=tipo==="vip"?"FV20-AB3CD7E":"FV15-AB3CD7E";
+    const ejemplo=tipo==="vip"?"FV20-AB3CD7E":tipo==="circulo"?"FV10-AB3CD7E":"FV15-AB3CD7E";
     const ctl=("AbortController" in window)?new AbortController():null;
     const to=ctl?setTimeout(()=>ctl.abort(),8000):null;
     fetch(VIP_API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({accion:"verificar",codigo:code}),signal:ctl?ctl.signal:undefined})
@@ -732,7 +737,7 @@ function aplicarCodigo(){
       .then(({r,j})=>{
         const e=j&&j.estado;
         if(r.ok&&e==="valido")aplicar();
-        else if(e==="usado")fallo(tipo==="vip"?"Este código ya se usó en una compra aprobada. Cada código personal sirve una sola vez.":"Este código ya se usó en una compra anterior.");
+        else if(e==="usado")fallo(tipo==="vip"||tipo==="circulo"?"Este código ya se usó en una compra aprobada. Cada código personal sirve una sola vez.":"Este código ya se usó en una compra anterior.");
         else if(e==="vencido")fallo("Este código ya venció.");
         else if(e==="invalido")fallo("Ese código no existe. Revisa que esté completo, por ejemplo "+ejemplo+".");
         else if(r.status===429)fallo("Hiciste muchos intentos seguidos. Espera unos minutos y vuelve a intentarlo.");
@@ -795,11 +800,13 @@ function renderSummary(){
   pintarFilasBF({lista:R.subtotalLista,ahorro:R.descuentoBF});
   $("#sumSubtotal").textContent=fmt(subtotal);
   const discRow=document.getElementById("sumDiscountRow");
-  if(discountAmt>0||R.codigoIgualQueBF){
+  if(discountAmt>0||R.codigoIgualQueBF||R.codigoMenorQueBF){
     document.getElementById("sumDiscountLbl").textContent=
       R.tipo==="vip"?`Código VIP 20 % (${activeDiscount.code})`:
+      R.tipo==="circulo"?`Código del Círculo 10 % (${activeDiscount.code})`:
+      R.codigoMenorQueBF?`Código del Círculo 10 % (${activeDiscount.code}) · no suma con Black Friday`:
       R.codigoIgualQueBF?`Código aplicado: 15 % (${activeDiscount.code})`:`Código del Círculo 15 % (${activeDiscount.code})`;
-    document.getElementById("sumDiscount").textContent=discountAmt>0?`-${fmt(discountAmt)}`:"Incluido";
+    document.getElementById("sumDiscount").textContent=discountAmt>0?`-${fmt(discountAmt)}`:R.codigoMenorQueBF?"No suma":"Incluido";
     discRow.style.display="";
   }else{
     discRow.style.display="none";

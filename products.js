@@ -1568,12 +1568,15 @@ function fvLineaHTML(i){
 // ============================================================================
 //  UN SOLO DESCUENTO POR PEDIDO (regla de Ricardo) · espejo EXACTO de
 //  recalcularTotal() en fv-functions/netlify/functions/lib/catalogo-precios.js
-//  cod = {code:"FV20-...", tipo:"vip"} | {code:"FV15-...", tipo:"club"} | null
+//  cod = {code:"FV20-...", tipo:"vip"} | {code:"FV10-...", tipo:"circulo"} | {code:"FV15-...", tipo:"club"} | null
 //  (solo se pasa un codigo ya VERIFICADO).
 //   - FV20 (vip):            precios de LISTA, descuento 20 % del subtotal de lista
 //   - FV15 sin Black Friday: precios de lista, descuento 15 %
 //   - FV15 con Black Friday: precios BF, sin descuento extra (mismo 15 %;
 //                            el codigo NO se gasta: no se manda al pago)
+//   - FV10 (circulo) sin BF: precios de lista, descuento 10 %
+//   - FV10 con Black Friday: precios BF, sin descuento extra (el 15 % publico es
+//                            mayor; el codigo NO se gasta: no se manda al pago)
 //   - sin codigo:            precios BF si la campana esta activa
 //  envio sobre (subtotal - descuento). codigoPago = codigo que se manda a
 //  wompi-sign (solo el que de verdad da el descuento).
@@ -1582,6 +1585,7 @@ window.FV_VIP={pct:20};
 function fvTipoCodigo(code){
   code=String(code||"").trim().toUpperCase();
   if(/^FV20-[A-Z0-9]{7}$/.test(code))return "vip";
+  if(/^FV10-[A-Z0-9]{7}$/.test(code))return "circulo";
   if(/^FV15-[A-Z0-9]{7}$/.test(code))return "club";
   return "";
 }
@@ -1589,9 +1593,13 @@ function fvResumen(cart,metodo,cod){
   var tot=fvTotalesCarrito(cart);
   var tipo=cod&&cod.code?cod.tipo:"";
   var r={subtotalLista:tot.lista,descuentoBF:0,subtotal:0,descuento:0,envio:0,total:0,
-         tipo:"ninguno",pctCodigo:0,codigoPago:null,codigoIgualQueBF:false,bfActivo:fvBFActivo()};
+         tipo:"ninguno",pctCodigo:0,codigoPago:null,codigoIgualQueBF:false,codigoMenorQueBF:false,bfActivo:fvBFActivo()};
   if(tipo==="vip"){
     r.subtotal=tot.lista;r.descuento=Math.round(tot.lista*0.20);r.tipo="vip";r.pctCodigo=20;r.codigoPago=cod.code;
+  }else if(tipo==="circulo"&&r.bfActivo){
+    r.subtotal=tot.final;r.descuentoBF=tot.ahorro;r.tipo="bf";r.pctCodigo=10;r.codigoMenorQueBF=true;
+  }else if(tipo==="circulo"){
+    r.subtotal=tot.final;r.descuentoBF=tot.ahorro;r.descuento=Math.round(tot.final*0.10);r.tipo="circulo";r.pctCodigo=10;r.codigoPago=cod.code;
   }else if(tipo==="club"&&r.bfActivo&&!window.FV_BF.acumulaCodigo){
     r.subtotal=tot.final;r.descuentoBF=tot.ahorro;r.tipo="bf";r.pctCodigo=15;r.codigoIgualQueBF=true;
   }else if(tipo==="club"){

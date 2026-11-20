@@ -692,8 +692,8 @@ if(typeof fvResumen!=="function"){
   // Sin products.js: lista + un solo código. El servidor recalcula igual y el
   // checkout no abre Wompi si cobraría más de lo mostrado.
   window.fvEnvio=(s,m)=>m==="bucaramanga"?0:s<=180000?Math.round(s*.25):s<=310000?Math.round(s*.15):Math.round(s*.10);
-  window.fvTipoCodigo=c=>/^FV20-[A-Z0-9]{7}$/.test(String(c||""))?"vip":/^FV15-[A-Z0-9]{7}$/.test(String(c||""))?"club":"";
-  window.fvResumen=(c,m,cod)=>{const t=fvTotalesCarrito(c);const tipo=cod&&cod.code?cod.tipo:"";const pct=tipo==="vip"?.2:tipo==="club"?.15:0;const d=Math.round(t.lista*pct);const e=fvEnvio(t.lista-d,m);
+  window.fvTipoCodigo=c=>/^FV20-[A-Z0-9]{7}$/.test(String(c||""))?"vip":/^FV10-[A-Z0-9]{7}$/.test(String(c||""))?"circulo":/^FV15-[A-Z0-9]{7}$/.test(String(c||""))?"club":"";
+  window.fvResumen=(c,m,cod)=>{const t=fvTotalesCarrito(c);const tipo=cod&&cod.code?cod.tipo:"";const pct=tipo==="vip"?.2:tipo==="circulo"?.1:tipo==="club"?.15:0;const d=Math.round(t.lista*pct);const e=fvEnvio(t.lista-d,m);
     return{subtotalLista:t.lista,descuentoBF:0,subtotal:t.lista,descuento:d,envio:e,total:t.lista-d+e,tipo:pct?tipo:"ninguno",pctCodigo:pct*100,codigoPago:pct?cod.code:null,codigoIgualQueBF:false,bfActivo:false}};
 }
 // Black Friday: price = precio final, precioLista = lista, por id.
@@ -789,11 +789,13 @@ function renderSummary(){
   `).join("");
   $("#sumSubtotal").textContent=fmt(subtotal);
   const discRow=document.getElementById("sumDiscountRow");
-  if(discountAmt>0||R.codigoIgualQueBF){
+  if(discountAmt>0||R.codigoIgualQueBF||R.codigoMenorQueBF){
     document.getElementById("sumDiscountLbl").textContent=
       R.tipo==="vip"?`Código VIP 20 % (${COD_INFO.code})`:
+      R.tipo==="circulo"?`Código del Círculo 10 % (${COD_INFO.code})`:
+      R.codigoMenorQueBF?`Código del Círculo 10 % (${COD_INFO.code}) · no suma con Black Friday`:
       R.codigoIgualQueBF?`Código aplicado: 15 % (${COD_INFO.code})`:`Código del Círculo 15 % (${COD_INFO.code})`;
-    document.getElementById("sumDiscount").textContent=discountAmt>0?`-${fmt(discountAmt)}`:"Incluido";
+    document.getElementById("sumDiscount").textContent=discountAmt>0?`-${fmt(discountAmt)}`:R.codigoMenorQueBF?"No suma":"Incluido";
     discRow.style.display="";
   }else{
     discRow.style.display="none";

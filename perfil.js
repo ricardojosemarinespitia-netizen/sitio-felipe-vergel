@@ -148,7 +148,7 @@ function buildIn(p){
       <div class="fvp-code" id="fvPCode">${esc(p.codigoDescuento||'—')}</div>
       <button class="fvp-copy" id="fvPCopy" title="Copiar código"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
     </div>
-    <p class="fvp-code-note">${/^FV20-/.test(p.codigoDescuento||'')?'20&#8239;% sobre el precio de lista · un solo uso · no se suma a otros descuentos':'15% OFF en tu primera compra · solo válido una vez'}</p>
+    <p class="fvp-code-note">${/^FV20-/.test(p.codigoDescuento||'')?'20&#8239;% sobre el precio de lista · un solo uso · no se suma a otros descuentos':/^FV10-/.test(p.codigoDescuento||'')?'10&#8239;% sobre el precio de lista · un solo uso · no se suma a otros descuentos':'15% OFF en tu primera compra · solo válido una vez'}</p>
   </div>
   <div class="fvp-sec">
     <div class="fvp-sec-t">Mis pedidos</div>
