@@ -129,6 +129,9 @@ body{background:#2B211B;color:#F4EEE3;font-family:'Jost',system-ui,sans-serif;fo
       .then(function(x){
         var j=x.j;
         if(!x.r.ok||!j||!j.ok||!j.codigo){
+          // 503 "no-disponible": la base no respondió. Si guardado=true el
+          // correo ya quedó en la cola de respaldo del servidor.
+          if(j&&j.error==='no-disponible'){msg(j.guardado?'Guardamos tu correo, pero no pudimos crear tu código en este momento. Intenta de nuevo en unos minutos.':'No pudimos crear tu código en este momento. Intenta de nuevo en unos minutos.');return}
           msg((j&&ERRORES[j.error])||'No pudimos crear tu código. Intenta de nuevo en unos segundos.');
           return;
         }

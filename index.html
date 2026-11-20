@@ -37,7 +37,7 @@ window.fvImg=(function(){
      GitHub Pages no permite cabeceras propias, asi que la CSP viaja como
      <meta http-equiv>. Por eso no lleva frame-ancestors ni report-uri: esas
      directivas solo funcionan como cabecera HTTP real (ver _headers). -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://www.clarity.ms https://*.clarity.ms https://connect.facebook.net https://www.googletagmanager.com https://accounts.google.com https://apis.google.com https://script.google.com https://script.googleusercontent.com; script-src-elem 'self' 'unsafe-inline' https://www.clarity.ms https://*.clarity.ms https://connect.facebook.net https://www.googletagmanager.com https://accounts.google.com https://apis.google.com https://script.google.com https://script.googleusercontent.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com; style-src-elem 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://*.clarity.ms https://*.googleusercontent.com https://www.facebook.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://accounts.google.com; connect-src 'self' https://www.clarity.ms https://*.clarity.ms https://www.facebook.com https://connect.facebook.net https://fonts.googleapis.com https://fonts.gstatic.com https://script.google.com https://script.googleusercontent.com https://docs.google.com https://www.googleapis.com https://accounts.google.com https://production.wompi.co https://exquisite-pasca-848b8b.netlify.app https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com; frame-src https://accounts.google.com https://checkout.wompi.co; form-action 'self' https://docs.google.com https://checkout.wompi.co; manifest-src 'self'; worker-src 'self' blob:">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://www.clarity.ms https://*.clarity.ms https://connect.facebook.net https://www.googletagmanager.com https://accounts.google.com https://apis.google.com; script-src-elem 'self' 'unsafe-inline' https://www.clarity.ms https://*.clarity.ms https://connect.facebook.net https://www.googletagmanager.com https://accounts.google.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com; style-src-elem 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://*.clarity.ms https://*.googleusercontent.com https://www.facebook.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://accounts.google.com; connect-src 'self' https://www.clarity.ms https://*.clarity.ms https://www.facebook.com https://connect.facebook.net https://fonts.googleapis.com https://fonts.gstatic.com https://www.googleapis.com https://accounts.google.com https://production.wompi.co https://exquisite-pasca-848b8b.netlify.app https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com; frame-src https://accounts.google.com https://checkout.wompi.co; form-action 'self' https://checkout.wompi.co; manifest-src 'self'; worker-src 'self' blob:">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-E2SG3MESQW"></script>
@@ -2188,7 +2188,6 @@ p.hc-title{margin-bottom:0}
 <script>
 const WOMPI_KEY="pub_prod_Nic5INHYDJiWHxDscG9g8OcPYElRjPYi";
 const WA_NUMBER="573116214726";
-const FORM_ID="1FAIpQLSflsK1YlaHGgdxFdOQ4pvnrF_cA0KUnLUVubAlO2eD3LBfm4Q";
 
 const $=(s,c=document)=>c.querySelector(s);
 const $$=(s,c=document)=>[...c.querySelectorAll(s)];
@@ -2226,14 +2225,17 @@ if(backTop)backTop.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
   // por correo (20 % sobre lista, un solo uso), lo envía por Resend y lo
   // devuelve para mostrarlo. El navegador no tiene claves ni elige destinatario.
   const VIP_API="https://exquisite-pasca-848b8b.netlify.app/.netlify/functions/vip-codigo";
-  async function clubPedirCodigo(nombre,email){
+  // El servidor guarda el correo en la base (Supabase) y crea el código. Si la
+  // base no responde devuelve 503 {error:"no-disponible", guardado}: guardado
+  // = el correo quedó en la cola de respaldo del servidor.
+  async function clubPedirCodigo(nombre,email,metodo){
     const r=await fetch(VIP_API,{
       method:"POST",
       headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({accion:"solicitar",origen:"circulo",nombre:nombre||"",email,web:""})
+      body:JSON.stringify({accion:"solicitar",origen:"circulo",nombre:nombre||"",email,metodo:metodo==="google"?"google":"email",web:""})
     });
     let j=null;try{j=await r.json()}catch(e){}
-    if(!r.ok||!j||!j.ok||!j.codigo)throw new Error((j&&j.error)||("HTTP "+r.status));
+    if(!r.ok||!j||!j.ok||!j.codigo){const err=new Error((j&&j.error)||("HTTP "+r.status));err.guardado=!!(j&&j.guardado);throw err}
     return j; // {codigo, correo:true|false}
   }
   // Muestra el resultado en la pantalla de bienvenida.
@@ -2244,37 +2246,29 @@ if(backTop)backTop.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
       nota.innerHTML=res.correo
         ? "También te lo enviamos al correo. Escríbelo al pagar: es de <b>un solo uso</b> y no se suma a otros descuentos."
         : "<b>Guarda este código.</b> No pudimos enviarte el correo, pero el código ya funciona: escríbelo al pagar.";
+    }else if(res&&res.guardado){
+      box.style.display="none";lbl.style.display="none";
+      nota.innerHTML='<span class="club-aviso">Guardamos tu correo, pero no pudimos crear tu código en este momento.</span> Vuelve a intentarlo en unos minutos o escríbenos por WhatsApp y te lo damos.';
     }else{
       box.style.display="none";lbl.style.display="none";
-      nota.innerHTML='<span class="club-aviso">Ya estás en el Círculo, pero no pudimos crear tu código en este momento.</span> Escríbenos por WhatsApp y te lo damos.';
+      nota.innerHTML='<span class="club-aviso">No pudimos registrarte en este momento.</span> Revisa tu conexión y vuelve a intentarlo en unos minutos, o escríbenos por WhatsApp.';
     }
   }
-  const CLUB_FORM_ID="1FAIpQLSflsK1YlaHGgdxFdOQ4pvnrF_cA0KUnLUVubAlO2eD3LBfm4Q";
-  // URL del Apps Script (validación cross-device + conteo + lista).
-  // Pega aquí la URL que termina en /exec tras desplegar club-suscriptores.gs.
-  // Mientras esté vacía, el control sigue siendo solo por navegador.
-  const CLUB_API="https://script.google.com/macros/s/AKfycbznN-5jCwKFFvSeKEiFuvaqwCW2DLv7OpQm6jCmEgH8w2qHIZtTfCPNsi3saPAv7j3s/exec";
 
-  // Llama al Apps Script vía JSONP (evita problemas de CORS en sitio estático)
-  function clubJSONP(params){
-    return new Promise(resolve=>{
-      if(!CLUB_API){resolve(null);return;}
-      const cb="__clubcb_"+Date.now()+"_"+Math.floor(Math.random()*1e5);
-      const s=document.createElement("script");
-      let listo=false;
-      const limpiar=()=>{try{delete window[cb]}catch(e){window[cb]=undefined}if(s.parentNode)s.parentNode.removeChild(s)};
-      window[cb]=data=>{listo=true;resolve(data);limpiar()};
-      s.onerror=()=>{if(!listo){resolve(null);limpiar()}};
-      const qs=Object.keys(params).map(k=>encodeURIComponent(k)+"="+encodeURIComponent(params[k])).join("&");
-      s.src=CLUB_API+"?"+qs+"&callback="+cb;
-      document.body.appendChild(s);
-      setTimeout(()=>{if(!listo){resolve(null);limpiar()}},6000);
-    });
-  }
-  // Verifica en la nube si el correo ya está en el Círculo (cualquier dispositivo)
+  // ¿El correo ya está en el Círculo (cualquier dispositivo)? Lo responde el
+  // servidor desde la base (Supabase): solo sí/no, nunca el código. Si no se
+  // puede consultar en 6 s, se sigue como si no estuviera (el servidor no
+  // duplica: devuelve el mismo código del correo).
   async function yaRegistradoRemoto(email){
-    const r=await clubJSONP({action:"check",email:String(email).toLowerCase().trim()});
-    return !!(r&&r.registered===true);
+    const ctl=("AbortController" in window)?new AbortController():null;
+    const to=ctl?setTimeout(()=>ctl.abort(),6000):null;
+    try{
+      const r=await fetch(VIP_API,{method:"POST",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({accion:"registrado",email:String(email).toLowerCase().trim()}),signal:ctl?ctl.signal:undefined});
+      const j=await r.json().catch(()=>null);
+      return !!(r.ok&&j&&j.registrado===true);
+    }catch(e){return false}
+    finally{if(to)clearTimeout(to)}
   }
   // Marca el correo como registrado también en este navegador
   function marcarLocal(email,CODE){
@@ -2289,31 +2283,9 @@ if(backTop)backTop.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
   const overlay=document.getElementById("clubOverlay");
   if(!overlay)return;
 
-  // Registra al suscriptor. Preferimos el Apps Script (escribe en la MISMA hoja
-  // que lee el panel del Club). Si no hay CLUB_API, cae al Google Form de respaldo.
-  async function registrarEnForm(email, nombre, code, metodo){
-    if(CLUB_API){
-      try{
-        await fetch(CLUB_API,{
-          method:"POST",
-          mode:"no-cors",
-          headers:{"Content-Type":"text/plain;charset=utf-8"},
-          body:JSON.stringify({email:email, nombre:nombre||"Suscriptor Club", codigo:code, metodo:metodo||"club"})
-        });
-        return;
-      }catch(e){console.error("Club API:",e)}
-    }
-    try{
-      const fd=new URLSearchParams();
-      fd.append("entry.297753956",  nombre||"Suscriptor Club");
-      fd.append("entry.1064695391", email);
-      fd.append("entry.1732518498", "Club");
-      fd.append("entry.1495498498", "Suscripción Club ("+metodo+") · código "+code);
-      fd.append("entry.932926498",  "0");
-      await fetch(`https://docs.google.com/forms/d/e/${CLUB_FORM_ID}/formResponse`,
-        {method:"POST",body:fd,mode:"no-cors"});
-    }catch(e){console.error("Club Form:",e)}
-  }
+  // (Antes el suscriptor se escribía aquí en la hoja de Google vía Apps Script
+  // / Google Forms. Ahora lo guarda el servidor en Supabase dentro de
+  // clubPedirCodigo: el navegador ya no escribe en ninguna hoja.)
 
   // Genera un código único determinista a partir del email
   function generarCodigo(){
@@ -2508,14 +2480,20 @@ if(backTop)backTop.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
     if(yaRegistrado(email)){ yaEsta(); return; }
     if(await yaRegistradoRemoto(email)){ marcarLocal(email,CODE); yaEsta(); return; }
     let res=null;
-    try{ res=await clubPedirCodigo(nombre,email); }catch(err){console.error("Club código:",err)}
+    try{ res=await clubPedirCodigo(nombre,email,metodoLogin||"google"); }catch(err){console.error("Club código:",err);res={guardado:!!err.guardado}}
     const CODIGO=res&&res.codigo||"";
-    try{
-      const lst=getRegistrados();lst.push(email.toLowerCase());
-      localStorage.setItem("fv_club_registrados",JSON.stringify(lst));
-      if(CODIGO)localStorage.setItem("fv_club_codigo_"+email.toLowerCase(),CODIGO);
-    }catch(e){}
-    registrarEnForm(email, nombre, CODIGO||"sin código", metodoLogin||"google");
+    // Si el servidor no guardó el correo, se avisa aquí mismo y el formulario
+    // sigue a mano para volver a intentarlo.
+    if(!CODIGO&&!res.guardado){showError("No pudimos registrarte en este momento. Revisa tu conexión y vuelve a intentarlo en unos minutos.");return}
+    // Solo se recuerda como registrado si ya tiene su código: si el correo
+    // quedó en la cola de respaldo, la persona puede volver a pedirlo.
+    if(CODIGO){
+      try{
+        const lst=getRegistrados();lst.push(email.toLowerCase());
+        localStorage.setItem("fv_club_registrados",JSON.stringify(lst));
+        if(CODIGO)localStorage.setItem("fv_club_codigo_"+email.toLowerCase(),CODIGO);
+      }catch(e){}
+    }
     if(window.FVPerfil) window.FVPerfil.save({nombre:nombre||'Coleccionista',email,avatar:avatar||'',metodoLogin:metodoLogin||'email',codigoDescuento:CODIGO||CODE});
     clubMostrarCodigo(res);
     document.getElementById("clubBody").style.display="none";
@@ -2648,19 +2626,24 @@ if(backTop)backTop.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
     btn.textContent="Enviando...";
     let res=null;
     try{
-      res=await clubPedirCodigo(nombre,emailRaw);
+      res=await clubPedirCodigo(nombre,emailRaw,"email");
     }catch(err){
       console.error("Club código:",err);
+      res={guardado:!!err.guardado};
     }
     const CODIGO=res&&res.codigo||"";
-    // Registrar al usuario
-    try{
-      const lst=getRegistrados();
-      lst.push(email);
-      localStorage.setItem("fv_club_registrados",JSON.stringify(lst));
-      if(CODIGO)localStorage.setItem("fv_club_codigo_"+email,CODIGO);
-    }catch(e){}
-    registrarEnForm(email, nombre, CODIGO||"sin código", "email");
+    btn.disabled=false;btn.textContent="Unirme al Círculo";
+    if(!CODIGO&&!res.guardado){showError("No pudimos registrarte en este momento. Revisa tu conexión y vuelve a intentarlo en unos minutos.");return}
+    // Recordar como registrado solo si ya tiene su código: si el correo quedó
+    // en la cola de respaldo, la persona puede volver a pedirlo.
+    if(CODIGO){
+      try{
+        const lst=getRegistrados();
+        lst.push(email);
+        localStorage.setItem("fv_club_registrados",JSON.stringify(lst));
+        if(CODIGO)localStorage.setItem("fv_club_codigo_"+email,CODIGO);
+      }catch(e){}
+    }
     if(window.FVPerfil) window.FVPerfil.save({nombre,email,avatar:'',metodoLogin:'email',codigoDescuento:CODIGO||CODE});
     // Mostrar el código personal en pantalla
     clubMostrarCodigo(res);
@@ -3164,15 +3147,12 @@ $("#btnBackPayment").onclick=()=>{
   $("#formStep2").style.display="none";
 };
 
-// Guardar pedido en Google Forms
+// Formulario de pedido heredado de esta página. NADIE lo abre hoy
+// (showOrderForm no se llama: el carrito lleva a customer-info.html y
+// checkout.html, que registran en Supabase vía el servidor). Antes escribía
+// en Google Forms desde el navegador; se quitó al pasar la base a Supabase.
 async function guardarPedido(){
   if(!pendingOrder) return;
-  const {email,fullName,docId,address,city,zipCode,phone,cart:c,total}=pendingOrder;
-  const desc=c.map(i=>`${i.qty}× ${i.name} (${i.color}) — ${fmt(i.price*i.qty)}`).join(" | ");
-  const qty=c.reduce((s,i)=>s+i.qty,0);
-  const fd=new URLSearchParams();
-  fd.append("entry.297753956",fullName);fd.append("entry.1064695391",address);fd.append("entry.1732518498",phone);fd.append("entry.1495498498",desc);fd.append("entry.932926498",String(qty));
-  try{await fetch(`https://docs.google.com/forms/d/e/${FORM_ID}/formResponse`,{method:"POST",body:fd,mode:"no-cors"})}catch(e){}
   document.getElementById("formStep2").innerHTML=`<div class="order-success"><div class="check">✓</div><h3 style="color:var(--verde-dark);margin:0 0 8px">¡Pedido registrado!</h3><p style="color:var(--tinta-soft);font-size:13px;margin:0 0 18px">Felipe recibirá tu pedido en los próximos segundos.</p><button class="btn-submit" onclick="hideOrderForm();location.reload();">Cerrar</button></div>`;
   cart=[];saveCart();renderCart();
 };

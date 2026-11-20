@@ -37,7 +37,7 @@ window.fvImg=(function(){
      GitHub Pages no permite cabeceras propias, asi que la CSP viaja como
      <meta http-equiv>. Por eso no lleva frame-ancestors ni report-uri: esas
      directivas solo funcionan como cabecera HTTP real (ver _headers). -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://www.clarity.ms https://*.clarity.ms https://connect.facebook.net https://www.googletagmanager.com https://accounts.google.com https://apis.google.com https://script.google.com https://script.googleusercontent.com; script-src-elem 'self' 'unsafe-inline' https://www.clarity.ms https://*.clarity.ms https://connect.facebook.net https://www.googletagmanager.com https://accounts.google.com https://apis.google.com https://script.google.com https://script.googleusercontent.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com; style-src-elem 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://*.clarity.ms https://*.googleusercontent.com https://www.facebook.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://accounts.google.com; connect-src 'self' https://www.clarity.ms https://*.clarity.ms https://www.facebook.com https://connect.facebook.net https://fonts.googleapis.com https://fonts.gstatic.com https://script.google.com https://script.googleusercontent.com https://docs.google.com https://www.googleapis.com https://accounts.google.com https://production.wompi.co https://exquisite-pasca-848b8b.netlify.app https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com; frame-src https://accounts.google.com https://checkout.wompi.co; form-action 'self' https://docs.google.com https://checkout.wompi.co; manifest-src 'self'; worker-src 'self' blob:">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://www.clarity.ms https://*.clarity.ms https://connect.facebook.net https://www.googletagmanager.com https://accounts.google.com https://apis.google.com; script-src-elem 'self' 'unsafe-inline' https://www.clarity.ms https://*.clarity.ms https://connect.facebook.net https://www.googletagmanager.com https://accounts.google.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com; style-src-elem 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://*.clarity.ms https://*.googleusercontent.com https://www.facebook.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://accounts.google.com; connect-src 'self' https://www.clarity.ms https://*.clarity.ms https://www.facebook.com https://connect.facebook.net https://fonts.googleapis.com https://fonts.gstatic.com https://www.googleapis.com https://accounts.google.com https://production.wompi.co https://exquisite-pasca-848b8b.netlify.app https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com; frame-src https://accounts.google.com https://checkout.wompi.co; form-action 'self' https://checkout.wompi.co; manifest-src 'self'; worker-src 'self' blob:">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-E2SG3MESQW"></script>
@@ -619,7 +619,6 @@ const WOMPI_KEY="pub_prod_Nic5INHYDJiWHxDscG9g8OcPYElRjPYi";
    ============================================================ */
 const FIRMA_API="https://exquisite-pasca-848b8b.netlify.app/.netlify/functions/wompi-sign";
 const WA_NUMBER="573116214726";
-const FORM_ID="1FAIpQLSflsK1YlaHGgdxFdOQ4pvnrF_cA0KUnLUVubAlO2eD3LBfm4Q";
 
 /* ============================================================
    CORREOS AUTOMÁTICOS (Resend, vía función de Netlify)
@@ -631,16 +630,14 @@ const FORM_ID="1FAIpQLSflsK1YlaHGgdxFdOQ4pvnrF_cA0KUnLUVubAlO2eD3LBfm4Q";
    envía con Resend. Los destinatarios los fija el servidor.
    ============================================================ */
 const CORREO_API           = "https://exquisite-pasca-848b8b.netlify.app/.netlify/functions/enviar-correo";
-/* Antes el navegador llamaba DIRECTO al Apps Script de Ventas mandando
-   VENTAS_KEY en el body: cualquiera con "ver código fuente" se llevaba la
-   clave. Ahora se llama a esta función de Netlify (sin clave alguna); el
-   servidor agrega la clave antes de reenviar al Apps Script. */
+/* Registro de pedidos por WhatsApp en la base (Supabase), vía el servidor.
+   El navegador no lleva ninguna clave ni escribe en hojas de Google. */
 const VENTAS_API           = "https://exquisite-pasca-848b8b.netlify.app/.netlify/functions/ventas-registrar";
 
-// Envía la factura a Felipe + la confirmación al comprador (todo lo arma el servidor).
-// Si falla, el pedido NO se rompe: se avisa en consola y listo (igual que antes).
-async function enviarCorreos(pedido){
-  const datos={
+// Datos del pedido tal como los esperan enviar-correo y ventas-registrar
+// (el servidor los valida y rehace piezas y montos con su catálogo).
+function datosPedido(pedido){
+  return {
     ref:pedido.ref, fullName:pedido.fullName, email:pedido.email, phone:pedido.phone||"",
     docId:pedido.docId||"", address:pedido.address||"", city:pedido.city||"",
     department:pedido.department||"", zipCode:pedido.zipCode||"", notes:pedido.notes||"",
@@ -651,6 +648,11 @@ async function enviarCorreos(pedido){
     subtotalLista:pedido.subtotalLista||0, descuentoBF:pedido.descuentoBF||0, bfPct:pedido.bfPct||0,
     cart:(pedido.cart||[]).map(i=>({id:i.id||"",qty:i.qty,sku:i.sku||"",name:i.name,color:i.color||"",price:i.price,precioLista:i.precioLista||i.price}))
   };
+}
+// Envía la factura a Felipe + la confirmación al comprador (todo lo arma el servidor).
+// Si falla, el pedido NO se rompe: se avisa en consola y listo (igual que antes).
+async function enviarCorreos(pedido){
+  const datos=datosPedido(pedido);
   try{
     const r=await fetch(CORREO_API,{
       method:"POST",
@@ -1052,76 +1054,23 @@ $("#btnPay").onclick=async()=>{
   setTimeout(()=>{$("#btnPay").disabled=false},3000);
 };
 
-// Save order to Google Forms
+// Registra el pedido en la base (Supabase) a través del servidor.
+//  - WhatsApp: ventas-registrar lo guarda con las piezas y montos del catálogo
+//    del servidor y estado PENDIENTE (Felipe confirma el pago por WhatsApp).
+//  - Wompi: no hace falta: lo registra wompi-webhook con el pago confirmado
+//    por Wompi (también cuando el cliente vuelve y esto lo marca "done").
+//  Antes: Google Forms + hoja Ventas desde aquí, y "markUsed" del código de
+//  descuento con un pago apenas PENDIENTE. Ahora el código lo gasta solo el
+//  webhook cuando Wompi aprueba.
 async function guardarPedido(order){
-  const {ref,email,fullName,docId,address,city,department,zipCode,phone,cart:c,total}=order;
-  // Dirección completa (calle + apto, municipio, departamento, CP). Antes la hoja solo
-  // recibía la ciudad y Felipe no tenía a dónde despachar.
-  const direccionCompleta=[address,city,department,zipCode?"CP "+zipCode:""].filter(Boolean).join(", ");
-  const productos=c.map(i=>`${i.qty}× ${i.sku?`[${i.sku}] `:''}${i.name} (${i.color}) — ${fmt(i.price*i.qty)}`).join(" | ");
-  // Guardamos referencia + correo + productos en la descripción para que el correo
-  // del comprador quede en el Excel. (Va embebido, no como celda-correo suelta, para
-  // que el panel del Club NO lo cuente como suscriptor.)
-  const desc=`PEDIDO #${ref} · ${email} · ${productos} · Total ${fmt(total)}`;
-  const qty=c.reduce((s,i)=>s+i.qty,0);
-  const fd=new URLSearchParams();
-  fd.append("entry.297753956",fullName);
-  fd.append("entry.1064695391",direccionCompleta);
-  fd.append("entry.1732518498",phone);
-  fd.append("entry.1495498498",desc);
-  fd.append("entry.932926498",String(qty));
-  // Las 3 llamadas de aqui abajo (Forms, registrar venta, marcar cupón
-  // usado) no dependen una de la otra. Antes iban con `await` en fila:
-  // cada una espera a la anterior aunque no la necesite, y esto es
-  // justo lo que el cliente ve como "se demora al volver del pago"
-  // (checkout.html corre esto DESPUÉS de que Wompi confirma, con la
-  // pantalla de "espera" bloqueada hasta que termine todo). Lanzarlas
-  // juntas con Promise.allSettled tarda lo que tarda la MÁS LENTA de
-  // las 3, no la suma de las 3.
-  const tareas=[
-    fetch(`https://docs.google.com/forms/d/e/${FORM_ID}/formResponse`,{method:"POST",body:fd,mode:"no-cors"})
-      .catch(e=>console.error("Form error:",e))
-  ];
-  // Registrar en hoja VENTAS, vía la función de Netlify (el servidor agrega
-  // la clave; el navegador ya no la conoce, ver nota junto a VENTAS_API).
-  if(VENTAS_API){
-    const lineas=c.map(i=>`${i.qty}× ${i.name} (${i.color})`).join("\n");
-    tareas.push(
-      fetch(VENTAS_API,{method:"POST",headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({
-          ref,
-          nombre:fullName,
-          email,
-          telefono:phone,
-          productos:lineas,
-          cantidad:qty,
-          precioUnit:c.length===1?c[0].price:0,
-          subtotal:order.subtotal,
-          descuento:order.discountAmount||0,
-          envio:order.shipping||0,
-          total,
-          metodoPago:order.paymentMethod==="whatsapp"?"WhatsApp":"Wompi",
-          metodoEntrega:order.deliveryMethod==="bucaramanga"?"Bucaramanga gratis":"Domicilio",
-          ciudad:city||"",
-          direccion:direccionCompleta,
-          departamento:department||"",
-          codigoPostal:zipCode||"",
-          documento:docId||"",
-          notas:order.notes||""
-        })
-      }).catch(e=>console.error("Ventas API:",e))
-    );
-  }
-  // Marcar código del Círculo (FV15) como usado (una sola vez). Los FV20 los
-  // marca solo el servidor (wompi-webhook) cuando Wompi aprueba el pago.
-  if(order.discountCode&&!/^FV20-/.test(order.discountCode)){
-    tareas.push(
-      fetch(VENTAS_API,{method:"POST",headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({action:"markUsed",code:order.discountCode,ref,email})
-      }).catch(e=>console.error("markUsed:",e))
-    );
-  }
-  await Promise.allSettled(tareas);
+  if(order.paymentMethod!=="whatsapp")return;
+  try{
+    const r=await fetch(VENTAS_API,{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({action:"registrar",ref:order.ref,pedido:datosPedido(order)}),
+      keepalive:true // sigue vivo aunque se abra WhatsApp y la página quede atrás
+    });
+    if(!r.ok)console.error("ventas-registrar respondio "+r.status);
+  }catch(e){console.error("Ventas API:",e)}
 }
 
 // Verificar el resultado real del pago al volver de Wompi

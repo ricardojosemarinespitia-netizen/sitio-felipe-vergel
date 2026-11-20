@@ -37,7 +37,7 @@ window.fvImg=(function(){
      GitHub Pages no permite cabeceras propias, asi que la CSP viaja como
      <meta http-equiv>. Por eso no lleva frame-ancestors ni report-uri: esas
      directivas solo funcionan como cabecera HTTP real (ver _headers). -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://www.clarity.ms https://*.clarity.ms https://connect.facebook.net https://www.googletagmanager.com https://accounts.google.com https://apis.google.com https://script.google.com https://script.googleusercontent.com; script-src-elem 'self' 'unsafe-inline' https://www.clarity.ms https://*.clarity.ms https://connect.facebook.net https://www.googletagmanager.com https://accounts.google.com https://apis.google.com https://script.google.com https://script.googleusercontent.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com; style-src-elem 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://*.clarity.ms https://*.googleusercontent.com https://www.facebook.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://accounts.google.com; connect-src 'self' https://www.clarity.ms https://*.clarity.ms https://www.facebook.com https://connect.facebook.net https://fonts.googleapis.com https://fonts.gstatic.com https://script.google.com https://script.googleusercontent.com https://docs.google.com https://www.googleapis.com https://accounts.google.com https://production.wompi.co https://exquisite-pasca-848b8b.netlify.app https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com; frame-src https://accounts.google.com https://checkout.wompi.co; form-action 'self' https://docs.google.com https://checkout.wompi.co; manifest-src 'self'; worker-src 'self' blob:">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://www.clarity.ms https://*.clarity.ms https://connect.facebook.net https://www.googletagmanager.com https://accounts.google.com https://apis.google.com; script-src-elem 'self' 'unsafe-inline' https://www.clarity.ms https://*.clarity.ms https://connect.facebook.net https://www.googletagmanager.com https://accounts.google.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com; style-src-elem 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://*.clarity.ms https://*.googleusercontent.com https://www.facebook.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://accounts.google.com; connect-src 'self' https://www.clarity.ms https://*.clarity.ms https://www.facebook.com https://connect.facebook.net https://fonts.googleapis.com https://fonts.gstatic.com https://www.googleapis.com https://accounts.google.com https://production.wompi.co https://exquisite-pasca-848b8b.netlify.app https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com; frame-src https://accounts.google.com https://checkout.wompi.co; form-action 'self' https://checkout.wompi.co; manifest-src 'self'; worker-src 'self' blob:">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-E2SG3MESQW"></script>
@@ -693,9 +693,9 @@ function calcShipping(subtotal,method){
 
 // ---- DESCUENTO ----
 // Un solo código por pedido; el nuevo reemplaza al anterior.
-//   FV20 (personal, 20 % sobre lista): lo verifica la función vip-codigo.
-//   FV15 (Círculo, emitidos antes): lo verifica el Apps Script del Club.
-const CLUB_API="https://script.google.com/macros/s/AKfycbznN-5jCwKFFvSeKEiFuvaqwCW2DLv7OpQm6jCmEgH8w2qHIZtTfCPNsi3saPAv7j3s/exec";
+//   FV20 (personal, 20 % sobre lista) y FV15 (Círculo, emitidos antes): los
+//   verifica la función vip-codigo contra la base (Supabase). El cobro lo
+//   vuelve a verificar wompi-sign: sin verificar, no hay descuento.
 const VIP_API="https://exquisite-pasca-848b8b.netlify.app/.netlify/functions/vip-codigo";
 let activeDiscount={code:"",tipo:"",amount:0};
 
@@ -723,7 +723,8 @@ function aplicarCodigo(){
   };
   const fallo=(texto)=>{quitar();listo(false);decir(false,texto)};
 
-  if(tipo==="vip"){
+  {
+    const ejemplo=tipo==="vip"?"FV20-AB3CD7E":"FV15-AB3CD7E";
     const ctl=("AbortController" in window)?new AbortController():null;
     const to=ctl?setTimeout(()=>ctl.abort(),8000):null;
     fetch(VIP_API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({accion:"verificar",codigo:code}),signal:ctl?ctl.signal:undefined})
@@ -731,49 +732,15 @@ function aplicarCodigo(){
       .then(({r,j})=>{
         const e=j&&j.estado;
         if(r.ok&&e==="valido")aplicar();
-        else if(e==="usado")fallo("Este código ya se usó en una compra aprobada. Cada código personal sirve una sola vez.");
+        else if(e==="usado")fallo(tipo==="vip"?"Este código ya se usó en una compra aprobada. Cada código personal sirve una sola vez.":"Este código ya se usó en una compra anterior.");
         else if(e==="vencido")fallo("Este código ya venció.");
-        else if(e==="invalido")fallo("Ese código no existe. Revisa que esté completo, por ejemplo FV20-AB3CD7E.");
+        else if(e==="invalido")fallo("Ese código no existe. Revisa que esté completo, por ejemplo "+ejemplo+".");
         else if(r.status===429)fallo("Hiciste muchos intentos seguidos. Espera unos minutos y vuelve a intentarlo.");
         else fallo("No pudimos verificar el código ahora. Intenta de nuevo en unos segundos.");
       })
       .catch(()=>fallo("No pudimos verificar el código: revisa tu conexión e intenta de nuevo."))
       .finally(()=>{if(to)clearTimeout(to)});
-    return;
   }
-
-  // FV15 (Círculo): Apps Script por JSONP, como siempre.
-  const cbName="_fvdc"+Date.now();
-  const sc=document.createElement("script");
-  let completed=false;
-  const to=setTimeout(()=>{
-    if(completed)return;
-    completed=true;
-    try{document.body.removeChild(sc);}catch(e){}
-    delete window[cbName];
-    fallo("No pudimos verificar el código ahora. Intenta de nuevo en unos segundos.");
-    console.error("Timeout verificando código de descuento");
-  },10000);
-  window[cbName]=function(res){
-    if(completed)return;
-    completed=true;
-    clearTimeout(to);
-    try{document.body.removeChild(sc);}catch(e){}
-    delete window[cbName];
-    if(res&&res.valid)aplicar();
-    else if(res&&res.used)fallo("Este código ya se usó en una compra anterior.");
-    else fallo("Ese código no existe. Revisa que esté completo, por ejemplo FV15-AB3CD7E.");
-  };
-  sc.src=CLUB_API+"?action=checkCode&code="+encodeURIComponent(code)+"&callback="+cbName;
-  sc.onerror=()=>{
-    if(completed)return;
-    completed=true;
-    clearTimeout(to);
-    delete window[cbName];
-    fallo("No pudimos verificar el código: revisa tu conexión e intenta de nuevo.");
-    console.error("Error cargando script JSONP");
-  };
-  document.body.appendChild(sc);
 }
 
 // Resumen con UN solo descuento (fvResumen = mismo cálculo que el servidor).
